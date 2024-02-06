@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="membership_committee_view_tree" model="ir.ui.view">
+        <field name="model">membership.committee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="section_id" />
+                <field string="Members" name="partner_ids_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="membership_committee_view_form" model="ir.ui.view">
+        <field name="model">membership.committee</field>
+        <field name="arch" type="xml">
+            <form string="Committee">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="action_open_partner_view" type="object" icon="fa-list" attrs="{'invisible': [('partner_ids_count','=',0)]}">
+                            <field string="Members" name="partner_ids_count" widget="statinfo" />
+                        </button>
+                    </div>
+
+                    <div class="oe_title mb24">
+                        <h1>
+                            <field class="o_text_overflow" name="name" required="1"/>
+                        </h1>
+                    </div>
+
+                    <group name="form_body">
+                        <group>
+                            <field name="section_id" default_focus="1" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Membership" name="membership">
+                            <field name="committee_membership_ids">
+                                <tree editable="top">
+                                    <field name="partner_id" domain="[('membership_state', 'in', ['invoiced', 'paid', 'free'])]"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="membership_committee_view_search" model="ir.ui.view">
+        <field name="model">membership.committee</field>
+        <field name="arch" type="xml">
+            <search string="Committees">
+                <field name="name"/>
+                <field name="section_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="membership_committee_action" model="ir.actions.act_window">
+        <field name="name">Committees</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">membership.committee</field>
+        <field name="view_id" ref="membership_committee_view_tree"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Committee
+            </p>
+        </field>
+    </record>
+
+</odoo>

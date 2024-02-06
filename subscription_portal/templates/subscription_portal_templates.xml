@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template
+        id="portal_my_home_menu_subscription"
+        name="Portal layout : Subscription menu entries"
+        inherit_id="portal.portal_breadcrumbs"
+        priority="35"
+    >
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li
+                t-if="page_name == 'Subscriptions'"
+                t-attf-class="breadcrumb-item #{'active ' if not subscription else ''}"
+            >
+                <a
+                    t-if="subscription"
+                    t-attf-href="/my/subscriptions?{{ keep_query() }}"
+                >Subscriptions</a>
+                <t t-else="">Subscriptions</t>
+            </li>
+            <li t-if="subscription" class="breadcrumb-item active">
+                <t t-esc="subscription.name" />
+            </li>
+        </xpath>
+    </template>
+
+    <template
+        id="portal_my_home_subscription"
+        name="Show Subscriptions"
+        inherit_id="portal.portal_my_home"
+        customize_show="True"
+        priority="30"
+    >
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Subscriptions</t>
+                <t t-set="url" t-value="'/my/subscriptions'" />
+                <t t-set="placeholder_count" t-value="'subscription_count'" />
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_subscriptions" name="My Subscriptions">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Subscriptions</t>
+            </t>
+            <t t-if="subscriptions" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Subscription #</th>
+                        <th class='d-none d-md-table-cell'>Date</th>
+                        <th class='text-right'>Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="subscriptions" t-as="subscription">
+                        <tr>
+                            <td>
+                                <a
+                                    t-att-href="subscription.get_portal_url()"
+                                    t-attf-class="tr_subscription_link"
+                                    t-att-title="subscription.name"
+                                >
+                                    <t t-esc="subscription.name" />
+                                </a>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                <span t-field="subscription.recurring_next_date" />
+                            </td>
+                            <td class='text-right'>
+                                <span t-field="subscription.code" />
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_subscription_page" name="My Subscription">
+        <t t-call="portal.portal_layout">
+            <t t-set="o_portal_fullwidth_alert" groups="account.group_account_invoice">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t
+                        t-set="backend_url"
+                        t-value="'/web#return_label=Website&amp;model=sale.subscription&amp;id=%s&amp;view_type=form' % (subscription.id)"
+                    />
+                </t>
+            </t>
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_header">
+                    <h5 class="mb-0">
+                        <span>
+                            Subscription - <span t-field="subscription.name" />
+                        </span>
+                    </h5>
+                </t>
+                <t t-set="card_body">
+                    <div id="general_information">
+                        <div class="row mt4">
+                            <div
+                                t-if="subscription.partner_id"
+                                class="col-12 col-md-6 mb-4 mb-md-0"
+                            >
+                                <h6>
+                                    <strong>Customer:</strong>
+                                </h6>
+                                <div class="row">
+                                    <div class="col flex-grow-0 pr-3">
+                                        <img
+                                            t-if="subscription.partner_id.image_128"
+                                            class="rounded-circle mt-1 o_portal_contact_img"
+                                            t-att-src="image_data_uri(subscription.partner_id.image_128)"
+                                            alt="Contact"
+                                        />
+                                        <img
+                                            t-else=""
+                                            class="rounded-circle mt-1 o_portal_contact_img"
+                                            src="/web/static/src/img/user_menu_avatar.png"
+                                            alt="Contact"
+                                        />
+                                    </div>
+                                    <div class="col pl-sm-0">
+                                        <address
+                                            t-field="subscription.partner_id"
+                                            t-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div t-if="subscription.user_id" class="col-12 col-md-6">
+                                <h6>
+                                    <strong>Responsible:</strong>
+                                </h6>
+                                <div class="row">
+                                    <div class="col flex-grow-0 pr-3">
+                                        <img
+                                            t-if="subscription.user_id.image_128"
+                                            class="rounded-circle mt-1 o_portal_contact_img"
+                                            t-att-src="image_data_uri(subscription.user_id.image_128)"
+                                            alt="Contact"
+                                        />
+                                        <img
+                                            t-else=""
+                                            class="rounded-circle mt-1 o_portal_contact_img"
+                                            src="/web/static/src/img/user_menu_avatar.png"
+                                            alt="Contact"
+                                        />
+                                    </div>
+                                    <div class="col pl-sm-0">
+                                        <address
+                                            t-field="subscription.user_id"
+                                            t-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt32" id="product_information">
+                            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                                <div t-if="subscription.code" class="row mb-2 mb-sm-1">
+                                    <div class="col-12 col-sm-4">
+                                        <strong>Reference</strong>
+                                    </div>
+                                    <div class="col-12 col-sm-8">
+                                        <span t-field="subscription.code" />
+                                    </div>
+                                </div>
+                                <div
+                                    t-if="subscription.recurring_next_date"
+                                    class="row mb-2 mb-sm-1"
+                                >
+                                    <div class="col-12 col-sm-4">
+                                        <strong>Date of Next Invoice</strong>
+                                    </div>
+                                    <div class="col-12 col-sm-8">
+                                        <span
+                                            t-field="subscription.recurring_next_date"
+                                            t-options='{"widget": "date"}'
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="item_details">
+                            <table class="table table-sm" id="sales_order_table">
+                                <thead class="bg-100">
+                                    <tr>
+                                        <th
+                                            name="th_name"
+                                            class="text-left"
+                                        >Description</th>
+                                        <th
+                                            name="th_quantity"
+                                            class="text-right"
+                                        >Quantity</th>
+                                        <th
+                                            name="th_price_unit"
+                                            class="text-right"
+                                        >Price unit</th>
+                                        <th
+                                            name="th_discount"
+                                            class="text-right"
+                                        >Discount (%)</th>
+                                        <th
+                                            name="th_price_subtotal"
+                                            class="text-right"
+                                        >Sub Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="subscription_tbody">
+                                    <t
+                                        t-foreach="subscription.sale_subscription_line_ids"
+                                        t-as="line"
+                                    >
+                                        <tr>
+                                            <td name="td_name">
+                                                <span t-field="line.name" />
+                                            </td>
+                                            <td
+                                                name="td_quantity"
+                                                class="text-right"
+                                            >
+                                                <span t-field="line.product_uom_qty" />
+                                            </td>
+                                            <td
+                                                name="td_price_unit"
+                                                class="text-right"
+                                            >
+                                                <span
+                                                    t-field="line.price_unit"
+                                                    t-options='{"widget": "monetary", "display_currency": subscription.currency_id}'
+                                                />
+                                            </td>
+                                            <td
+                                                name="td_discount"
+                                                class="text-right"
+                                            >
+                                                <span t-field="line.discount" />
+                                            </td>
+                                            <td
+                                                name="td_price_subtotal"
+                                                class="text-right"
+                                            >
+                                                <span
+                                                    t-field="line.price_subtotal"
+                                                    t-options='{"widget": "monetary", "display_currency": subscription.currency_id}'
+                                                />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+            <!-- chatter -->
+            <div id="subscription_communication" class="mt-4">
+                <h2>Communication</h2>
+                <t t-call="portal.message_thread">
+                    <t t-set="object" t-value="subscription" />
+                    <t t-set="token" t-value="subscription.access_token" />
+                    <t t-set="pid" t-value="pid" />
+                    <t t-set="hash" t-value="hash" />
+                </t>
+            </div>
+        </t>
+    </template>
+
+</odoo>

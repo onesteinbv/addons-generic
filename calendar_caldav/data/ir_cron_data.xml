@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record model="ir.cron" id="import_events_cron">
+        <field name="name">CalDAV: Import Events</field>
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="calendar_caldav.model_calendar_caldav" />
+        <field name="state">code</field>
+        <field name="code">model.cron_import_caldav_events()</field>
+    </record>
+</odoo>

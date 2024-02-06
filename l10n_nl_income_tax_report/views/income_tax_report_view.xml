@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="income_tax_report_form" model="ir.ui.view">
+        <field name="model">l10n.nl.income.tax.report</field>
+        <field name="arch" type="xml">
+            <form string="Income Tax Report">
+                <div class="text-center pt16">
+                    <h1>Income Tax Report</h1>
+                </div>
+                <sheet>
+                    <field name="year_progress_percentage" invisible="1" />
+                    <field name="currency_id" invisible="1" />
+
+                    <group name="group_options">
+                        <field name="year_id" options="{'no_create_edit': True, 'no_create': True}" string="Select Year" />
+                        <field name="prepaid_tax_account_id" options="{'no_create_edit': True, 'no_create': True}" />
+                    </group>
+                    <h2>Options</h2>
+                    <group name="group_custom">
+                        <field name="starters_deduction" />
+                    </group>
+                    <h2 attrs="{'invisible': [('year_id', '=', False)]}">Current</h2>
+                    <group col="12" name="group_current_fundamentals" attrs="{'invisible': [('year_id', '=', False)]}" >
+                        <group colspan="3">
+                            <field name="revenue" />
+                            <field name="cost"  />
+                            <field name="profit"  />
+                        </group>
+                        <group>
+                            <button name="action_drilldown_revenue" type="object" icon="fa-arrow-right" class="btn-sm btn-secondary" colspan="2"/>
+                            <button name="action_drilldown_cost" type="object" icon="fa-arrow-right" class="btn-sm btn-secondary" colspan="2"/>
+                        </group>
+                    </group>
+                    <label for="factual_log_ids" string="Details" attrs="{'invisible': [('year_id', '=', False)]}" />
+                    <field name="factual_log_ids" readonly="1" nolabel="1" attrs="{'invisible': [('year_id', '=', False)]}"  />
+                    <group col="12" class="mt-0" attrs="{'invisible': [('year_id', '=', False)]}">
+                        <group colspan="8" />
+                        <group class="oe_right oe_subtotal_footer" colspan="4">
+                            <field name="taxable_income" />
+                            <field name="tax" />
+                            <field name="tax_prepaid" />
+                            <field name="tax_residual" class="h4 oe_subtotal_footer_separator"/>
+                        </group>
+                    </group>
+
+                    <h2 attrs="{'invisible': ['|', '|', ('year_id', '=', False), ('year_progress_percentage', '=', 1), ('year_progress_percentage', '=', 0)]}">
+                        Forecast
+                    </h2>
+                    <group name="group_forecast_fundamentals"
+                           attrs="{'invisible': ['|', '|', ('year_id', '=', False), ('year_progress_percentage', '=', 1), ('year_progress_percentage', '=', 0)]}" >
+                        <field name="forecast_revenue" />
+                        <field name="forecast_cost" />
+                        <field name="forecast_profit" />
+                    </group>
+                    <label for="forecast_log_ids" string="Details"
+                           attrs="{'invisible': ['|', '|', ('year_id', '=', False), ('year_progress_percentage', '=', 1), ('year_progress_percentage', '=', 0)]}"
+                    />
+
+                    <field name="forecast_log_ids" readonly="1" nolabel="1" attrs="{'invisible': ['|', '|', ('year_id', '=', False), ('year_progress_percentage', '=', 1), ('year_progress_percentage', '=', 0)]}" />
+                    <group col="12" class="mt-0" attrs="{'invisible': ['|', '|', ('year_id', '=', False), ('year_progress_percentage', '=', 1), ('year_progress_percentage', '=', 0)]}">
+                        <group colspan="8" />
+                        <group class="oe_right oe_subtotal_footer" colspan="4">
+                            <field name="forecast_taxable_income" />
+                            <field name="forecast_tax" />
+                            <field name="forecast_tax_prepaid" />
+                            <field name="forecast_tax_residual" class="h4 oe_subtotal_footer_separator"/>
+                        </group>
+                    </group>
+
+                    <button
+                        name="action_print"
+                        type="object"
+                        string="Print"
+                        icon="fa-print"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('year_id', '=', False)]}"
+                    />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="income_tax_report_action" model="ir.actions.act_window">
+        <field name="name">Income Tax Report</field>
+        <field name="res_model">l10n.nl.income.tax.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+</odoo>

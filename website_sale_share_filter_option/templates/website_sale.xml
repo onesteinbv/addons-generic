@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="product_share_buttons" inherit_id="website_sale.product_share_buttons">
+        <xpath expr="//t[@t-snippet-call='website.s_share']/t[@t-set='_exclude_share_links']" position="replace">
+            <t t-set="_exclude_share_links" t-value="website.get_exclude_share_links(['whatsapp', 'linkedin'])"/>
+        </xpath>
+    </template>
+
+</odoo>

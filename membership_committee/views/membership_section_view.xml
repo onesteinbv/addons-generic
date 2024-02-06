@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="membership_section_view_tree" model="ir.ui.view">
+        <field name="inherit_id" ref="membership_section.membership_section_view_tree" />
+        <field name="model">membership.section</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="committee_id" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="membership_section_view_form" model="ir.ui.view">
+        <field name="inherit_id" ref="membership_section.membership_section_view_form" />
+        <field name="model">membership.section</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='form_body']" position="inside">
+                <group name="committee_informations" string="Committee">
+                    <field name="committee_id" />
+                    <field name="committee_ids" invisible="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="membership_section_view_search" model="ir.ui.view">
+        <field name="inherit_id" ref="membership_section.membership_section_view_search" />
+        <field name="model">membership.section</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="committee_id" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

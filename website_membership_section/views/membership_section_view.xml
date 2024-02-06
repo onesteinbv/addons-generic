@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="membership_section_view_tree" model="ir.ui.view">
+        <field name="model">membership.section</field>
+        <field name="inherit_id" ref="membership_section.membership_section_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="is_published" string="Website Published" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="membership_section_view_form" model="ir.ui.view">
+        <field name="model">membership.section</field>
+        <field name="inherit_id" ref="membership_section.membership_section_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="is_published" widget="website_redirect_button"/>
+            </xpath>
+            <xpath expr="//group[@name='form_body']" position="inside">
+                <group name="website_informations" string="Website">
+                    <field name="page_id" domain="[('is_published', '=', True)]" options="{'no_create_edit': True, 'no_create': True}" />
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='membership']" position="after">
+                <page string='Website Description' name='website_description'>
+                    <group>
+                        <field name="icon" widget="image" />
+                        <field name="image" widget="image" attrs="{'invisible': [('page_id','!=',False)]}" />
+                        <field name="website_top" type="html" attrs="{'invisible': [('page_id','!=',False)]}" />
+                        <field name="website_bottom" type="html" attrs="{'invisible': [('page_id','!=',False)]}" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

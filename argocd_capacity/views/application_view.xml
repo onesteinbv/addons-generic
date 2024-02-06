@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="application_form" model="ir.ui.view">
+        <field name="model">argocd.application</field>
+        <field name="inherit_id" ref="argocd_deployer.application_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <field name="capacity_reached" invisible="1" />
+                <div class="alert alert-warning" role="alert" attrs="{'invisible': [('capacity_reached', '=', False)]}">
+                    Capacity of the servers has been reached, please be aware new deployments can fail.
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

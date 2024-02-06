@@ -1,0 +1,10 @@
+
+.s_share {
+    &:not(.no_icon_color) {
+        .s_share_diaspora {
+            &, &:hover, &:focus {
+                @extend .text-diaspora !optional;
+            }
+        }
+    }
+}

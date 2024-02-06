@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="demo_section_1" model="membership.section">
+            <field name="mailing_list_id" ref="demo_mailing_list_committee_1" />
+        </record>
+
+        <record id="demo_section_2" model="membership.section">
+            <field name="mailing_list_id" ref="demo_mailing_list_committee_2" />
+        </record>
+
+        <record id="demo_section_3" model="membership.section">
+            <field name="mailing_list_id" ref="demo_mailing_list_committee_3" />
+        </record>
+
+        <record id="demo_section_4" model="membership.section">
+            <field name="mailing_list_id" ref="demo_mailing_list_committee_4" />
+        </record>
+
+    </data>
+</odoo>

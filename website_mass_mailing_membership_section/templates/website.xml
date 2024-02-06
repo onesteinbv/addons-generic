@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <template id="section_page" inherit_id="website_membership_section.section_page">
+        <xpath expr="//div[@name='description_row']">
+            <div t-if="has_mailing_list" class="row" name="mass_mailing_row">
+                <t t-if="in_mailing_list">
+                    <div class="col-12">
+                        <span>You've already subscribed to the mailing list of this section</span>
+                        <section data-name="Section Unsubscription Form" data-anchor="true">
+                            <div class="container">
+                                <form action="/unsubscribe-from-section-mailing-list" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*">
+                                    <div class="row">
+                                        <div class="row" id="personal_data">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                                            <input type="hidden" name="section_id" t-att-value="section.id" />
+                                            <input type="hidden" name="contact_id" t-att-value="contact_id" />
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-12">
+                                                <div style="width: 200px;"/>
+                                                <button class="btn btn-primary rounded-circle btn-lg" style="position: relative; overflow: hidden;">
+                                                    Unsubscribe
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div class="col-12">
+                        <span>Subscribe to the mailing list of this section</span>
+                        <section data-name="Section Subscription Form" data-anchor="true">
+                            <div class="container">
+                                <form action="/subscribe-to-section-mailing-list" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*">
+                                    <div class="row">
+                                        <div class="row" id="personal_data">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                                            <input type="hidden" name="section_id" t-att-value="section.id" />
+
+                                            <div t-if="name_needed" class="form-group col-12" data-type="char" data-name="Field">
+                                                <div class="row s_col_no_resize s_col_no_bgcolor" id="div_name">
+                                                    <label class="col-form-label col-sm-auto" style="width: 200px" for="member_name">
+                                                        <span>Name</span>
+                                                        <span> *</span>
+                                                    </label>
+                                                    <div class="col-sm">
+                                                        <input class="form-control" type="text" name="member_name" t-att-value="member_name" required="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div t-if="email_needed" class="form-group col-12" data-type="email" data-name="Field">
+                                                <div class="row s_col_no_resize s_col_no_bgcolor" id="div_email">
+                                                    <label class="col-form-label col-sm-auto" style="width: 200px" for="member_email">
+                                                        <span>Your Email</span>
+                                                        <span> *</span>
+                                                    </label>
+                                                    <div class="col-sm">
+                                                        <input class="form-control" type="email" name="member_email" t-att-value="member_email" required="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-12">
+                                                <div style="width: 200px;"/>
+                                                <button class="btn btn-primary rounded-circle btn-lg" style="position: relative; overflow: hidden;">
+                                                    Subscribe
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

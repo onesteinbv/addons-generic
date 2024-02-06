@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="event_description_full" inherit_id="website_event.event_description_full">
+        <xpath expr="//t[@t-snippet-call='website.s_share']/t[@t-set='_no_title']" position="after">
+            <t t-set="_exclude_share_links" t-value="website.get_exclude_share_links()"/>
+        </xpath>
+    </template>
+
+</odoo>

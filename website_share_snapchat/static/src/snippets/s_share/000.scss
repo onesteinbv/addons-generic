@@ -1,0 +1,10 @@
+
+.s_share {
+    &:not(.no_icon_color) {
+        .s_share_snapchat {
+            &, &:hover, &:focus {
+                @extend .text-snapchat !optional;
+            }
+        }
+    }
+}

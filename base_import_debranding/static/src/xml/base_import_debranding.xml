@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-extend="ImportView">
+        <t t-jquery="a[target='new']" t-operation="inner">
+        </t>
+        <t t-jquery="mt16 mb4" t-operation="inner">
+        </t>
+    </t>
+    <t t-extend="ImportView.side_panel">
+        <t t-jquery="a[target='new']" t-operation="inner">
+        </t>
+    </t>
+</templates>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2020 Onestein (<https://www.onestein.nl>)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='website_settings']" position="after">
+                <h2>Membership</h2>
+                <div class="row mt16 o_settings_container" id="website_membership_registration">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="allow_membership_registration"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="allow_membership_registration"/>
+                            <div class="text-muted">
+                                Show a form on the website which allows user to become member.
+                            </div>
+
+                            <div class="content-group" attrs="{'invisible': [('allow_membership_registration', '=', False)]}">
+                                <div class="mt16 row">
+                                    <label for="cleanup_unverified_members_days" class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="cleanup_unverified_members_days" class="oe_inline" attrs="{'required': [('allow_membership_registration', '=', True)]}" />
+                                </div>
+                            </div>
+
+                            <div class="content-group" attrs="{'invisible': [('allow_membership_registration', '=', False)]}">
+                                <div class="mt16 row">
+                                    <label for="membership_registration_page_background_type" class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="membership_registration_page_background_type" class="oe_inline"/>
+                                </div>
+                            </div>
+
+                            <div class="content-group" attrs="{'invisible': ['|',('membership_registration_page_background_type','!=','color'),('allow_membership_registration', '=', False)]}">
+                                <div class="mt16 row">
+                                    <label for="membership_registration_page_background_color" class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="membership_registration_page_background_color" widget="color" class="oe_inline" attrs="{'required': [('allow_membership_registration', '=', True),('membership_registration_page_background_type','=','color')]}" />
+                                </div>
+                            </div>
+
+                            <div class="content-group" attrs="{'invisible': ['|',('membership_registration_page_background_type','not in',['gradient_linear', 'gradient_radial']),('allow_membership_registration', '=', False)]}">
+                                <div class="mt16 row">
+                                    <label for="membership_registration_page_background_gradient_start" class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="membership_registration_page_background_gradient_start" widget="color" class="oe_inline" attrs="{'required': [('allow_membership_registration', '=', True),('membership_registration_page_background_type','in',['gradient_linear', 'gradient_radial'])]}" />
+                                </div>
+                            </div>
+
+                            <div class="content-group" attrs="{'invisible': ['|',('membership_registration_page_background_type','not in',['gradient_linear', 'gradient_radial']),('allow_membership_registration', '=', False)]}">
+                                <div class="mt16 row">
+                                    <label for="membership_registration_page_background_gradient_end" class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="membership_registration_page_background_gradient_end" widget="color" class="oe_inline" attrs="{'required': [('allow_membership_registration', '=', True),('membership_registration_page_background_type','in',['gradient_linear', 'gradient_radial'])]}" />
+                                </div>
+                            </div>
+
+                            <div class="content-group" attrs="{'invisible': ['|',('membership_registration_page_background_type','!=','image'),('allow_membership_registration', '=', False)]}">
+                                <div class="mt16 row">
+                                    <label for="membership_registration_page_background_image" class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="membership_registration_page_background_image" widget="image" class="oe_inline" attrs="{'required': [('allow_membership_registration', '=', True),('membership_registration_page_background_type','=','image')]}" />
+                                </div>
+                            </div>
+
+                            <div class="content-group" attrs="{'invisible': [('allow_membership_registration', '=', False)]}">
+                                <div class="mt16 row">
+                                    <label for="membership_job_id" class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="membership_job_id" class="oe_inline" />
+                                </div>
+                            </div>
+
+                            <div class="content-group" attrs="{'invisible': [('allow_membership_registration', '=', False)]}">
+                                <div class="mt16 row">
+                                    <label for="membership_registration_page_section_style" class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="membership_registration_page_section_style" class="oe_inline" attrs="{'required': [('allow_membership_registration', '=', True)]}" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

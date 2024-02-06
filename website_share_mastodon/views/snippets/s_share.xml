@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="s_share" name="Share" inherit_id="website.s_share">
+        <xpath expr="//a[@t-attf-class='s_share_email #{_link_classes}']" position="before">
+            <a t-if="not _exclude_share_links or not 'mastodon' in _exclude_share_links" href="/share/getDomain?url={url}&amp;media={media}&amp;title={title}&amp;platform=mastodon" t-attf-class="s_share_mastodon #{_link_classes}" target="_blank">
+                <img src="/website_share_mastodon/static/img/icons/mastodon.svg" t-attf-class="fa social-media-icon #{not _link_classes and 'rounded shadow-sm' or 'm-1'}" alt="social-media-icon"/>
+            </a>
+        </xpath>
+    </template>
+
+    <record id="s_share_000_scss" model="ir.asset">
+        <field name="name">Share Mastodon 000 SCSS</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">website_share_mastodon/static/src/snippets/s_share/000.scss</field>
+    </record>
+
+</odoo>

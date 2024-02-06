@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="demo_hr_department_section_1" model="hr.department">
+            <field name="name">Executive Board</field>
+        </record>
+
+        <record id="demo_hr_department_section_2" model="hr.department">
+            <field name="name">Marketing Team</field>
+        </record>
+
+        <record id="demo_hr_department_section_3" model="hr.department">
+            <field name="name">Finance Committee</field>
+        </record>
+
+        <record id="demo_hr_department_section_4" model="hr.department">
+            <field name="name">Youth Club</field>
+        </record>
+
+    </data>
+</odoo>

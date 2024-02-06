@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- 2022 -->
+    <record id="rule_2022_zelfstandigenaftrek" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">10</field>
+        <field name="name">Zelfstandigenaftrek</field>
+        <field name="type">fixed</field>
+        <field name="is_deduction" eval="True" />
+        <field name="amount_monetary">6310</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/veranderingen-actueel-jaar/ondernemersaftrek-2022/zelfstandigenaftrek-2022">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/veranderingen-actueel-jaar/ondernemersaftrek-2022/zelfstandigenaftrek-2022
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_startersaftrek" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">11</field>
+        <field name="name">Startersaftrek</field>
+        <field name="type">fixed</field>
+        <field name="is_deduction" eval="True" />
+        <field name="amount_monetary">2123</field>
+        <field name="apply_domain">[('starters_deduction', '=', True)]</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/ondernemersaftrek/startersaftrek">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/ondernemersaftrek/startersaftrek
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_mkb_vrijstelling" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">20</field>
+        <field name="name">MKB Vrijstelling</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="amount">14</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/mkb_winstvrijstelling">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/mkb_winstvrijstelling
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_premie_aow" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">30</field>
+        <field name="name">AOW Premie</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="is_tax" eval="True" />
+        <field name="apply_to">35472</field>
+        <field name="amount">17.9</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_premie_anw" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">31</field>
+        <field name="name">Anw Premie</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="is_tax" eval="True" />
+        <field name="apply_to">35472</field>
+        <field name="amount">0.1</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_premie_wlz" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">32</field>
+        <field name="name">Wlz Premie</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="is_tax" eval="True" />
+        <field name="apply_to">35472</field>
+        <field name="amount">9.65</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_heffingskorting_1" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">40</field>
+        <field name="name">Heffingskorting (tot € 21.318)</field>
+        <field name="type">fixed</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_max">21318</field>
+        <field name="amount_monetary">2888</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2022">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2022
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_heffingskorting_2" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">41</field>
+        <field name="name">Heffingskorting (vanaf € 21.318 tot € 69.399)</field>
+        <field name="type">python</field>
+        <field name="apply_from">21318</field>
+        <field name="apply_min">21318</field>
+        <field name="apply_max">69399</field>
+        <field name="amount">6.007</field>
+        <field name="amount_monetary">2888</field>
+        <field name="code">
+            deduction = self.amount_monetary - (self.amount / 100) * (taxable_income - self.apply_from)
+        </field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2022">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2022
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_heffingskorting_3" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">42</field>
+        <field name="name">Heffingskorting (vanaf € 69.399)</field>
+        <field name="type">fixed</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_min">69399</field>
+        <field name="amount">0</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2022">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2022
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_arbeidskorting_1" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">50</field>
+        <field name="name">Arbeidskorting (tot € 10.351)</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_max">10351</field>
+        <field name="amount">4.541</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2022">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2022
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_arbeidskorting_2" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">51</field>
+        <field name="name">Arbeidskorting (vanaf € 10.351 tot € 22.357)</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_from">10351</field>
+        <field name="apply_min">10351</field>
+        <field name="apply_max">22357</field>
+        <field name="amount_monetary">470</field>
+        <field name="amount">28.461</field>
+        <field name="description" type="xml">
+            <a target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2022">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2022
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_arbeidskorting_3" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">52</field>
+        <field name="name">Arbeidskorting (vanaf € 22.357 tot € 36.650)</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_from">22357</field>
+        <field name="apply_min">22357</field>
+        <field name="apply_max">36650</field>
+        <field name="amount_monetary">3887</field>
+        <field name="amount">2.610</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2022">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2022
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_arbeidskorting_4" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">53</field>
+        <field name="name">Arbeidskorting (vanaf € 36.650 tot € 109.347)</field>
+        <field name="type">python</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_from">36650</field>
+        <field name="apply_min">36650</field>
+        <field name="apply_max">109347</field>
+        <field name="amount_monetary">4260</field>
+        <field name="amount">5.860</field>
+        <field name="code">
+            deduction = self.amount_monetary - (self.amount / 100) * (taxable_income - self.apply_from)
+        </field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2022">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2022
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_arbeidskorting_5" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">54</field>
+        <field name="name">Arbeidskorting (vanaf € 109.347)</field>
+        <field name="type">fixed</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_min">109347</field>
+        <field name="amount">0</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2022">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2022
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_inkomstenbelasting_1" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">60</field>
+        <field name="name">Inkomstenbelasting (tot € 69.399)</field>
+        <field name="type">percentual</field>
+        <field name="is_tax" eval="True" />
+        <field name="apply_to">69399</field>
+        <field name="amount">37.07</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/overzicht_tarieven_en_schijven/u-hebt-in-2022-nog-niet-aow-leeftijd">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/overzicht_tarieven_en_schijven/u-hebt-in-2022-nog-niet-aow-leeftijd
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2022_inkomstenbelasting_2" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2022" />
+        <field name="sequence">61</field>
+        <field name="name">Inkomstenbelasting (vanaf € 69.399)</field>
+        <field name="type">percentual</field>
+        <field name="is_tax" eval="True" />
+        <field name="apply_min">69399</field>
+        <field name="apply_from">69399</field>
+        <field name="amount">49.50</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/overzicht_tarieven_en_schijven/u-hebt-in-2022-nog-niet-aow-leeftijd">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/overzicht_tarieven_en_schijven/u-hebt-in-2022-nog-niet-aow-leeftijd
+            </a>
+        </field>
+    </record>
+
+    <!-- 2021 -->
+    <record id="rule_2021_zelfstandigenaftrek" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">10</field>
+        <field name="name">Zelfstandigenaftrek</field>
+        <field name="type">fixed</field>
+        <field name="is_deduction" eval="True" />
+        <field name="amount_monetary">6670</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/verandering_inkomstenbelasting_vorige_jaren/veranderingen-inkomstenbelasting-2021/ondernemersaftrek-2021/zelfstandigenaftrek-2021">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/verandering_inkomstenbelasting_vorige_jaren/veranderingen-inkomstenbelasting-2021/ondernemersaftrek-2021/zelfstandigenaftrek-2021
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_startersaftrek" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">11</field>
+        <field name="name">Startersaftrek</field>
+        <field name="type">fixed</field>
+        <field name="is_deduction" eval="True" />
+        <field name="amount_monetary">2123</field>
+        <field name="apply_domain">[('starters_deduction', '=', True)]</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/ondernemersaftrek/startersaftrek">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/ondernemersaftrek/startersaftrek
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_mkb_vrijstelling" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">20</field>
+        <field name="name">MKB Vrijstelling</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="amount">14</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/mkb_winstvrijstelling">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/mkb_winstvrijstelling
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_premie_aow" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">30</field>
+        <field name="name">AOW Premie</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="is_tax" eval="True" />
+        <field name="apply_to">35129</field>
+        <field name="amount">17.9</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_premie_anw" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">31</field>
+        <field name="name">Anw Premie</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="is_tax" eval="True" />
+        <field name="apply_to">35129</field>
+        <field name="amount">0.1</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_premie_wlz" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">32</field>
+        <field name="name">Wlz Premie</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="is_tax" eval="True" />
+        <field name="apply_to">35129</field>
+        <field name="amount">9.65</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/sociale_verzekeringen/premies_volks_en_werknemersverzekeringen/volksverzekeringen/hoeveel_moet_u_betalen
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_heffingskorting_1" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">40</field>
+        <field name="name">Heffingskorting (tot € 21.044)</field>
+        <field name="type">fixed</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_max">21044</field>
+        <field name="amount_monetary">2837</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2021">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2021
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_heffingskorting_2" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">41</field>
+        <field name="name">Heffingskorting (vanaf € 21.044 tot € 68.508)</field>
+        <field name="type">python</field>
+        <field name="apply_from">21044</field>
+        <field name="apply_min">21044</field>
+        <field name="apply_max">68508</field>
+        <field name="amount">5.977</field>
+        <field name="amount_monetary">2837</field>
+        <field name="code">
+            deduction = self.amount_monetary - (self.amount / 100) * (taxable_income - self.apply_from)
+        </field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2021">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2021
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_heffingskorting_3" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">42</field>
+        <field name="name">Heffingskorting (vanaf € 68.508)</field>
+        <field name="type">fixed</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_min">68508</field>
+        <field name="amount">0</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2021">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2021
+            </a>
+        </field>
+    </record>
+
+
+
+    <record id="rule_2021_arbeidskorting_1" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">50</field>
+        <field name="name">Arbeidskorting (tot € 10.109)</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_max">10109</field>
+        <field name="amount">4.581</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2021">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2021
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_arbeidskorting_2" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">51</field>
+        <field name="name">Arbeidskorting (vanaf € 10.109 tot € 21.836)</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_from">10109</field>
+        <field name="apply_min">10109</field>
+        <field name="apply_max">21836</field>
+        <field name="amount_monetary">463</field>
+        <field name="amount">28.771</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2021">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2021
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_arbeidskorting_3" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">52</field>
+        <field name="name">Arbeidskorting (vanaf € 21.836 tot € 35.653)</field>
+        <field name="type">percentual</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_from">21836</field>
+        <field name="apply_min">21836</field>
+        <field name="apply_max">35653</field>
+        <field name="amount_monetary">3837</field>
+        <field name="amount">2.663</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2021">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2021
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_arbeidskorting_4" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">53</field>
+        <field name="name">Arbeidskorting (vanaf € 35.653 tot € 105.737)</field>
+        <field name="type">python</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_from">35653</field>
+        <field name="apply_min">35653</field>
+        <field name="apply_max">105737</field>
+        <field name="amount_monetary">4205</field>
+        <field name="amount">6</field>
+        <field name="code">
+            deduction = self.amount_monetary - (self.amount / 100) * (taxable_income - self.apply_from)
+        </field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2021">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2021
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_arbeidskorting_5" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">54</field>
+        <field name="name">Arbeidskorting (vanaf € 105.737)</field>
+        <field name="type">fixed</field>
+        <field name="is_deduction" eval="True" />
+        <field name="apply_min">105737</field>
+        <field name="amount">0</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2021">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/arbeidskorting/tabel-arbeidskorting-2021
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_inkomstenbelasting_1" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">60</field>
+        <field name="name">Inkomstenbelasting (tot € 68.508)</field>
+        <field name="type">percentual</field>
+        <field name="is_tax" eval="True" />
+        <field name="apply_to">68508</field>
+        <field name="amount">37.10</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/overzicht_tarieven_en_schijven/u-hebt-in-2021-nog-niet-aow-leeftijd">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/overzicht_tarieven_en_schijven/u-hebt-in-2021-nog-niet-aow-leeftijd
+            </a>
+        </field>
+    </record>
+
+    <record id="rule_2021_inkomstenbelasting_2" model="l10n.nl.income.tax.rule">
+        <field name="year_id" ref="year_2021" />
+        <field name="sequence">61</field>
+        <field name="name">Inkomstenbelasting (vanaf € 68.508)</field>
+        <field name="type">percentual</field>
+        <field name="is_tax" eval="True" />
+        <field name="apply_min">68508</field>
+        <field name="apply_from">68508</field>
+        <field name="amount">49.50</field>
+        <field name="description" type="xml">
+            <a  target="_blank" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/overzicht_tarieven_en_schijven/u-hebt-in-2021-nog-niet-aow-leeftijd">
+                https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/overzicht_tarieven_en_schijven/u-hebt-in-2021-nog-niet-aow-leeftijd
+            </a>
+        </field>
+    </record>
+</odoo>

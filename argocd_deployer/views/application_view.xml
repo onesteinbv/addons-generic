@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="application_form" model="ir.ui.view">
+        <field name="model">argocd.application</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="immediate_deploy" type="object" string="Deploy" />
+                    <button name="deploy" type="object" string="Queue Deployment" />
+
+                    <button
+                        name="immediate_destroy"
+                        type="object"
+                        class="btn-danger"
+                        string="Destroy"
+                        confirm="Are you sure you want to destroy this application, this can't be undone."
+                    />
+                    <button
+                        name="destroy"
+                        type="object"
+                        class="btn-danger"
+                        string="Queue Destroy"
+                        confirm="Are you sure you want to destroy this application, this can't be undone."
+                    />
+                    <field name="description" class="pull-right"/> <!-- Move when this field is used for more than only urls -->
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="template_id" />
+                        <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                        <field name="config" widget="ace" />
+                        <button
+                            name="render_config"
+                            type="object"
+                            class="btn-secondary"
+                            icon="fa-refresh"
+                            string="Render"
+                            colspan="2"
+                        />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="application_tree" model="ir.ui.view">
+        <field name="model">argocd.application</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="create_date" />
+                <field name="name" />
+                <field name="template_id" />
+                <field name="tag_ids" widget="many2many_tags" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="application_action" model="ir.actions.act_window">
+        <field name="name">Applications</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">argocd.application</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

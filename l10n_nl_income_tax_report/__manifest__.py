@@ -1,0 +1,21 @@
+{
+    "name": "Dutch Personal Income Tax",
+    "version": "15.0.1.0.0",
+    "author": "Onestein",
+    "license": "AGPL-3",
+    "website": "https://www.onestein.nl",
+    "category": "Accounting & Finance",
+    "development_status": "Alpha",
+    "depends": ["account"],
+    "data": [
+        "security/ir_model_access.xml",
+        "data/income_tax_year_data.xml",
+        "data/income_tax_rule_data.xml",
+        "templates/print_income_tax_report.xml",
+        "views/income_tax_year_view.xml",
+        "views/income_tax_report_view.xml",
+        "views/income_tax_log_view.xml",
+        "views/income_tax_rule_view.xml",
+        "menuitems.xml",
+    ],
+}

@@ -1,0 +1,14 @@
+<odoo>
+    <record id="demo_pos_application_tag" model="argocd.application.tag">
+        <field name="name">Point Of Sales</field>
+        <field name="key">pos</field>
+        <field name="is_odoo_module" eval="True" />
+    </record>
+
+    <record id="demo_matomo_server_application_tag" model="argocd.application.tag">
+        <field name="name">Matomo Server</field>
+        <field name="key">matomo_server</field>
+        <field name="is_odoo_module" eval="False" />
+        <field name="subdomain">matomo</field>
+    </record>
+</odoo>

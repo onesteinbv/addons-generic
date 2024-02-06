@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="form" inherit_id="argocd_website.form">
+        <xpath expr="//form" position="before">
+            <t t-set="capacity_reached" t-value="request.env['argocd.application'].sudo().has_capacity_reached()" />
+            <div class="alert alert-warning mt-4" role="alert" t-if="capacity_reached">
+                <i class="fa fa-exclamation-triangle" />
+                <b>Capacity of our servers has been reached</b>, please be aware that your request will be queued.
+                We try to process your request <b>within 48 hours</b>. Until then, we keep you up to date.
+            </div>
+        </xpath>
+    </template>
+</odoo>

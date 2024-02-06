@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem
+        id="personal_config_menu"
+        name="Personal"
+        parent="account.menu_finance_configuration"
+    />
+
+    <menuitem
+        id="income_tax_year_menu"
+        name="Income Years"
+        parent="personal_config_menu"
+        action="income_tax_year_action"
+    />
+
+    <menuitem
+        id="personal_menu"
+        name="Personal"
+        parent="account.menu_finance_reports"
+    />
+
+    <menuitem
+        id="income_tax_report_menu"
+        name="Income Tax Report"
+        parent="personal_menu"
+        action="income_tax_report_action"
+    />
+</odoo>

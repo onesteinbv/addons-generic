@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_form_view" model="ir.ui.view" >
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website_share_filter_option_technical.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='website_share_pinterest']/.." position="before">
+                <div class="row">
+                    <label for="website_share_skype" string="Skype" class="col-md-3 o_light_label"/>
+                    <field name="website_share_skype"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

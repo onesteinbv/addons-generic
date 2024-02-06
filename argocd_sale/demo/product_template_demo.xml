@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="demo_curq_basis_product_template" model="product.template">
+        <field name="name">Curq Basis</field>
+        <field name="application_template_id" ref="argocd_deployer.demo_curq_basis_application_template" />
+    </record>
+    <record id="demo_pos_product_template" model="product.template">
+        <field name="name">Point of Sales</field>
+        <field name="application_tag_ids" eval="[Command.set([ref('argocd_deployer.demo_pos_application_tag')])]" />
+    </record>
+    <record id="demo_matomo_server_product_template" model="product.template">
+        <field name="name">Matomo Server</field>
+        <field name="application_tag_ids" eval="[Command.set([ref('argocd_deployer.demo_matomo_server_application_tag')])]" />
+    </record>
+</odoo>

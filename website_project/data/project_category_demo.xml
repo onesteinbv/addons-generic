@@ -1,0 +1,20 @@
+<odoo>
+    <record id="project_category_clean_energy" model="project.project.category">
+        <field name="name">Clean Energy</field>
+        <field name="description">Make the World a better place with cleaner energy.</field>
+        <field name="is_published">True</field>
+        <field name="sequence">1</field>
+    </record>
+    <record id="project_category_social_engagement" model="project.project.category">
+        <field name="name">Social Engagement</field>
+        <field name="description">Do more with the people around you.</field>
+        <field name="is_published">True</field>
+        <field name="sequence">2</field>
+    </record>
+    <record id="project_category_financial_clarity" model="project.project.category">
+        <field name="name">Financial Clarity</field>
+        <field name="description">Get more insight in your finances!</field>
+        <field name="is_published">True</field>
+        <field name="sequence">3</field>
+    </record>
+</odoo>

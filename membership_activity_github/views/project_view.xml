@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="github_full_name" />
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="github" string="Github"
+                      attrs="{'invisible': [('github_full_name', '=', False)]}"
+                      groups="base.group_system"
+                >
+                    <button name="get_github_commits" type="object" string="Get Commits" />
+                    <button name="get_github_issues" type="object" string="Get Issues" />
+                    <button name="get_github_comments" type="object" string="Get Comments" />
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

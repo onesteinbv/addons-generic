@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="income_tax_year_tree" model="ir.ui.view">
+        <field name="model">l10n.nl.income.tax.year</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="display_name" string="Year" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="income_tax_year_form" model="ir.ui.view">
+        <field name="model">l10n.nl.income.tax.year</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="year" options="{'format': false}" />
+                    </group>
+                    <group string="Rules">
+                        <field name="rule_ids" nolabel="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="income_tax_year_action" model="ir.actions.act_window">
+        <field name="name">Income Years</field>
+        <field name="res_model">l10n.nl.income.tax.year</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="income_tax_year_access" model="ir.model.access">
+        <field name="name">income_tax_year_access</field>
+        <field name="model_id" ref="model_l10n_nl_income_tax_year" />
+        <field name="group_id" ref="account.group_account_manager" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+
+    <record id="income_tax_report_access" model="ir.model.access">
+        <field name="name">income_tax_report_access</field>
+        <field name="model_id" ref="model_l10n_nl_income_tax_report" />
+        <field name="group_id" ref="account.group_account_manager" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+
+    <record id="income_tax_rule_access" model="ir.model.access">
+        <field name="name">income_tax_rule_access</field>
+        <field name="model_id" ref="model_l10n_nl_income_tax_rule" />
+        <field name="group_id" ref="account.group_account_manager" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+
+    <record id="income_tax_log_access" model="ir.model.access">
+        <field name="name">income_tax_log_access</field>
+        <field name="model_id" ref="model_l10n_nl_income_tax_log" />
+        <field name="group_id" ref="account.group_account_manager" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+</odoo>

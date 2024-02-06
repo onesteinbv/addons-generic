@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="pr" model="membership.activity.type">
+        <field name="name">PR</field>
+    </record>
+    <record id="commit" model="membership.activity.type">
+        <field name="name">Commit</field>
+    </record>
+    <record id="issue" model="membership.activity.type">
+        <field name="name">Issue</field>
+    </record>
+    <record id="review" model="membership.activity.type">
+        <field name="name">Review</field>
+    </record>
+    <record id="comment" model="membership.activity.type">
+        <field name="name">Comment</field>
+    </record>
+</odoo>

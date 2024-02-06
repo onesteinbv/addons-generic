@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf8"?>
+<odoo>
+    <template id="custom_share_form">
+        <t t-call="web.frontend_layout">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+            <t t-set="no_navbar" t-value="True"/>
+            <t t-set="no_livechat" t-value="True"/>
+            <div id="wrap">
+                <div class="oe_structure"/>
+                <form action="/share/confirm" method="GET">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                    <div class="container">
+                        <div class="row" t-if="service_icon_url">
+                            <div class="col-12 pb32" style="text-align: center">
+                                <img t-att-src="service_icon_url" style="height: 150px; width: 150px" />
+                            </div>
+                        </div>
+                        <div class="row" t-if="service_name">
+                            <div class="col-12 pb24" style="text-align: center">
+                                <h4 t-esc="'Share to ' + service_name"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="offset-2 col-8 pb24" style="text-align: center">
+                                <div class="offset-1 col-10 align-self-center">
+                                    <input class="form-control s_website_form_input" type="text" t-att-value="default_domain" name="domain" t-att-placeholder="default_domain or 'https://domain.org'"/>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="url" t-att-value="url" readonly="1" />
+                        <input type="hidden" name="title" t-att-value="title" readonly="1" />
+                        <input type="hidden" name="media" t-att-value="media" readonly="1" />
+                        <input type="hidden" name="platform" t-att-value="platform" readonly="1" />
+                        <div class="row">
+                            <div class="offset-3 col-6" style="text-align: center">
+                                <button class="btn btn-primary btn-block a-submit">Share</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+</odoo>

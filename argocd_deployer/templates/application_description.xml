@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="application_description">
+        <a t-foreach="app.get_urls()"
+           t-as="url"
+           t-att-href="url[0]"
+           target="_blank"
+           t-att-title="url[1]"
+           class="btn-link btn"
+        >
+            <t t-esc="url[1]" />
+            <i class="fa fa-external-link" />
+        </a>
+    </template>
+</odoo>

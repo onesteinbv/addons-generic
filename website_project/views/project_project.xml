@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="edit_project" model="ir.ui.view">
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="is_published" widget="website_redirect_button"/>
+            </xpath>
+            <xpath expr="//form/sheet/div[hasclass('oe_title')]" position="before">
+                <field
+                    name="image_1920"
+                    widget="image"
+                    class="oe_avatar"
+                    options="{'preview_image': 'image_128'}"
+                />
+            </xpath>
+            <xpath expr="//page[last()]" position="after">
+                <page string="Website Details" name="website_details">
+                    <group>
+                        <field name="category_id" />
+                        <field name="short_description" />
+                        <field name="description" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

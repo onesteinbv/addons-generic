@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="sitemap" name="Sitemap">
+        <t t-call="website.layout">
+            <div class="oe_structure"/>
+            <div class="container">
+                <div class="col-12 pt16 pb16">
+                    <ul>
+                        <t t-foreach="locs" t-as="loc">
+                            <li>
+                                <a t-attf-href="#{url_root}#{loc['loc']}">
+                                    <t t-out="loc['display']"/>
+                                </a>
+                            </li>
+                        </t>
+                    </ul>
+                </div>
+            </div>
+            <div class="oe_structure"/>
+        </t>
+    </template>
+</odoo>

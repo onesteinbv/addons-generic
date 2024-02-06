@@ -1,0 +1,58 @@
+<odoo>
+    <record id="project_project_windmill_construction" model="project.project">
+        <field name="name">Windmill construction</field>
+        <field name="short_description">Build windmills.</field>
+        <field name="description">Build more windmills, because we're Dutch and we like that.</field>
+        <field name="is_published">True</field>
+        <field name="category_id" ref="project_category_clean_energy"/>
+    </record>
+    <record id="project_project_carbon_recapture" model="project.project">
+        <field name="name">Carbon recapture</field>
+        <field name="short_description">Install carbon recapture filters.</field>
+        <field name="description">These filters will help reduce CO2 levels.</field>
+        <field name="category_id" ref="project_category_clean_energy"/>
+        <field name="is_published">True</field>
+    </record>
+    <record id="project_project_neighbourhood_forum" model="project.project">
+        <field name="name">Neighbourhood forum</field>
+        <field name="short_description">Organise a forum to engage the community.</field>
+        <field name="description">People tend to get isolated, and this will help.</field>
+        <field name="category_id" ref="project_category_social_engagement"/>
+        <field name="is_published">True</field>
+    </record>
+    <record id="project_project_help_elderly" model="project.project">
+        <field name="name">Help the elderly</field>
+        <field name="short_description">Weekly visit to elderly homes.</field>
+        <field name="description">Be some company to the elderly. It will make them happy!</field>
+        <field name="category_id" ref="project_category_social_engagement"/>
+        <field name="is_published">True</field>
+    </record>
+    <record id="project_project_prison_visits" model="project.project">
+        <field name="name">Prison visits</field>
+        <field name="short_description">Organise a prison visits.</field>
+        <field name="description">Make children aware that crime doesn't pay.</field>
+        <field name="category_id" ref="project_category_social_engagement"/>
+        <field name="is_published">True</field>
+    </record>
+    <record id="project_project_debt_reduction" model="project.project">
+        <field name="name">Debt reduction</field>
+        <field name="short_description">Help people pay off debts.</field>
+        <field name="description">Increase financial sanity for all!</field>
+        <field name="category_id" ref="project_category_financial_clarity"/>
+        <field name="is_published">True</field>
+    </record>
+    <record id="project_project_crypto_course" model="project.project">
+        <field name="name">Crypto course</field>
+        <field name="short_description">Orgnanise cryptocurrency awareness courses.</field>
+        <field name="description">Make people aware of the risks involved with crypto, and explain how they work.</field>
+        <field name="category_id" ref="project_category_financial_clarity"/>
+        <field name="is_published">True</field>
+    </record>
+    <record id="project_project_investopedia" model="project.project">
+        <field name="name">Investopedia (WIP)</field>
+        <field name="short_description">Develop a wiki where people can learn about investment.</field>
+        <field name="description">Investment is a big black unsure information and... (needs additional info).</field>
+        <field name="category_id" ref="project_category_financial_clarity"/>
+        <field name="is_published">False</field>
+    </record>
+</odoo>

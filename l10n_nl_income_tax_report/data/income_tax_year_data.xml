@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="year_2022" model="l10n.nl.income.tax.year">
+        <field name="year">2022</field>
+    </record>
+
+    <record id="year_2021" model="l10n.nl.income.tax.year">
+        <field name="year">2021</field>
+    </record>
+</odoo>

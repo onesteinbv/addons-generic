@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="event_description_full" inherit_id="website_event.event_description_full">
+        <xpath expr="//a[@t-att-href='event._google_map_link()']" position="replace">
+            <a t-att-href="event._map_link()" target="_blank">Get the direction</a>
+        </xpath>
+    </template>
+
+    <template id="registration_complete" inherit_id="website_event.registration_complete">
+        <xpath expr="//a[@t-att-href='event.google_map_link()']" position="replace">
+            <a
+                itemprop="location"
+                t-att-href="event.map_link()"
+                target="_BLANK"
+                temprop="location"
+                t-field="event.address_id"
+                t-options='{"widget": "contact", "fields": ["address"]}'
+            />
+        </xpath>
+    </template>
+
+</odoo>

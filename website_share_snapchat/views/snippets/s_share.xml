@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="s_share" name="Share" inherit_id="website.s_share">
+        <xpath expr="//a[@t-attf-class='s_share_email #{_link_classes}']" position="before">
+            <a t-if="not _exclude_share_links or not 'snapchat' in _exclude_share_links" href="https://www.snapchat.com/scan?attachmentUrl={url}" t-attf-class="s_share_snapchat #{_link_classes}" target="_blank">
+                <img src="/website_share_snapchat/static/img/icons/snapchat.svg" t-attf-class="fa social-media-icon #{not _link_classes and 'rounded shadow-sm' or 'm-1'}" alt="social-media-icon"/>
+            </a>
+        </xpath>
+    </template>
+
+    <record id="s_share_000_scss" model="ir.asset">
+        <field name="name">Share Snapchat 000 SCSS</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">website_share_snapchat/static/src/snippets/s_share/000.scss</field>
+    </record>
+
+    <record id="s_share_000_js" model="ir.asset">
+        <field name="name">Share Snapchat 000 JS</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">website_share_snapchat/static/src/snippets/s_share/000.js</field>
+    </record>
+
+</odoo>

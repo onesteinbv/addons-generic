@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="group_disallow_debug_mode" model="res.groups">
+        <field name="name">Disallow Debug Mode</field>
+    </record>
+
+    <record id="base.default_user" model="res.users">
+        <field name="groups_id" eval="[(4,ref('base_debug_disabled.group_disallow_debug_mode'))]"/>
+    </record>
+
+</odoo>

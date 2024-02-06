@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <template id="section_page">
+        <t t-call="website.layout">
+            <t t-set="additional_title" t-value="title" />
+            <div id="wrap">
+                <div class="oe_structure" id="oe_structure_website_section_1"/>
+                <div class="container">
+                    <div class="row" name="description_row">
+                        <h3 class="col-lg-12 text-center" id="section_name" t-field="section.name"/>
+                        <div class="col-lg-4">
+                            <div t-field="section.image" t-options='{"widget": "image", "class": "d-block mx-auto mb16"}'/>
+                        </div>
+                        <div class="col-lg-8 mt32">
+                            <t t-if="section">
+                                <div t-field="section.website_top"/>
+                                <div t-field="section.website_bottom"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure" id="oe_structure_website_section_2"/>
+            </div>
+        </t>
+    </template>
+
+</odoo>

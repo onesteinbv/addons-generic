@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="membership_section_membership_view_tree" model="ir.ui.view">
+        <field name="model">membership.section.membership</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id" />
+                <field name="section_id" />
+                <field name="type" />
+                <field name="wants_to_collaborate" />
+                <field name="on_mailing_list" />
+                <field name="start_date" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="membership_section_membership_view_pivot" model="ir.ui.view">
+        <field name="model">membership.section.membership</field>
+        <field name="arch" type="xml">
+            <pivot string="Section Membership" disable_linking="True">
+                <field name="partner_id" type="row" />
+                <field name="section_id" type="row" />
+                <field name="type" type="col" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="membership_section_membership_view_search" model="ir.ui.view">
+        <field name="model">membership.section.membership</field>
+        <field name="arch" type="xml">
+            <search string="Section Membership">
+                <field name="partner_id" />
+                <field name="section_id" />
+                <separator />
+                <filter string="Wants to Collaborate" name="wants_to_collaborate Claims" domain="[('wants_to_collaborate','=', True)]" />
+                <filter string="On Mailing List" name="on_mailing_list Claims" domain="[('on_mailing_list','=', True)]" />
+                <group expand="0" name="claims" string="Group By">
+                    <filter string="Partner" name="partner_id" domain="[]" help="Partner" context="{'group_by':'partner_id'}" />
+                    <filter string="Section" name="section_id" domain="[]" help="Section" context="{'group_by':'section_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_membership_section_membership_reporting" model="ir.actions.act_window">
+        <field name="name">Section Membership</field>
+        <field name="res_model">membership.section.membership</field>
+        <field name="view_mode">tree,pivot</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,20 @@
+<odoo>
+    <template id="s_dynamic_project_list_options_template" inherit_id="website.s_dynamic_snippet_options_template">
+        <xpath expr="//we-select[@data-name='filter_opt']" position="after">
+            <t t-if="snippet_name == 'dynamic_project_list'">
+                <we-select string="Category" data-name="project_category_opt" data-attribute-name="projectCategory">
+                    <we-button class="o_we_user_value_widget" data-select-data-attribute=""><div>All</div></we-button>
+                </we-select>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="s_project_list_snippet_options" inherit_id="website.snippet_options">
+        <xpath expr="." position="inside">
+            <t t-call="website_snippet_project.s_dynamic_project_list_options_template">
+                <t t-set="snippet_name" t-value="'dynamic_project_list'"/>
+                <t t-set="snippet_selector" t-value="'.s_dynamic_project_list'"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record model="ir.cron" id="update_contract_payment_subscription_cron_for_contract">
+        <field name="name">Update Contract Payment Subscription for Contracts</field>
+        <field name="model_id" ref="contract.model_contract_contract" />
+        <field name="state">code</field>
+        <field name="code">model.cron_update_contract_payment_subscriptions()</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+    </record>
+</odoo>

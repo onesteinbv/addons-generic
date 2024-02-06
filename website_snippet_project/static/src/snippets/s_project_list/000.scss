@@ -1,0 +1,93 @@
+// class name are dynamically added.
+// If you don't find it with a grep, don't consider it as useless without extra check.
+
+// This is an almost literal copy of website_sale/static/snippets/s_dynamic_snippet_products/000.scss
+// Only changes are that the word "product" has been replaced with "project".
+
+.s_project_project_centered {
+    .card {
+        overflow: visible;
+        margin-top: 6rem;
+        padding-top: 6rem;
+    }
+
+    .o_carousel_project_img_link {
+        max-width: 75%;
+        margin-top: -12rem;
+        left: 0;
+        right: 0;
+    }
+}
+
+.s_project_project_banner {
+    img {
+        max-height: 400px;
+    }
+}
+
+.s_project_project_horizontal_card img {
+    img {
+        height: 100%;
+    }
+}
+
+@include media-breakpoint-down(lg) {
+    .s_project_project_horizontal_card img {
+        height: 12rem;
+    }
+}
+
+.o_dynamic_project_hovered {
+    img {
+        transition: transform 250ms ease;
+    }
+    &:hover img {
+        transform: scale(1.15);
+    }
+}
+.o_carousel_multiple_rows {
+    .row {
+        padding: 1rem;
+    }
+}
+
+// Cover image
+img.o_img_project_cover {
+    object-fit: cover;
+}
+// Force the image to have a square ratio
+img.o_img_project_square {
+    aspect-ratio: 1 / 1;
+}
+
+.o_card_group {
+    > .row {
+        padding-left: $grid-gutter-width / 2;
+        padding-right: $grid-gutter-width / 2;
+        > div {
+            padding: 0 !important;
+            &:first-child > .o_carousel_project_card{
+                border-left: $card-border-width solid $card-border-color !important;
+            }
+        }
+        &:first-child {
+            .o_carousel_project_card {
+                border-top: $card-border-width solid $card-border-color !important;
+            }
+            > div:first-child .o_carousel_project_card {
+                @include border-top-start-radius($border-radius-lg !important);
+            }
+            > div:last-child .o_carousel_project_card {
+                @include border-top-end-radius($border-radius-lg !important);
+            }
+        }
+        &:last-child {
+            > div:first-child .o_carousel_project_card {
+                @include border-bottom-start-radius($border-radius-lg !important);
+            }
+            > div:last-child .o_carousel_project_card {
+                @include border-bottom-end-radius($border-radius-lg !important);
+            }
+        }
+    }
+}

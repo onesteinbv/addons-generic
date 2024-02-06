@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_public_access" model="ir.model.access">
+        <field name="name">product_public_access</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="group_id" ref="base.group_public"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="product_template_public_access" model="ir.model.access">
+        <field name="name">product_template_public_access</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="group_id" ref="base.group_public"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="product_portal_access" model="ir.model.access">
+        <field name="name">product_portal_access</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="product_template_portal_access" model="ir.model.access">
+        <field name="name">product_template_portal_access</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="argocd_application_portal_access" model="ir.model.access">
+        <field name="name">argocd_application_portal_access</field>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="argocd_application_template_portal_access" model="ir.model.access">
+        <field name="name">argocd_application_template_portal_access</field>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application_template"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+</odoo>

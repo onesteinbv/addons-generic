@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="membership_hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='section_membership_ids']/tree/field[@name='section_id']" position="after">
+                <field name="type"/>
+                <field name="wants_to_collaborate" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="argocd_root_menu" name="ArgoCD" />
+    <menuitem
+        id="application_menu"
+        action="application_action"
+        parent="argocd_root_menu"
+        sequence="10"
+    />
+    <menuitem
+        id="application_template_menu"
+        action="application_template_action"
+        parent="argocd_root_menu"
+        sequence="20"
+    />
+    <menuitem
+        id="application_tag_menu"
+        action="application_tag_action"
+        parent="argocd_root_menu"
+        sequence="30"
+    />
+</odoo>

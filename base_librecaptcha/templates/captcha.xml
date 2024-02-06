@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="widget">
+        <div class="js_captcha">
+            <label t-attf-for="name or 'captcha_answer'" class="form-label">Are you a robot?</label>
+            <input type="hidden" t-att-name="name_id or 'captcha_id'" class="form-control" />
+            <img src="" class="d-none d-block mb-2" />
+            <input type="text" t-att-name="name_answer or 'captcha_answer'" class="form-control" style="width: 350px;" />
+        </div>
+    </template>
+</odoo>

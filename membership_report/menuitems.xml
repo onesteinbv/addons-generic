@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="menu_membership_report"
+        name="Reporting"
+        groups="base.group_partner_manager"
+        parent="membership.menu_association"
+        sequence="99"
+    />
+
+    <record id="membership.menu_report_membership" model="ir.ui.menu">
+        <field name="parent_id" ref="menu_membership_report" />
+    </record>
+
+    <menuitem
+        id="menu_report_membership"
+        name="Members Info"
+        parent="menu_membership_report"
+        sequence="1"
+        action="action_res_partner_reporting_membership"
+        groups="base.group_partner_manager"
+    />
+
+    <menuitem
+        id="menu_report_sections"
+        name="Sections Info"
+        parent="menu_membership_report"
+        sequence="2"
+        action="action_membership_section_reporting"
+        groups="base.group_partner_manager"
+    />
+
+    <menuitem
+        id="menu_report_membership_sections"
+        name="Section Membership"
+        parent="menu_membership_report"
+        sequence="3"
+        action="action_membership_section_membership_reporting"
+        groups="base.group_partner_manager"
+    />
+
+</odoo>

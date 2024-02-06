@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="income_tax_report_print_document">
+        <t t-call="web.external_layout">
+            <h1>Income Tax (<t t-esc="o.year_id.year" />)</h1>
+            <p>
+                <b>Created on: </b>
+                <span t-field="o.date" />
+            </p>
+            <t t-set="currency" t-value="o.year_id.currency_id" />
+
+            <h3>Current</h3>
+            <table class="table table-sm table-borderless w-25">
+                <tr>
+                    <th>
+                        Revenue:
+                    </th>
+                    <td>
+                        <span t-field="o.revenue" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Cost:
+                    </th>
+                    <td>
+                        <span t-field="o.cost" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Profit:
+                    </th>
+                    <td>
+                        <span t-field="o.profit" />
+                    </td>
+                </tr>
+            </table>
+            <label class="font-weight-bold">Details</label>
+            <table class="table table-striped table-sm">
+                <tr>
+                    <th class="w-50">
+                        Rule
+                    </th>
+                    <th class="text-right">
+                        Income
+                    </th>
+                    <th class="text-right">
+                        Deduction
+                    </th>
+                    <th class="text-right">
+                        Tax
+                    </th>
+                </tr>
+                <tr t-foreach="o.factual_log_ids" t-as="log">
+                    <td>
+                        <span t-field="log.rule_id" />
+                    </td>
+                    <td class="text-right">
+                        <span t-field="log.taxable_income" t-options="{'widget': 'monetary', 'display_currency': currency}" />
+                    </td>
+                    <td class="text-right">
+                        <span t-field="log.deduction" t-options="{'widget': 'monetary', 'display_currency': currency}" />
+                    </td>
+                    <td class="text-right">
+                        <span t-field="log.tax" t-options="{'widget': 'monetary', 'display_currency': currency}" />
+                    </td>
+                </tr>
+            </table>
+
+            <div class="clearfix">
+                <div class="row">
+                    <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-3'} ml-auto">
+                        <table style="page-break-inside: avoid;" class="table table-sm table-borderless">
+                            <tr>
+                                <th class="text-right">Taxable Income: </th>
+                                <td class="text-right">
+                                    <span t-field="o.taxable_income" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right">Tax: </th>
+                                <td class="text-right">
+                                    <span t-field="o.tax" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right">Prepaid Tax: </th>
+                                <td class="text-right">
+                                    <span t-field="o.tax_prepaid" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right">Tax to Pay (estimation): </th>
+                                <td class="border-top text-right">
+                                    <span t-field="o.tax_residual" class="h5 font-weight-bold" />
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <p style="page-break-after:always;"/>
+
+            <div t-if="1 > o.year_progress_percentage > 0">
+                <h3>Forecast</h3>
+
+                <table class="table table-sm table-borderless w-25">
+                    <tr>
+                        <th>
+                            Revenue:
+                        </th>
+                        <td>
+                            <span t-field="o.forecast_revenue" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Cost:
+                        </th>
+                        <td>
+                            <span t-field="o.forecast_cost" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Profit:
+                        </th>
+                        <td>
+                            <span t-field="o.forecast_profit" />
+                        </td>
+                    </tr>
+                </table>
+                <label class="font-weight-bold">Details</label>
+                <table class="table table-striped table-sm">
+                    <tr>
+                        <th class="w-50">
+                            Rule
+                        </th>
+                        <th class="text-right">
+                            Income
+                        </th>
+                        <th class="text-right">
+                            Deduction
+                        </th>
+                        <th class="text-right">
+                            Tax
+                        </th>
+                    </tr>
+                    <tr t-foreach="o.forecast_log_ids" t-as="log">
+                        <td>
+                            <span t-field="log.rule_id" />
+                        </td>
+                        <td class="text-right">
+                            <span t-field="log.taxable_income" t-options="{'widget': 'monetary', 'display_currency': currency}" />
+                        </td>
+                        <td class="text-right">
+                            <span t-field="log.deduction" t-options="{'widget': 'monetary', 'display_currency': currency}" />
+                        </td>
+                        <td class="text-right">
+                            <span t-field="log.tax" t-options="{'widget': 'monetary', 'display_currency': currency}" />
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="clearfix">
+                    <div class="row">
+                        <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-3'} ml-auto">
+                            <table style="page-break-inside: avoid;" class="table table-sm table-borderless">
+                                <tr>
+                                    <th class="text-right">Taxable Income: </th>
+                                    <td class="text-right">
+                                        <span t-field="o.forecast_taxable_income" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Tax: </th>
+                                    <td class="text-right">
+                                        <span t-field="o.forecast_tax" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Prepaid Tax: </th>
+                                    <td class="text-right">
+                                        <span t-field="o.forecast_tax_prepaid" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-right">Tax to Pay (estimation): </th>
+                                    <td class="border-top text-right">
+                                        <span t-field="o.forecast_tax_residual" class="h5 font-weight-bold" />
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="income_tax_report_print">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="l10n_nl_income_tax_report.income_tax_report_print_document" />
+            </t>
+        </t>
+    </template>
+
+    <record id="print_income_tax_report_action" model="ir.actions.report">
+        <field name="name">Income Tax Report</field>
+        <field name="model">l10n.nl.income.tax.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_nl_income_tax_report.income_tax_report_print</field>
+        <field name="report_file">l10n_nl_income_tax_report.income_tax_report_print</field>
+        <field name="print_report_name">'%s Income Tax Report (%s)' % (object.year_id.year, object.date)</field>
+        <field name="attachment">'%s Income Tax Report (%s).pdf' % (object.year_id.year, object.date)</field>
+        <field name="binding_model_id" ref="model_l10n_nl_income_tax_report"/>
+        <field name="binding_type">report</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice')),(4, ref('account.group_account_readonly'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="layout" inherit_id="web.layout">
+        <xpath expr="//head/script[@id='web.layout.odooscript']" position="after">
+            <script>
+                if (odoo.debug) {
+                    if (<t t-esc="env.user.has_group('base_debug_disabled.group_disallow_debug_mode') and 'true' or 'false'" />) {
+                        odoo.debug = "";
+                    }
+                }
+            </script>
+        </xpath>
+    </template>
+</odoo>

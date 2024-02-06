@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="membership_section_view_tree" model="ir.ui.view">
+        <field name="model">membership.section</field>
+        <field name="inherit_id" ref="membership_section.membership_section_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="department_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="membership_section_view_form" model="ir.ui.view">
+        <field name="model">membership.section</field>
+        <field name="inherit_id" ref="membership_section.membership_section_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='form_body']" position="inside">
+                <group name="hr_informations" string="Human Resources">
+                    <field name="department_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

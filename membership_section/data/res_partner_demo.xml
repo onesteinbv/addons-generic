@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="demo_member_1" model="res.partner">
+            <field name="name">John Doe</field>
+            <field name="free_member" eval="True" />
+            <field name="section_membership_ids" eval="[
+                    (5, 0),
+                    (0, 0, {'section_id': ref('membership_section.demo_section_1'), 'start_date': '2023-01-15'}),
+                    (0, 0, {'section_id': ref('membership_section.demo_section_2'), 'start_date': '2023-03-12'}),
+                    (0, 0, {'section_id': ref('membership_section.demo_section_3'), 'start_date': '2023-05-15'})
+                ]"
+            />
+        </record>
+
+        <record id="demo_member_2" model="res.partner">
+            <field name="name">Jane Smith</field>
+            <field name="free_member" eval="True" />
+            <field name="section_membership_ids" eval="[
+                    (5, 0),
+                    (0, 0, {'section_id': ref('membership_section.demo_section_1'), 'start_date': '2023-02-10'}),
+                    (0, 0, {'section_id': ref('membership_section.demo_section_4'), 'start_date': '2023-06-08'})
+                ]"
+            />
+        </record>
+
+        <record id="demo_member_3" model="res.partner">
+            <field name="name">Alice Johnson</field>
+            <field name="free_member" eval="True" />
+            <field name="section_membership_ids" eval="[
+                    (5, 0),
+                    (0, 0, {'section_id': ref('membership_section.demo_section_2'), 'start_date': '2023-03-05'}),
+                    (0, 0, {'section_id': ref('membership_section.demo_section_3'), 'start_date': '2023-04-20'})
+                ]"
+            />
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="calendar_caldav_sync_wizard" model="ir.ui.view">
+        <field name="model">calendar.caldav.sync.wizard</field>
+        <field name="inherit_id" ref="calendar_caldav.calendar_caldav_sync_wizard"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='password']" position="after">
+                <field name="nextcloud" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fiscalperiodmonth" model="date.range.type">
+        <field name="name">Fiscal Period Month</field>
+        <field name="allow_overlap" eval="False"/>
+        <field name="fiscal_period_month" eval="True"/>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="fiscalperiodquarter" model="date.range.type">
+        <field name="name">Fiscal Period Quarter</field>
+        <field name="allow_overlap" eval="False"/>
+        <field name="fiscal_period_quarter" eval="True"/>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="fiscalperiodyear" model="date.range.type">
+        <field name="name">Fiscal Period Full Year</field>
+        <field name="allow_overlap" eval="False"/>
+        <field name="fiscal_period_year" eval="True"/>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

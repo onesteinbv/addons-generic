@@ -1,0 +1,18 @@
+# TODO: Revise this list I just copied from onesteinbv/addons-container
+phonenumbers
+mollie-api-python==3.1.1
+caldav==1.2.1
+unidecode
+openupgradelib
+astor
+zxcvbn
+odfpy
+python-jose
+fsspec
+fsspec[s3]
+python-slugify
+PyGithub==1.59.0
+python-gitlab
+GitPython
+email-validator
+suds

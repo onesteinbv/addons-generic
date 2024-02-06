@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="demo_membership_product_category" model="product.category">
+            <field name="parent_id" ref="product.product_category_1"/>
+            <field name="name">Membership</field>
+        </record>
+
+        <record id="demo_membership_product_1" model="product.product">
+            <field name="name">Free Membership</field>
+            <field name="categ_id" ref="product.product_category_3"/>
+            <field name="standard_price">0.0</field>
+            <field name="list_price">0.0</field>
+            <field name="detailed_type">service</field>
+            <field name="uom_id" ref="uom.product_uom_hour"/>
+            <field name="uom_po_id" ref="uom.product_uom_hour"/>
+            <field name="visible_on_membership_registration_page" eval="True"/>
+        </record>
+
+        <record id="demo_membership_product_2" model="product.product">
+            <field name="name">Bronze Membership</field>
+            <field name="categ_id" ref="product.product_category_3"/>
+            <field name="standard_price">0.0</field>
+            <field name="list_price">100.0</field>
+            <field name="detailed_type">service</field>
+            <field name="uom_id" ref="uom.product_uom_hour"/>
+            <field name="uom_po_id" ref="uom.product_uom_hour"/>
+            <field name="visible_on_membership_registration_page" eval="True"/>
+        </record>
+
+        <record id="demo_membership_product_3" model="product.product">
+            <field name="name">Silver Membership</field>
+            <field name="categ_id" ref="product.product_category_3"/>
+            <field name="standard_price">0.0</field>
+            <field name="list_price">500.0</field>
+            <field name="detailed_type">service</field>
+            <field name="uom_id" ref="uom.product_uom_hour"/>
+            <field name="uom_po_id" ref="uom.product_uom_hour"/>
+            <field name="visible_on_membership_registration_page" eval="True"/>
+        </record>
+
+        <record id="demo_membership_product_4" model="product.product">
+            <field name="name">Gold Membership</field>
+            <field name="categ_id" ref="product.product_category_3"/>
+            <field name="standard_price">0.0</field>
+            <field name="list_price">2000.0</field>
+            <field name="detailed_type">service</field>
+            <field name="uom_id" ref="uom.product_uom_hour"/>
+            <field name="uom_po_id" ref="uom.product_uom_hour"/>
+            <field name="visible_on_membership_registration_page" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

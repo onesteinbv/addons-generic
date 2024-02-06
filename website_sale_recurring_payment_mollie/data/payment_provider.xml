@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment.payment_provider_mollie" model="payment.provider">
+        <field name="allows_recurring_payment" eval="True"/>
+    </record>
+
+</odoo>

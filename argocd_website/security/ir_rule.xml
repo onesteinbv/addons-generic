@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_portal_public_rule" model="ir.rule">
+        <field name="name">product_portal_public_rule</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="domain_force">
+            [
+                '|',
+                ('application_tag_ids', '!=', False),
+                ('application_template_id', '!=', False),
+                '|',
+                ('reseller_partner_ids', '=', False),
+                ('reseller_partner_ids', 'in', [user.partner_id.id]),
+                ('sale_ok', '=', True),
+            ]
+        </field>
+        <field name="groups" eval="[Command.link(ref('base.group_portal')), Command.link(ref('base.group_public'))]"/>
+    </record>
+
+    <record id="product_template_portal_public_rule" model="ir.rule">
+        <field name="name">product_template_portal_public_rule</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="domain_force">
+            [
+                '|',
+                ('application_tag_ids', '!=', False),
+                ('application_template_id', '!=', False),
+                '|',
+                ('reseller_partner_ids', '=', False),
+                ('reseller_partner_ids', 'in', [user.partner_id.id]),
+                ('sale_ok', '=', True),
+            ]
+        </field>
+        <field name="groups" eval="[Command.link(ref('base.group_portal')), Command.link(ref('base.group_public'))]"/>
+    </record>
+
+    <record id="argocd_application_portal_rule" model="ir.rule">
+        <field name="name">argocd_application_portal_access</field>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application"/>
+        <field name="domain_force">
+            ['|', ('partner_id', '=', user.partner_id.id), ('partner_id', 'child_of', user.partner_id.id)]
+        </field>
+        <field name="groups" eval="[Command.link(ref('base.group_portal'))]"/>
+    </record>
+</odoo>

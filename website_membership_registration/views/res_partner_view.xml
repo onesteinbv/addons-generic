@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//span[@name='address_name']" position="before">
+                <field name="nickname" />
+            </xpath>
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="membership_email_verification_status" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='free_member']" position="after">
+                <field name="membership_application_date" attrs="{'invisible': [('free_member','=',False)], 'required': [('free_member','=',True)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="membership_members_tree" model="ir.ui.view">
+        <field name="inherit_id" ref="membership.membership_members_tree" />
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="display_name" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="membership_section_view_partner_form" model="ir.ui.view">
+        <field name="inherit_id" ref="membership_section.view_partner_form" />
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='section_membership_ids']//field[@name='on_mailing_list']" position="before">
+                <field name="type" />
+                <field name="wants_to_collaborate" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_member_filter" model="ir.ui.view">
+        <field name="inherit_id" ref="membership.view_res_partner_member_filter" />
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="filter_domain">['|', '|', ('display_name', 'ilike', self), ('parent_id', 'ilike', self), ('ref' , '=', self)]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

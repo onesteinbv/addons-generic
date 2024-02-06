@@ -1,0 +1,46 @@
+
+/* Project's Detail Page */
+.o_web_project_project_manager ul {
+    padding: 0;
+    list-style: none;
+    font-size: 16px;
+}
+
+.o_web_project_project_manager h3 {
+    border-bottom: solid 1px #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+.o_web_project_project_manager img {
+    margin-right: 15px;
+    border-radius: 4px;
+    border: solid 1px #ccc;
+}
+
+.o_web_project_project_manager ul li {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.o_web_project_project_member_list .o_web_project_project_member {
+    margin-bottom: 20px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.o_web_project_project_member_list img {
+    margin-right: 20px;
+    border-radius: 4px;
+    border: solid 1px #ccc;
+}
+
+.o_web_project_project_member_list h3 {
+    margin-top: 0;
+    border-bottom: solid 1px #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}

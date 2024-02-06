@@ -1,0 +1,653 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_membership_registration
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-15 08:59+0000\n"
+"PO-Revision-Date: 2023-11-15 08:59+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_membership_section__applicant_partner_count
+msgid "# of Applicant Members"
+msgstr "# Aanvragende Leden"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_membership_section__collaborator_partner_count
+msgid "# of Collaborating Members"
+msgstr "# Samenwerkende Leden"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_membership_section__follower_partner_count
+msgid "# of Following Members"
+msgstr "# Volgende Leden"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "<option value=\"\">Country...</option>"
+msgstr ""
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "<option value=\"\">State / Province...</option>"
+msgstr "<option value=\"\">Land...</option>"
+
+#. module: website_membership_registration
+#: model:mail.template,body_html:website_membership_registration.verification_email
+msgid ""
+"<p>Dear <t t-out=\"object.name\">partner</t>,</p>\n"
+"            <p>Your request has been received, please verify your email address by clicking <a t-att-href=\"ctx.get('verification_url')\">here</a>.</p>\n"
+"            <p>Kind regards,</p>\n"
+"            <p><t t-out=\"user.name\">user</t></p>\n"
+"        "
+msgstr ""
+"<p>Beste <t t-out=\"object.name\">partner</t>,</p>\n"
+"            <p>Uw verzoek is ontvangen, controleer uw e-mailadres door <a t-att-href=\"ctx.get('verification_url')\">hier</a> te klikken.</p>\n"
+"            <p>Met vriendelijke groet,</p>\n"
+"            <p><t t-out=\"user.name\">user</t></p>\n"
+"        "
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.cart_login_for_membership
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.short_cart_summary
+msgid "<span class=\"\">Log In</span>"
+msgstr "<span class=\"\">Log In</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.cart_login_for_membership
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.short_cart_summary
+msgid ""
+"<span class=\"\">Process Checkout</span>\n"
+"                    <span class=\"fa fa-chevron-right\"/>"
+msgstr ""
+"<span class=\"\">Verwerking Checkout</span>\n"
+"                    <span class=\"fa fa-chevron-right\"/>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.short_cart_summary
+msgid ""
+"<span style=\"/* margin-top: -5px; */font-size: small;bottom: 0;position: absolute;margin-bottom: 40px;padding-left: 10px;\" class=\"float-left \">Login to buy Memberships\n"
+"                </span>"
+msgstr ""
+"<span style=\"/* margin-top: -5px; */font-size: small;bottom: 0;position: absolute;margin-bottom: 40px;padding-left: 10px;\" class=\"float-left \">Login voor het kopen van een lidmaatschap\n"
+"                </span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.cart_login_for_membership
+msgid ""
+"<span style=\"padding-left: 25%;position:absolute;margin-bottom:36px;bottom:0\" class=\"d-none d-xl-inline-block\">You need to Login to buy Memberships\n"
+"                </span>"
+msgstr ""
+"<span style=\"padding-left: 25%;position:absolute;margin-bottom:36px;bottom:0\" class=\"d-none d-xl-inline-block\">Je moet ingelogd zijn voor het kopen van een lidmaatschap\n"
+"                </span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid ""
+"<span>City</span>\n"
+"                                                    <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span>Plaats</span>\n"
+"                                                    <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid ""
+"<span>Country</span>\n"
+"                                                    <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span>Land</span>\n"
+"                                                    <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid ""
+"<span>Membership Level</span>\n"
+"                                                        <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span>Lidmaatschapsnivea</span>\n"
+"                                                        <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid ""
+"<span>Name</span>\n"
+"                                                        <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span>Naam</span>\n"
+"                                                        <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid ""
+"<span>Nickname</span>\n"
+"                                                        <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span>Bijnaam</span>\n"
+"                                                        <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "<span>Phone</span>"
+msgstr ""
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "<span>Publish me as a member</span>"
+msgstr "<span>Publish me as a member</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.portal_my_details
+msgid "<span>Publish me</span>"
+msgstr "<span>Publiceer mij als lid</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid ""
+"<span>State / Province</span>\n"
+"                                                    <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span>State / Provincie</span>\n"
+"                                                    <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "<span>Street 2</span>"
+msgstr "<span>Straat 2</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid ""
+"<span>Street and Number</span>\n"
+"                                                    <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span>Straat and Nummer</span>\n"
+"                                                    <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid ""
+"<span>Your Email</span>\n"
+"                                                        <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span>Jouw Email</span>\n"
+"                                                        <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid ""
+"<span>Zip Code</span>\n"
+"                                                    <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+"<span>Postcode</span>\n"
+"                                                    <span class=\"s_website_form_mark\"> *</span>"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "A valid email address is required."
+msgstr "Een geldig e-mailadres is vereist."
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__allow_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_website__allow_membership_registration
+msgid "Allow Membership Registration"
+msgstr "Lidmaatschapsregistratie toestaan"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/models/res_partner.py:0
+#, python-format
+msgid "Another Member already exists with email %s"
+msgstr "Er bestaat al een ander lid met e-mailadres %s"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/models/res_partner.py:0
+#, python-format
+msgid "Another User already exists with email %s"
+msgstr "Er bestaat al een andere gebruiker met e-mailadres %s"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__applicant_ids
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__applicant_ids
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_section_membership__type__applicant
+msgid "Applicant"
+msgstr "Aanvrager"
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_section_membership__type__applicant_follower
+msgid "Applicant / Follower"
+msgstr "Aanvrager / Volger"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__applicant_sections_count
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__applicant_sections_count
+msgid "Applicant to # Sections"
+msgstr "Aanvrager naar # Secties"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_registration_page_background_type
+#: model:ir.model.fields,field_description:website_membership_registration.field_website__membership_registration_page_background_type
+msgid "Background Type"
+msgstr "Achtergrond Type"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "City is missing"
+msgstr "Plaats ontbreekt"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__cleanup_unverified_members_days
+#: model:ir.model.fields,field_description:website_membership_registration.field_website__cleanup_unverified_members_days
+msgid "Cleanup unverified members after (days)"
+msgstr "Opschonen niet-geverifieerde leden na (dagen)"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "Collaborate"
+msgstr "Samenwerken"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__collaborator_sections_count
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__collaborator_sections_count
+msgid "Collaborating to # Sections"
+msgstr "Samenwerken aan # Secties"
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_section_membership__type__collaborator
+msgid "Collaborator"
+msgstr "Samenwerker"
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_section_membership__type__collaborator_follower
+msgid "Collaborator / Follower"
+msgstr "Samenwerker / Volger"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_registration_page_background_color
+#: model:ir.model.fields,field_description:website_membership_registration.field_website__membership_registration_page_background_color
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__website__membership_registration_page_background_type__color
+msgid "Color"
+msgstr "Kleur"
+
+#. module: website_membership_registration
+#: model:ir.model,name:website_membership_registration.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configuratie instellingen"
+
+#. module: website_membership_registration
+#: model:ir.model,name:website_membership_registration.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "Contribute"
+msgstr "Bijdragen"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "Country is missing"
+msgstr "Land ontbreekt"
+
+#. module: website_membership_registration
+#: model:mail.template,name:website_membership_registration.verification_email
+msgid "Email Verification"
+msgstr "E-mailverificatie"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__email_verification_token
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__email_verification_token
+msgid "Email Verification Token"
+msgstr "Email Verificatie Token"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__email_verification_url
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__email_verification_url
+msgid "Email Verification Url"
+msgstr "Url voor e-mailverificatie"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "Email address verification failed."
+msgstr "Verificatie e-mailadres mislukt."
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_verify_success_page
+msgid "Email address verified!"
+msgstr "E-mailadres geverifieerd!"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "Follow"
+msgstr "Volgen"
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_section_membership__type__follower
+msgid "Follower"
+msgstr "Volger"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__follower_sections_count
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__follower_sections_count
+msgid "Following # Sections"
+msgstr "# Secties volgen"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_registration_page_background_gradient_end
+#: model:ir.model.fields,field_description:website_membership_registration.field_website__membership_registration_page_background_gradient_end
+msgid "Gradient Color End"
+msgstr "Kleurverloop einde"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_registration_page_background_gradient_start
+#: model:ir.model.fields,field_description:website_membership_registration.field_website__membership_registration_page_background_gradient_start
+msgid "Gradient Color Start"
+msgstr "Kleurverloop start"
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__website__membership_registration_page_section_style__grid
+msgid "Grid View"
+msgstr "Roosterweergave"
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__res_partner__membership_email_verification_status__ignore
+msgid "Ignore"
+msgstr "Negeer"
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__website__membership_registration_page_background_type__image
+msgid "Image"
+msgstr "Afbeelding"
+
+#. module: website_membership_registration
+#: model:ir.model,name:website_membership_registration.model_account_move
+msgid "Journal Entry"
+msgstr "Boeking"
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__website__membership_registration_page_background_type__gradient_linear
+msgid "Linear-Gradient"
+msgstr "Lineair-verloop"
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__website__membership_registration_page_section_style__list
+msgid "List View"
+msgstr "Lijstweergave"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.res_config_settings_view_form
+msgid "Membership"
+msgstr "Lidmaatschap"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__membership_application_date
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__membership_application_date
+msgid "Membership Application Date"
+msgstr "Aanvraagdatum lidmaatschap"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__membership_email_verification_status
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__membership_email_verification_status
+msgid "Membership Email Verification Status"
+msgstr "Lidmaatschap e-mail verificatie status"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_job_id
+#: model:ir.model.fields,field_description:website_membership_registration.field_website__membership_job_id
+msgid "Membership Job"
+msgstr "Lidmaatschap Functie"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__membership_origin
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__membership_origin
+msgid "Membership Origin"
+msgstr ""
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_registration_page_background_image
+#: model:ir.model.fields,field_description:website_membership_registration.field_website__membership_registration_page_background_image
+msgid "Membership Registration Page Background Image"
+msgstr "Lidmaatschap Oorsprong"
+
+#. module: website_membership_registration
+#: model:ir.model,name:website_membership_registration.model_membership_section
+msgid "Membership Section"
+msgstr "Lidmaatschap Sectie"
+
+#. module: website_membership_registration
+#: model:ir.actions.server,name:website_membership_registration.cleanup_unverified_members_cron_ir_actions_server
+#: model:ir.cron,cron_name:website_membership_registration.cleanup_unverified_members_cron
+msgid "Membership: Cleanup Unverified (email) members"
+msgstr "Lidmaatschap: Opschonen niet-geverifieerde (e-mail) leden"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "Name is empty or invalid."
+msgstr "Naam is leeg of ongeldig."
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__nickname
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__nickname
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.portal_my_details_fields
+msgid "Nickname"
+msgstr "Bijnaam"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "Nickname is empty or invalid."
+msgstr "Bijnaam is leeg of ongeldig."
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/models/res_partner.py:0
+#, python-format
+msgid "No email address available for this partner"
+msgstr "Geen e-mailadres beschikbaar voor deze partner"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/models/res_partner.py:0
+#, python-format
+msgid "Partner doesn't have an address to make the invoice."
+msgstr "Partner heeft geen adres om de factuur op te maken."
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/models/res_partner.py:0
+#, python-format
+msgid "Partner is a free Member."
+msgstr "Partner is een gratis Lid."
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "Please, enter a valid phone number, or keep it blank if you wish."
+msgstr "Voer een geldig telefoonnummer in of laat het leeg als u dat wilt."
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "Please, fill the following form to finalize your registration."
+msgstr "Vul het volgende formulier in om je registratie te voltooien."
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "Please, select a membership level."
+msgstr "Selecteer een lidmaatschapsniveau."
+
+#. module: website_membership_registration
+#: model:ir.model,name:website_membership_registration.model_product_template
+msgid "Product"
+msgstr "Product"
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__website__membership_registration_page_background_type__gradient_radial
+msgid "Radial-Gradient"
+msgstr "Radiaal-verloop"
+
+#. module: website_membership_registration
+#: model:ir.model,name:website_membership_registration.model_membership_section_membership
+msgid "Section Membership"
+msgstr "Lidmaatschap van de sectie"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_registration_page_section_style
+#: model:ir.model.fields,field_description:website_membership_registration.field_website__membership_registration_page_section_style
+msgid "Section View"
+msgstr "Sectieweergave"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "Send"
+msgstr "Versturen"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.res_config_settings_view_form
+msgid "Show a form on the website which allows user to become member."
+msgstr "Toon een formulier op de website waarmee gebruikers lid kunnen worden."
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "State is missing"
+msgstr "Provincie ontbreekt"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "Street is missing"
+msgstr "Straat ontbreekt"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "The selected membership level is not a valid product"
+msgstr "Het geselecteerde lidmaatschapsniveau is geen geldig product"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_membership_section_membership__type
+msgid "Type"
+msgstr "Type"
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__res_partner__membership_email_verification_status__unverified
+msgid "Unverified"
+msgstr "Niet geverifieerd"
+
+#. module: website_membership_registration
+#: model:ir.model,name:website_membership_registration.model_res_users
+msgid "User"
+msgstr "Gebruiker"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/models/res_partner.py:0
+#, python-format
+msgid "Verification code is invalid."
+msgstr "Verificatiecode is ongeldig."
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__res_partner__membership_email_verification_status__verified
+msgid "Verified"
+msgstr "Geverifieerd"
+
+#. module: website_membership_registration
+#: model:mail.template,subject:website_membership_registration.verification_email
+msgid "Verify Email"
+msgstr "E-mail verifiëren"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_product_product__visible_on_membership_registration_page
+#: model:ir.model.fields,field_description:website_membership_registration.field_product_template__visible_on_membership_registration_page
+msgid "Visible On Membership Registration Page"
+msgstr "Zichtbaar op lidmaatschapsregistratiepagina"
+
+#. module: website_membership_registration
+#: model:ir.model.fields,field_description:website_membership_registration.field_membership_section_membership__wants_to_collaborate
+msgid "Wants To Collaborate"
+msgstr "Wil samenwerken"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "We'll need your email to verify your registration."
+msgstr "We hebben je e-mailadres nodig om je registratie te verifiëren."
+
+#. module: website_membership_registration
+#: model:ir.model,name:website_membership_registration.model_website
+msgid "Website"
+msgstr "Website
+
+#. module: website_membership_registration
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__res_partner__membership_origin__website_form
+msgid "Website Form"
+msgstr "Website formulier"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
+msgid "Yes we also need you!"
+msgstr "Ja, we hebben jou ook nodig!"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_already_exists_page
+msgid "You are already a Member, go to web"
+msgstr "U bent al lid, ga naar website"
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "Your email is already in our system."
+msgstr "Uw e-mail staat al in ons systeem."
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_success_page
+msgid ""
+"Your request was successful!\n"
+"                                        Please, verify your email by clicking to the link we just sent you to complete the process."
+msgstr ""
+"Uw aanvraag is geslaagd!
+"                                        Controleer uw e-mail door te klikken op de link die we u zojuist hebben gestuurd om het proces te voltooien."
+
+#. module: website_membership_registration
+#. odoo-python
+#: code:addons/website_membership_registration/controllers/main.py:0
+#, python-format
+msgid "ZIP Code is missing"
+msgstr "Postcode ontbreekt"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_already_exists_page
+msgid "for upgrading"
+msgstr "voor het upgraden"
+
+#. module: website_membership_registration
+#: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_already_exists_page
+msgid "shop"
+msgstr "shop"

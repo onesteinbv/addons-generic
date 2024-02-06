@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="calendar_caldav_sync_wizard" model="ir.ui.view">
+        <field name="model">calendar.caldav.sync.wizard</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="multi_step_wizard.multi_step_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@special='cancel']" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': [('state', '=', 'final')]}
+                </attribute>
+            </xpath>
+            <xpath expr="//button[@special='cancel']" position="after">
+                <button
+                    string="Finish"
+                    class="btn btn-primary"
+                    role="button"
+                    special="cancel"
+                    attrs="{'invisible': [('state', '!=', 'final')]}"
+                />
+            </xpath>
+            <xpath expr="//button[@name='open_next']" position="attributes">
+                <attribute name="attrs">{'invisible': [('state', 'in', ['final', 'sync'])]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='open_next']" position="after">
+                <button name="open_next" string="Synchronize" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'sync')]}"/>
+            </xpath>
+            <xpath expr="//footer" position="before">
+                <group name="connect" attrs="{'invisible': [('state', '!=', 'start')]}">
+                    <div colspan="2">
+                        <p>
+                            Connect to your CalDAV calendars and synchronize them with Odoo.
+                        </p>
+                    </div>
+                    <group>
+                        <field
+                            name="url"
+                            required="1"
+                            placeholder="E.g. https://nextcloud.company.com/remote.php/dav"
+                        />
+                        <field name="username" required="1" />
+                        <field name="password" required="1" password="1" />
+                    </group>
+                </group>
+                <group name="select" attrs="{'invisible': [('state', '!=', 'select')]}">
+                    <group>
+                        <p colspan="2">
+                            Select the calendars you want to sync.
+                        </p>
+                        <field
+                            name="calendar_ids"
+                            widget="many2many_tags"
+                            options="{'no_quick_create': True, 'no_create_edit': True}"
+                        />
+                        <p colspan="2">
+                            Default calendar will be used when creating a new event in Odoo.
+                            You can always change which calendar to synchronize for each event this is just sets a default, so you can also leave this empty.
+                        </p>
+                        <field
+                            name="default_calendar_id"
+                            domain="[('id', 'in', calendar_ids)]"
+                        />
+                    </group>
+                </group>
+                <div name="sync" attrs="{'invisible': [('state', '!=', 'sync')]}">
+                    <p>
+                        Setup complete click the <b>Synchronize</b> button below to start synchronizing your calendars.
+                    </p>
+                </div>
+                <div name="final" attrs="{'invisible': [('state', '!=', 'final')]}">
+                    <p>
+                        Synchronization has started this can take some time to complete,
+                        you can exit this page if you want the synchronization will run on the background.
+                    </p>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="calendar_caldav_sync_wizard_action" model="ir.actions.act_window">
+        <field name="name">Synchronize CalDAV Calendar</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">calendar.caldav.sync.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

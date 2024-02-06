@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <menuitem id="membership_committee_menu"
+        name="Committees"
+        action="membership_committee_action"
+        parent="membership.menu_marketing_config_association"
+        sequence="21"
+    />
+
+</odoo>

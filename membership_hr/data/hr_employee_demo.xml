@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="employee_demo_member_1" model="hr.employee">
+            <field name="name">John Doe</field>
+            <field name="user_id" ref="user_demo_member_1"/>
+            <field name="department_id" ref="demo_hr_department_section_1"/>
+            <field name="job_id" ref="job_member"/>
+            <field name="employee_type">member</field>
+            <field name="category_ids" eval="[(6, 0, [ref('hr.employee_category_4')])]"/>
+        </record>
+
+    </data>
+</odoo>

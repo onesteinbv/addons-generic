@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_membership_section_reporting_membership_tree" model="ir.ui.view">
+        <field name="model">membership.section</field>
+        <field name="arch" type="xml">
+            <tree create="0" delete="0" edit="0">
+                <field name="name" />
+                <field string="Total Members" name="partner_ids_count" />
+                <field name="follower_partner_count" />
+                <field name="applicant_partner_count" />
+                <field name="collaborator_partner_count" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_membership_section_reporting" model="ir.actions.act_window">
+        <field name="name">Sections Info</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">membership.section</field>
+        <field name="view_id" ref="view_membership_section_reporting_membership_tree" />
+    </record>
+
+</odoo>

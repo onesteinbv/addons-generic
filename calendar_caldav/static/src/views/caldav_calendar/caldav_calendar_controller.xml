@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t
+        t-name="calendar_caldav.CaldavCalendarController"
+        t-inherit="calendar.AttendeeCalendarController"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <!-- Always show the synchronization menu -->
+        <xpath expr="//div[@id='calendar_sync_wrapper']" position="attributes">
+            <attribute name="t-if">true</attribute>
+        </xpath>
+
+        <!-- Add caldav button to synchronization menu -->
+        <xpath expr="//div[@id='calendar_sync']" position="inside">
+            <div id="caldav_calendar_sync" class="o_calendar_sync">
+                <button type="button" class="btn btn-muted" t-on-click="onSyncCalDAVCalendarClick">
+                    <b>
+                        <i class="fa fa-plug"/> CalDAV
+                    </b>
+                </button>
+            </div>
+        </xpath>
+    </t>
+</templates>

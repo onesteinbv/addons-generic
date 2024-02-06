@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="application_form" model="ir.ui.view">
+        <field name="model">argocd.application</field>
+        <field name="inherit_id" ref="argocd_deployer.application_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="partner_id" />
+                <field name="invoice_id" options="{'no_create': True}" />
+            </xpath>
+            <xpath expr="//button[@name='immediate_deploy']" position="before">
+                <button
+                    name="send_deployment_notification"
+                    type="object"
+                    class="btn-secondary"
+                    string="Send Deployment Notification Mail"
+                    confirm="Are you want to send a deployment notification?"
+                />  <!-- Can be nice if you still want to send an email -->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="application_tree" model="ir.ui.view">
+        <field name="model">argocd.application</field>
+        <field name="inherit_id" ref="argocd_deployer.application_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="partner_id" />
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

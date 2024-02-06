@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Disallow to mess with calendars settings of other users  -->
+    <record id="calendar_caldav_rule" model="ir.rule">
+        <field name="name">calendar_caldav_rule</field>
+        <field name="model_id" ref="calendar_caldav.model_calendar_caldav"/>
+        <field name="domain_force">
+            [('user_id', '=', user.id)]
+        </field>
+        <field name="groups" eval="[Command.link(ref('base.group_user'))]"/>
+    </record>
+</odoo>
