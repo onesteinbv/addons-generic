@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="hr_job_label_tree_view" model="ir.ui.view">
+            <field name="name">hr_recruitment_label.hr_job_label.tree</field>
+            <field name="model">hr.job.label</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="category_id"/>
+                    <field name="name"/>
+                    <field name="color" widget="color_picker"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="hr_job_label_search_view" model="ir.ui.view">
+            <field name="name">hr_recruitment_label.hr_job_label.search</field>
+            <field name="model">hr.job.label</field>
+            <field name="arch" type="xml">
+                <search string="Job Labels">
+                    <field name="name" filter_domain="[('rec_name','ilike',self)]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="category" string="Category" domain="[]" context="{'group_by': 'category_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="hr_job_label_act_window" model="ir.actions.act_window">
+            <field name="name">Labels</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.job.label</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Labels"
+                  id="hr_job_label_menu"
+                  parent="hr_recruitment.menu_hr_recruitment_config_jobs"
+                  action="hr_job_label_act_window"/>
+
+</odoo>
