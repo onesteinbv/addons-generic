@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='color']" position="before">
                 <field name="allow_filtering" widget="boolean_toggle" />
+                <field name="show_on_website" widget="boolean_toggle" />
             </xpath>
         </field>
     </record>

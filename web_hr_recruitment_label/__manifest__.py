@@ -15,6 +15,9 @@
         "views/website_hr_recruitment_label_templates.xml",
         "views/snippets.xml",
     ],
+    "demo": [
+        "data/web_hr_recruitment_label.xml",
+    ],
     "assets": {
         "web.assets_frontend": [
             "/web_hr_recruitment_label/static/src/js/job_filter.js",

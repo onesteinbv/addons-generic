@@ -6,7 +6,7 @@ from odoo import api, fields, models
 
 class HrJobLabel(models.Model):
     _name = "hr.job.label"
-    _order = "sequence,category_id"
+    _order = "category_id,sequence"
     _rec_name = "rec_name"
 
     rec_name = fields.Char(compute="_compute_rec_name", store=True)
@@ -36,7 +36,9 @@ class HrJobLabel(models.Model):
 class HrJobCategory(models.Model):
     _name = "hr.job.label.category"
     _rec_name = "name"
+    _order = "sequence"
 
+    sequence = fields.Integer()
     name = fields.Char(translate=True, required=1)
     color = fields.Integer()
     label_ids = fields.One2many(comodel_name="hr.job.label", inverse_name="category_id")

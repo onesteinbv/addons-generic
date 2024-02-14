@@ -1,7 +1,11 @@
 .label {
     background-color:#F4A460;
-    border-radius: 10px;
-    padding:5px
+    border-radius: 4px;
+    padding-left:8px;
+    padding-right:8px;
+    padding-top:4px;
+    padding-bottom:4px;
+    margin-right:10px;
 }
 .label_color_0{
     background-color:#BBBBBB;

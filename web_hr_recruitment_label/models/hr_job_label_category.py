@@ -8,3 +8,7 @@ class HrJobLabelCategory(models.Model):
         default=True,
         help="Disable showing this category on the filter options on the website",
     )
+    show_on_website = fields.Boolean(
+        default=True,
+        help="Decides if these tags get shown on the job cards",
+    )
