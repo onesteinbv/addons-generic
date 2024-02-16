@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2024 Onestein (<https://www.onestein.eu>)
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="fleet_vehicle_odometer_view_form" model="ir.ui.view">
+        <field name="name">fleet.vehicle.odometer.form</field>
+        <field name="model">fleet.vehicle.odometer</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_odometer_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet" position="before">
+                <header>
+                    <field name="status" widget="statusbar"/>
+                </header>
+            </xpath>
+            <xpath expr="//label[@for='value']" position="replace"/>
+            <xpath expr="//div[hasclass('o_row')]" position="replace"/>
+            <xpath expr="//sheet/group" position="inside">
+                <group>
+                    <field name="is_roundtrip" attrs="{'readonly':[('status','=','expense_created')]}"/>
+                    <field name="total_distance"/>
+                    <field name="is_private_trip" attrs="{'readonly':[('status','=','expense_created')]}"/>
+                    <field name="product_id"
+                           attrs="{'required':[('is_private_trip','=',False)],'readonly':[('status','=','expense_created')]}"
+                           options="{'no_create': True, 'no_open': True}"/>
+                    <xpath expr="//label[@for='value']" position="move"/>
+                    <xpath expr="//div[hasclass('o_row')]" position="move"/>
+                    <label for="start_value"/>
+                    <div class="o_row">
+                        <field name="start_value" class="oe_inline"
+                               attrs="{'readonly':[('status','=','expense_created')]}"/>
+                        <field name="unit" class="ms-2"/>
+                    </div>
+                    <label for="value"/>
+                    <div class="o_row">
+                        <field name="value" class="oe_inline"/>
+                        <field name="unit" class="ms-2"/>
+                    </div>
+                    <field name="expense_id" readonly="True"/>
+                </group>
+            </xpath>
+            <field name="vehicle_id" position="after">
+                <xpath expr="//field[@name='date']" position="move"/>
+                <field name="partner_id"/>
+                <field name="from_address"
+                       attrs="{'required':[('is_private_trip','=',False)],'readonly':[('status','=','expense_created')]}"/>
+                <field name="to_address"
+                       attrs="{'required':[('is_private_trip','=',False)],'readonly':[('status','=','expense_created')]}"/>
+                <field name="distance"
+                       attrs="{'required':[('is_private_trip','=',False)],'readonly':[('status','=','expense_created')]}"/>
+            </field>
+            <field name="date" position="attributes">
+                <attribute name="attrs">{'readonly':[('status','=','expense_created')]}</attribute>
+            </field>
+            <field name="value" position="attributes">
+                <attribute name="attrs">{'readonly':[('status','=','expense_created')]}</attribute>
+            </field>
+            <field name="vehicle_id" position="attributes">
+                <attribute name="attrs">{'readonly':[('status','=','expense_created')]}</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_odometer_view_tree" model="ir.ui.view">
+        <field name="name">fleet.vehicle.odometer.tree</field>
+        <field name="model">fleet.vehicle.odometer</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_odometer_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="editable"/>
+            </xpath>
+            <field name="value" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="unit" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="date" position="after">
+              <field name="partner_id"/>
+              <field name="total_distance"/>
+              <field name="product_id" attrs="{'required':[('is_private_trip','=',False)],'readonly':[('status','=','expense_created')]}" options="{'no_create': True, 'no_open': True}"/>
+              <field name="status" readonly="True"/>
+              <xpath expr="//field[@name='vehicle_id']" position="move"/>
+              <xpath expr="//field[@name='driver_id']" position="move"/>
+              <field name="is_private_trip" optional="hide"/>
+              <field name="expense_id" optional="hide"/>
+            </field>
+            <field name="vehicle_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="driver_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_create_expense" model="ir.actions.server">
+        <field name="name">Create Expense From Odometer</field>
+        <field name="model_id" ref="fleet.model_fleet_vehicle_odometer"/>
+        <field name="binding_model_id" ref="fleet.model_fleet_vehicle_odometer"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+            records.action_create_expense()
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="hr_expense.expense_product_mileage" model="product.product">
+            <field name="can_be_used_for_fleet" eval="True"/>
+            <field name="uom_id" ref="uom.product_uom_km"/>
+        </record>
+    </data>
+</odoo>
