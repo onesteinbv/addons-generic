@@ -4,20 +4,23 @@
               name="Filter by Label">
         <xpath expr="//div[@id='jobs_grid_left']" position="inside">
             <ul class="nav nav-pills flex-column mb32">
-                <li class="nav-item"><a
-                        t-attf-href="/jobs#{ '/country/%s' % slug(country_id) if country_id else '' }#{ '/department/%s' % slug(department_id) if department_id else '' }#{ '/office/%s' % office_id if office_id else '' }#{ '/employment_type/%s' % contract_type_id if contract_type_id else '' }"
-                        t-attf-class="nav-link#{'' if label_id else ' active'}">All labels</a></li>
-                <t t-foreach="labels_split_up" t-as="label">
-                    <b><span t-esc="label['category']['name']" /></b>
-                    <t t-foreach="label['children']" t-as="child">
-                        <li style="padding-left:6px">
-                            <input type="checkbox" class="filter_label" t-att-id="child['label'].id"><span
-                                    style="padding-left:6px"
-                                    t-esc="child['label']['name']" />
-                                (<span t-esc="child['count']" />)</input>
-                        </li>
-                    </t>
-                </t>
+                <li class="nav-item" style="background:#E8E8E8;border-radius: 5px 5px 0px 0px;padding: 10px"><span
+                       ><b>All labels</b></span></li>
+                <li class="nav-item" style="background:#F4F4F4;border-radius: 0px 0px 5px 5px;padding: 10px">
+                    <ul class="nav nav-pills flex-column mb32">
+                        <t t-foreach="labels_split_up" t-as="label">
+                            <b><span t-esc="label['category']['name']" /></b>
+                            <t t-foreach="label['children']" t-as="child">
+                                <li style="padding-left:6px">
+                                    <input type="checkbox" class="filter_label" t-att-id="child['label'].id"><span
+                                            style="padding-left:6px"
+                                            t-esc="child['label']['name']" />
+                                        (<span t-esc="child['count']" />)</input>
+                                </li>
+                            </t>
+                        </t>
+                    </ul>
+                </li>
             </ul>
         </xpath>
         <xpath expr="//div[@id='jobs_grid_left']" position="attributes">
