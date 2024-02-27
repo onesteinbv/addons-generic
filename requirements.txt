@@ -16,3 +16,4 @@ python-gitlab
 GitPython
 email-validator
 suds
+cachetools
