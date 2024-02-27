@@ -33,10 +33,6 @@ jobs:
             github.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCj7ndNxQowgcQnjshcLrqPEiiphnt+VTTvDP6mHBL9j1aNUkY4Ue1gvwnGLVlOhGeYrnZaMgRK6+PKCUXaDbC7qtbW8gIkhL7aGCsOr/C56SJMy/BCZfxd1nWzAOxSDPgVsmerOBYfNqltV9/hWCqBywINIR+5dIg6JTJ72pcEpEjcYgXkE2YEFXV1JHnsKgbLWNlhScqb2UmyRkQyytRLtL+38TGxkxCflmO+5Z8CSSNY7GidjMIZ7Q4zMjA2n1nGrlTDkzwDCsw+wqFPGQA179cnfGWOWRVruj16z6XyvxvjJwbz0wQZ75XK5tKSb7FNyeIEs4TT4jk+S4dhPeAUC5y+bDYirYgM4GC7uEnztnZyaVWQ7B381AK4Qdrwt51ZqExKbQpTUNn+EjqoTwvqNj4kqx5QUCI0ThS/YkOxJCXmPUWZbhjpCg56i+2aB6CmK2JGhn57K5mj0MNdBXA4/WnwH6XoPWJzK5Nyu2zB3nAZp+S5hpQs+p1vN1/wsjk=
       - name: Aggregate
         run: gitaggregate -c repos.yaml
-      - name: Move OCA modules to addons dir  # Works for now
-        run: mv oca/* .
-      - name: Move 3rd-party modules to addons dir
-        run: mv third-party/* .
       - name: Install external dependencies
         run: |
           pip3 install -r requirements.txt
@@ -44,16 +40,20 @@ jobs:
       - name: Initialize test db
         run: oca_init_test_database
         env:
-          ADDONS_DIR: .
-          EXCLUDE: account_statement_import_file_reconcile_oca,membership_subscription_prorate_variable_period,membership_subscription,membership_prorate,web_leaflet_technical,website_cache_control,account_reconcile_oca,membership_variable_period,base_user_role,account_invoice_constraint_chronology,queue_job,auth_signup_verify_email,base_municipality,argocd_capacity,membership_prorate_variable_period,argocd_website,l10n_nl_account_tax_unece,auditlog,product_contract,subscription_oca,account_banking_mandate_contact,account_banking_sepa_credit_transfer,hr_expense_remove_mobile_link,website_sale_analytics_matomo,mrp_multi_level,mrp_planned_order_matrix,mrp_warehouse_calendar,partner_country_default_nl,partner_external_map,base_menu_visibility_restriction,partner_firstname,password_security,contract,l10n_nl_tax_statement,l10n_nl_xaf_auditfile_export,mass_mailing_partner,mis_builder,website_local_font,helpdesk_mgmt,base_vat_optional_vies,mis_builder_budget
+          ADDONS_DIR: .,oca,third-party
+          EXCLUDE: connector_jira_servicedesk,connector_jira,account_statement_import_file_reconcile_oca,membership_subscription_prorate_variable_period,membership_subscription,membership_prorate,web_leaflet_technical,website_cache_control,account_reconcile_oca,membership_variable_period,base_user_role,account_invoice_constraint_chronology,queue_job,auth_signup_verify_email,base_municipality,argocd_capacity,membership_prorate_variable_period,argocd_website,l10n_nl_account_tax_unece,auditlog,product_contract,subscription_oca,account_banking_mandate_contact,account_banking_sepa_credit_transfer,hr_expense_remove_mobile_link,website_sale_analytics_matomo,mrp_multi_level,mrp_planned_order_matrix,mrp_warehouse_calendar,partner_country_default_nl,partner_external_map,base_menu_visibility_restriction,partner_firstname,password_security,contract,l10n_nl_tax_statement,l10n_nl_xaf_auditfile_export,mass_mailing_partner,mis_builder,website_local_font,helpdesk_mgmt,base_vat_optional_vies,mis_builder_budget
           ODOO_VERSION: "16.0"
       - name: Run tests
         run: oca_run_tests
         env:
-          ADDONS_DIR: .
-          EXCLUDE: account_statement_import_file_reconcile_oca,membership_subscription_prorate_variable_period,membership_subscription,membership_prorate,web_leaflet_technical,website_cache_control,account_reconcile_oca,membership_variable_period,base_user_role,account_invoice_constraint_chronology,queue_job,auth_signup_verify_email,base_municipality,argocd_capacity,membership_prorate_variable_period,argocd_website,l10n_nl_account_tax_unece,auditlog,product_contract,subscription_oca,account_banking_mandate_contact,account_banking_sepa_credit_transfer,hr_expense_remove_mobile_link,website_sale_analytics_matomo,mrp_multi_level,mrp_planned_order_matrix,mrp_warehouse_calendar,partner_country_default_nl,partner_external_map,base_menu_visibility_restriction,partner_firstname,password_security,contract,l10n_nl_tax_statement,l10n_nl_xaf_auditfile_export,mass_mailing_partner,mis_builder,website_local_font,helpdesk_mgmt,base_vat_optional_vies,mis_builder_budget
+          ADDONS_DIR: .,oca,third-party
+          EXCLUDE: connector_jira_servicedesk,connector_jira,account_statement_import_file_reconcile_oca,membership_subscription_prorate_variable_period,membership_subscription,membership_prorate,web_leaflet_technical,website_cache_control,account_reconcile_oca,membership_variable_period,base_user_role,account_invoice_constraint_chronology,queue_job,auth_signup_verify_email,base_municipality,argocd_capacity,membership_prorate_variable_period,argocd_website,l10n_nl_account_tax_unece,auditlog,product_contract,subscription_oca,account_banking_mandate_contact,account_banking_sepa_credit_transfer,hr_expense_remove_mobile_link,website_sale_analytics_matomo,mrp_multi_level,mrp_planned_order_matrix,mrp_warehouse_calendar,partner_country_default_nl,partner_external_map,base_menu_visibility_restriction,partner_firstname,password_security,contract,l10n_nl_tax_statement,l10n_nl_xaf_auditfile_export,mass_mailing_partner,mis_builder,website_local_font,helpdesk_mgmt,base_vat_optional_vies,mis_builder_budget
           ODOO_VERSION: "16.0"
+      - name: Prepare report
+        run: coverage xml -o coverage.xml --data-file .coverage
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

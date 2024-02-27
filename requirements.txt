@@ -16,3 +16,15 @@ python-gitlab
 GitPython
 email-validator
 suds
+cachetools
+requests
+jira
+oauthlib
+requests-oauthlib
+requests-toolbelt
+PyJWT
+cryptography
+xlsxwriter
+xlrd
+python-slugify
+vcrpy
