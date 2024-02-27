@@ -27,3 +27,4 @@ cryptography
 xlsxwriter
 xlrd
 python-slugify
+vcrpy
