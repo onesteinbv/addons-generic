@@ -4,6 +4,7 @@
     "version": "16.0.1.0.0",
     "author": "Onestein",
     "website": "https://www.onestein.nl",
+    "license": "AGPL-3",
     "depends": [
         "membership_activity",
         "membership_activity_cde",
