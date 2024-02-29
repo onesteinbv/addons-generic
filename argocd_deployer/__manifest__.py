@@ -9,6 +9,7 @@
         "data/ir_config_parameter_data.xml",
         "views/application_template_view.xml",
         "views/application_tag_view.xml",
+        "views/application_value_view.xml",
         "views/application_view.xml",
         "templates/application_description.xml",
         "security/ir_model_access.xml",

@@ -34,6 +34,16 @@ class Application(models.Model):
         compute="_compute_description",
         store=True,
     )
+    value_ids = fields.One2many(
+        comodel_name="argocd.application.value",
+        inverse_name="application_id",
+        string="Values",
+    )
+
+    def get_value(self, key, default=False):
+        self.ensure_one()
+        kv_pair = self.value_ids.filtered(lambda v: v.key == key)
+        return kv_pair and kv_pair.value or default
 
     def has_tag(self, key):
         self.ensure_one()
@@ -146,7 +156,11 @@ class Application(models.Model):
 
     def _get_config_render_values(self):
         self.ensure_one()
-        return {"application": self, "has_tag": self.has_tag}
+        return {
+            "application": self,
+            "has_tag": self.has_tag,
+            "get_value": self.get_value,
+        }
 
     def render_config(self, context=None):
         self.ensure_one()

@@ -4,12 +4,13 @@
         <field name="name">Curq Basis</field>
         <field name="config">
 helm: |
-  domain: {{ application.name }}.curq.k8s.onestein.eu
+  domain: {{ get_value("domain", application.name + ".curq.k8s.onestein.eu") }}
   modules: website{{ application.modules and ',' + application.modules or '' }}
 {%- if has_tag('matomo_server') %}
   matomo:
     enabled: true
 {%- endif -%}
+
         </field>
     </record>
 </odoo>

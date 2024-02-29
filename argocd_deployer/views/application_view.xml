@@ -29,6 +29,7 @@
                         <field name="name" />
                         <field name="template_id" />
                         <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                        <field name="value_ids" />
                         <field name="config" widget="ace" />
                         <button
                             name="render_config"
