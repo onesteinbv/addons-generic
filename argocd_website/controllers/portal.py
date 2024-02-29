@@ -130,3 +130,23 @@ class PortalController(CustomerPortal):
         return request.render(
             "argocd_website.portal_application_confirm_deletion_page", values
         )
+
+    @http.route(
+        ["/my/applications/<int:app_id>/domain-names"],
+        type="http",
+        auth="user",
+        website=True,
+    )
+    def portal_my_application_domain_names(self, app_id, **kw):
+        try:
+            app_sudo = self._document_check_access("argocd.application", app_id)
+        except (AccessError, MissingError):
+            return request.redirect("/my/applications")
+        values = {
+            "page_name": "Applications",
+            "app": app_sudo,
+            "message": kw.get("message"),
+        }
+        return request.render(
+            "argocd_website.portal_application_domain_names_page", values
+        )
