@@ -28,6 +28,7 @@ class Application(models.Model):
     )
     tag_ids = fields.Many2many(
         comodel_name="argocd.application.tag",
+        string="Tags",
     )
     domain = fields.Char(compute="_compute_domain", store=True)
     description = fields.Html(
