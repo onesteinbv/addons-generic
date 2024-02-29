@@ -1,3 +1,4 @@
+import logging
 from datetime import timedelta
 
 import requests
@@ -6,6 +7,13 @@ from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
 from odoo.addons.auth_signup.models.res_partner import random_token
+
+_logger = logging.getLogger(__name__)
+
+try:
+    from dns import name, resolver
+except ImportError as err:
+    _logger.debug(err)
 
 
 class Application(models.Model):
@@ -48,3 +56,12 @@ class Application(models.Model):
 
         # Destroy and delete app record
         self.destroy()
+
+    def dns_cname_check(self, domain, tag_key=None):
+        self.ensure_one()
+        expected_content = name.from_text(self.format_domain(tag_key=tag_key))
+        res = resolver.resolve(domain, "CNAME")
+        record = res[0]
+        if expected_content == record.target:
+            return True
+        return False

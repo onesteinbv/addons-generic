@@ -42,4 +42,30 @@ odoo.define("argocd_website.portal", function (require) {
         },
     });
 
+    publicWidget.registry.DomainCNAMECheck = publicWidget.Widget.extend({
+        selector: ".o_portal_wrap .js_domain_cname_check",
+
+        start: function () {
+            this._super();
+            this.$input = this.$el.find("input");
+            this.$input.val("mycustomdomain.onestein.nl");
+            this.checkDomainCNAME();
+        },
+
+        checkDomainCNAME: function () {
+            var $el = this.$el;
+            var appId = $el.attr("data-app-id");
+            var tagKey = $el.attr("data-tag-key");
+            var domain = this.$input.val();
+
+            rpc.query({
+                model: "argocd.application",
+                method: "dns_cname_check",
+                args: [parseInt(appId, 10), domain, tagKey]
+            }).then(function (res) {
+                return res;
+            });
+        }
+    });
+
 });

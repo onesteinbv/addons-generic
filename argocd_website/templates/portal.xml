@@ -326,18 +326,22 @@
                     </ol>
 
                     <form method="POST">
-                        <label for="input_domain">Odoo</label>
-                        <input name="domain" id="input_domain" class="form-control is-valid" placeholder="e.g. www.example.com" />
-                        <div class="valid-feedback">
-                          Looks good!
+                        <div class="js_domain_cname_check" t-att-data-app-id="app.id">
+                            <label for="input_domain">Odoo</label>
+                            <input name="domain" id="input_domain" class="form-control is-valid" placeholder="e.g. www.example.com" />
+                            <div class="valid-feedback">
+                              Looks good!
+                            </div>
                         </div>
 
                         <t t-foreach="app.tag_ids.filtered(lambda t: t.domain_yaml_path)" t-as="tag">
-                            <label t-attf-for="input_domain_#{tag.key}"><t t-esc="tag.name" /></label>
-                            <input t-attf-name="domain_#{tag.key}" t-attf-id="input_domain_#{tag.key}"
-                                   class="form-control is-valid" t-attf-placeholder="e.g. #{tag.key}.example.com" />
-                            <div class="valid-feedback">
-                              Looks good!
+                            <div class="js_domain_cname_check" t-att-data-tag-key="tag.key" t-att-data-app-id="app.id">
+                                <label t-attf-for="input_domain_#{tag.key}"><t t-esc="tag.name" /></label>
+                                <input t-attf-name="domain_#{tag.key}" t-attf-id="input_domain_#{tag.key}"
+                                       class="form-control is-valid" t-attf-placeholder="e.g. #{tag.key}.example.com" />
+                                <div class="valid-feedback">
+                                  Looks good!
+                                </div>
                             </div>
                         </t>
                     <ul>
