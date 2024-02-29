@@ -49,6 +49,29 @@ class Application(models.Model):
         self.ensure_one()
         return bool(self.tag_ids.filtered(lambda t: t.key == key))
 
+    def format_domain(self, tag_key=None):
+        """
+        Helper method for generating the yaml / helm values. If no domain is specified in e.g. value_ids this can be used
+        to make a default domain.
+        Uses config parameters `argocd.application_tag_domain_format` and `argocd.application_domain_format` for the format.
+
+        @param tag_key: tag key (e.g. matomo)
+        @return: formatted domain
+        """
+        self.ensure_one()
+        config_parameter_sudo = self.env["ir.config_parameter"].sudo()
+        values = {"application_name": self.name}
+        if tag_key:
+            domain_format = config_parameter_sudo.get_param(
+                "argocd.application_tag_domain_format"
+            )
+            values["tag_key"] = tag_key
+        else:
+            domain_format = config_parameter_sudo.get_param(
+                "argocd.application_domain_format"
+            )
+        return domain_format % values
+
     @api.depends("config")
     def _compute_description(self):
         for app in self:
@@ -163,6 +186,7 @@ class Application(models.Model):
             "application": self,
             "has_tag": self.has_tag,
             "get_value": self.get_value,
+            "format_domain": self.format_domain,
         }
 
     def render_config(self, context=None):

@@ -16,8 +16,12 @@
         <field name="key">argocd.application_set_directory</field>
         <field name="value">instances</field>
     </record>
-    <record id="application_set_domain" model="ir.config_parameter">
-        <field name="key">argocd.application_set_domain</field>
-        <field name="value">curq.k8s.onestein.eu</field>
+    <record id="application_domain_format" model="ir.config_parameter">
+        <field name="key">argocd.application_domain_format</field>
+        <field name="value">%(application_name).curq.k8s.onestein.eu</field>
+    </record>
+    <record id="application_tag_domain_format" model="ir.config_parameter">
+        <field name="key">argocd.application_tag_domain_format</field>
+        <field name="value">%(tag_key).%(application_name).curq.k8s.onestein.eu</field>
     </record>
 </odoo>
