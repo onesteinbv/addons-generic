@@ -49,19 +49,19 @@ odoo.define("argocd_website.portal", function (require) {
             this._super();
             this.$input = this.$el.find("input");
             this.$input.val("mycustomdomain.onestein.nl");
+            this.appId = parseInt(this.$el.attr("data-app-id"), 10);
+            this.tagKey = this.$el.attr("data-tag-key");
+
             this.checkDomainCNAME();
         },
 
         checkDomainCNAME: function () {
-            var $el = this.$el;
-            var appId = $el.attr("data-app-id");
-            var tagKey = $el.attr("data-tag-key");
             var domain = this.$input.val();
 
             rpc.query({
                 model: "argocd.application",
                 method: "dns_cname_check",
-                args: [parseInt(appId, 10), domain, tagKey]
+                args: [this.appId, domain, this.tagKey]
             }).then(function (res) {
                 return res;
             });
