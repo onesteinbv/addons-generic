@@ -30,7 +30,6 @@ class Application(models.Model):
         comodel_name="argocd.application.tag",
         string="Tags",
     )
-    domain = fields.Char(compute="_compute_domain", store=True)
     description = fields.Html(
         compute="_compute_description",
         store=True,
@@ -41,7 +40,7 @@ class Application(models.Model):
         string="Values",
     )
 
-    def get_value(self, key, default=False):
+    def get_value(self, key, default=""):
         self.ensure_one()
         kv_pair = self.value_ids.filtered(lambda v: v.key == key)
         return kv_pair and kv_pair.value or default
@@ -51,16 +50,6 @@ class Application(models.Model):
         return bool(self.tag_ids.filtered(lambda t: t.key == key))
 
     @api.depends("config")
-    def _compute_domain(self):
-        for record in self:
-            domain = False
-            if record.config:
-                config = yaml.load(record.config, Loader=Loader)
-                helm = yaml.load(config["helm"], Loader=Loader)
-                domain = helm["domain"]
-            record.domain = domain
-
-    @api.depends("domain", "tag_ids", "tag_ids.subdomain")
     def _compute_description(self):
         for app in self:
             app.description = app._render_description()
@@ -78,12 +67,25 @@ class Application(models.Model):
     def get_urls(self):
         self.ensure_one()
         urls = []
-        if self.domain:
-            urls.append(("https://%s" % self.domain, "Odoo"))
-        urls += [
-            ("https://%s.%s" % (tag.subdomain, self.domain), tag.name)
-            for tag in self.tag_ids.filtered(lambda t: t.subdomain)
-        ]
+        if not self.config:
+            return urls
+
+        config = yaml.load(self.config, Loader=Loader)
+        helm = yaml.load(config["helm"], Loader=Loader)
+        urls.append(("https://%s" % helm["domain"], "Odoo"))
+        for tag in self.tag_ids.filtered(lambda t: t.domain_yaml_path):
+            yaml_path = tag.domain_yaml_path.split(".")
+            domain = helm
+            for p in yaml_path:
+                domain = domain.get(p)
+                if not domain:
+                    raise UserError(
+                        _(
+                            "Could not find domain in YAML (path: %s)",
+                            tag.domain_yaml_path,
+                        )
+                    )
+            urls.append(("https://%s" % domain, tag.name))
         return urls
 
     @api.depends("tag_ids", "tag_ids.is_odoo_module")
