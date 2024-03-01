@@ -53,7 +53,7 @@ class Application(models.Model):
         """
         Helper method for generating the yaml / helm values. If no domain is specified in e.g. value_ids this can be used
         to make a default domain.
-        Uses config parameters `argocd.application_tag_domain_format` and `argocd.application_domain_format` for the format.
+        Uses config parameters `argocd.application_subdomain_format` and `argocd.application_domain_format` for the format.
 
         @param subdomain: tag key (e.g. matomo)
         @return: formatted domain

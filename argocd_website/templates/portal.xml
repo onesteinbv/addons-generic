@@ -328,10 +328,13 @@
                     </ol>
 
                     <form method="POST">
+                        <input type="hidden" name="csrf_token"
+                               t-att-value="request.csrf_token()"/>
                         <div class="js_domain_cname_check mb-3" t-att-data-app-id="app.id">
                             <label for="input_domain">Odoo</label>
                             <div class="input-group">
-                                <input name="domain" id="input_domain" class="form-control" placeholder="e.g. www.example.com" />
+                                <input name="domain" id="input_domain" class="form-control" placeholder="e.g. www.example.com"
+                                       t-att-value="defaults.get('domain', '')" />
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-outline-secondary">
                                         <i class="fa fa-check ml4" />
@@ -346,11 +349,13 @@
                         </div>
 
                         <t t-foreach="app.tag_ids.filtered(lambda t: t.domain_yaml_path)" t-as="tag">
-                            <div class="js_domain_cname_check mb-3" t-att-data-subdomain="tag.key" t-att-data-app-id="app.id">
-                                <label t-attf-for="input_domain_#{tag.key}"><t t-esc="tag.name" /></label>
+                            <div class="js_domain_cname_check mb-3" t-att-data-tag-id="tag.id" t-att-data-app-id="app.id">
+                                <label t-attf-for="input_domain_#{tag.id}"><t t-esc="tag.name" /></label>
                                 <div class="input-group">
-                                    <input t-attf-name="domain_#{tag.key}" t-attf-id="input_domain_#{tag.key}"
-                                           class="form-control" t-attf-placeholder="e.g. #{tag.key}.example.com" />
+                                    <input t-attf-name="domain_#{tag.id}" t-attf-id="input_domain_#{tag.id}"
+                                           class="form-control" t-attf-placeholder="e.g. #{tag.key}.example.com"
+                                           t-att-value="defaults.get('domain_%s' % tag.key, '')"
+                                    />
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-outline-secondary">
                                             <i class="fa fa-check spinner-grow-sm mr4" />

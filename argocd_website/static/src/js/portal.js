@@ -56,6 +56,7 @@ odoo.define("argocd_website.portal", function (require) {
             this.$button = this.$el.find("button");
             this.$buttonIcon = this.$button.find("i");
             this.appId = parseInt(this.$el.attr("data-app-id"), 10);
+            this.tagId = parseInt(this.$el.attr("data-tag-id"), 10);
             this.subdomain = this.$el.attr("data-subdomain");
 
             this.checkDomainCNAME();
@@ -77,6 +78,8 @@ odoo.define("argocd_website.portal", function (require) {
             if (!domain) {
                 self.$input.removeClass("is-invalid");
                 self.$input.removeClass("is-valid");
+                self.$validFeedback.addClass("d-none");
+                self.$invalidFeedback.addClass("d-none");
                 return;
             }
 
@@ -87,7 +90,7 @@ odoo.define("argocd_website.portal", function (require) {
             return rpc.query({
                 model: "argocd.application",
                 method: "dns_cname_check",
-                args: [this.appId, domain, this.tagKey]
+                args: [this.appId, domain, this.tagId]
             }).then(function (res) {
                 self.$validFeedback.toggleClass("d-none", !res);
                 self.$invalidFeedback.toggleClass("d-none", res);
