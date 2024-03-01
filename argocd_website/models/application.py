@@ -57,11 +57,27 @@ class Application(models.Model):
         # Destroy and delete app record
         self.destroy()
 
-    def dns_cname_check(self, domain, tag_key=None):
+    def dns_cname_check(self, domain, expected_subdomain=None):
+        """
+        Check if the CNAME record is configured correctly.
+
+        @param domain: Domain name to check
+        @param expected_subdomain: Subdomain to expect when resolving CNAME for domain
+        @raise: ValidationError: CNAME record configured incorrectly
+        @return: True
+        """
         self.ensure_one()
-        expected_content = name.from_text(self.format_domain(tag_key=tag_key))
+        expected_domain = self.format_domain(subdomain=expected_subdomain)
+        expected_content = name.from_text(expected_domain)
         res = resolver.resolve(domain, "CNAME")
+
         record = res[0]
-        if expected_content == record.target:
-            return True
-        return False
+        if expected_content != record.target:
+            raise ValidationError(
+                _(
+                    "CNAME record incorrectly configured expected %(expected_domain)s got %(result)s",
+                    expected_domain=expected_domain,
+                    result=record.target.to_text(),
+                )
+            )
+        return True

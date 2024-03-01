@@ -49,23 +49,23 @@ class Application(models.Model):
         self.ensure_one()
         return bool(self.tag_ids.filtered(lambda t: t.key == key))
 
-    def format_domain(self, tag_key=None):
+    def format_domain(self, subdomain=None):
         """
         Helper method for generating the yaml / helm values. If no domain is specified in e.g. value_ids this can be used
         to make a default domain.
         Uses config parameters `argocd.application_tag_domain_format` and `argocd.application_domain_format` for the format.
 
-        @param tag_key: tag key (e.g. matomo)
+        @param subdomain: tag key (e.g. matomo)
         @return: formatted domain
         """
         self.ensure_one()
         config_parameter_sudo = self.env["ir.config_parameter"].sudo()
         values = {"application_name": self.name}
-        if tag_key:
+        if subdomain:
             domain_format = config_parameter_sudo.get_param(
-                "argocd.application_tag_domain_format"
+                "argocd.application_subdomain_format"
             )
-            values["tag_key"] = tag_key
+            values["subdomain"] = subdomain
         else:
             domain_format = config_parameter_sudo.get_param(
                 "argocd.application_domain_format"
