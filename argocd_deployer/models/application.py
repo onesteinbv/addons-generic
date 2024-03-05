@@ -122,7 +122,12 @@ class Application(models.Model):
 
     @api.model
     def find_next_available_name(self, name):
-        """Returns a name which is available based on name (e.g. greg2)"""
+        """
+        Find a name which is available based on name (e.g. greg2)
+
+        @param name: a name
+        @return: first available name
+        """
         if not self.search([("name", "=", name)], count=True):
             return name
         i = 0

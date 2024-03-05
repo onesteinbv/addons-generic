@@ -3,6 +3,7 @@
     <record id="demo_curq_basis_product_template" model="product.template">
         <field name="name">Curq Basis</field>
         <field name="application_template_id" ref="argocd_deployer.demo_curq_basis_application_template" />
+        <field name="invoice_policy">order</field>
     </record>
     <record id="demo_pos_product_template" model="product.template">
         <field name="name">Point of Sales</field>

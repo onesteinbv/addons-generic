@@ -7,13 +7,14 @@ class AccountMove(models.Model):
 
     @api.constrains("invoice_line_ids")
     def _check_multiple_application_products(self):
-        app_lines = self.line_ids.filtered(
-            lambda l: l.product_id.application_template_id
-        )
-        if len(app_lines) > 1:
-            raise ValidationError(
-                _("Invoice can only have one application, please remove one")
+        for move in self:
+            app_lines = move.line_ids.filtered(
+                lambda l: l.product_id.application_template_id
             )
+            if len(app_lines) > 1:
+                raise ValidationError(
+                    _("Invoice can only have one application, please remove one")
+                )
 
     def _customer_name_to_application_name(self):
         self.ensure_one()
@@ -33,7 +34,7 @@ class AccountMove(models.Model):
             )
             for line in lines:
                 name = application_sudo.find_next_available_name(
-                    self._customer_name_to_application_name()
+                    invoice._customer_name_to_application_name()
                 )
                 tags = invoice.line_ids.filtered(
                     lambda l: l.product_id.application_tag_ids

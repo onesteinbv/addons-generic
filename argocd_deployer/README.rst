@@ -9,6 +9,7 @@ It uses a git generator (directory) to spawn e.g. Curq instances.
 By simply adding a file in like this ``instances/**/config.yaml`` the application set generates a new application.
 This is how the repo should look like: `Example application set <git@github.com:onesteinbv/odoo-generator-k8s.git>`_
 
+
 Configuration
 #############
 
@@ -16,6 +17,8 @@ Configuration
 #. Change system parameter ``application_set_repo_directory`` to a empty / non-existent rw directory
 #. Change system parameter ``application_set_directory`` to the directory where the instance configuration files are put `(default = instances)`
 #. Change system parameter ``application_domain_format`` used in creating domain names for applications if there's none specified
+
+**Assumes https is enabled for all exposed services.**
 
 Installation
 ############
