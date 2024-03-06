@@ -20,8 +20,8 @@
     ],
     "assets": {
         "web.assets_frontend": [
-            "/web_hr_recruitment_label/static/src/js/job_filter.js",
-            "/web_hr_recruitment_label/static/src/css/style.css",
+            "/website_hr_recruitment_label/static/src/js/job_filter.js",
+            "/website_hr_recruitment_label/static/src/css/style.css",
         ]
     },
 }

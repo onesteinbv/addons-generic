@@ -56,7 +56,7 @@ class WebsiteHrRecruitmentLabel(WebsiteHrRecruitment):
         jobs = context["jobs"]
         remaining_jobs = jobs
         if label_ids:
-            labels = env["hr.job.label"].browse(label_ids)
+            labels = env["hr.job.label"].sudo().browse(label_ids)
             for cat in labels.category_id:
                 final_jobs = set()
                 cat_label_ids = labels.filtered(lambda r: r.category_id == cat)
@@ -68,8 +68,8 @@ class WebsiteHrRecruitmentLabel(WebsiteHrRecruitment):
         # Returns all the labels that are used, grouped per category. If there is
         # only one label used in that category, this whole category will not be included
         label_split_up = []
-        categories = env["hr.job.label.category"].search(
-            [("allow_filtering", "=", True)]
+        categories = (
+            env["hr.job.label.category"].sudo().search([("allow_filtering", "=", True)])
         )
         all_jobs = env["hr.job"].search([])
         for cat in categories:

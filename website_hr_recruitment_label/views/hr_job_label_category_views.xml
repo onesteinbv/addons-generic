@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="hr_job_label_category_tree_inherit" model="ir.ui.view">
-        <field name="name">web_hr_recruitment_label.hr_job_label_category.tree.inherit</field>
+        <field name="name">website_hr_recruitment_label.hr_job_label_category.tree.inherit</field>
         <field name="model">hr.job.label.category</field>
         <field name="inherit_id" ref="hr_recruitment_label.hr_job_label_category_tree_view" />
         <field name="arch" type="xml">
