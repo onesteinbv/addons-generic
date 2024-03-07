@@ -10,4 +10,5 @@
     remotes:
         onestein: git@github.com:onesteinbv/addons-third-party.git
     merges:
-        - onestein 16.0
+        - remote: onestein
+          ref: a2262e5691df6b8c18fddf064aa51ca3af220844
