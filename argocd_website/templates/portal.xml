@@ -337,7 +337,7 @@
                                        t-att-value="defaults.get('domain', '')" />
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-outline-secondary">
-                                        <i class="fa fa-check ml4" />
+                                        <i class="fa fa-check spinner-grow-sm ml4" />
                                         Verify
                                     </button>
                                 </div>
