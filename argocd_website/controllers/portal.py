@@ -209,7 +209,7 @@ class PortalController(CustomerPortal):
                 else:
                     new_values.append({"key": key, "value": value})
             app_sudo.value_ids = [Command.create(val) for val in new_values]
-
+            return request.redirect("/my/applications")
         return request.render(
             "argocd_website.portal_application_domain_names_page", values
         )
