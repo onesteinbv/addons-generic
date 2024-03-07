@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- oca-hooks:disable=xml-duplicate-record-id -->
 <odoo>
     <!-- We define the RGS chart in two steps - first the template, then we load accounts,
          Then we assign the accounts to the template -->
