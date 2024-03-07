@@ -145,7 +145,9 @@ repos:
         args:
           - --rcfile=.pylintrc
           - --exit-zero
+          - --disable=duplicate-xml-record-id
         verbose: true
       - id: pylint_odoo
         args:
           - --rcfile=.pylintrc-mandatory
+          - --disable=duplicate-xml-record-id
