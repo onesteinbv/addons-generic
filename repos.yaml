@@ -11,4 +11,4 @@
         onestein: git@github.com:onesteinbv/addons-third-party.git
     merges:
         - remote: onestein
-          ref: a2262e5691df6b8c18fddf064aa51ca3af220844
+          ref: df43e1b6cd3f347ec55f34454db6144608acf26f
