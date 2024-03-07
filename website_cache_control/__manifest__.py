@@ -8,4 +8,5 @@
     "category": "Website",
     "depends": ["base", "website"],
     "data": [],
+    "installable": False,
 }
