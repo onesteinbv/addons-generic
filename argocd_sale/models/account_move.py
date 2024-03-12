@@ -27,7 +27,7 @@ class AccountMove(models.Model):
 
     def _invoice_paid_hook(self):
         application_sudo = self.env["argocd.application"].sudo()
-        for invoice in self:
+        for invoice in self.filtered(lambda i: not i.subscription_id):
             lines = invoice.line_ids.filtered(
                 lambda l: l.product_id.application_template_id
             )

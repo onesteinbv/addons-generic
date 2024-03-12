@@ -5,7 +5,7 @@
     "license": "AGPL-3",
     "category": "Sales",
     "version": "16.0.1.0.0",
-    "depends": ["sale", "argocd_deployer"],
+    "depends": ["sale", "subscription_oca", "argocd_deployer"],
     "demo": [
         "demo/product_template_demo.xml",
     ],

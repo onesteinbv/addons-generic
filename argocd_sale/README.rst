@@ -2,7 +2,8 @@
 ArgoCD Sales Management
 ***********************
 
-Deploy application when an invoice is paid
+Deploy application when an invoice is paid.
+Use system parameter (configurable via res.config.settings) sale.automatic_invoice
 
 Product configuration
 *********************
