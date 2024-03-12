@@ -8,6 +8,7 @@
     "depends": ["sale", "subscription_oca", "argocd_deployer"],
     "demo": [
         "demo/product_template_demo.xml",
+        "demo/sale_subscription_template_demo.xml",
     ],
     "data": [
         "data/mail_template_data.xml",
