@@ -19,7 +19,7 @@ class Application(models.Model):
         )
 
     invoice_id = fields.Many2one(comodel_name="account.move")
-    subscription_id = fields.Mant2one(comodel_name="sale.subscription")
+    subscription_id = fields.Many2one(comodel_name="sale.subscription")
 
     @api.depends("invoice_id", "subscription_id.partner_id")
     def _compute_partner_id(self):
