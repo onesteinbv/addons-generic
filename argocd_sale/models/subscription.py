@@ -1,9 +1,16 @@
-from odoo import _, api, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
 class Subscription(models.Model):
     _inherit = "sale.subscription"
+
+    last_paid_date = fields.Date()
+
+    def _get_grace_period(self):
+        return int(
+            self.env["ir.config_parameter"].sudo().get_param("mail.batch_size", "0")
+        )
 
     @api.constrains("sale_subscription_line_ids")
     def _check_multiple_application_products(self):
@@ -54,3 +61,7 @@ class Subscription(models.Model):
                 )
                 application.render_config()
                 application.deploy()
+
+    def cron_subscription_management(self):
+        self._get_grace_period()
+        return super().cron_subscription_management()
