@@ -1,43 +1,53 @@
-from datetime import datetime
 import logging
+from datetime import datetime
 from html import escape
 
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
+
 class SaleSubscription(models.Model):
     _inherit = "sale.subscription"
 
-    payment_provider_subscription_id = fields.Many2one("payment.provider.subscription",
-                                                       string="Payment Provider Subscription",
-                                                       readonly=True)
-    is_payment_provider_subscription_terminated = fields.Boolean('Is Payment Provider Subscription Terminated')
-    last_date_invoiced = fields.Date('Last Date Invoiced',
-                                     help='Date when last invoice was generated for the subscription')
+    payment_provider_subscription_id = fields.Many2one(
+        "payment.provider.subscription",
+        string="Payment Provider Subscription",
+        readonly=True,
+    )
+    is_payment_provider_subscription_terminated = fields.Boolean()
+    last_date_invoiced = fields.Date(
+        help="Date when last invoice was generated for the subscription",
+    )
 
     @api.model
     def cron_update_payment_provider_subscriptions(self):
         date_ref = fields.Date.context_today(self)
         sale_subscriptions = self.search(
-            [("template_id.invoicing_mode", "!=", "sale_and_invoice"),
-             ('payment_provider_subscription_id', '!=', False),
-             ('is_payment_provider_subscription_terminated', "=", False)
-                , '|', ("recurring_next_date", "<=", date_ref),
-             ('last_date_invoiced', "=", date_ref)])
+            [
+                ("template_id.invoicing_mode", "!=", "sale_and_invoice"),
+                ("payment_provider_subscription_id", "!=", False),
+                ("is_payment_provider_subscription_terminated", "=", False),
+                "|",
+                ("recurring_next_date", "<=", date_ref),
+                ("last_date_invoiced", "=", date_ref),
+            ]
+        )
         companies = set(sale_subscriptions.mapped("company_id"))
         for company in companies:
             sale_subscriptions_to_update = sale_subscriptions.filtered(
                 lambda s: s.company_id == company
-                          and (not s.date or s.recurring_next_date <= s.date)
+                and (not s.date or s.recurring_next_date <= s.date)
             ).with_company(company)
             for sale_subscription in sale_subscriptions_to_update:
                 try:
-                    sale_subscription.update_sale_subscription_payments_and_subscription_status(date_ref)
+                    sale_subscription.update_sale_subscription_payments_and_subscription_status(
+                        date_ref
+                    )
                 except Exception as exception:
                     sale_subscription._log_provider_exception(
-                        exception,'updating subscription'
+                        exception, "updating subscription"
                     )
         return True
 
@@ -50,35 +60,50 @@ class SaleSubscription(models.Model):
     def cron_terminate_payment_provider_subscriptions(self):
         date_ref = fields.Date.context_today(self)
         sale_subscriptions = self.search(
-            [('payment_provider_subscription_id', '!=', False),
-             ('is_payment_provider_subscription_terminated', "=", False),
-             ("date", "<=", date_ref)])
+            [
+                ("payment_provider_subscription_id", "!=", False),
+                ("is_payment_provider_subscription_terminated", "=", False),
+                ("date", "<=", date_ref),
+            ]
+        )
         for sale_subscription in sale_subscriptions:
             try:
                 sale_subscription.terminate_payment_provider_subscription()
             except Exception as exception:
                 sale_subscription._log_provider_exception(
-                    exception, 'terminating subscription'
+                    exception, "terminating subscription"
                 )
         return True
 
     def generate_invoice(self):
-        super().generate_invoice()
+        res = super().generate_invoice()
         self.last_date_invoiced = fields.Date.context_today(self)
+        return res
 
     def write(self, values):
         if "stage_id" in values:
             for record in self:
-                if (record.stage_id and record.stage_id.type == "post" and record.payment_provider_subscription_id and
-                        record.is_payment_provider_subscription_terminated):
+                if (
+                    record.stage_id
+                    and record.stage_id.type == "post"
+                    and record.payment_provider_subscription_id
+                    and record.is_payment_provider_subscription_terminated
+                ):
                     raise UserError(
-                        _("Terminated subscriptions with payment provider subscription also terminated cannot be "
-                          "updated.Please generate a new subscription"))
+                        _(
+                            "Terminated subscriptions with payment provider subscription also terminated cannot be "
+                            "updated.Please generate a new subscription"
+                        )
+                    )
         res = super().write(values)
         if "stage_id" in values:
             for record in self:
-                if (record.stage_id and record.stage_id.type == "post" and record.payment_provider_subscription_id
-                        and not record.is_payment_provider_subscription_terminated):
+                if (
+                    record.stage_id
+                    and record.stage_id.type == "post"
+                    and record.payment_provider_subscription_id
+                    and not record.is_payment_provider_subscription_terminated
+                ):
                     record.terminate_payment_provider_subscription()
         return res
 
@@ -92,17 +117,14 @@ class SaleSubscription(models.Model):
             [("type", "=", "post")], limit=1
         )
         if stage != closed_stage:
-            vals['stage_id']: closed_stage.id
+            vals["stage_id"]: closed_stage.id
         return vals
 
     def _log_provider_exception(self, exception, process):
         """Both log error, and post a message on the subscription record."""
         self.ensure_one()
         _logger.warning(
-            _(
-                "Payment Provider %(name)s: Error "
-                "while %(process)s"
-            ),
+            _("Payment Provider %(name)s: Error " "while %(process)s"),
             dict(
                 name=self.payment_provider_subscription_id.provider_id.name,
                 process=process,

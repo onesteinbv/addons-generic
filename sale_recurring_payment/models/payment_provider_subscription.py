@@ -1,14 +1,14 @@
 from odoo import fields, models
 
 
-class ContractPaymentSubscription(models.Model):
-    """The contract payment subscription is attached to a contract and represents a
+class PaymentProviderSubscription(models.Model):
+    """The payment provider subscription is attached to a sale subscription and represents a
     subscription that is created with payment providers to accept recurring
-    payments for contracts
+    payments for sale subscriptions
     """
 
-    _name = "contract.payment.subscription"
-    _description = "Contract Payment Subscription"
+    _name = "payment.provider.subscription"
+    _description = "Payment Provider Subscription"
     _rec_name = "reference"
 
     reference = fields.Char(
@@ -18,10 +18,13 @@ class ContractPaymentSubscription(models.Model):
     )
     payment_transaction_ids = fields.One2many(
         "payment.transaction",
-        "contract_payment_subscription_id",
+        "payment_provider_subscription_id",
+        string="Payment Transactions",
         readonly=True,
     )
-    provider_id = fields.Many2one(comodel_name="payment.provider", required=True)
+    provider_id = fields.Many2one(
+        string="Provider", comodel_name="payment.provider", required=True
+    )
 
     _sql_constraints = [
         ("reference_uniq", "unique(reference)", "Reference must be unique!"),
