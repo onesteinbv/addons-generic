@@ -15,7 +15,7 @@ class Subscription(models.Model):
         template_id = int(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("argocd_sale.grace_period", "0")
+            .get_param("argocd_website.subscription_template_id", "0")
         )
         template = self.env["sale.subscription.template"].browse(template_id)
         if template.exists():
