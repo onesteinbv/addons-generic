@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class PaymentTransaction(models.Model):
@@ -112,6 +112,7 @@ class PaymentTransaction(models.Model):
         }
         return vals
 
+    @api.returns("payment.transaction")
     def update_state_recurring_payment_transaction(self, provider, payment):
         # This method needs to be extended in each provider module.
         # This method should update the state of payment transactions and return done payment transactions if any

@@ -2,18 +2,22 @@
 
 
 Deploy application when an invoice is paid.
-Use system parameter (configurable via res.config.settings) sale.automatic_invoice
 
+How oca_subscription works:
 <pre>
 sale order -> (payment link + payment) -> first invoice
                                        -> subscription -> recurring invoice
 </pre>
+
+Because the first invoice is not linked ot the subscription we skip the sale order and directly use
+sale.subscription
 
 ## Product configuration
 
 1. Go to Sales > Products > Products
 2. Create a product
 3. Select an application template for the product
+4. Check "Subscribable product" subscription template is not necessary.
 
 ## Deployment notifications
 
@@ -27,4 +31,4 @@ sale order -> (payment link + payment) -> first invoice
 
 ## Roadmap
 
-* Move generic functionality (last payment date, grace period) to subscription_oca
+* Move generic functionality (last payment date, grace period, invoice paid hook) to subscription_oca

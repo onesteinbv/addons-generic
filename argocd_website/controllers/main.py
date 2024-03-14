@@ -162,13 +162,15 @@ class MainController(Controller):
                         }
                     )
                 )
-                sale_order = (
-                    request.env["sale.order"]
+                subscription = (
+                    request.env["sale.subscription"]
                     .sudo()
                     .create(
                         {
                             "partner_id": partner.id,
-                            "order_line": [Command.create({"product_id": product.id})]
+                            "sale_subscription_line_ids": [
+                                Command.create({"product_id": product.id})
+                            ]
                             + [
                                 Command.create({"product_id": additional_product.id})
                                 for additional_product in additional_products
@@ -176,16 +178,14 @@ class MainController(Controller):
                         }
                     )
                 )
-                sale_order.action_confirm()
-                if sale_order.amount_total == 0:
-                    sale_order._create_invoices()
-                    sale_order.invoice_ids.action_post()
-
+                subscription.generate_invoice()
+                subscription.invoice_ids.ensure_one()
+                invoice = subscription.invoice_ids.id
                 ctx = request.env.context.copy()
                 ctx.update(
                     {
-                        "active_id": sale_order.id,
-                        "active_model": "sale.order",
+                        "active_id": invoice.id,
+                        "active_model": "account.invoice",
                     }
                 )
                 link_wizard = (
