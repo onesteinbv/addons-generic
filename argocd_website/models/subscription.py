@@ -18,6 +18,4 @@ class Subscription(models.Model):
             .get_param("argocd_website.subscription_template_id", "0")
         )
         template = self.env["sale.subscription.template"].browse(template_id)
-        if template.exists():
-            return template
-        return False
+        return template

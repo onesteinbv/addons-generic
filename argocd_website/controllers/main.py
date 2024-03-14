@@ -175,17 +175,18 @@ class MainController(Controller):
                                 Command.create({"product_id": additional_product.id})
                                 for additional_product in additional_products
                             ],
+                            "pricelist_id": partner.property_product_pricelist.id,  # pricelist_id is done with an onchange in subscription_oca 👴
                         }
                     )
                 )
                 subscription.generate_invoice()
                 subscription.invoice_ids.ensure_one()
-                invoice = subscription.invoice_ids.id
+                invoice_id = subscription.invoice_ids.id
                 ctx = request.env.context.copy()
                 ctx.update(
                     {
-                        "active_id": invoice.id,
-                        "active_model": "account.invoice",
+                        "active_id": invoice_id,
+                        "active_model": "account.move",
                     }
                 )
                 link_wizard = (

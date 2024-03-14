@@ -38,7 +38,7 @@ class Subscription(models.Model):
             lambda i: len(i.invoice_ids) == 1
         ):  # Create the application after the first invoice has been paid
             subscription.action_start_subscription()
-            lines = subscription.line_ids.filtered(
+            lines = subscription.sale_subscription_line_ids.filtered(
                 lambda l: l.product_id.application_template_id
             )
             for line in lines:
