@@ -79,6 +79,28 @@
         </t>
     </template>
 
+    <template id="portal_subscription_cancel_modal">
+        <div class="modal fade" tabindex="-1" role="dialog" t-att-id="modalCancelSub">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Application</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete this application? You'll get an email to confirm the deletion.</p>
+                    </div>
+                    <div class="modal-footer justify-content-start">
+                        <a type="action" class="btn btn-danger" t-attf-href="/my/applications/#{app.id}/start-cancellation">
+                            Delete
+                        </a>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
     <template id="portal_subscription_page" name="My Subscription">
         <t t-call="portal.portal_layout">
             <t t-set="o_portal_fullwidth_alert" groups="account.group_account_invoice">
@@ -91,11 +113,18 @@
             </t>
             <t t-call="portal.portal_record_layout">
                 <t t-set="card_header">
-                    <h5 class="mb-0">
-                        <span>
-                            Subscription - <span t-field="subscription.name" />
-                        </span>
-                    </h5>
+                    <div class="d-flex">
+                        <h5 class="mb-0 flex-fill">
+                            <span>
+                                Subscription - <span t-field="subscription.name" />
+                            </span>
+                        </h5>
+                        <div>
+                            <button class="btn btn-sm btn-danger pull-right" data-bs-toggle="modal" data-bs-target="#modalCancelSub">
+                                Cancel Subscription
+                            </button>
+                        </div>
+                    </div>
                 </t>
                 <t t-set="card_body">
                     <div id="general_information">
@@ -267,6 +296,46 @@
                     <t t-set="hash" t-value="hash" />
                 </t>
             </div>
+        </t>
+    </template>
+
+    <template id="error_page" name="Error">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_body">
+                    <div class="alert alert-danger">
+                        <t t-esc="message" />
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_subscription_confirm_cancellation_page" name="Cancel Subscription">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_header">
+                    <div class="d-flex">
+                        <h2 class="mb-0 flex-fill">
+                            <span>
+                                Subscription - <span t-field="subscription.name" />
+                            </span>
+                        </h2>
+                    </div>
+                </t>
+                <t t-set="card_body">
+                    <p class="mb16">
+                        Are you sure you want to cancel this subscription (<i><t t-esc="subscription.name" /></i>)?
+                        <strong class="text-danger">This action is irreversible! You cannot reactivate your subscription after cancelling it.</strong>
+                    </p>
+                    <form method="POST">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                        <input type="hidden" name="token" t-att-value="subscription.deletion_token" />
+                        <button class="btn btn-danger">Confirm Cancellation</button>
+                        <a class="btn btn-link" t-attf-href="/my/subscriptions/#{subscription.id}">Keep subscription</a>
+                    </form>
+                </t>
+            </t>
         </t>
     </template>
 

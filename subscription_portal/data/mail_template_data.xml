@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="cancel_subscription_mail_template" model="mail.template">
+        <field name="name">Cancel Subscription</field>
+        <field name="model_id" ref="subscription_oca.model_sale_subscription"/>
+        <field name="partner_to">{{ object.partner_id.id }}</field>
+        <field name="email_to">{{ object.partner_id.email }}</field>
+        <field name="lang">{{ object.partner_id.lang }}</field>
+        <field name="subject">Deletion Request for '{{ object.name }}'</field>
+        <field name="body_html" type="html">
+            <p>Dear Customer, </p>
+            <br />
+            <p>Are you sure you want to cancel this subscription "<t t-out="object.name" />"? </p>
+            <br />
+            <a t-attf-href="/my/subscription/#{object.id}/confirm-cancellation?token=#{object.deletion_token}">Continue</a>
+        </field>
+    </record>
+</odoo>
