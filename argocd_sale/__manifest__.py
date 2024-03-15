@@ -12,6 +12,7 @@
     ],
     "data": [
         "data/mail_template_data.xml",
+        "data/ir_config_parameter_data.xml",
         "views/product_template.xml",
         "views/application_view.xml",
         "views/application_template_view.xml",
