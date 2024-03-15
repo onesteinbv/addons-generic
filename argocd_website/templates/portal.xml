@@ -161,18 +161,18 @@
                             </span>
                         </div>
                     </div>
-                    <div class="mt32" t-if="app.invoice_id">
+                    <div class="mt32" t-if="app.subscription_id">
                         <div>
                             <div class="h3 d-flex">
                                 <span class="flex-fill">
-                                    Your order
+                                    Your subscription
                                     <button class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#modalUpgrade">
                                         <i class="fa fa-pencil fa-fw" />
                                     </button>
                                 </span>
                                 <span class="badge bg-secondary align-self-center">
-                                    <t t-esc="app.invoice_id.amount_untaxed"
-                                       t-options="{'widget': 'monetary', 'display_currency': app.invoice_id.currency_id}" />
+                                    <t t-esc="app.subscription_id.recurring_total"
+                                       t-options="{'widget': 'monetary', 'display_currency': app.subscription_id.currency_id}" />
                                     <small>excl. VAT</small>
                                 </span>
                             </div>
@@ -182,7 +182,7 @@
                                 <th>Product / service</th>
                                 <th>Price</th>
                             </tr>
-                            <tr t-foreach="app.invoice_id.invoice_line_ids" t-as="line">
+                            <tr t-foreach="app.subscription_id.sale_subscription_line_ids" t-as="line">
                                 <td><t t-esc="line.product_id.name" /></td>
                                 <td>
                                     <span t-field="line.price_unit" t-options="{'widget': 'monetary'}" />
