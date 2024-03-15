@@ -29,6 +29,7 @@ sale.subscription
 1. Set system parameter `argocd_sale.grace_period` to the amount of **days** you allow
    customers to not pay until the subscription is closed and application is deleted.
 2. You can also find these settings in res.config.parameters (tab Sales)
+
 ## Roadmap
 
 * Move generic functionality (last payment date, grace period, invoice paid hook) to subscription_oca
