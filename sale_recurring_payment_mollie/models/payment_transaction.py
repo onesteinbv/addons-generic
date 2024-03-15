@@ -75,9 +75,15 @@ class PaymentTransaction(models.Model):
         )._mollie_prepare_payment_payload(api_type)
 
         if self._context.get("first_mollie_payment"):
+            name = (
+                self.sale_order_ids
+                and self.sale_order_ids.name
+                or self.invoice_ids
+                and self.invoice_ids.name
+            )
             payment_data.update(
                 {
-                    "description": f"First payment for {self.sale_order_ids.name} / {self.sale_order_ids.order_line.product_id.name}",
+                    "description": f"First payment for {name}",
                     "sequenceType": "first",
                 }
             )
