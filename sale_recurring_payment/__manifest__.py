@@ -5,7 +5,7 @@
     "license": "LGPL-3",
     "summary": "Sale - Recurring Payment",
     "website": "https://www.onestein.nl",
-    "depends": ["subscription_oca"],
+    "depends": ["subscription_oca", "account_payment"],
     "data": [
         "security/ir.model.access.csv",
         "data/update_payment_provider_subscription_cron.xml",

@@ -15,35 +15,43 @@ class PaymentTransaction(models.Model):
         # depending on the data we receive (to be interpreted specifically for the provider of the transaction) we may want to
         # get it confirmed and create a subscription (functionality to create a subscription from the SO is provided in OCA module subscription_oca).
         self.ensure_one()
-        if (
+        res = super(PaymentTransaction, self)._process_notification_data(data)
+        create_sub_for_sale_order = (
             self.sale_order_ids
             and self.sale_order_ids[0].group_subscription_lines()
             and not self.sale_order_ids[0].subscriptions_count
-        ):
-            payment_data = self._provider_get_payment_data()
-            if self._must_create_subscription(payment_data):
-                sale_order = self.sale_order_ids[0]
-                sale_order.action_confirm()
-                subscription = sale_order.subscription_ids[0]
-                invoice = sale_order._create_invoices()
-                subscription.invoice_ids = [(4, invoice.id)]
-                self.invoice_ids = [(6, 0, invoice.ids)]
-                # pylint: disable=assignment-from-none
-                subscription_for_payment_provider = (
-                    self._create_subscription_for_payment_provider(
-                        subscription, payment_data
-                    )
-                )
-                payment_provider_subscription = (
-                    self._create_payment_provider_subscription(
-                        subscription_for_payment_provider
-                    )
-                )
-                subscription.payment_provider_subscription_id = (
-                    payment_provider_subscription.id
-                )
-                self.payment_provider_subscription_id = payment_provider_subscription.id
-        return super(PaymentTransaction, self)._process_notification_data(data)
+        )
+        create_sub_for_invoice = (
+            self.invoice_ids
+            and self.invoice_ids[0].subscription_id
+            and not self.invoice_ids[0].subscription_id.payment_provider_subscription_id
+        )
+        if not create_sub_for_sale_order and not create_sub_for_invoice:
+            return res
+
+        payment_data = self._provider_get_payment_data()
+        if not self._must_create_subscription(payment_data):
+            return res
+
+        if create_sub_for_sale_order:
+            sale_order = self.sale_order_ids[0]
+            sale_order.action_confirm()
+            subscription = sale_order.subscription_ids[0]
+            invoice = sale_order._create_invoices()
+            subscription.invoice_ids = [(4, invoice.id)]
+            self.invoice_ids = [(6, 0, invoice.ids)]
+        else:  # We are already sure create_sub_for_invoice is truthy because of earlier statements
+            invoice = self.invoice_ids[0]
+            subscription = invoice.subscription_id
+        # pylint: disable=assignment-from-none
+        subscription_for_payment_provider = (
+            self._create_subscription_for_payment_provider(subscription, payment_data)
+        )
+        payment_provider_subscription = self._create_payment_provider_subscription(
+            subscription_for_payment_provider
+        )
+        subscription.payment_provider_subscription_id = payment_provider_subscription.id
+        self.payment_provider_subscription_id = payment_provider_subscription.id
 
     def _provider_get_payment_data(self):
         self.ensure_one()

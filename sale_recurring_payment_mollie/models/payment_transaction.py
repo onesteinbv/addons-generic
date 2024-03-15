@@ -15,8 +15,13 @@ class PaymentTransaction(models.Model):
 
     def _get_transaction_customer_id(self):
         mollie_customer_id = False
-        if self.sale_order_ids:
-            partner_obj = self.sale_order_ids[0].partner_id
+        if self.sale_order_ids or self.invoice_ids:
+            partner_obj = (
+                self.invoice_ids
+                and self.invoice_ids[0].partner_id
+                or self.sale_order_ids
+                and self.sale_order_ids[0].partner_id
+            )
             if partner_obj.mollie_customer_id:
                 mollie_customer_id = partner_obj.mollie_customer_id
             else:
@@ -52,9 +57,8 @@ class PaymentTransaction(models.Model):
             lambda m: m.method_code == self.mollie_payment_method
         )
         if (
-            "sale_order_ids" in self._fields
-            and self.sale_order_ids
-            and self.sale_order_ids.group_subscription_lines()
+            (self.sale_order_ids and self.sale_order_ids.group_subscription_lines())
+            or (self.invoice_ids and self.invoice_ids.subscription_id)
             and method_record.supports_payment_api
             and method_record.supports_order_api
         ):
