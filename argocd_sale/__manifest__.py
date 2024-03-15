@@ -16,5 +16,6 @@
         "views/product_template.xml",
         "views/application_view.xml",
         "views/application_template_view.xml",
+        "views/res_config_settings_view.xml",
     ],
 }

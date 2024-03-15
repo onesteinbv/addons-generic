@@ -2,6 +2,14 @@
 <odoo noupdate="1">
     <record id="grace_period" model="ir.config_parameter">
         <field name="key">argocd_sale.grace_period</field>
-        <field name="value">90</field>
+        <field name="value">0</field>
+    </record>
+    <record id="grace_period_action" model="ir.config_parameter">
+        <field name="key">argocd_sale.grace_period_action</field>
+        <field name="value">add_tag</field>
+    </record>
+    <record id="grace_period_tag_id" model="ir.config_parameter">
+        <field name="key">argocd_sale.grace_period_tag_id</field>
+        <field name="value"></field>
     </record>
 </odoo>
