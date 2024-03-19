@@ -32,4 +32,4 @@ sale.subscription
 
 ## Roadmap
 
-* Move generic functionality (last payment date, grace period, invoice paid hook) to subscription_oca
+* Move generic functionality (grace period, invoice paid hook) to subscription_oca

@@ -1,11 +1,9 @@
-from odoo import _, api, fields, models
+from odoo import _, api, models
 from odoo.exceptions import ValidationError
 
 
 class Subscription(models.Model):
     _inherit = "sale.subscription"
-
-    last_paid_date = fields.Date()
 
     def _get_grace_period(self):
         return int(

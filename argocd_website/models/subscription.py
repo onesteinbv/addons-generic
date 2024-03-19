@@ -19,3 +19,12 @@ class Subscription(models.Model):
         )
         template = self.env["sale.subscription.template"].browse(template_id)
         return template
+
+    def _stop_service_hook(self):
+        res = super()._stop_service_hook()
+        apps_to_destroy = self.env["argocd.application"].search(
+            [("subscription_id", "=", self.id)]
+        )
+        for app in apps_to_destroy:
+            app.destroy()
+        return res

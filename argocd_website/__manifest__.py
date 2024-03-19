@@ -13,6 +13,7 @@
         "auth_signup",
         "base_librecaptcha",
         "product_category_sequence",
+        "subscription_portal",
     ],
     "data": [
         "data/mail_template_data.xml",
