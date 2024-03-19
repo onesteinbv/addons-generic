@@ -122,9 +122,9 @@ class PortalSubscription(CustomerPortal):
             sub_sudo = self._document_check_access("sale.subscription", sub_id)
         except (AccessError, MissingError):
             return request.redirect("/my")
-        sub_sudo.request_destroy()
+        sub_sudo.start_cancellation()
         return request.redirect(
-            "/my/subscriptions/%s?message=start_cancellation" % sub_id
+            "/my/subscriptions/%s?success=start_cancellation" % sub_id
         )
 
     @http.route(
@@ -133,25 +133,25 @@ class PortalSubscription(CustomerPortal):
         auth="user",
         website=True,
     )
-    def portal_my_application_confirm_delete(self, sub_id, **kw):
+    def portal_my_subscription_confirm_cancellation(self, sub_id, **kw):
         try:
             sub_sudo = self._document_check_access("sale.subscription", sub_id)
         except (AccessError, MissingError):
             return request.redirect("/my/applications")
-        if not sub_sudo.deletion_token:
+        if not sub_sudo.cancellation_token:
             return request.redirect("/my/applications")
-        if sub_sudo.deletion_token != kw.get("token"):
+        if sub_sudo.cancellation_token != kw.get("token"):
             return request.render(
                 "subscription_portal.error_page", {"message": _("Invalid token")}
             )
-        if fields.Datetime.now() > sub_sudo.deletion_token_expiration:
+        if fields.Datetime.now() > sub_sudo.cancellation_token_expiration:
             return request.render(
                 "subscription_portal.error_page", {"message": _("Token expired")}
             )
 
         if request.httprequest.method == "POST":
             try:
-                sub_sudo.confirm_destroy(kw.get("token"))
+                sub_sudo.confirm_cancellation(kw.get("token"))
             except ValidationError as e:
                 return request.render(
                     "subscription_portal.error_page", {"message": str(e)}

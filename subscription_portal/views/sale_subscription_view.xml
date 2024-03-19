@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="subscription_oca" model="ir.ui.view">
+        <field name="model">sale.subscription</field>
+        <field name="inherit_id" ref="subscription_oca.sale_subscription_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='recurring_next_date']" position="after">
+                <field name="date_stop" attrs="{'invisible': [('date_stop', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

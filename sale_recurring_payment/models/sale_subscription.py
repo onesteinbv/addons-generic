@@ -92,9 +92,20 @@ class SaleSubscription(models.Model):
                     raise UserError(
                         _(
                             "Terminated subscriptions with payment provider subscription also terminated cannot be "
-                            "updated.Please generate a new subscription"
+                            "updated. Please generate a new subscription"
                         )
                     )
+        if "sale_subscription_line_ids" in values:
+            # Don't allow changes on in-progress subs because atm it will not be reflected in the payment provider (e.g. Mollie)
+            if self.filtered(
+                lambda sub: sub.payment_provider_subscription_id and sub.in_progress
+            ):
+                raise UserError(
+                    _(
+                        "Cannot change in-progress subscriptions. Please close this one and create a new one."
+                    )
+                )
+
         res = super().write(values)
         if "stage_id" in values:
             for record in self:
