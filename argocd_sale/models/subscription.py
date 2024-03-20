@@ -70,23 +70,29 @@ class Subscription(models.Model):
                 application.deploy()
 
     def _do_grace_period_action(self):
+        """
+        Executes the grace period action on self.
+
+        @return: False if nothing has been done, True if the action has been done
+        """
         grace_period_action = self.env["ir.config_parameter"].get_param(
             "argocd_sale.grace_period_action"
         )
         if not grace_period_action:
-            return  # Do nothing
+            return False  # Do nothing
         if grace_period_action == "add_tag":
             grace_period_tag_id = self.env["ir.config_parameter"].get_param(
                 "argocd_sale.grace_period_tag_id", "0"
             )
             if not grace_period_tag_id:
-                return
+                return False
             tag = self.env["argocd.application.tag"].browse(grace_period_tag_id)
             if not tag:
-                return
+                return False
             self.mapped("application_ids").write({"tag_ids": [Command.link(tag)]})
         elif grace_period_action == "delete_app":
             self.mapped("application_ids").destroy()
+        return True
 
     def cron_update_payment_provider_subscriptions(self):
         # Process last payments first in here last_date_invoiced can be updated
