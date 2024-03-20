@@ -1,13 +1,21 @@
-from odoo import _, api, models
+from datetime import timedelta
+
+from odoo import Command, _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
 class Subscription(models.Model):
     _inherit = "sale.subscription"
 
+    application_ids = fields.One2many(
+        comodel_name="argocd.application", inverse_name="application_id"
+    )
+
     def _get_grace_period(self):
         return int(
-            self.env["ir.config_parameter"].sudo().get_param("mail.batch_size", "0")
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("argocd_sale.grace_period", "0")
         )
 
     @api.constrains("sale_subscription_line_ids")
@@ -61,6 +69,37 @@ class Subscription(models.Model):
                 application.render_config()
                 application.deploy()
 
-    def cron_subscription_management(self):
-        self._get_grace_period()
-        return super().cron_subscription_management()
+    def _do_grace_period_action(self):
+        grace_period_action = self.env["ir.config_parameter"].get_param(
+            "argocd_sale.grace_period_action"
+        )
+        if not grace_period_action:
+            return  # Do nothing
+        if grace_period_action == "add_tag":
+            grace_period_tag_id = self.env["ir.config_parameter"].get_param(
+                "argocd_sale.grace_period_tag_id", "0"
+            )
+            if not grace_period_tag_id:
+                return
+            tag = self.env["argocd.application.tag"].browse(grace_period_tag_id)
+            if not tag:
+                return
+            self.mapped("application_ids").write({"tag_ids": [Command.link(tag)]})
+        elif grace_period_action == "delete_app":
+            self.mapped("application_ids").destroy()
+
+    def cron_update_payment_provider_subscriptions(self):
+        # Process last payments first in here last_date_invoiced can be updated
+        res = super().cron_update_payment_provider_subscriptions()
+        period = self._get_grace_period()
+        if not period:
+            return res
+        today = fields.Date.today()
+        late_date = today - timedelta(days=period)
+        late_subs = self.search(
+            [("last_date_invoiced", "<", late_date), ("in_progress", "=", True)]
+        )
+        if late_subs:
+            late_subs.close_subscription()
+            late_subs._do_grace_period_action()
+        return res
