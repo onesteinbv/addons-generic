@@ -22,9 +22,7 @@ class Subscription(models.Model):
 
     def _stop_service_hook(self):
         res = super()._stop_service_hook()
-        apps_to_destroy = self.env["argocd.application"].search(
-            [("subscription_id", "=", self.id)]
-        )
+        apps_to_destroy = self.application_ids
         for app in apps_to_destroy:
             app.destroy()
         return res

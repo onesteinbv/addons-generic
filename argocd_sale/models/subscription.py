@@ -8,7 +8,7 @@ class Subscription(models.Model):
     _inherit = "sale.subscription"
 
     application_ids = fields.One2many(
-        comodel_name="argocd.application", inverse_name="application_id"
+        comodel_name="argocd.application", inverse_name="subscription_id"
     )
 
     def _get_grace_period(self):
