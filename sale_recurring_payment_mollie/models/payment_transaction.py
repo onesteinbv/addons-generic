@@ -1,11 +1,7 @@
 import logging
 
-from werkzeug import urls
-
 from odoo import _, models
 from odoo.exceptions import ValidationError
-
-from odoo.addons.payment_mollie.controllers.main import MollieController
 
 _logger = logging.getLogger(__name__)
 
@@ -112,7 +108,7 @@ class PaymentTransaction(models.Model):
             subscription_template.recurring_rule_type,
         )
         description = subscription.name
-        urls.url_join(mollie.get_base_url(), MollieController._webhook_url)
+        # webhook_url = urls.url_join(mollie.get_base_url(), MollieController._webhook_url)
         mollie_customer_id = self._get_transaction_customer_id()
         customer = mollie_client.customers.get(mollie_customer_id)
 
