@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-contract_payment_subscription_all,contract.payment.subscription.all,model_contract_payment_subscription,,1,0,0,0
-contract_payment_subscription_system,contract.payment.subscription.system,model_contract_payment_subscription,base.group_system,1,1,1,1
-contract_payment_subscription_user,contract.payment.subscription.user,model_contract_payment_subscription,base.group_user,1,1,1,0
