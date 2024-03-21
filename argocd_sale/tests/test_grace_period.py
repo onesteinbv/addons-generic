@@ -17,6 +17,9 @@ class TestGracePeriod(TransactionCase):
             {"name": "Disable Odoo", "key": "disable_odoo", "is_odoo_module": True}
         )
         cls.partner_id = cls.env.ref("base.partner_admin")
+        cls.sub_closed_stage = cls.env["sale.subscription.stage"].search(
+            [("type", "=", "post")], limit=1
+        )
 
         cls.grace_period = 90
         cls.env["ir.config_parameter"].set_param(
@@ -97,8 +100,12 @@ class TestGracePeriod(TransactionCase):
             "Subscription should have created only one app",
         )  # Just to be sure there's just one app
         self.assertIn(self.unpaid_sub.application_ids, apps_in_queue)
+        self.assertEqual(
+            self.unpaid_sub.stage_id, self.sub_closed_stage, "Should be closed"
+        )
         self.assertNotIn(
             self.paid_sub.application_ids,
             apps_in_queue,
             "This subscription is paid yesterday it shouldn't be affected",
         )
+        self.assertNotEqual(self.paid_sub.stage_id, self.sub_closed_stage)
