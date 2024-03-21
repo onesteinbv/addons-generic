@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="application_set_default" model="argocd.application.set">
+        <field name="name">Default</field>
+        <field name="repository_url">
+            git@github.com:onesteinbv/odoo-generator-k8s.git
+        </field>
+        <field name="branch">main</field>
+        <field name="repository_directory">/home/tarteo/repo</field>
+        <field name="instances_directory">instances</field>
+    </record>
+</odoo>

@@ -39,11 +39,17 @@ class Application(models.Model):
         inverse_name="application_id",
         string="Values",
     )
+    application_set_id = fields.Many2one(
+        "argocd.application.set",
+        required=True,
+        default=lambda self: self.env.ref("argocd_deployer.application_set_default"),
+    )
 
     def get_value(self, key, default=""):
         self.ensure_one()
         kv_pair = self.value_ids.filtered(lambda v: v.key == key)
         return kv_pair and kv_pair.value or default
+
 
     def has_tag(self, key):
         self.ensure_one()
@@ -146,45 +152,6 @@ class Application(models.Model):
                 )
             )
 
-    @api.model
-    def _get_parameters(self):
-        repo_url = self.env["ir.config_parameter"].get_param(
-            "argocd.application_set_repo"
-        )
-        branch = self.env["ir.config_parameter"].get_param(
-            "argocd.application_set_branch", "master"
-        )
-        repo_dir = self.env["ir.config_parameter"].get_param(
-            "argocd.application_set_repo_directory"
-        )
-        instances_dir = self.env["ir.config_parameter"].get_param(
-            "argocd.application_set_directory"
-        )
-
-        if not repo_url:
-            raise UserError(
-                _("System parameter `argocd.application_set_repo` is not configured.")
-            )
-        if not repo_dir:
-            raise UserError(
-                _(
-                    "System parameter `argocd.application_set_repo_directory` is not configured."
-                )
-            )
-        if not instances_dir:
-            raise UserError(
-                _(
-                    "System parameter `argocd.application_set_directory` is not configured."
-                )
-            )
-
-        return {
-            "repo_url": repo_url,
-            "branch": branch,
-            "repo_dir": repo_dir,
-            "instances_dir": instances_dir,
-        }
-
     def _get_config_render_values(self):
         self.ensure_one()
         return {
@@ -206,55 +173,65 @@ class Application(models.Model):
         self.ensure_one()
         self.with_delay().immediate_deploy()
 
+    def _get_repository(self):
+        """Get the repository specified in the application set."""
+        directory = self.application_set_id._get_repository_directory(allow_create=True)
+        if os.path.exists(os.path.join(directory, ".git")):
+            return Repo.init(directory)
+        else:
+            return Repo.clone_from(self.application_set_id.repository_url, directory)
+
+    def _get_remote(self, repository):
+        """Find the provided repository's remote repository."""
+        return repository.remotes.origin
+
+    def _pull_from_repository(self, repository, remote):
+        """Switch to the correct branch, then execute a git pull on the
+        repository."""
+        repository.git.checkout(self.application_set_id.branch)
+        repository.git.reset(
+            "--hard", "origin/%s" % self.application_set_id.branch
+        )  # Make sure we don't lock after failed push
+        remote.pull()
+
+    def _get_application_dir(self, instances_dir, allow_create=True):
+        """Returns the directory where the application config is stored locally..
+        :param allow_create: bool. If False, the method raises an exception if the
+           folder does not exist locally. If True, the folder will be created if it
+           does not yet exist."""
+        application_dir = os.path.join(instances_dir, self.name)
+        if not os.path.exists(application_dir):
+            if not allow_create:
+                raise UserError(
+                    "Application directory (%s) doesn't exist." % application_dir
+                )
+            os.makedirs(instances_dir, mode=0o775)
+
     def immediate_deploy(self):
         # TODO: Fix concurrency issue
         # TODO: add automatic healing if conflicts appear whatsoever
         self.ensure_one()
-        params = self._get_parameters()
-        repo_dir = params["repo_dir"]
-        instances_dir = params["instances_dir"]
-        repo_url = params["repo_url"]
-        branch = params["branch"]
 
-        # Pull repo
-        if os.path.exists(os.path.join(repo_dir, ".git")):
-            repo = Repo.init(repo_dir)
-        else:
-            repo = Repo.clone_from(repo_url, repo_dir)
-        repo.git.checkout(branch)
-        repo.git.reset(
-            "--hard", "origin/%s" % branch
-        )  # Make sure we don't lock after failed push
-        remote = repo.remotes.origin
-        remote.pull()
+        # Pull repository
+        repository = self._get_repository()
+        remote = self._get_remote(repository)
+        self._pull_from_repository(repository, remote)
 
         # Make instances directory
-        instances_dir = os.path.join(repo_dir, instances_dir)
-        if not os.path.exists(instances_dir):
-            os.makedirs(instances_dir, mode=0o775)
+        instances_dir = self.application_set_id._get_instances_directory()
 
-        # Create application directory
-        is_new_application = False
-        application_dir = os.path.join(instances_dir, self.name)
-        if not os.path.exists(application_dir):
-            os.makedirs(application_dir, mode=0o775)
-
+        # Create the content of the commit
+        message = "Updated application `%s`."
+        application_dir = self._get_application_dir(instances_dir)
         config_file = os.path.join(application_dir, "config.yaml")
         if not os.path.exists(config_file):
-            is_new_application = True
-
-        # Write file
+            message = "Added application `%s`."
         with open(config_file, "w") as fh:
             fh.write(self.config)
 
-        # Commit and push
-        repo.index.add([config_file])
-        message = (
-            is_new_application
-            and "Added application `%s`"
-            or "Updated application `%s`"
-        )
-        repo.index.commit(message % self.name)
+        # Add the content, commit and push
+        repository.index.add([config_file])
+        repository.index.commit(message % self.name)
         remote.push()
 
     def destroy(self):
@@ -265,42 +242,24 @@ class Application(models.Model):
         # TODO: Fix concurrency issue
         # TODO: add automatic healing if conflicts appear whatsoever
         self.ensure_one()
-        params = self._get_parameters()
-        repo_dir = params["repo_dir"]
-        instances_dir = params["instances_dir"]
-        repo_url = params["repo_url"]
-        branch = params["branch"]
 
-        # Pull repo
-        if os.path.exists(os.path.join(repo_dir, ".git")):
-            repo = Repo.init(repo_dir)
-        else:
-            repo = Repo.clone_from(repo_url, repo_dir)
-        repo.git.checkout(branch)
-        repo.git.reset(
-            "--hard", "origin/%s" % branch
-        )  # Make sure we don't lock after failed push
-        remote = repo.remotes.origin
-        remote.pull()
-
-        # Check instances directory exists
-        instances_dir = os.path.join(repo_dir, instances_dir)
-        if not os.path.exists(instances_dir):
-            raise UserError("Instances directory doesn't exists (%s)" % instances_dir)
+        # Pull repository
+        repository = self._get_repository()
+        remote = self._get_remote(repository)
+        self._pull_from_repository(repository, remote)
 
         # Remove application directory
-        application_dir = os.path.join(instances_dir, self.name)
-        if not os.path.exists(application_dir):
-            raise UserError(
-                "Application directory doesn't exists (%s)" % application_dir
-            )
+        instances_dir = self.application_set_id._get_instances_directory(
+            allow_create=False
+        )
+        application_dir = self._get_application_dir(instances_dir, allow_create=False)
         config_file = os.path.join(application_dir, "config.yaml")
         os.remove(config_file)
         os.removedirs(application_dir)
 
-        # Commit and push
-        repo.index.remove([config_file])
-        repo.index.commit("Removed application `%s`" % self.name)
+        # Create the commit and push
+        repository.index.remove([config_file])
+        repository.index.commit("Removed application `%s`." % self.name)
         remote.push()
 
         self.unlink()

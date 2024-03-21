@@ -19,4 +19,10 @@
         parent="argocd_root_menu"
         sequence="30"
     />
+    <menuitem
+        id="application_set_menu"
+        action="application_set_action"
+        parent="argocd_root_menu"
+        sequence="40"
+    />
 </odoo>

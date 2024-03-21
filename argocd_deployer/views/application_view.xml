@@ -27,6 +27,7 @@
                 <sheet>
                     <group>
                         <field name="name" />
+                        <field name="application_set_id"/>
                         <field name="template_id" />
                         <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
                         <field name="value_ids" />

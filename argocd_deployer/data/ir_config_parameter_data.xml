@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
+    <!-- Deprecated. Can be deleted in a later update -->
     <record id="application_set_repo" model="ir.config_parameter">
         <field name="key">argocd.application_set_repo</field>
         <field name="value">git@github.com:onesteinbv/odoo-generator-k8s.git</field>
