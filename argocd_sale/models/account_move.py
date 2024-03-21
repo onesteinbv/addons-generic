@@ -43,12 +43,16 @@ class AccountMove(models.Model):
                     in l.product_id.application_filter_ids  # If there's a filter
                 ).mapped("product_id.application_tag_ids")
 
+                application_set = line.product_id.application_set_id or self.env.ref(
+                    "argocd_deployer.application_set_default"
+                )
                 application = application_sudo.create(
                     {
                         "name": name,
                         "invoice_id": invoice.id,
                         "tag_ids": tags.ids,
                         "template_id": line.product_id.application_template_id.id,
+                        "application_set_id": application_set.id,
                     }
                 )
                 application.render_config()
