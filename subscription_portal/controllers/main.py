@@ -1,5 +1,5 @@
-from odoo import _, http
-from odoo.exceptions import AccessError, MissingError
+from odoo import _, fields, http
+from odoo.exceptions import AccessError, MissingError, ValidationError
 from odoo.http import request
 
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
@@ -110,3 +110,56 @@ class PortalSubscription(CustomerPortal):
             subscription_sudo, access_token, **kw
         )
         return request.render("subscription_portal.portal_subscription_page", values)
+
+    @http.route(
+        ["/my/subscriptions/<int:sub_id>/start-cancellation"],
+        type="http",
+        auth="user",
+        website=True,
+    )
+    def portal_my_subscription_start_cancellation(self, sub_id, **kw):
+        try:
+            sub_sudo = self._document_check_access("sale.subscription", sub_id)
+        except (AccessError, MissingError):
+            return request.redirect("/my")
+        sub_sudo.start_cancellation()
+        return request.redirect(
+            "/my/subscriptions/%s?success=start_cancellation" % sub_id
+        )
+
+    @http.route(
+        ["/my/subscriptions/<int:sub_id>/confirm-cancellation"],
+        type="http",
+        auth="user",
+        website=True,
+    )
+    def portal_my_subscription_confirm_cancellation(self, sub_id, **kw):
+        try:
+            sub_sudo = self._document_check_access("sale.subscription", sub_id)
+        except (AccessError, MissingError):
+            return request.redirect("/my/applications")
+        if not sub_sudo.cancellation_token:
+            return request.redirect("/my/applications")
+        if sub_sudo.cancellation_token != kw.get("token"):
+            return request.render(
+                "subscription_portal.error_page", {"message": _("Invalid token")}
+            )
+        if fields.Datetime.now() > sub_sudo.cancellation_token_expiration:
+            return request.render(
+                "subscription_portal.error_page", {"message": _("Token expired")}
+            )
+
+        if request.httprequest.method == "POST":
+            try:
+                sub_sudo.confirm_cancellation(kw.get("token"))
+            except ValidationError as e:
+                return request.render(
+                    "subscription_portal.error_page", {"message": str(e)}
+                )
+            return request.redirect("/my/subscriptions/%s" % sub_id)
+
+        values = {"page_name": "Subscriptions", "subscription": sub_sudo}
+
+        return request.render(
+            "subscription_portal.portal_subscription_confirm_cancellation_page", values
+        )

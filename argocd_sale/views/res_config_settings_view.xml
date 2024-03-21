@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='catalog_setting_container']" position="after">
+                <h2>Applications</h2>
+                <div class="row mt16 o_settings_container" name="applications_container">
+                    <div class="col-12 o_setting_box" id="grace_period_settings">
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label string="Grace period" for="subscription_grace_period" />
+                            <div class="text-muted">
+                                Set days to 0 to disable it
+                            </div>
+                            <div class="content-group">
+                                After <field name="subscription_grace_period" class="oe_inline" /> days
+                                <field name="subscription_grace_period_action" class="oe_inline" />
+                                <field
+                                    name="subscription_grace_period_tag_id"
+                                    options="{'no_create':True}"
+                                    attrs="{'invisible': [('subscription_grace_period_action', '!=', 'add_tag')]}"
+                                    class="oe_inline ml4"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

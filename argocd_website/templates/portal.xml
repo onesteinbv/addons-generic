@@ -147,9 +147,23 @@
                         </h2>
                         <!-- FIXME: Lets put the danger button here for now -->
                         <div>
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#modalDelete" title="Delete" class="btn btn-danger">
-                                <span class="fa fa-trash fa-fw" />
-                            </button>
+                            <t t-if="app.subscription_id">
+                                <button
+                                    type="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalCancelSub"
+                                    title="Cancel Subscription"
+                                    class="btn btn-danger"
+                                    t-if="app.subscription_id.in_progress"
+                                >
+                                    <span class="fa fa-ban fa-fw" />
+                                </button>
+                            </t>
+                            <t t-else="">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#modalDelete" title="Delete" class="btn btn-danger">
+                                    <span class="fa fa-trash fa-fw" />
+                                </button>
+                            </t>
                         </div>
                         <t t-call="argocd_website.external_links_dropdown" />
                     </div>
@@ -180,18 +194,22 @@
                             </span>
                         </div>
                     </div>
-                    <div class="mt32" t-if="app.invoice_id">
+                    <div class="mt32" t-if="app.subscription_id">
+                        <t t-call="subscription_portal.portal_subscription_cancel_modal">
+                            <t t-set="modalId" t-value="'modalCancelSub'" />
+                            <t t-set="subscription" t-value="app.subscription_id" />
+                        </t>
                         <div>
                             <div class="h3 d-flex">
                                 <span class="flex-fill">
-                                    Your order
+                                    Your subscription
                                     <button class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#modalUpgrade">
                                         <i class="fa fa-pencil fa-fw" />
                                     </button>
                                 </span>
                                 <span class="badge bg-secondary align-self-center">
-                                    <t t-esc="app.invoice_id.amount_untaxed"
-                                       t-options="{'widget': 'monetary', 'display_currency': app.invoice_id.currency_id}" />
+                                    <t t-esc="app.subscription_id.recurring_total"
+                                       t-options="{'widget': 'monetary', 'display_currency': app.subscription_id.currency_id}" />
                                     <small>excl. VAT</small>
                                 </span>
                             </div>
@@ -201,7 +219,7 @@
                                 <th>Product / service</th>
                                 <th>Price</th>
                             </tr>
-                            <tr t-foreach="app.invoice_id.invoice_line_ids" t-as="line">
+                            <tr t-foreach="app.subscription_id.sale_subscription_line_ids" t-as="line">
                                 <td><t t-esc="line.product_id.name" /></td>
                                 <td>
                                     <span t-field="line.price_unit" t-options="{'widget': 'monetary'}" />
@@ -216,6 +234,7 @@
             <t t-call="argocd_website.portal_application_delete_modal">
                 <t t-set="modalId" t-value="'modalDelete'" />
             </t>
+
 
             <t t-call="argocd_website.portal_application_upgrade_modal" />
         </t>

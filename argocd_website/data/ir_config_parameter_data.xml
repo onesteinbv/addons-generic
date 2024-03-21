@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="parameter_subscription_template_id" model="ir.config_parameter">
+        <field name="key">argocd_website.subscription_template_id</field>
+        <field name="value">0</field>
+    </record>
+</odoo>

@@ -18,12 +18,12 @@ class Application(models.Model):
             self.partner_id.parent_id and self.partner_id.parent_id.is_reseller
         )
 
-    invoice_id = fields.Many2one(comodel_name="account.move")
+    subscription_id = fields.Many2one(comodel_name="sale.subscription")
 
-    @api.depends("invoice_id", "invoice_id.partner_id")
+    @api.depends("subscription_id", "subscription_id.partner_id")
     def _compute_partner_id(self):
-        for app in self.filtered(lambda a: a.invoice_id):
-            app.partner_id = app.invoice_id.partner_id
+        for app in self.filtered(lambda a: a.subscription_id):
+            app.partner_id = app.subscription_id.partner_id
 
     def _get_deployment_notification_mail_template(self):
         self.ensure_one()

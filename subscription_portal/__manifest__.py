@@ -13,6 +13,8 @@
         "subscription_oca",
     ],
     "data": [
+        "data/mail_template_data.xml",
         "templates/subscription_portal_templates.xml",
+        "views/sale_subscription_view.xml",
     ],
 }

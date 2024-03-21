@@ -50,8 +50,9 @@
                 <thead>
                     <tr class="active">
                         <th>Subscription #</th>
-                        <th class='d-none d-md-table-cell'>Date</th>
-                        <th class='text-right'>Reference</th>
+                        <th class="d-none d-md-table-cell">Date</th>
+                        <th>Reference</th>
+                        <th class="text-right">State</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,14 +70,43 @@
                             <td class="d-none d-md-table-cell">
                                 <span t-field="subscription.recurring_next_date" />
                             </td>
-                            <td class='text-right'>
+                            <td>
                                 <span t-field="subscription.code" />
+                            </td>
+                            <td class="text-right">
+                                <span class="badge rounded-pill text-bg-secondary" t-field="subscription.stage_id.name" />
                             </td>
                         </tr>
                     </t>
                 </tbody>
             </t>
         </t>
+    </template>
+
+    <template id="portal_subscription_cancel_modal">
+        <div class="modal fade" tabindex="-1" role="dialog" t-att-id="modalId or 'modalCancelSub'">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cancel Subscription</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Are you sure you want to cancel this subscription? Your subscription stays active until
+                            <strong t-field="subscription.recurring_next_date" />.
+                            You'll get an email to confirm the deletion.
+                        </p>
+                    </div>
+                    <div class="modal-footer justify-content-start">
+                        <a type="action" class="btn btn-danger" t-attf-href="/my/subscriptions/#{subscription.id}/start-cancellation">
+                            Cancel Subscription
+                        </a>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Go back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </template>
 
     <template id="portal_subscription_page" name="My Subscription">
@@ -91,13 +121,29 @@
             </t>
             <t t-call="portal.portal_record_layout">
                 <t t-set="card_header">
-                    <h5 class="mb-0">
-                        <span>
-                            Subscription - <span t-field="subscription.name" />
-                        </span>
-                    </h5>
+                    <div class="d-flex">
+                        <h5 class="mb-0 flex-fill">
+                            <span>
+                                Subscription - <span t-field="subscription.name" />
+                            </span>
+                            <span class="badge rounded-pill text-bg-secondary" t-field="subscription.stage_id.name" />
+                        </h5>
+                        <div>
+                            <button
+                                t-if="subscription.in_progress"
+                                class="btn btn-sm btn-danger pull-right"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalCancelSub"
+                            >
+                                Cancel Subscription
+                            </button>
+                        </div>
+                    </div>
                 </t>
                 <t t-set="card_body">
+                    <div class="alert alert-info" t-if="success == 'start_cancellation'">
+                        <i class="fa fa-fw fa-info" /> Please check your email to confirm the cancellation.
+                    </div>
                     <div id="general_information">
                         <div class="row mt4">
                             <div
@@ -118,7 +164,7 @@
                                         <img
                                             t-else=""
                                             class="rounded-circle mt-1 o_portal_contact_img"
-                                            src="/web/static/src/img/user_menu_avatar.png"
+                                            src="/web/static/img/user_menu_avatar.png"
                                             alt="Contact"
                                         />
                                     </div>
@@ -145,7 +191,7 @@
                                         <img
                                             t-else=""
                                             class="rounded-circle mt-1 o_portal_contact_img"
-                                            src="/web/static/src/img/user_menu_avatar.png"
+                                            src="/web/static/img/user_menu_avatar.png"
                                             alt="Contact"
                                         />
                                     </div>
@@ -180,6 +226,14 @@
                                             t-field="subscription.recurring_next_date"
                                             t-options='{"widget": "date"}'
                                         />
+                                    </div>
+                                </div>
+                                <div t-if="subscription.date_stop" class="row mb-2 mb-sm-1">
+                                    <div class="col-12 col-sm-4">
+                                        <strong>Last date of service</strong>
+                                    </div>
+                                    <div class="col-12 col-sm-8">
+                                        <span t-field="subscription.date_stop" />
                                     </div>
                                 </div>
                             </div>
@@ -267,6 +321,48 @@
                     <t t-set="hash" t-value="hash" />
                 </t>
             </div>
+            <t t-call="subscription_portal.portal_subscription_cancel_modal" />
+        </t>
+    </template>
+
+    <template id="error_page" name="Error">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_body">
+                    <div class="alert alert-danger">
+                        <t t-esc="message" />
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_subscription_confirm_cancellation_page" name="Cancel Subscription">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_header">
+                    <div class="d-flex">
+                        <h2 class="mb-0 flex-fill">
+                            <span>
+                                Subscription - <span t-field="subscription.name" />
+                            </span>
+                        </h2>
+                    </div>
+                </t>
+                <t t-set="card_body">
+                    <p class="mb16">
+                        Are you sure you want to cancel this subscription (<i><t t-esc="subscription.name" /></i>)?
+                        <!-- TODO: Make reversible? -->
+                        <strong class="text-danger">This action is irreversible! You cannot reactivate your subscription after cancelling it.</strong>
+                    </p>
+                    <form method="POST">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                        <input type="hidden" name="token" t-att-value="subscription.cancellation_token" />
+                        <button class="btn btn-danger">Confirm Cancellation</button>
+                        <a class="btn btn-link" t-attf-href="/my/subscriptions/#{subscription.id}">Keep subscription</a>
+                    </form>
+                </t>
+            </t>
         </t>
     </template>
 
