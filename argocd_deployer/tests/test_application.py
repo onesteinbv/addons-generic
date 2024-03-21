@@ -11,17 +11,17 @@ class TestApplication(TransactionCase):
                     "argocd_deployer.demo_curq_basis_application_template"
                 ),
                 "tag_ids": [
-                    self.ref("argocd_deployer.demo_matomo_server_application_tag")
+                    self.ref("argocd_deployer.demo_matomo_server_application_tag"),
                 ],
             }
         )
         app.render_config()
-        urls = app.get_urls()
-        expected_urls = [
+        urls = {url for url in app.get_urls()}
+        expected_urls = {
             ("https://myapp.curq.k8s.onestein.eu", "Odoo"),
             ("https://matomo.myapp.curq.k8s.onestein.eu", "Matomo Server"),
-        ]
-        self.assertEqual(urls, expected_urls)
+        }
+        self.assertEqual(expected_urls, urls)
 
         app.tag_ids = [Command.clear()]
         app.render_config()

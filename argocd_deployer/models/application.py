@@ -50,7 +50,6 @@ class Application(models.Model):
         kv_pair = self.value_ids.filtered(lambda v: v.key == key)
         return kv_pair and kv_pair.value or default
 
-
     def has_tag(self, key):
         self.ensure_one()
         return bool(self.tag_ids.filtered(lambda t: t.key == key))
@@ -65,17 +64,12 @@ class Application(models.Model):
         @return: formatted domain
         """
         self.ensure_one()
-        config_parameter_sudo = self.env["ir.config_parameter"].sudo()
         values = {"application_name": self.name}
         if subdomain:
-            domain_format = config_parameter_sudo.get_param(
-                "argocd.application_subdomain_format"
-            )
+            domain_format = self.application_set_id.subdomain_format
             values["subdomain"] = subdomain
         else:
-            domain_format = config_parameter_sudo.get_param(
-                "argocd.application_domain_format"
-            )
+            domain_format = self.application_set_id.domain_format
         return domain_format % values
 
     @api.depends("config")
@@ -93,6 +87,10 @@ class Application(models.Model):
             raise_if_not_found=False,
         )
 
+    @staticmethod
+    def _get_domain(helm):
+        return helm.get("domain") or helm.get("globals", {}).get("domain")
+
     def get_urls(self):
         self.ensure_one()
         urls = []
@@ -101,7 +99,7 @@ class Application(models.Model):
 
         config = yaml.load(self.config, Loader=Loader)
         helm = yaml.load(config["helm"], Loader=Loader)
-        urls.append(("https://%s" % helm["domain"], "Odoo"))
+        urls.append(("https://%s" % self._get_domain(helm), "Odoo"))
         for tag in self.tag_ids.filtered(lambda t: t.domain_yaml_path):
             yaml_path = tag.domain_yaml_path.split(".")
             domain = helm

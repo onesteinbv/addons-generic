@@ -8,5 +8,7 @@
         <field name="branch">main</field>
         <field name="repository_directory">/home/tarteo/repo</field>
         <field name="instances_directory">instances</field>
+        <field name="domain_format">%(application_name)s.curq.k8s.onestein.eu</field>
+        <field name="subdomain_format">%(subdomain)s.%(application_name)s.curq.k8s.onestein.eu</field>
     </record>
 </odoo>

@@ -25,9 +25,22 @@ class ApplicationSet(models.Model):
         required=True,
         help="Folder inside the repository in which to store the application YAML files.",
     )
+    domain_format = fields.Char(
+        required=True,
+        help="The domain format used to build the domain for the deployment.",
+    )
+    subdomain_format = fields.Char(
+        required=True,
+        help="The domain format used to build the domain for the deployment.",
+    )
 
     _sql_constraints = [
-        ("application_set_name_unique", "unique(name)", "Already exists")
+        ("application_set_name_unique", "unique(name)", "Already exists"),
+        (
+            "app_set_unique",
+            "unique(repository_url, branch, instances_directory)",
+            "Another app set is already linked to this repository, branch and instances folder.",
+        ),
     ]
 
     def _get_repository_directory(self, allow_create=True):
