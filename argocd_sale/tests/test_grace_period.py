@@ -11,8 +11,7 @@ class TestGracePeriod(TransactionCase):
         cls.sub_product_tmpl = cls.env.ref(
             "argocd_sale.demo_curq_basis_product_template"
         )
-        cls.sub_product = cls.curq_product_tmpl.product_variant_ids[0]
-        cls.sub_tmpl = cls.env.ref("argocd_sale.demo_subscription_template")
+        cls.sub_product = cls.sub_product_tmpl.product_variant_ids[0]
         cls.sub_tmpl = cls.env.ref("argocd_sale.demo_subscription_template")
         cls.disable_odoo_tag = cls.env["argocd.application.tag"].create(
             {"name": "Disable Odoo", "key": "disable_odoo", "is_odoo_module": True}
@@ -27,8 +26,8 @@ class TestGracePeriod(TransactionCase):
             "argocd_sale.grace_period_tag_id", cls.disable_odoo_tag.id
         )
 
-    def _create_sub(self, last_date_invoiced):
-        return self.env["sale.subscription"].create(
+    def _create_and_prepare_sub(self, last_date_invoiced, create_invoice=True):
+        sub = self.env["sale.subscription"].create(
             {
                 "template_id": self.sub_tmpl.id,
                 "sale_subscription_line_ids": [
@@ -36,18 +35,24 @@ class TestGracePeriod(TransactionCase):
                 ],
                 "partner_id": self.partner_id.id,
                 "pricelist_id": self.partner_id.property_product_pricelist.id,
-                "last_date_invoiced": last_date_invoiced,
             }
         )
+        if create_invoice:
+            sub.generate_invoice()
+            sub._invoice_paid_hook()  # Fake the invoice has been paid
+            sub.write(
+                {"last_date_invoiced": last_date_invoiced}
+            )  # Fake the last invoice date
+        return sub
 
     def setUp(self):
         super(TestGracePeriod, self).setUp()
         today = fields.Date.today()
         late_date = today - timedelta(days=self.grace_period + 1)
         good_date = today - timedelta(days=1)
-        self.draft_sub = self._create_sub(False)
-        self.unpaid_sub = self._create_sub(late_date)
-        self.paid_sub = self._create_sub(good_date)  # Paid yesterday
+        self.draft_sub = self._create_and_prepare_sub(False, False)
+        self.unpaid_sub = self._create_and_prepare_sub(late_date)
+        self.paid_sub = self._create_and_prepare_sub(good_date)  # Paid yesterday
 
     def test_tag_action(self):
         self.env["ir.config_parameter"].set_param(
@@ -70,4 +75,30 @@ class TestGracePeriod(TransactionCase):
         )
 
     def test_destroy_action(self):
-        pass
+        self.env["ir.config_parameter"].set_param(
+            "argocd_sale.grace_period_action", "destroy_app"
+        )
+        self.env["sale.subscription"].cron_update_payment_provider_subscriptions()
+        jobs = self.env["queue.job"].search(
+            [("name", "=", "argocd.application.immediate_destroy")]
+        )
+        apps_in_queue = self.env["argocd.application"]
+        for record in jobs.mapped("records"):
+            apps_in_queue += record
+
+        self.assertEqual(
+            len(self.draft_sub.application_ids),
+            0,
+            "Draft subscription shouldn't have an app",
+        )
+        self.assertEqual(
+            len(self.unpaid_sub.application_ids),
+            1,
+            "Subscription should have created only one app",
+        )  # Just to be sure there's just one app
+        self.assertIn(self.unpaid_sub.application_ids, apps_in_queue)
+        self.assertNotIn(
+            self.paid_sub.application_ids,
+            apps_in_queue,
+            "This subscription is paid yesterday it shouldn't be affected",
+        )

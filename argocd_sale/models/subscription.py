@@ -81,16 +81,18 @@ class Subscription(models.Model):
         if not grace_period_action:
             return False  # Do nothing
         if grace_period_action == "add_tag":
-            grace_period_tag_id = self.env["ir.config_parameter"].get_param(
-                "argocd_sale.grace_period_tag_id", "0"
+            grace_period_tag_id = int(
+                self.env["ir.config_parameter"].get_param(
+                    "argocd_sale.grace_period_tag_id", "0"
+                )
             )
             if not grace_period_tag_id:
                 return False
             tag = self.env["argocd.application.tag"].browse(grace_period_tag_id)
             if not tag:
                 return False
-            self.mapped("application_ids").write({"tag_ids": [Command.link(tag)]})
-        elif grace_period_action == "delete_app":
+            self.mapped("application_ids").write({"tag_ids": [Command.link(tag.id)]})
+        elif grace_period_action == "destroy_app":
             self.mapped("application_ids").destroy()
         return True
 

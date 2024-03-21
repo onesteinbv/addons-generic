@@ -9,7 +9,7 @@ class ResConfigSettings(models.TransientModel):
     )
     subscription_grace_period_action = fields.Selection(
         selection=[
-            ("delete_app", "Delete application"),
+            ("destroy_app", "Destroy application"),
             ("add_tag", "Add tag"),
         ],
         default="add_tag",
