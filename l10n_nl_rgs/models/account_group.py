@@ -7,7 +7,7 @@ from odoo import fields, models
 
 class AccountGroup(models.Model):
     _inherit = "account.group"
-    _order = "sort_code, code, code_prefix_start"
+    _order = "sort_code, display_name"
 
     # FIXME: This should be English with Dutch translation
     referentiecode = fields.Char()
