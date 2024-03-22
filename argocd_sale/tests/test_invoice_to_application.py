@@ -1,10 +1,9 @@
-from odoo import Command
+from odoo import Command, fields
 from odoo.tests import common
 
 
 class TestInvoiceToApplication(common.TransactionCase):
-    def test_application_values(self):
-        """Creating an application from an invoice populates it with the correct values."""
+    def _create_subscription(self):
         partner = self.env["res.partner"].create({"name": "Onestein B.V. (some here)"})
         product = self.env.ref(
             "argocd_sale.demo_curq_basis_product_template"
@@ -23,21 +22,73 @@ class TestInvoiceToApplication(common.TransactionCase):
             }
         )
         product.product_tmpl_id.application_set_id = application_set
-        orders = self.env["sale.order"].create(
+        return self.env["sale.subscription"].create(
             {
                 "partner_id": partner.id,
-                "order_line": [
+                "template_id": self.ref("argocd_sale.demo_subscription_template"),
+                "pricelist_id": self.ref("product.list0"),
+                "sale_subscription_line_ids": [
                     Command.create(
-                        {"name": "Product", "product_id": product.id, "price_unit": 0}
+                        {
+                            "product_id": product.id,
+                            "product_uom_qty": 1,
+                            "price_unit": 1,
+                        }
                     )
                 ],
             }
         )
-        orders.action_confirm()
-        invoices = orders._create_invoices(grouped=True)
-        invoices.action_post()
+
+    def _create_posted_invoices(self, subscriptions):
+        invoices = self.env["account.move"]
+        for subscription in subscriptions:
+            invoice = subscription.create_invoice()
+            invoice.action_post()
+            invoices |= invoice
+        return invoices
+
+    def _register_payments(self, invoices):
+        for invoice in invoices:
+            payment_method = self.env["account.payment.method.line"].search(
+                [
+                    ("journal_id.company_id", "=", invoice.company_id.id),
+                    ("journal_id.type", "=", "bank"),
+                    (
+                        "payment_method_id",
+                        "=",
+                        self.ref("account.account_payment_method_manual_in"),
+                    ),
+                ]
+            )
+            register_payment = (
+                self.env["account.payment.register"]
+                .with_context(
+                    {
+                        "active_model": "account.move",
+                        "active_id": invoice.id,
+                        "active_ids": invoice.ids,
+                    }
+                )
+                .create(
+                    {
+                        "payment_date": fields.Date.today(),
+                        "journal_id": payment_method.journal_id.id,
+                        "payment_method_line_id": payment_method.id,
+                        "amount": 1,
+                    }
+                )
+            )
+            register_payment.action_create_payments()
+            self.assertEqual("paid", invoice.payment_state)
+
+    def test_application_values(self):
+        """Creating an application from an invoice populates it with the correct values."""
+        subscription = self._create_subscription()
+        product = subscription.sale_subscription_line_ids[0].product_id
+        invoice = self._create_posted_invoices(subscription)
+        self._register_payments(invoice)
         created_applications = self.env["argocd.application"].search(
-            [("invoice_id", "in", invoices.ids)]
+            [("subscription_id", "in", subscription.ids)]
         )
         self.assertRecordValues(
             created_applications,
@@ -46,38 +97,31 @@ class TestInvoiceToApplication(common.TransactionCase):
                     "name": "onestein-bv-some-here",
                     "template_id": product.application_template_id.id,
                     "tag_ids": product.application_tag_ids,
-                    "application_set_id": application_set.id,
+                    "application_set_id": product.application_set_id.id,
                 }
             ],
         )
 
     def test_name_should_never_conflict(self):
         """Test if a customer can create multiple applications for themselves."""
-        partner = self.env["res.partner"].create({"name": "Onestein B.V. (some here)"})
-        product = self.env.ref(
-            "argocd_sale.demo_curq_basis_product_template"
-        ).product_variant_ids
-        orders = self.env["sale.order"].create(
-            {
-                "partner_id": partner.id,
-                "order_line": [
-                    Command.create(
-                        {"name": "Product", "product_id": product.id, "price_unit": 0}
-                    )
-                ],
-            }
-        )
-        orders += orders.copy()
-        orders.action_confirm()
-        invoices = orders._create_invoices(grouped=True)
-        invoices.action_post()
+        subscriptions = self._create_subscription()
+        subscriptions |= subscriptions.copy()
+        subscriptions[1].sale_subscription_line_ids = subscriptions[
+            0
+        ].sale_subscription_line_ids.copy()
+        invoices = self._create_posted_invoices(subscriptions)
+        self._register_payments(invoices)
+        self.env["argocd.application"].flush_model()
         created_applications = self.env["argocd.application"].search(
-            [("invoice_id", "in", invoices.ids)]
+            [("subscription_id", "in", subscriptions.ids)]
         )
-        application_names = created_applications.mapped("name")
-        self.assertEqual(len(created_applications), 2)
-        self.assertIn("onestein-bv-some-here", application_names)
-        self.assertIn("onestein-bv-some-here0", application_names)
+        self.assertRecordValues(
+            created_applications.sorted("id"),
+            [
+                {"name": "onestein-bv-some-here"},
+                {"name": "onestein-bv-some-here0"},
+            ],
+        )
 
     def test_never_multiple_applications(self):
         pass  # TODO
