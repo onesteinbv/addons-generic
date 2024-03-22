@@ -8,7 +8,7 @@
     "category": "Accounting/Localizations/Account Charts",
     "author": "Onestein",
     "website": "https://www.onestein.nl",
-    "depends": ["account", "l10n_nl", "l10n_multilang"],
+    "depends": ["account", "l10n_nl", "l10n_multilang", "account_journal_subtype"],
     "data": [
         "data/account_account_tag.xml",
         "data/account_chart_template.xml",
