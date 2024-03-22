@@ -21,7 +21,7 @@ class AccountChartTemplate(models.Model):
                 "code": _("ACCR"),
                 "favorite": True,
                 "color": 11,
-                "sequence": 15
+                "sequence": 15,
             },
             {
                 "name": _("Depreciations"),
@@ -292,7 +292,7 @@ class AccountChartTemplate(models.Model):
                 ("company_id", "=", company.id),
             ]
         )
-        
+
         for group_template in group_templates:
             group = all_groups.filtered(
                 lambda g: g.referentiecode == group_template.referentiecode
@@ -324,13 +324,13 @@ class AccountChartTemplate(models.Model):
 
     def get_allowed_account_journals_based_on_code(self, all_journals, code_list):
         subtype_mapping = {
-            "WAG": "general_wag", 
+            "WAG": "general_wag",
             "DEPR": "general_depr",
             "FCR": "general_fcr",
             "STJ": "general_stj",
             "TAX": "general_tax",
             "MISC": "general_misc",
-            }
+        }
         subtype_list = []
         for k, v in subtype_mapping.items():
             if k in code_list and v not in subtype_list:
