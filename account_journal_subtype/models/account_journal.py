@@ -6,7 +6,7 @@ from odoo import fields, models
 
 class AccountJournal(models.Model):
     _inherit = "account.journal"
-    
+
     subtype = fields.Selection(
         selection=[
             ("general_misc", "Miscellaneous"),
@@ -17,7 +17,5 @@ class AccountJournal(models.Model):
             ("general_stj", "Inventory revaluation"),
             ("general_fcr", "Foreign currency revaluation"),
             ("general_exch", "Exchange difference"),
-        ])
-
-    
-    
+        ]
+    )

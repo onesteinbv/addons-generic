@@ -28,7 +28,9 @@ class AccountAccount(models.Model):
     def group_set_allowed_journals(self):
         for rec in self:
             if rec.group_id and rec.group_id.auto_allowed_journals:
-                rec.with_context(group_allowed_journal_change=True).allowed_journal_ids = rec.group_id.active_allowed_journal_ids
+                rec.with_context(
+                    group_allowed_journal_change=True
+                ).allowed_journal_ids = rec.group_id.active_allowed_journal_ids
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -36,4 +38,3 @@ class AccountAccount(models.Model):
         if not self._context.get("group_allowed_journal_change"):
             records.group_set_allowed_journals()
         return records
-    
