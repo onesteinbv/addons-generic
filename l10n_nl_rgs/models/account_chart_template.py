@@ -21,7 +21,7 @@ class AccountChartTemplate(models.Model):
                 "code": _("ACCR"),
                 "favorite": True,
                 "color": 11,
-                "sequence": 15,
+                "sequence": 15
             },
             {
                 "name": _("Depreciations"),
@@ -52,16 +52,38 @@ class AccountChartTemplate(models.Model):
                 "favorite": True,
                 "sequence": 19,
             },
+            {
+                "name": _("Taxes"),
+                "type": "general",
+                "code": _("TAX"),
+                "favorite": True,
+                "sequence": 20,
+            },
         ]
         resp_journals = super(AccountChartTemplate, self)._prepare_all_journals(
             acc_template_ref, company, journals_dict=journals_dict
         )
 
-        # Archive unwanted journals
+        # Archive unwanted journals and add related subtypes
         for journal in resp_journals:
             if journal["code"] == "CABA":
                 journal["active"] = False
-
+            if journal["type"] == "general" and journal["code"] == _("EXCH"):
+                journal["subtype"] = "general_exch"
+            if journal["type"] == "general" and journal["code"] == _("MISC"):
+                journal["subtype"] = "general_misc"
+            if journal["type"] == "general" and journal["code"] == _("ACCR"):
+                journal["subtype"] = "general_accr"
+            if journal["type"] == "general" and journal["code"] == _("DEPR"):
+                journal["subtype"] = "general_depr"
+            if journal["type"] == "general" and journal["code"] == _("FCR"):
+                journal["subtype"] = "general_fcr"
+            if journal["type"] == "general" and journal["code"] == _("WAG"):
+                journal["subtype"] = "general_wag"
+            if journal["type"] == "general" and journal["code"] == _("STJ"):
+                journal["subtype"] = "general_stj"
+            if journal["type"] == "general" and journal["code"] == _("TAX"):
+                journal["subtype"] = "general_tax"
         return resp_journals
 
     @api.model
@@ -192,7 +214,7 @@ class AccountChartTemplate(models.Model):
         if rgs and self == rgs:
             # Add allowed journals to accounts based on group settings
             if not company.l10n_nl_rgs_disable_allowed_journals:
-                self.add_account_allowed_journals(company)
+                self.add_account_group_allowed_journals(company)
 
             # Workaround to translate journal names to Dutch
             self._translate_journal_names_to_dutch(company)
@@ -249,7 +271,7 @@ class AccountChartTemplate(models.Model):
                 self.env["ir.model.data"]._update_xmlids([account_data])
                 liquidity_account_template.unlink()
 
-    def add_account_allowed_journals(self, company):
+    def add_account_group_allowed_journals(self, company):
         """Inherit this method to fix reference code missing in account groups"""
         self.ensure_one()
 
@@ -270,8 +292,7 @@ class AccountChartTemplate(models.Model):
                 ("company_id", "=", company.id),
             ]
         )
-        accrual_journal = all_journals.filtered(lambda j: j.code == "ACCR")
-
+        
         for group_template in group_templates:
             group = all_groups.filtered(
                 lambda g: g.referentiecode == group_template.referentiecode
@@ -295,24 +316,26 @@ class AccountChartTemplate(models.Model):
                 journals |= self.get_allowed_account_journals_based_on_code(
                     all_journals, code_list
                 )
-
             if journals:
-                accounts = group.get_all_account_ids()
-                for account in accounts:
-                    account.allowed_journal_ids |= journals
-                    if accrual_journal and account.account_type == "asset_prepayments":
-                        account.allowed_journal_ids |= accrual_journal
+                group.allowed_journal_ids = journals
 
     def get_allowed_account_journals_based_on_type(self, all_journals, type_list):
         return all_journals.filtered(lambda j: j.type in type_list)
 
     def get_allowed_account_journals_based_on_code(self, all_journals, code_list):
-        # Not so nice fix, needs more testing and different approach
-        nl_mapping = {"MISC": "MEM", "WAG": "SAL", "DEPR": "AFSC"}
-        for k, v in nl_mapping.items():
-            if k in code_list and v not in code_list:
-                code_list.append(v)
-        return all_journals.filtered(lambda j: j.code in code_list)
+        subtype_mapping = {
+            "WAG": "general_wag", 
+            "DEPR": "general_depr",
+            "FCR": "general_fcr",
+            "STJ": "general_stj",
+            "TAX": "general_tax",
+            "MISC": "general_misc",
+            }
+        subtype_list = []
+        for k, v in subtype_mapping.items():
+            if k in code_list and v not in subtype_list:
+                subtype_list.append(v)
+        return all_journals.filtered(lambda j: j.subtype in subtype_list)
 
     def _create_bank_journals(self, company, acc_template_ref):
         self.ensure_one()
