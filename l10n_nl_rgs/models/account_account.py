@@ -1,7 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 # Copyright (C) 2016 Onestein (<http://www.onestein.eu>).
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class AccountAccount(models.Model):
@@ -21,5 +21,19 @@ class AccountAccount(models.Model):
             and acc.group_id.referentiecode
         ):
             rec.referentiecode = rec.group_id.referentiecode
-
+        if not self._context.get("group_allowed_journal_change"):
+            self.group_set_allowed_journals()
         return resp
+
+    def group_set_allowed_journals(self):
+        for rec in self:
+            if rec.group_id and rec.group_id.auto_allowed_journals:
+                rec.with_context(group_allowed_journal_change=True).allowed_journal_ids = rec.group_id.active_allowed_journal_ids
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        if not self._context.get("group_allowed_journal_change"):
+            records.group_set_allowed_journals()
+        return records
+    
