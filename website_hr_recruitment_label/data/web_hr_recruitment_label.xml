@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="hr_recruitment_label.categ1" model="hr.job.label.category">
+        <field name="allow_filtering" eval="False" />
+    </record>
+    <record id="hr_recruitment_label.categ3" model="hr.job.label.category">
+        <field name="show_on_website" eval="False" />
+    </record>
+</odoo>
