@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="0">
+   <data noupdate="0">
 
         <record id="account_group_B" model="account.group.template">
             <field name="name">BALANS</field>
@@ -73,7 +73,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code">MISC</field>
             <field name="rgs_allowed_journals_type"></field>
@@ -233,7 +233,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code">MISC</field>
             <field name="rgs_allowed_journals_type"></field>
@@ -730,7 +730,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code"></field>
             <field name="rgs_allowed_journals_type"></field>
@@ -1000,7 +1000,7 @@
             <field name="rgs_basic"></field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez"></field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code"></field>
             <field name="rgs_allowed_journals_type"></field>
@@ -1486,7 +1486,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez"></field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code"></field>
             <field name="rgs_allowed_journals_type">purchase,bank</field>
@@ -1522,7 +1522,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code"></field>
             <field name="rgs_allowed_journals_type">purchase,bank</field>
@@ -1612,7 +1612,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code"></field>
             <field name="rgs_allowed_journals_type"></field>
@@ -2134,7 +2134,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code"></field>
             <field name="rgs_allowed_journals_type"></field>
@@ -2188,7 +2188,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code"></field>
             <field name="rgs_allowed_journals_type"></field>
@@ -2206,7 +2206,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code"></field>
             <field name="rgs_allowed_journals_type"></field>
@@ -2242,7 +2242,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code"></field>
             <field name="rgs_allowed_journals_type"></field>
@@ -2296,7 +2296,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez"></field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code"></field>
             <field name="rgs_allowed_journals_type"></field>
@@ -2530,7 +2530,7 @@
             <field name="rgs_basic"></field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez"></field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code"></field>
             <field name="rgs_allowed_journals_type"></field>
@@ -2602,9 +2602,9 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
-            <field name="rgs_allowed_journals_code">MISC,WAG</field>
+            <field name="rgs_allowed_journals_code">MISC,WAG,TAX</field>
             <field name="rgs_allowed_journals_type">sale,purchase,bank</field>
             <field name="code_prefix_start">11020</field>
             <field name="code_prefix_end">11020</field>
@@ -2818,7 +2818,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code">MISC</field>
             <field name="rgs_allowed_journals_type">sale,purchase,bank</field>
@@ -2874,7 +2874,7 @@
             <field name="rgs_ez">1</field>
             <field name="rgs_zzp">1</field>
             <field name="rgs_bv"></field>
-            <field name="rgs_allowed_journals_code">MISC</field>
+            <field name="rgs_allowed_journals_code">MISC,EXCH</field>
             <field name="rgs_allowed_journals_type">purchase,bank</field>
             <field name="code_prefix_start">12030</field>
             <field name="code_prefix_end">12030</field>
@@ -2928,7 +2928,7 @@
             <field name="rgs_ez">1</field>
             <field name="rgs_zzp">1</field>
             <field name="rgs_bv"></field>
-            <field name="rgs_allowed_journals_code">MISC,WAG</field>
+            <field name="rgs_allowed_journals_code">MISC,WAG,TAX</field>
             <field name="rgs_allowed_journals_type">sale,purchase,bank</field>
             <field name="code_prefix_start">120501</field>
             <field name="code_prefix_end">120800</field>
@@ -2962,7 +2962,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez"></field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code">MISC</field>
             <field name="rgs_allowed_journals_type">sale,purchase,bank</field>
@@ -3361,7 +3361,7 @@
             <field name="rgs_zzp"></field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code">WAG</field>
-            <field name="rgs_allowed_journals_type"></field>
+            <field name="rgs_allowed_journals_type">purchase</field>
             <field name="code_prefix_start">40040</field>
             <field name="code_prefix_end">40040</field>
             <field name="chart_template_id" ref="l10n_nl_rgs.l10nnl_rgs_chart_template"/>
@@ -3484,7 +3484,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code">DEPR,ACCR</field>
             <field name="rgs_allowed_journals_type"></field>
@@ -3684,7 +3684,7 @@
             <field name="rgs_ez">1</field>
             <field name="rgs_zzp">1</field>
             <field name="rgs_bv"></field>
-            <field name="rgs_allowed_journals_code">MISC,ACCR</field>
+            <field name="rgs_allowed_journals_code">MISC,ACCR,WAG</field>
             <field name="rgs_allowed_journals_type">purchase</field>
             <field name="code_prefix_start">4204</field>
             <field name="code_prefix_end">4204</field>
@@ -3702,7 +3702,7 @@
             <field name="rgs_ez">1</field>
             <field name="rgs_zzp"></field>
             <field name="rgs_bv"></field>
-            <field name="rgs_allowed_journals_code">MISC,ACCR</field>
+            <field name="rgs_allowed_journals_code">MISC,ACCR,WAG</field>
             <field name="rgs_allowed_journals_type">purchase</field>
             <field name="code_prefix_start">4205</field>
             <field name="code_prefix_end">4205</field>
@@ -3756,7 +3756,7 @@
             <field name="rgs_ez">1</field>
             <field name="rgs_zzp"></field>
             <field name="rgs_bv"></field>
-            <field name="rgs_allowed_journals_code">MISC,ACCR</field>
+            <field name="rgs_allowed_journals_code">MISC,ACCR,WAG</field>
             <field name="rgs_allowed_journals_type">purchase</field>
             <field name="code_prefix_start">4208</field>
             <field name="code_prefix_end">4208</field>
@@ -3792,7 +3792,7 @@
             <field name="rgs_ez">1</field>
             <field name="rgs_zzp">1</field>
             <field name="rgs_bv"></field>
-            <field name="rgs_allowed_journals_code">MISC,FCR,ACCR</field>
+            <field name="rgs_allowed_journals_code">MISC,FCR,ACCR,EXCH</field>
             <field name="rgs_allowed_journals_type">purchase,bank</field>
             <field name="code_prefix_start">4210</field>
             <field name="code_prefix_end">4210</field>
@@ -3882,7 +3882,7 @@
             <field name="rgs_ez">1</field>
             <field name="rgs_zzp">1</field>
             <field name="rgs_bv"></field>
-            <field name="rgs_allowed_journals_code">MISC,ACCR</field>
+            <field name="rgs_allowed_journals_code">MISC,ACCR,TAX</field>
             <field name="rgs_allowed_journals_type">purchase</field>
             <field name="code_prefix_start">4215</field>
             <field name="code_prefix_end">4215</field>
@@ -4384,7 +4384,7 @@
             <field name="rgs_basic">1</field>
             <field name="rgs_extended">1</field>
             <field name="rgs_ez">1</field>
-            <field name="rgs_zzp"></field>
+            <field name="rgs_zzp"> </field>
             <field name="rgs_bv"></field>
             <field name="rgs_allowed_journals_code">ACCR</field>
             <field name="rgs_allowed_journals_type"></field>
@@ -5484,7 +5484,7 @@
             <field name="rgs_ez">1</field>
             <field name="rgs_zzp"></field>
             <field name="rgs_bv"></field>
-            <field name="rgs_allowed_journals_code"></field>
+            <field name="rgs_allowed_journals_code">EXCH</field>
             <field name="rgs_allowed_journals_type"></field>
             <field name="code_prefix_start">8407</field>
             <field name="code_prefix_end">8407</field>
@@ -5940,6 +5940,5 @@
             <field name="code_prefix_end">99991</field>
             <field name="chart_template_id" ref="l10n_nl_rgs.l10nnl_rgs_chart_template"/>
             <field name="parent_id" ref="l10n_nl_rgs.account_group_90"/>
-        </record>
-    </data>
+        </record>   </data>
 </odoo>
