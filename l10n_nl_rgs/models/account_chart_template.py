@@ -330,6 +330,7 @@ class AccountChartTemplate(models.Model):
             "STJ": "general_stj",
             "TAX": "general_tax",
             "MISC": "general_misc",
+            "EXCH": "general_exch",
         }
         subtype_list = []
         for k, v in subtype_mapping.items():
