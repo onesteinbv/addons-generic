@@ -5,6 +5,7 @@
         <field name="application_template_id" ref="argocd_deployer.demo_curq_basis_application_template" />
         <field name="subscribable" eval="True" />
         <field name="subscription_template_id" ref="argocd_sale.demo_subscription_template" />
+        <field name="list_price">30.0</field>
     </record>
     <record id="demo_pos_product_template" model="product.template">
         <field name="name">Point of Sales</field>
