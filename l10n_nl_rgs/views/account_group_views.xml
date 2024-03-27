@@ -8,10 +8,22 @@
             <field name="inherit_id" ref="account.view_account_group_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='company_id']" position="after">
-                    <field name="referentiecode"/>
-                    <field name="sort_code"/>
-                    <field name="code"/>
                     <field name="parent_id"/>
+                </xpath>
+                <xpath expr="//sheet/group[1]" position="after">
+                    <group>
+                        <group name="rgs" string="Referentie Grootboek Schema (RGS)">
+                            <field name="referentiecode"/>
+                            <field name="sort_code"/>
+                            <field name="code"/>
+                        </group>
+                        <group name="allowed_journals" string="Allowed Journals">
+                            <field name="auto_allowed_journals"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="active_allowed_journal_ids" widget="many2many_tags" domain="[('company_id','=',company_id)]" options="{'no_create_edit': True}"/>
+                            <field name="allowed_journal_ids" invisible="1"/>
+                        </group>
+                    </group>
                 </xpath>
             </field>
         </record>
@@ -24,7 +36,6 @@
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="referentiecode" filter_domain="['|', ('referentiecode','ilike',self), ('referentiecode','=like',str(self)+'%')]" string="Referentiecode"/>
                     <field name="code" filter_domain="['|', ('code','ilike',self), ('code','=like',str(self)+'%')]" string="Code"/>
-
                 </xpath>
             </field>
         </record>
