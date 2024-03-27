@@ -1,5 +1,7 @@
 from datetime import timedelta
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import Command, _, api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -10,6 +12,24 @@ class Subscription(models.Model):
     application_ids = fields.One2many(
         comodel_name="argocd.application", inverse_name="subscription_id"
     )
+
+    free_trial_end_date = fields.Date()
+
+    def create_invoice(self):
+        res = super().create_invoice()
+        if (
+            self.sale_subscription_line_ids.filtered(
+                lambda l: l.product_id.application_template_id
+            )
+            and len(self.invoice_ids) == 1
+        ):
+            # Set price of the first invoice to 1.00
+            free_period = self._get_free_period()
+            if free_period:
+                self.invoice_ids.invoice_line_ids.filtered(
+                    lambda l: l.product_id.application_template_id
+                ).price_unit = 1.0
+        return res
 
     def _get_grace_period(self):
         return int(
@@ -40,9 +60,18 @@ class Subscription(models.Model):
 
     def _invoice_paid_hook(self):
         application_sudo = self.env["argocd.application"].sudo()
+
         for subscription in self.filtered(
             lambda i: len(i.invoice_ids) == 1
+            and i.sale_subscription_line_ids.filtered(
+                lambda l: l.product_id.application_template_id
+            )
         ):  # Create the application after the first invoice has been paid
+            free_period = subscription._get_free_period()
+            if free_period:
+                today = fields.Datetime.today()
+                subscription.recurring_next_date = today + free_period
+                subscription.free_trial_end_date = today + free_period
             subscription.action_start_subscription()
             lines = subscription.sale_subscription_line_ids.filtered(
                 lambda l: l.product_id.application_template_id
@@ -97,7 +126,7 @@ class Subscription(models.Model):
         return True
 
     def cron_update_payment_provider_subscriptions(self):
-        # Process last payments first in here last_date_invoiced can be updated
+        # Process last payments first because in here paid_for_date can be updated
         res = super().cron_update_payment_provider_subscriptions()
         period = self._get_grace_period()
         if not period:
@@ -105,9 +134,50 @@ class Subscription(models.Model):
         today = fields.Date.today()
         late_date = today - timedelta(days=period)
         late_subs = self.search(
-            [("last_date_invoiced", "<", late_date), ("in_progress", "=", True)]
+            [
+                ("paid_for_date", "<", late_date),
+                ("in_progress", "=", True),
+                "|",
+                ("free_trial_end_date", "<", today),
+                ("free_trial_end_date", "=", False),
+            ]
         )
-        if late_subs:
+        if late_subs.filtered(
+            lambda s: not s.free_trial_end_date
+            or s.free_trial_end_date + timedelta(days=period) < today
+        ):
             late_subs.close_subscription()
             late_subs._do_grace_period_action()
         return res
+
+    def _get_free_period(self):
+        self.ensure_one()
+        existing_subs = self.partner_id.subscription_ids
+        if self.partner_id.parent_id:
+            existing_subs += self.partner_id.parent_id.subscription_ids
+        existing_subs -= self
+        if existing_subs:
+            return None
+        sudo_config = self.env["ir.config_parameter"].sudo()
+        free_period = int(
+            sudo_config.get_param("argocd_sale.subscription_free_period", "0")
+        )
+        if not free_period:
+            return None
+        free_period_type = sudo_config.get_param(
+            "argocd_sale.subscription_free_period_type"
+        )
+        valid_period_types = (
+            "years",
+            "months",
+            "days",
+            "leapdays",
+            "weeks",
+            "hours",
+            "minutes",
+            "seconds",
+            "microseconds",
+        )
+        if free_period_type not in valid_period_types:
+            return None
+        return relativedelta(**{free_period_type: free_period})

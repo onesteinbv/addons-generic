@@ -12,4 +12,12 @@
         <field name="key">argocd_sale.grace_period_tag_id</field>
         <field name="value"></field>
     </record>
+    <record id="parameter_subscription_free_period" model="ir.config_parameter">
+        <field name="key">argocd_sale.subscription_free_period</field>
+        <field name="value">3</field>
+    </record>
+    <record id="parameter_subscription_free_period_type" model="ir.config_parameter">
+        <field name="key">argocd_sale.subscription_free_period_type</field>
+        <field name="value">months</field>
+    </record>
 </odoo>

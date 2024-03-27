@@ -2,6 +2,8 @@ import logging
 from datetime import datetime
 from html import escape
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
@@ -20,6 +22,27 @@ class SaleSubscription(models.Model):
     last_date_invoiced = fields.Date(
         help="Date when last invoice was generated for the subscription",
     )
+    paid_for_date = fields.Date(
+        help="The date until the subscription is paid for (invoice date + recurring rule)",
+        compute="_compute_paid_for_date",
+        store=True,
+    )
+
+    @api.depends("invoice_ids", "invoice_ids.payment_state", "invoice_ids.invoice_date")
+    def _compute_paid_for_date(self):
+        for sub in self:
+            paid_for_date = False
+            paid_invoices = sub.invoice_ids.filtered(
+                lambda s: s.payment_state == "paid"
+            )
+            if paid_invoices:
+                last_paid_invoice = paid_invoices.sorted("invoice_date")[-1]
+                type_interval = sub.template_id.recurring_rule_type
+                interval = int(sub.template_id.recurring_interval)
+                paid_for_date = last_paid_invoice.invoice_date + relativedelta(
+                    **{type_interval: interval}
+                )
+            sub.paid_for_date = paid_for_date
 
     @api.model
     def cron_update_payment_provider_subscriptions(self):

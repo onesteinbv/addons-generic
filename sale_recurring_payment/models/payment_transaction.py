@@ -90,13 +90,13 @@ class PaymentTransaction(models.Model):
         if done_payment_transaction:
             unpaid_invoices = subscription.invoice_ids.filtered(
                 lambda i: i.payment_state == "not_paid"
-            )
+            ).sorted("invoice_date")
             unpaid_invoice = unpaid_invoices and unpaid_invoices[0]
             if not unpaid_invoice:
                 subscription.generate_invoice()
                 unpaid_invoice = subscription.invoice_ids.filtered(
                     lambda i: i.payment_state == "not_paid"
-                )[0]
+                ).sorted("invoice_date")[0]
             done_payment_transaction.invoice_ids = [(6, 0, unpaid_invoice.ids)]
             done_payment_transaction._reconcile_after_done()
         return None

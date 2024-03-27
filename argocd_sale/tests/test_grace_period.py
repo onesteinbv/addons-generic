@@ -28,8 +28,11 @@ class TestGracePeriod(TransactionCase):
         cls.env["ir.config_parameter"].set_param(
             "argocd_sale.grace_period_tag_id", cls.disable_odoo_tag.id
         )
+        cls.env["ir.config_parameter"].set_param(
+            "argocd_sale.subscription_free_period_type", ""  # Disable free period
+        )
 
-    def _create_and_prepare_sub(self, last_date_invoiced, create_invoice=True):
+    def _create_and_prepare_sub(self, paid_for_date=False, create_invoice=True):
         sub = self.env["sale.subscription"].create(
             {
                 "template_id": self.sub_tmpl.id,
@@ -43,9 +46,7 @@ class TestGracePeriod(TransactionCase):
         if create_invoice:
             sub.generate_invoice()
             sub._invoice_paid_hook()  # Fake the invoice has been paid
-            sub.write(
-                {"last_date_invoiced": last_date_invoiced}
-            )  # Fake the last invoice date
+            sub.write({"paid_for_date": paid_for_date})  # Fake the last invoice date
         return sub
 
     def setUp(self):
@@ -53,6 +54,7 @@ class TestGracePeriod(TransactionCase):
         today = fields.Date.today()
         late_date = today - timedelta(days=self.grace_period + 1)
         good_date = today - timedelta(days=1)
+
         self.draft_sub = self._create_and_prepare_sub(False, False)
         self.unpaid_sub = self._create_and_prepare_sub(late_date)
         self.paid_sub = self._create_and_prepare_sub(good_date)  # Paid yesterday
