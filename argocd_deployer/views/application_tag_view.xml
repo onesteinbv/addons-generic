@@ -28,7 +28,7 @@
     </record>
 
     <record id="application_tag_action" model="ir.actions.act_window">
-        <field name="name">Tags</field>
+        <field name="name">Application Tags</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">argocd.application.tag</field>
         <field name="view_mode">tree,form</field>

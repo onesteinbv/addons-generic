@@ -49,4 +49,14 @@
         <field name="perm_write" eval="1" />
         <field name="perm_unlink" eval="1" />
     </record>
+
+    <record id="application_set_template_access" model="ir.model.access">
+        <field name="name">application_set_template_access</field>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application_set_template" />
+        <field name="group_id" ref="base.group_system" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
 </odoo>

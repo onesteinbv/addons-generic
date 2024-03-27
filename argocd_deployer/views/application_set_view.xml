@@ -3,14 +3,49 @@
     <record id="application_set_form" model="ir.ui.view">
         <field name="model">argocd.application.set</field>
         <field name="arch" type="xml">
+            <header>
+                <button
+                    name="immediate_deploy"
+                    type="object"
+                    string="Deploy"
+                    confirm="Are you sure you want to deploy a new application set?"
+                    attrs="{'invisible': [('is_deployed', '=', True)]}"
+                />
+                <button
+                    name="deploy"
+                    type="object"
+                    string="Queue Deployment"
+                    confirm="Are you sure you want to deploy a new application set?"
+                    attrs="{'invisible': [('is_deployed', '=', True)]}"
+                />
+                <button
+                    name="immediate_destroy"
+                    type="object"
+                    class="btn-danger"
+                    string="Destroy"
+                    confirm="Are you sure you want to destroy this application set, this can't be undone."
+                    attrs="{'invisible': [('is_deployed', '=', False)]}"
+                />
+                <button
+                    name="destroy"
+                    type="object"
+                    class="btn-danger"
+                    string="Queue Destroy"
+                    confirm="Are you sure you want to destroy this application set, this can't be undone."
+                    attrs="{'invisible': [('is_deployed', '=', False)]}"
+                />
+            </header>
             <form>
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="repository_url"/>
-                        <field name="branch"/>
-                        <field name="repository_directory"/>
-                        <field name="instances_directory"/>
+                        <field name="is_deployed" invisible="1"/>
+                        <field name="name" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                        <field name="description"/>
+                        <field name="template_id"/>
+                        <field name="repository_url" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                        <field name="branch" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                        <field name="repository_directory" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                        <field name="deployment_directory" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
                         <field name="domain_format"/>
                         <field name="subdomain_format"/>
                     </group>
@@ -27,13 +62,13 @@
                 <field name="repository_url"/>
                 <field name="branch"/>
                 <field name="repository_directory"/>
-                <field name="instances_directory"/>
+                <field name="deployment_directory"/>
             </tree>
         </field>
     </record>
 
     <record id="application_set_action" model="ir.actions.act_window">
-        <field name="name">App. Sets</field>
+        <field name="name">Application Sets</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">argocd.application.set</field>
         <field name="view_mode">tree,form</field>

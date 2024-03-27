@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="application_template_form" model="ir.ui.view">
-        <field name="model">argocd.application.template</field>
+    <record id="application_set_template_form" model="ir.ui.view">
+        <field name="model">argocd.application.set.template</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
                     <group>
                         <field name="name" />
-                        <field name="config" widget="ace" />
+                        <field name="yaml" widget="ace" />
                         <field name="active" />
                     </group>
                 </sheet>
@@ -15,7 +15,7 @@
         </field>
     </record>
 
-    <record id="application_template_tree" model="ir.ui.view">
+    <record id="application_set_template_tree" model="ir.ui.view">
         <field name="model">argocd.application.template</field>
         <field name="arch" type="xml">
             <tree>
@@ -24,10 +24,10 @@
         </field>
     </record>
 
-    <record id="application_template_action" model="ir.actions.act_window">
-        <field name="name">Application Templates</field>
+    <record id="application_set_template_action" model="ir.actions.act_window">
+        <field name="name">Application Set Templates</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">argocd.application.template</field>
+        <field name="res_model">argocd.application.set.template</field>
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>
