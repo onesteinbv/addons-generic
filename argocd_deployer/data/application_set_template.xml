@@ -1,0 +1,75 @@
+<odoo>
+    <record id="application_set_template_master" model="argocd.application.set.template">
+        <field name="name">Master application set template. Do not change.</field>
+        <field name="yaml">apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: curq-application-sets
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+  - git:
+      repoURL: {{.config.repository_url}}
+      revision: {{.config.branch}}
+      files:
+      - path: {{.config.deployment_directory}}
+  template:
+    metadata:
+      name: curq-application-sets
+    spec:
+      project: "default"
+      source:
+        repoURL: {{.config.repository_url}}
+        targetRevision: {{.config.branch}}
+        path: "{{.config.deployment_directory}}/{{ .path.basename }}"
+      destination:
+        name: in-cluster
+        namespace: argocd
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        automated:
+          prune: false
+          selfHeal: false
+</field>
+    </record>
+    <record id="application_set_template_default" model="argocd.application.set.template">
+        <field name="name">Default application set template. Do not change.</field>
+        <field name="yaml">apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: "flavoured-odoo-{{.application_set.name}}"
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+  - git:
+      repoURL: {{.application_set.repository_url}}
+      revision: {{.application_set.branch}}
+      files:
+      - path: {{.application_set.deployment_directory}}/**/config.yaml
+  template:
+    metadata:
+      name: "flavoured-odoo-{{ .path.basename }}"
+    spec:
+      project: "default"
+      source:
+        repoURL: {{.application_set.repository_url}}
+        targetRevision: {{.application_set.branch}}
+        path: app
+        helm:
+          values: |
+            {{ .helm }}
+      destination:
+        name: in-cluster
+        namespace: "flavoured-odoo-{{ .path.basename }}"
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        automated:
+          prune: false
+          selfHeal: false
+        </field>
+    </record>
+</odoo>

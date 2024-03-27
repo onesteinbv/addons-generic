@@ -9,11 +9,13 @@ from yaml import Loader
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
+from .repository_base import ADD_FILES, REMOVE_FILES
+
 
 class Application(models.Model):
     _name = "argocd.application"
     _description = "ArgoCD Application"
-    _inherit = ["mail.thread"]
+    _inherit = ["mail.thread", "argocd.repository.base"]
     _order = "id desc"
 
     name = fields.Char(required=True)
@@ -100,7 +102,7 @@ class Application(models.Model):
         config = yaml.load(self.config, Loader=Loader)
         helm = yaml.load(config["helm"], Loader=Loader)
         urls.append(("https://%s" % self._get_domain(helm), "Odoo"))
-        for tag in self.tag_ids.filtered(lambda t: t.domain_yaml_path):
+        for tag in self.tag_ids.filtered(lambda t: bool(t.domain_yaml_path)):
             yaml_path = tag.domain_yaml_path.split(".")
             domain = helm
             for p in yaml_path:
@@ -167,100 +169,61 @@ class Application(models.Model):
         values.update(context=context or {})
         self.config = template.render(values)
 
-    def deploy(self):
-        self.ensure_one()
-        self.with_delay().immediate_deploy()
-
     def _get_repository(self):
         """Get the repository specified in the application set."""
-        directory = self.application_set_id._get_repository_directory(allow_create=True)
+        directory = self.application_set_id._get_application_set_repository_directory(
+            "create"
+        )
         if os.path.exists(os.path.join(directory, ".git")):
             return Repo.init(directory)
         else:
             return Repo.clone_from(self.application_set_id.repository_url, directory)
 
-    def _get_remote(self, repository):
-        """Find the provided repository's remote repository."""
-        return repository.remotes.origin
+    def _get_branch(self):
+        """Get the repository branch from the application set."""
+        return self.application_set_id.branch
 
-    def _pull_from_repository(self, repository, remote):
-        """Switch to the correct branch, then execute a git pull on the
-        repository."""
-        repository.git.checkout(self.application_set_id.branch)
-        repository.git.reset(
-            "--hard", "origin/%s" % self.application_set_id.branch
-        )  # Make sure we don't lock after failed push
-        remote.pull()
+    def _format_commit_message(self, message):
+        return message % self.name
 
-    def _get_application_dir(self, instances_dir, allow_create=True):
-        """Returns the directory where the application config is stored locally..
-        :param allow_create: bool. If False, the method raises an exception if the
-           folder does not exist locally. If True, the folder will be created if it
-           does not yet exist."""
-        application_dir = os.path.join(instances_dir, self.name)
-        if not os.path.exists(application_dir):
-            if not allow_create:
-                raise UserError(
-                    "Application directory (%s) doesn't exist." % application_dir
-                )
-            os.makedirs(instances_dir, mode=0o775)
-
-    def immediate_deploy(self):
-        # TODO: Fix concurrency issue
-        # TODO: add automatic healing if conflicts appear whatsoever
+    def _get_deploy_content(self):
+        """Create the contents of a deploy commit."""
         self.ensure_one()
-
-        # Pull repository
-        repository = self._get_repository()
-        remote = self._get_remote(repository)
-        self._pull_from_repository(repository, remote)
-
-        # Make instances directory
-        instances_dir = self.application_set_id._get_instances_directory()
-
-        # Create the content of the commit
+        application_dir = self.application_set_id._get_application_deployment_directory(
+            self.name, "create"
+        )
         message = "Updated application `%s`."
-        application_dir = self._get_application_dir(instances_dir)
         config_file = os.path.join(application_dir, "config.yaml")
         if not os.path.exists(config_file):
             message = "Added application `%s`."
         with open(config_file, "w") as fh:
             fh.write(self.config)
+        return {ADD_FILES: [config_file]}, message
 
-        # Add the content, commit and push
-        repository.index.add([config_file])
-        repository.index.commit(message % self.name)
-        remote.push()
+    def _get_destroy_content(self):
+        """Create the contents of a destroy commit."""
+        self.ensure_one()
+        message = "Removed application `%s`."
+        application_dir = self.application_set_id._get_application_deployment_directory(
+            self.name, "error"
+        )
+        config_file = os.path.join(application_dir, "config.yaml")
+        os.remove(config_file)
+        os.removedirs(application_dir)
+        return {REMOVE_FILES: [config_file]}, message
+
+    def immediate_deploy(self):
+        self.ensure_one()
+        self._apply_repository_changes(self._get_deploy_content)
+
+    def deploy(self):
+        self.ensure_one()
+        self.with_delay().immediate_deploy()
+
+    def immediate_destroy(self):
+        self.ensure_one()
+        self._apply_repository_changes(self._get_destroy_content)
 
     def destroy(self):
         self.ensure_one()
         self.with_delay().immediate_destroy()
-
-    def immediate_destroy(self):
-        # TODO: Fix concurrency issue
-        # TODO: add automatic healing if conflicts appear whatsoever
-        self.ensure_one()
-
-        # Pull repository
-        repository = self._get_repository()
-        remote = self._get_remote(repository)
-        self._pull_from_repository(repository, remote)
-
-        # Remove application directory
-        instances_dir = self.application_set_id._get_instances_directory(
-            allow_create=False
-        )
-        application_dir = self._get_application_dir(instances_dir, allow_create=False)
-        config_file = os.path.join(application_dir, "config.yaml")
-        os.remove(config_file)
-        os.removedirs(application_dir)
-
-        # Create the commit and push
-        repository.index.remove([config_file])
-        repository.index.commit("Removed application `%s`." % self.name)
-        remote.push()
-
-        self.unlink()
-        action = self.env.ref("argocd_deployer.application_action").read()[0]
-        action["target"] = "main"
-        return action
