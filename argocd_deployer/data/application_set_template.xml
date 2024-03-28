@@ -22,7 +22,7 @@ spec:
       source:
         repoURL: {{.config.repository_url}}
         targetRevision: {{.config.branch}}
-        path: "{{.config.deployment_directory}}/{{ .path.basename }}"
+        path: "{{.config.deployment_directory}}/{{ "{{ " }}.path.basename{{ " }}" }}"
       destination:
         name: in-cluster
         namespace: argocd
