@@ -203,6 +203,9 @@ class ApplicationSet(models.Model):
     def _get_branch(self):
         return self.branch
 
+    def _format_commit_message(self, message):
+        return message % self.name
+
     def _get_argocd_template(self):
         get_param = self.env["ir.config_parameter"].get_param
         replacements = {
