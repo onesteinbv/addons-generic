@@ -59,7 +59,23 @@ repository to updated.
   not respond to any changes in the deployments anymore.
 
 Applications
-----------------
+------------
+Applications can be configured as follows:
+
+- Name: must contain only lowercase letters, numbers, or numbers: the unique name
+  under which the application will be deployed. Must be unique, even across application sets,
+  as it will be used to create a namespace in the cluster.
+- Partner: the name of the partner holding the subscription.
+- Subscription: the subscription linked to this deployment.
+- Application Set: the application set in which the application will be deployed.
+- Template: a set of YAML instructions customizing the application.
+- Repository URL: the repository in which the application set's apps are stored
+- Tags: tags that can be used to automatically adjust the application's configuration
+- Repository Directory: the local folder where the repository clone lives
+- Deployment Directory: the folder inside the repository where apps are deployed
+- Domain format: when an app is deployed, this determines at what domain it will be deployed.
+- Subdomain format: when an app is deployed through a reseller, this is the format of its domain.
+
 
 Installation
 ############
