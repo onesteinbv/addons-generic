@@ -53,9 +53,7 @@ class ApplicationSet(models.Model):
             "Another app set is already linked to this repository, branch and instances folder.",
         ),
     ]
-    is_master_deployment = fields.Boolean(
-        compute="_compute_is_master_deployment", store=True
-    )
+    is_master_deployment = fields.Boolean(default=False)
 
     @api.constrains("deployment_directory")
     def _check_deployment_directory(self):
@@ -80,12 +78,6 @@ class ApplicationSet(models.Model):
                     "Only lowercase letters, numbers and dashes are allowed in the "
                     "name (max 100 characters)."
                 )
-            )
-
-    def _compute_is_master_deployment(self):
-        for application_set in self:
-            application_set.is_master_deployment = application_set == self.env.ref(
-                "argocd_deployer.application_set_master"
             )
 
     @staticmethod
