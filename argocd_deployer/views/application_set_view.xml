@@ -3,39 +3,39 @@
     <record id="application_set_form" model="ir.ui.view">
         <field name="model">argocd.application.set</field>
         <field name="arch" type="xml">
-            <header>
-                <button
-                    name="immediate_deploy"
-                    type="object"
-                    string="Deploy"
-                    confirm="Are you sure you want to deploy a new application set?"
-                    attrs="{'invisible': [('is_deployed', '=', True)]}"
-                />
-                <button
-                    name="deploy"
-                    type="object"
-                    string="Queue Deployment"
-                    confirm="Are you sure you want to deploy a new application set?"
-                    attrs="{'invisible': [('is_deployed', '=', True)]}"
-                />
-                <button
-                    name="immediate_destroy"
-                    type="object"
-                    class="btn-danger"
-                    string="Destroy"
-                    confirm="Are you sure you want to destroy this application set, this can't be undone."
-                    attrs="{'invisible': [('is_deployed', '=', False)]}"
-                />
-                <button
-                    name="destroy"
-                    type="object"
-                    class="btn-danger"
-                    string="Queue Destroy"
-                    confirm="Are you sure you want to destroy this application set, this can't be undone."
-                    attrs="{'invisible': [('is_deployed', '=', False)]}"
-                />
-            </header>
             <form>
+                <header>
+                    <button
+                        name="immediate_deploy"
+                        type="object"
+                        string="Deploy"
+                        confirm="Are you sure you want to deploy a new application set?"
+                        attrs="{'invisible': [('is_deployed', '=', True)]}"
+                    />
+                    <button
+                        name="deploy"
+                        type="object"
+                        string="Queue Deployment"
+                        confirm="Are you sure you want to deploy a new application set?"
+                        attrs="{'invisible': [('is_deployed', '=', True)]}"
+                    />
+                    <button
+                        name="immediate_destroy"
+                        type="object"
+                        class="btn-danger"
+                        string="Destroy"
+                        confirm="Are you sure you want to destroy this application set, this can't be undone."
+                        attrs="{'invisible': [('is_deployed', '=', False)]}"
+                    />
+                    <button
+                        name="destroy"
+                        type="object"
+                        class="btn-danger"
+                        string="Queue Destroy"
+                        confirm="Are you sure you want to destroy this application set, this can't be undone."
+                        attrs="{'invisible': [('is_deployed', '=', False)]}"
+                    />
+                </header>
                 <sheet>
                     <group>
                         <field name="is_deployed" invisible="1"/>
