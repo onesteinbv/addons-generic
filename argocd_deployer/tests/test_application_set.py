@@ -129,7 +129,7 @@ metadata:
         Check that it behaves."""
         with patch("os.makedirs") as mkdirs:
             self.application_set._get_application_set_repository_directory()
-            mkdirs.assert_called_with("/home/test/Olive/test-set", mode=0o775)
+            mkdirs.assert_called_with("/home/test/Olive", mode=0o775)
         self.application_set.repository_directory = "/this_directory_does_not_exist/"
         with self.assertRaisesRegex(UserError, "Application set directory"):
             self.application_set._get_application_set_repository_directory("error")
@@ -140,7 +140,7 @@ metadata:
         application set."""
         with patch("os.makedirs") as mkdirs:
             self.application_set._get_application_deployment_directory("john")
-            mkdirs.assert_called_with("/home/test/Olive/test-set/john", mode=0o775)
+            mkdirs.assert_called_with("/home/test/Olive/instances/john", mode=0o775)
         self.application_set.deployment_directory = "/this_directory_does_not_exist"
         with patch(
             f"{APPLICATION_SET_PATCH}._get_application_set_repository_directory",
@@ -181,11 +181,23 @@ metadata:
                         self.assertEqual({"remove": ["joined/path"]}, files)
                         self.assertEqual("Removed application set `%s`.", message)
 
+    def _disable_simulation(self):
+        simulation_mode = (
+            self.env["ir.config_parameter"]
+            .get_param("argocd.git_simulation_mode", "none")
+            .lower()
+        )
+        if simulation_mode != "none":
+            self.env["ir.config_parameter"].set_param(
+                "argocd.git_simulation_mode", "none"
+            )
+
     def test_deploy_and_destroy(self):
         mock_repository = MagicMock()
         mock_remote = MagicMock()
         mock_get_repository = MagicMock()
         mock_change_files = MagicMock()
+        self._disable_simulation()  # We're patching instead
 
         def reset_mocks(message, instruction):
             """Reset the mocks so they can be reused again"""
@@ -197,13 +209,6 @@ metadata:
             mock_repository.working_dir = "/home/test"
             mock_get_repository.return_value = mock_repository
             mock_change_files.return_value = instruction, message
-
-        # We're already patching here, so we don't have to simulate.
-        simulate_commit = self.env["ir.config_parameter"].get_param(
-            "argocd.simulate_commit", False
-        )
-        if simulate_commit:
-            self.env["ir.config_parameter"].set_param("argocd.simulate_commit", "False")
 
         test_cases = [
             {

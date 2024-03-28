@@ -2,7 +2,6 @@ from unittest.mock import MagicMock, patch
 
 from odoo import Command
 from odoo.tests.common import TransactionCase
-from odoo.tools.safe_eval import safe_eval
 
 
 class TestApplication(TransactionCase):
@@ -38,6 +37,17 @@ class TestApplication(TransactionCase):
         expected_urls = [("https://myapp.curq.k8s.onestein.eu", "Odoo")]
         self.assertEqual(urls, expected_urls)
 
+    def _disable_simulation(self):
+        simulation_mode = (
+            self.env["ir.config_parameter"]
+            .get_param("argocd.git_simulation_mode", "none")
+            .lower()
+        )
+        if simulation_mode != "none":
+            self.env["ir.config_parameter"].set_param(
+                "argocd.git_simulation_mode", "none"
+            )
+
     def test_immediate_deploy(self):
         mock_repository = MagicMock()
         mock_remote = MagicMock()
@@ -47,13 +57,7 @@ class TestApplication(TransactionCase):
         mock_deploy_files = MagicMock(
             return_value=({"add": "test.yaml"}, "Added `%s`.)")
         )
-
-        # We're already patching here, so we don't have to simulate.
-        simulate_commit = safe_eval(
-            self.env["ir.config_parameter"].get_param("argocd.simulate_commit", False)
-        )
-        if simulate_commit:
-            self.env["ir.config_parameter"].set_param("argocd.simulate_commit", "False")
+        self._disable_simulation()  # We're doing patching instead
 
         with patch.multiple(
             "odoo.addons.argocd_deployer.models.application.Application",
@@ -78,13 +82,7 @@ class TestApplication(TransactionCase):
         mock_destroy_files = MagicMock(
             return_value=({"remove": "test.yaml"}, "Removed `%s`.)")
         )
-
-        # We're already patching here, so we don't have to simulate.
-        simulate_commit = safe_eval(
-            self.env["ir.config_parameter"].get_param("argocd.simulate_commit", False)
-        )
-        if simulate_commit:
-            self.env["ir.config_parameter"].set_param("argocd.simulate_commit", "False")
+        self._disable_simulation()  # We're doing patching instead
 
         with patch.multiple(
             "odoo.addons.argocd_deployer.models.application.Application",
