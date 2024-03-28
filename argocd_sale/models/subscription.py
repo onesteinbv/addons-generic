@@ -64,6 +64,7 @@ class Subscription(models.Model):
                         "subscription_id": subscription.id,
                         "tag_ids": tags.ids,
                         "template_id": line.product_id.application_template_id.id,
+                        "application_set_id": line.product_id.application_set_id.id,
                     }
                 )
                 application.render_config()

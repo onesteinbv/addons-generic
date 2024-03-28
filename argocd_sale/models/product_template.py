@@ -25,3 +25,8 @@ class ProductTemplate(models.Model):
         column1="product_template_id",
         column2="partner_id",
     )
+
+    application_set_id = fields.Many2one(
+        comodel_name="argocd.application.set",
+        help="The application set in which this product will be deployed.",
+    )

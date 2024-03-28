@@ -9,7 +9,7 @@
                         <field name="name" />
                         <field name="key" />
                         <field name="is_odoo_module" />
-                        <field name="subdomain" />
+                        <field name="domain_yaml_path" />
                     </group>
                 </sheet>
             </form>

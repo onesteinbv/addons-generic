@@ -59,4 +59,18 @@
         <field name="perm_write" eval="False"/>
         <field name="perm_unlink" eval="False"/>
     </record>
+
+    <!--
+        Portal users should have access to tags,
+        you could add an ir.rule to restrict to only tags that are linked to a product but IMO this should be fine
+    -->
+    <record id="argocd_application_tag_portal_access" model="ir.model.access">
+        <field name="name">application_tag_portal_access</field>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application_tag" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_unlink" eval="0" />
+    </record>
 </odoo>
