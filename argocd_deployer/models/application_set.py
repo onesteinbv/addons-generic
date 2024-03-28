@@ -1,4 +1,3 @@
-import logging
 import os
 import re
 
@@ -8,8 +7,6 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 from .repository_base import ADD_FILES, REMOVE_FILES
-
-_logger = logging.getLogger(__name__)
 
 
 class ApplicationSet(models.Model):
@@ -150,7 +147,6 @@ class ApplicationSet(models.Model):
         path = os.path.join(
             self.repository_directory,
             self.branch,
-            self.name,
         )
         self._create_path_or_error(
             path, "Application set directory", path_does_not_exist_action
@@ -158,10 +154,11 @@ class ApplicationSet(models.Model):
         return path
 
     def _get_application_deployment_directory(
-        self, application_name="", path_does_not_exist_action="create"
+        self, application_name, path_does_not_exist_action="create"
     ):
         path = os.path.join(
             self._get_application_set_repository_directory(path_does_not_exist_action),
+            self.deployment_directory,
             application_name,
         )
         self._create_path_or_error(
@@ -178,7 +175,6 @@ class ApplicationSet(models.Model):
             path,
             "application_set.yaml",
         )
-        _logger.warning(path)
         self.is_deployed = os.path.isfile(path)
 
     def _get_master_repository(self):
