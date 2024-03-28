@@ -68,6 +68,21 @@ class ApplicationSet(models.Model):
                     "The master deployment directory should be empty."
                 )
 
+    @api.constrains("is_master_deployment")
+    def _check_is_master_deployment(self):
+        if not self.is_master_deployment:
+            return
+        other_masters = (
+            self.env["argocd.application.set"].search(
+                [
+                    ("is_master_deployment", "=", True),
+                ]
+            )
+            - self
+        )
+        if other_masters:
+            raise ValidationError("There can be only one master application set.")
+
     @api.constrains("name")
     def _constrain_name(self):
         if not re.match(

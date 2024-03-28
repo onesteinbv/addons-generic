@@ -42,12 +42,12 @@ class RepositoryBase(models.AbstractModel):
     def _commit(self, repository, commit_message, files):
         if files and type(files) is dict and files.get(ADD_FILES):
             if type(files[ADD_FILES] is str):
-                repository.index.add([files[ADD_FILES]])
+                repository.index.add(files[ADD_FILES])
             elif type(files[ADD_FILES] is list and len(files[ADD_FILES] > 0)):
                 repository.index.add(files[ADD_FILES])
         if files and type(files) is dict and files.get(REMOVE_FILES):
             if type(files[REMOVE_FILES] is str):
-                repository.index.remove([files[REMOVE_FILES]])
+                repository.index.remove(files[REMOVE_FILES])
             elif type(files[REMOVE_FILES] is list and len(files[REMOVE_FILES] > 0)):
                 repository.index.remove(files[REMOVE_FILES])
         repository.index.commit(self._format_commit_message(commit_message))
