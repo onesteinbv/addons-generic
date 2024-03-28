@@ -7,6 +7,7 @@
         <field name="branch">main</field>
         <field name="repository_directory">/home/tarteo/repo</field>
         <field name="deployment_directory">application_sets</field>
+        <field name="template_id" ref="application_set_template_master"/>
     </record>
     <record id="application_set_default" model="argocd.application.set">
         <field name="name">default</field>
@@ -17,5 +18,6 @@
         <field name="deployment_directory">instances</field>
         <field name="domain_format">%(application_name)s.curq.k8s.onestein.eu</field>
         <field name="subdomain_format">%(subdomain)s.%(application_name)s.curq.k8s.onestein.eu</field>
+        <field name="template_id" ref="application_set_template_default"/>
     </record>
 </odoo>
