@@ -6,7 +6,7 @@
         <field name="repository_url">git@github.com:onesteinbv/flavoured-odoo-k8s.git</field>
         <field name="branch">main</field>
         <field name="repository_directory">/home/tarteo/repo</field>
-        <field name="deployment_directory">application_sets</field>
+        <field name="deployment_directory"></field>
         <field name="template_id" ref="application_set_template_master"/>
         <field name="is_master_deployment">True</field>
     </record>

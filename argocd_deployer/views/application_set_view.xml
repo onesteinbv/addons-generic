@@ -40,6 +40,7 @@
                     <group>
                         <field name="is_deployed" invisible="1"/>
                         <field name="name" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                        <field name="is_master_deployment" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
                         <field name="description"/>
                         <field name="template_id"/>
                         <field name="repository_url" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
