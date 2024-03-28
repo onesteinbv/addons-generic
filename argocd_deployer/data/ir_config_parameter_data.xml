@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
-    <!-- Deprecated. Can be deleted in a later update -->
     <record id="application_set_repo" model="ir.config_parameter">
         <field name="key">argocd.application_set_repo</field>
         <field name="value">git@github.com:onesteinbv/odoo-generator-k8s.git</field>
@@ -13,16 +12,12 @@
         <field name="key">argocd.application_set_repo_directory</field>
         <field name="value">/home/tarteo/repo</field>
     </record>
-    <record id="application_set_directory" model="ir.config_parameter">
-        <field name="key">argocd.application_set_directory</field>
-        <field name="value">instances</field>
+    <record id="application_set_deployment_directory" model="ir.config_parameter">
+        <field name="key">argocd.application_set_deployment_directory</field>
+        <field name="value">application_sets</field>
     </record>
-    <record id="application_domain_format" model="ir.config_parameter">
-        <field name="key">argocd.application_domain_format</field>
-        <field name="value">%(application_name)s.curq.k8s.onestein.eu</field>
-    </record>
-    <record id="application_subdomain_format" model="ir.config_parameter">
-        <field name="key">argocd.application_subdomain_format</field>
-        <field name="value">%(subdomain)s.%(application_name)s.curq.k8s.onestein.eu</field>
+    <record id="master_application_set_directory" model="ir.config_parameter">
+        <field name="key">argocd.master_application_set_directory</field>
+        <field name="value">application_set_deployment/templates</field>
     </record>
 </odoo>

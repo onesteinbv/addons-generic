@@ -14,9 +14,12 @@ class TestInvoiceToApplication(common.TransactionCase):
             {
                 "repository_url": "test",
                 "repository_directory": "test",
-                "name": "test_acocunt_move_set",
+                "name": "test-account-move-set",
                 "branch": "test",
-                "instances_directory": "test",
+                "deployment_directory": "test",
+                "template_id": self.env.ref(
+                    "argocd_deployer.application_set_template_default"
+                ).id,
                 "domain_format": "1",
                 "subdomain_format": "2",
             }

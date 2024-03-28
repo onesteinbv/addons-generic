@@ -147,6 +147,8 @@ class PortalController(CustomerPortal):
         website=True,
     )
     def portal_my_application_domain_names(self, app_id, **kw):
+        return request.redirect("/my/applications")  # Temporary disable
+        # pylint: disable=unreachable
         try:
             app_sudo = self._document_check_access("argocd.application", app_id)
         except (AccessError, MissingError):
