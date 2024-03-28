@@ -229,28 +229,33 @@ class ApplicationSet(models.Model):
         self.ensure_one()
         template_yaml = self._get_argocd_template()
         deployment_directory = self._get_master_deployment_directory("create")
-        message = "Updated application set `%s`."
         application_set_dir = deployment_directory
         yaml_file = os.path.join(application_set_dir, "application_set.yaml")
-        if not os.path.exists(yaml_file):
-            message = "Added application set `%s`."
+        message = "Added application set `%s`."
         with open(yaml_file, "w") as fh:
             fh.write(template_yaml)
 
-        return {ADD_FILES: [yaml_file]}, message
+        chart_file = os.path.join(application_set_dir, "..", "Chart.yaml")
+        with open(chart_file, "w") as fh:
+            fh.write(
+                f"""apiVersion: v2
+name: application-set-{self.name}
+version: 1.0.0
+appVersion: "1.0.0"
+"""
+            )
+        return {ADD_FILES: [yaml_file, chart_file]}, message
 
     def _create_application_set(self):
         """Deploy a new application set for ArgoCD."""
         self.ensure_one()
         template_yaml = self._get_argocd_template()
         deployment_directory = self._get_application_set_deployment_directory("create")
-        message = "Updated application set `%s`."
         if not os.path.exists(deployment_directory):
             os.makedirs(deployment_directory)
 
         yaml_file = os.path.join(deployment_directory, "application_set.yaml")
-        if not os.path.exists(yaml_file):
-            message = "Added application set `%s`."
+        message = "Added application set `%s`."
         with open(yaml_file, "w") as fh:
             fh.write(template_yaml)
 
@@ -266,7 +271,9 @@ class ApplicationSet(models.Model):
         os.remove(yaml_file)
         if not self.is_master_deployment:
             os.removedirs(application_set_dir)
-        return {REMOVE_FILES: [yaml_file]}, message
+        chart_file = os.path.join(application_set_dir, "..", "Chart.yaml")
+
+        return {REMOVE_FILES: [yaml_file, chart_file]}, message
 
     def _remove_application_set(self):
         """Remove an application set for ArgoCD."""
