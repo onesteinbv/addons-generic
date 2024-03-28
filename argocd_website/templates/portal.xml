@@ -107,7 +107,7 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-end">
-                                    <t t-call="argocd_website.actions_dropdown" />
+<!--                                    <t t-call="argocd_website.actions_dropdown" /> -->
                                     <t t-call="argocd_website.external_links_dropdown" />
                                 </div>
                             </td>
