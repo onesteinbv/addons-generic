@@ -7,7 +7,7 @@ from git import Repo
 from yaml import Loader
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
 
 from .repository_base import ADD_FILES, REMOVE_FILES
 
@@ -46,6 +46,10 @@ class Application(models.Model):
         required=True,
         default=lambda self: self.env.ref("argocd_deployer.application_set_default"),
     )
+    is_deployed = fields.Boolean(compute="_compute_is_deployed")
+    is_application_set_deployed = fields.Boolean(
+        string="Is App. Set deployed", related="application_set_id.is_deployed"
+    )
 
     def get_value(self, key, default=""):
         self.ensure_one()
@@ -79,6 +83,22 @@ class Application(models.Model):
         for app in self:
             app.description = app._render_description()
 
+    @api.depends("application_set_id", "application_set_id.is_deployed")
+    def _compute_is_deployed(self):
+        for app in self:
+            if not app.is_application_set_deployed:
+                app.is_deployed = False
+                continue
+
+            path = app.application_set_id._get_application_deployment_directory(
+                app.name, "ignore"
+            )
+            path = os.path.join(
+                path,
+                "config.yaml",
+            )
+            app.is_deployed = os.path.isfile(path)
+
     def _render_description(self):
         self.ensure_one()
         return self.env["ir.qweb"]._render(
@@ -103,18 +123,14 @@ class Application(models.Model):
         helm = yaml.load(config["helm"], Loader=Loader)
         urls.append(("https://%s" % self._get_domain(helm), "Odoo"))
         for tag in self.tag_ids.filtered(lambda t: bool(t.domain_yaml_path)):
-            yaml_path = tag.domain_yaml_path.split(".")
+            yaml_path = tag.get_domain_yaml_path(self.application_set_id).split(".")
             domain = helm
             for p in yaml_path:
                 domain = domain.get(p)
                 if not domain:
-                    raise UserError(
-                        _(
-                            "Could not find domain in YAML (path: %s)",
-                            tag.domain_yaml_path,
-                        )
-                    )
-            urls.append(("https://%s" % domain, tag.name))
+                    break
+            else:
+                urls.append(("https://%s" % domain, tag.name))
         return urls
 
     @api.depends("tag_ids", "tag_ids.is_odoo_module")

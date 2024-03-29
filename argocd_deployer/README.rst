@@ -24,6 +24,9 @@ The following system parameters can be configured.
 - ``argocd.application_set_repo_directory``: The local folder that contains the .git folder of the repository that contains the application sets.
 - ``argocd.application_set_deployment_directory``: The folder inside the repository that will contain the application sets.
 - ``argocd.git_simulation_mode``: For debugging purposes. Can be set to values like ``none``, ``push``, ``pull``, ``push&pull``. By setting one of these values, the corresponding git action will be simulated.
+- ``argocd.allow_immediate_deployment``: For debugging purposes. Circumvents the job queue. It's not possible to circumvent the job queue when there
+  you are trying to destroy an application set with active applications. The job queue will build in a delay of 60 seconds when
+  destroying application sets, to allow you to change your mind.
 
 Application sets
 ----------------

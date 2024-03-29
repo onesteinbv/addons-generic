@@ -19,7 +19,10 @@ class ApplicationSet(models.Model):
     name = fields.Char(required=True, index=True)
     description = fields.Char()
     template_id = fields.Many2one("argocd.application.set.template", required=True)
-    is_deployed = fields.Boolean(default=False, compute="_compute_is_deployed")
+    is_deployed = fields.Boolean(compute="_compute_is_deployed")
+    has_deployed_applications = fields.Boolean(
+        compute="_compute_has_deployed_applications"
+    )
     repository_url = fields.Char(
         required=True, help="URL of the repository that is updated by the applications."
     )
@@ -53,11 +56,21 @@ class ApplicationSet(models.Model):
             "Another app set is already linked to this repository, branch and instances folder.",
         ),
     ]
-    is_master_deployment = fields.Boolean(default=False)
+    is_master = fields.Boolean(
+        default=False,
+        help="Indicates that this is the master application set. "
+        "This set must be manually installed in ArgoCD. There can only be a "
+        "single master set. Application sets deployed in CURQ are deployed in "
+        "the master set.",
+    )
+    is_destroying = fields.Boolean(compute="_compute_is_destroying")
+    application_ids = fields.One2many(
+        "argocd.application", inverse_name="application_set_id"
+    )
 
     @api.constrains("deployment_directory")
     def _check_deployment_directory(self):
-        if not self.is_master_deployment:
+        if not self.is_master:
             if not self.deployment_directory:
                 raise ValidationError("Deployment directory is required.")
             if self.deployment_directory[-1] == "/":
@@ -68,14 +81,14 @@ class ApplicationSet(models.Model):
                     "The master deployment directory should be empty."
                 )
 
-    @api.constrains("is_master_deployment")
+    @api.constrains("is_master")
     def _check_is_master_deployment(self):
-        if not self.is_master_deployment:
+        if not self.is_master:
             return
         other_masters = (
             self.env["argocd.application.set"].search(
                 [
-                    ("is_master_deployment", "=", True),
+                    ("is_master", "=", True),
                 ]
             )
             - self
@@ -174,15 +187,42 @@ class ApplicationSet(models.Model):
         return path
 
     def _compute_is_deployed(self):
-        if self.is_master_deployment:
-            path = self._get_master_deployment_directory()
-        else:
-            path = self._get_application_set_deployment_directory("ignore")
-        path = os.path.join(
-            path,
-            "application_set.yaml",
+        for app_set in self:
+            if app_set.is_master:
+                path = app_set._get_master_deployment_directory()
+            else:
+                path = app_set._get_application_set_deployment_directory("ignore")
+            path = os.path.join(
+                path,
+                "application_set.yaml",
+            )
+            app_set.is_deployed = os.path.isfile(path)
+
+    def _find_destroy_queue_jobs(self):
+        self.ensure_one()
+        return (
+            self.env["queue.job"]
+            .search(
+                [
+                    ("model_name", "=", "argocd.application.set"),
+                    ("state", "=", "pending"),
+                    ("method_name", "=", "immediate_destroy"),
+                ]
+            )
+            .filtered(lambda job: self.id in job.records.ids)
         )
-        self.is_deployed = os.path.isfile(path)
+
+    def _compute_is_destroying(self):
+        for app_set in self:
+            jobs = app_set._find_destroy_queue_jobs()
+            app_set.is_destroying = bool(jobs)
+
+    @api.depends("application_ids")
+    def _compute_has_deployed_applications(self):
+        for app_set in self:
+            app_set.has_deployed_applications = app_set.application_ids.filtered(
+                lambda a: a.is_deployed
+            )
 
     def _get_master_repository(self):
         """Get the repository that contains the application sets."""
@@ -272,7 +312,7 @@ appVersion: "1.0.0"
         application_set_dir = deployment_directory
         yaml_file = os.path.join(application_set_dir, "application_set.yaml")
         os.remove(yaml_file)
-        if not self.is_master_deployment:
+        if not self.is_master:
             os.removedirs(application_set_dir)
         chart_file = os.path.join(application_set_dir, "..", "Chart.yaml")
 
@@ -285,7 +325,7 @@ appVersion: "1.0.0"
         message = "Removed application set `%s`."
         yaml_file = os.path.join(deployment_directory, "application_set.yaml")
         os.remove(yaml_file)
-        if not self.is_master_deployment:
+        if not self.is_master:
             os.removedirs(deployment_directory)
         return {REMOVE_FILES: [yaml_file]}, message
 
@@ -295,7 +335,7 @@ appVersion: "1.0.0"
 
     def immediate_deploy(self):
         self.ensure_one()
-        if self.is_master_deployment:
+        if self.is_master:
             self._apply_repository_changes(self._create_master_application_set)
         else:
             self._apply_repository_changes(self._create_application_set)
@@ -303,12 +343,18 @@ appVersion: "1.0.0"
 
     def destroy(self):
         self.ensure_one()
-        self.with_delay().immediate_deploy()
+        self.with_delay(eta=60).immediate_destroy()
 
     def immediate_destroy(self):
         self.ensure_one()
-        if self.is_master_deployment:
+        if self.is_master:
             self._apply_repository_changes(self._remove_master_application_set)
         else:
             self._apply_repository_changes(self._remove_application_set)
         self.is_deployed = False
+
+    def abort_destroy(self):
+        self.ensure_one()
+        jobs = self._find_destroy_queue_jobs()
+        for job in jobs:
+            job.button_cancelled()
