@@ -1,6 +1,7 @@
 import logging
 
-from odoo import models
+from odoo import fields, models
+from odoo.tools.safe_eval import safe_eval
 
 ADD_FILES = "add"
 REMOVE_FILES = "remove"
@@ -11,6 +12,10 @@ _logger = logging.getLogger(__name__)
 class RepositoryBase(models.AbstractModel):
     _name = "argocd.repository.base"
     _description = "Base model for models that interact with repositories"
+
+    is_immediate_repo_action_visible = fields.Boolean(
+        compute="_compute_is_immediate_repo_action_visible"
+    )
 
     def _get_repository(self):
         """Get the repository and affected by this model."""
@@ -75,3 +80,11 @@ class RepositoryBase(models.AbstractModel):
             _logger.info(f"Pushing to repository {repository.working_dir}...")
             self._commit(repository, message, files)
             remote.push()
+
+    def _compute_is_immediate_repo_action_visible(self):
+        for application in self:
+            application.is_immediate_repo_action_visible = safe_eval(
+                self.env["ir.config_parameter"].get_param(
+                    "argocd.allow_immediate_deployment"
+                )
+            )

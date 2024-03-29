@@ -4,11 +4,11 @@
         <field name="model">argocd.application</field>
         <field name="inherit_id" ref="argocd_deployer.application_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after">
-                <field name="partner_id" />
-                <field name="subscription_id" options="{'no_create': True}" />
+            <xpath expr="//field[@name='application_set_id']" position="after">
+                <field name="partner_id" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                <field name="subscription_id" options="{'no_create': True}" attrs="{'readonly': [('is_deployed', '=', True)]}" />
             </xpath>
-            <xpath expr="//button[@name='immediate_deploy']" position="before">
+            <xpath expr="//header" position="inside">
                 <button
                     name="send_deployment_notification"
                     type="object"
@@ -24,9 +24,9 @@
         <field name="model">argocd.application</field>
         <field name="inherit_id" ref="argocd_deployer.application_tree" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after">
+            <xpath expr="//field[@name='application_set_id']" position="after">
                 <field name="partner_id" />
-
+                <field name="subscription_id" />
             </xpath>
         </field>
     </record>

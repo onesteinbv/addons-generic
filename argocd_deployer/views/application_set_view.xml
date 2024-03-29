@@ -9,13 +9,15 @@
                         name="immediate_deploy"
                         type="object"
                         string="Deploy"
+                        class="btn-success"
                         confirm="Are you sure you want to deploy a new application set?"
-                        attrs="{'invisible': [('is_deployed', '=', True)]}"
+                        attrs="{'invisible': ['|', ('is_immediate_repo_action_visible', '=', False), ('is_deployed', '=', True)]}"
                     />
                     <button
                         name="deploy"
                         type="object"
-                        string="Queue Deployment"
+                        string="Queue deployment"
+                        class="btn-success"
                         confirm="Are you sure you want to deploy a new application set?"
                         attrs="{'invisible': [('is_deployed', '=', True)]}"
                     />
@@ -25,30 +27,59 @@
                         class="btn-danger"
                         string="Destroy"
                         confirm="Are you sure you want to destroy this application set, this can't be undone."
-                        attrs="{'invisible': [('is_deployed', '=', False)]}"
+                        attrs="{'invisible': ['|', '|', ('is_immediate_repo_action_visible', '=', False), ('has_deployed_applications', '=', True), ('is_deployed', '=', False)]}"
                     />
                     <button
                         name="destroy"
                         type="object"
                         class="btn-danger"
-                        string="Queue Destroy"
+                        string="Queue destruction"
                         confirm="Are you sure you want to destroy this application set, this can't be undone."
-                        attrs="{'invisible': [('is_deployed', '=', False)]}"
+                        attrs="{'invisible': ['|', ('has_deployed_applications', '=', True), ('is_deployed', '=', False)]}"
+                    />
+                    <button
+                        name="destroy"
+                        type="object"
+                        class="btn-danger"
+                        string="Queue destruction"
+                        confirm="This application set has deployed applications! Are you sure you want to destroy this application set, this can't be undone."
+                        attrs="{'invisible': ['|', ('has_deployed_applications', '=', False), ('is_deployed', '=', False)]}"
+                    />
+                    <button
+                        name="abort_destroy"
+                        type="object"
+                        class="btn-warning"
+                        string="Abort destruction"
+                        attrs="{'invisible': [('is_destroying', '=', False)]}"
                     />
                 </header>
                 <sheet>
+                    <field name="is_deployed" invisible="1"/>
+                    <field name="has_deployed_applications" invisible="1"/>
+                    <field name="is_destroying" invisible="1"/>
+                    <field name="is_immediate_repo_action_visible" invisible="1"/>
                     <group>
-                        <field name="is_deployed" invisible="1"/>
-                        <field name="name" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
-                        <field name="is_master_deployment" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
-                        <field name="description"/>
-                        <field name="template_id"/>
-                        <field name="repository_url" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
-                        <field name="branch" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
-                        <field name="repository_directory" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
-                        <field name="deployment_directory" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
-                        <field name="domain_format"/>
-                        <field name="subdomain_format"/>
+                        <div class="jumbotron alert-danger" role="alert" colspan="2" attrs="{'invisible': [('is_destroying', '=', False)]}" >
+                            <h2 class="alert-danger text-center" role="alert">Application set is being destroyed</h2>
+                        </div>
+                        <group id="group_general" string="General">
+                            <field name="name" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                            <field name="description"/>
+                            <field name="template_id"/>
+                        </group>
+                        <group  id="group_repository" string="Repository">
+                            <field name="repository_url" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                            <field name="branch" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                            <field name="deployment_directory" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                        </group>
+                        <group id="group_local_install" string="Local install">
+                            <field name="is_master" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                            <field name="repository_directory" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                        </group>
+                        <group name="group_applications" string="Applications">
+                            <field name="domain_format"/>
+                            <field name="subdomain_format"/>
+                        </group>
                     </group>
                 </sheet>
             </form>
@@ -58,12 +89,18 @@
     <record id="application_set_tree" model="ir.ui.view">
         <field name="model">argocd.application.set</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-success="is_deployed"
+                  decoration-primary="is_master and is_deployed"
+                  decoration-warning="not is_deployed"
+                  decoration-danger="is_master and not is_deployed"
+            >
+                <field name="is_master" invisible="1"/>
                 <field name="name"/>
+                <field name="description"/>
                 <field name="repository_url"/>
                 <field name="branch"/>
-                <field name="repository_directory"/>
                 <field name="deployment_directory"/>
+                <field name="is_deployed" invisible="1"/>
             </tree>
         </field>
     </record>
