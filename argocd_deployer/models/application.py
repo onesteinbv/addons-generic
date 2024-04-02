@@ -8,6 +8,7 @@ from yaml import Loader
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.tools.safe_eval import safe_eval
 
 from .repository_base import ADD_FILES, REMOVE_FILES
 
@@ -242,4 +243,9 @@ class Application(models.Model):
 
     def destroy(self):
         self.ensure_one()
-        self.with_delay().immediate_destroy()
+        delay = safe_eval(
+            self.env["ir.config_parameter"].get_param(
+                "argocd.application_set_destruction_delay", "0"
+            )
+        )
+        self.with_delay(eta=delay).immediate_destroy()

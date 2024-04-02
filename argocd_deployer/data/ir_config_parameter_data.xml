@@ -20,4 +20,12 @@
         <field name="key">argocd.master_application_set_directory</field>
         <field name="value">application_set_deployment/templates</field>
     </record>
+    <record id="application_set_destruction_delay" model="ir.config_parameter">
+        <field name="key">argocd.application_set_destruction_delay</field>
+        <field name="value">3600</field>
+    </record>
+    <record id="application_destruction_delay" model="ir.config_parameter">
+        <field name="key">argocd.application_destruction_delay</field>
+        <field name="value">60</field>
+    </record>
 </odoo>

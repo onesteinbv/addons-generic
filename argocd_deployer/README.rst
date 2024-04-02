@@ -23,10 +23,18 @@ The following system parameters can be configured.
 - ``argocd.application_set_branch``: Set to the branch that contains the application sets. Should normally be HEAD or main.
 - ``argocd.application_set_repo_directory``: The local folder that contains the .git folder of the repository that contains the application sets.
 - ``argocd.application_set_deployment_directory``: The folder inside the repository that will contain the application sets.
-- ``argocd.git_simulation_mode``: For debugging purposes. Can be set to values like ``none``, ``push``, ``pull``, ``push&pull``. By setting one of these values, the corresponding git action will be simulated.
-- ``argocd.allow_immediate_deployment``: For debugging purposes. Circumvents the job queue. It's not possible to circumvent the job queue when there
-  you are trying to destroy an application set with active applications. The job queue will build in a delay of 60 seconds when
+- ``argocd.git_simulation_mode``: For debugging purposes. Can be set to values like ``none``, ``push``, ``pull``, ``push&pull``.
+  By setting one of these values, the corresponding git action will be skipped. This can prevent delays and repo clogging when doing manual
+  tests.
+- ``argocd.allow_immediate_deployment``: For debugging purposes. Circumvents the job queue. Note: It's not possible to circumvent the job queue when there
+  you are trying to destroy an application set with active applications. The job queue will build in a delay when
   destroying application sets, to allow you to change your mind.
+- ``argocd.application_destruction_delay``: When destroying an application through the job queue, this is the
+  number of seconds that will be waited before destroying the application.
+- ``argocd.application_set_destruction_delay``: When destroying an application set through the job queue, this is the
+  number of seconds that will be waited before destroying the application. Note: when an application set contains deployed
+  applications, it's not possible to do an immediate destroy, and the job queue must be used. If it's really necessary
+  to destroy the application set straight away, set the delay to 0.
 
 Application sets
 ----------------
