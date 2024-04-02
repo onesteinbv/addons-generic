@@ -5,6 +5,7 @@ from git import Repo
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools.safe_eval import safe_eval
 
 from .repository_base import ADD_FILES, REMOVE_FILES
 
@@ -343,7 +344,12 @@ appVersion: "1.0.0"
 
     def destroy(self):
         self.ensure_one()
-        self.with_delay(eta=60).immediate_destroy()
+        delay = safe_eval(
+            self.env["ir.config_parameter"].get_param(
+                "argocd.application_set_destruction_delay", "3600"
+            )
+        )
+        self.with_delay(eta=delay).immediate_destroy()
 
     def immediate_destroy(self):
         self.ensure_one()
