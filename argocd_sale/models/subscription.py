@@ -152,6 +152,12 @@ class Subscription(models.Model):
 
     def _get_free_period(self):
         self.ensure_one()
+        if (
+            self.partner_id.is_reseller
+            or self.partner_id.parent_id
+            and self.partner_id.parent_id.is_reseller
+        ):
+            return None
         existing_subs = self.partner_id.subscription_ids
         if self.partner_id.parent_id:
             existing_subs += self.partner_id.parent_id.subscription_ids
