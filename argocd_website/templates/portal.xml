@@ -51,6 +51,24 @@
         </div>
     </template>
 
+    <template id="actions_dropdown">
+        <div t-attf-class="dropdown position-static">
+            <button class="btn btn-link" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" aria-haspopup="true">
+                <i class="fa fa-ellipsis-v fa-fw" />
+            </button>
+
+            <ul class="dropdown-menu">
+                <li>
+                    <a t-attf-href="/my/applications/#{app.id}/domain-names" title="Configure Domain Names" class="dropdown-item">
+                        <i class="fa fa-globe mr4" />Configure Domain Names
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </template>
+
+
     <template id="portal_my_applications" name="My Applications">
         <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True" />
@@ -89,6 +107,7 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-end">
+<!--                                    <t t-call="argocd_website.actions_dropdown" /> -->
                                     <t t-call="argocd_website.external_links_dropdown" />
                                 </div>
                             </td>
@@ -301,6 +320,79 @@
                     <div class="alert alert-danger">
                         <t t-esc="message" />
                     </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_application_domain_names_page" name="Domain Names">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_header">
+                    <div class="d-flex">
+                        <h2 class="mb-0 flex-fill">
+                            <span>
+                                Configure domain names for <span t-field="app.name" />
+                            </span>
+                        </h2>
+                    </div>
+                </t>
+                <t t-set="card_body">
+                    <b>Perform these steps:</b>
+                    <ol>
+                        <li>Purchase a domain name</li>
+                        <li>Configure a <b>CNAME</b> record for your domain pointing to your instances (e.g. <b><t t-esc="app.format_domain()" /></b> for Odoo)</li>
+                        <li>Insert your domain names below and verify them</li>
+                        <li>Leave them empty to use the default domain names</li>
+                    </ol>
+
+                    <form method="POST">
+                        <input type="hidden" name="csrf_token"
+                               t-att-value="request.csrf_token()"/>
+                        <div class="js_domain_cname_check mb-3" t-att-data-app-id="app.id">
+                            <label for="input_domain">Odoo</label>
+                            <div class="input-group">
+                                <input name="domain" id="input_domain" class="form-control" placeholder="e.g. www.example.com"
+                                       t-att-value="defaults.get('domain', '')" />
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary">
+                                        <i class="fa fa-check spinner-grow-sm ml4" />
+                                        Verify
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="text-success d-none"> <!-- valid-feedback and invalid-feedback is buggy with input group -->
+                                Looks good!
+                            </div>
+                            <div class="text-danger d-none"></div>
+                        </div>
+
+                        <t t-foreach="app.tag_ids.filtered(lambda t: t.domain_yaml_path)" t-as="tag">
+                            <div class="js_domain_cname_check mb-3" t-att-data-tag-id="tag.id" t-att-data-app-id="app.id">
+                                <label t-attf-for="input_domain_#{tag.id}"><t t-esc="tag.name" /></label>
+                                <div class="input-group">
+                                    <input t-attf-name="domain_#{tag.id}" t-attf-id="input_domain_#{tag.id}"
+                                           class="form-control" t-attf-placeholder="e.g. #{tag.key}.example.com"
+                                           t-att-value="defaults.get('domain_%s' % tag.key, '')"
+                                    />
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-secondary">
+                                            <i class="fa fa-check spinner-grow-sm mr4" />
+                                            Verify
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="text-success d-none">
+                                    Looks good!
+                                </div>
+                                <div class="text-danger d-none"></div>
+                            </div>
+                        </t>
+                        <p class="alert alert-info"> It can take a few minutes for the changes to take place</p>
+                        <button class="btn btn-primary btn-lg">
+                            Confirm
+                        </button>
+                    </form>
                 </t>
             </t>
         </t>
