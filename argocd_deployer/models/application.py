@@ -245,7 +245,7 @@ class Application(models.Model):
         self.ensure_one()
         delay = safe_eval(
             self.env["ir.config_parameter"].get_param(
-                "argocd.application_set_destruction_delay", "0"
+                "argocd.application_destruction_delay", "0"
             )
         )
         self.with_delay(eta=delay).immediate_destroy()
