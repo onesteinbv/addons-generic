@@ -77,7 +77,7 @@ class TestInvoiceToApplication(common.TransactionCase):
                         "payment_date": fields.Date.today(),
                         "journal_id": payment_method.journal_id.id,
                         "payment_method_line_id": payment_method.id,
-                        "amount": 1,
+                        "amount": invoice.amount_residual,
                     }
                 )
             )
