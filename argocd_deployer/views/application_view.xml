@@ -5,39 +5,86 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="immediate_deploy" type="object" string="Deploy" />
-                    <button name="deploy" type="object" string="Queue Deployment" />
-
+                    <button
+                        name="render_config"
+                        type="object"
+                        class="btn-secondary"
+                        icon="fa-refresh"
+                        string="Render Config"
+                    />
+                    <button
+                        name="immediate_deploy"
+                        type="object"
+                        string="Deploy"
+                        class="btn-success"
+                        attrs="{'invisible': ['|', '|', '|', ('is_immediate_repo_action_visible', '=', False), ('application_set_id', '=', False), ('is_application_set_deployed', '=', False), ('is_deployed', '=', True)]}"
+                    />
+                    <button
+                        name="immediate_deploy"
+                        type="object"
+                        string="Redeploy"
+                        class="btn-warning"
+                        attrs="{'invisible': ['|', '|', ('is_immediate_repo_action_visible', '=', False), ('application_set_id', '=', False), ('is_deployed', '=', False)]}"
+                        confirm="Are you sure you want to redeploy this application?"
+                    />
+                    <button
+                        name="deploy"
+                        type="object"
+                        string="Queue deployment"
+                        class="btn-success"
+                        attrs="{'invisible': ['|', '|', ('application_set_id', '=', False), ('is_application_set_deployed', '=', False), ('is_deployed', '=', True)]}"
+                    />
+                    <button
+                        name="deploy"
+                        type="object"
+                        string="Queue redeployment"
+                        class="btn-warning"
+                        attrs="{'invisible': ['|', ('application_set_id', '=', False), ('is_deployed', '=', False)]}"
+                        confirm="Are you sure you want to redeploy this application?"
+                    />
                     <button
                         name="immediate_destroy"
                         type="object"
                         class="btn-danger"
                         string="Destroy"
-                        confirm="Are you sure you want to destroy this application, this can't be undone."
+                        confirm="Are you sure you want to destroy this application? This can't be undone."
+                        attrs="{'invisible': ['|', '|', ('is_immediate_repo_action_visible', '=', False), ('application_set_id', '=', False), ('is_deployed', '=', False)]}"
                     />
                     <button
                         name="destroy"
                         type="object"
                         class="btn-danger"
-                        string="Queue Destroy"
-                        confirm="Are you sure you want to destroy this application, this can't be undone."
+                        string="Queue destruction"
+                        confirm="Are you sure you want to destroy this application? This can't be undone."
+                        attrs="{'invisible': ['|', ('application_set_id', '=', False), ('is_deployed', '=', False)]}"
                     />
                     <field name="description" class="pull-right"/> <!-- Move when this field is used for more than only urls -->
                 </header>
                 <sheet>
+                    <field name="is_deployed" invisible="1"/>
+                    <field name="is_application_set_deployed" invisible="1"/>
+                    <field name="is_immediate_repo_action_visible" invisible="1"/>
                     <group>
-                        <field name="name" />
-                        <field name="template_id" />
-                        <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
-                        <field name="config" widget="ace" />
-                        <button
-                            name="render_config"
-                            type="object"
-                            class="btn-secondary"
-                            icon="fa-refresh"
-                            string="Render"
-                            colspan="2"
-                        />
+                        <div class="jumbotron alert-warning" role="alert" colspan="2" attrs="{'invisible': ['|', ('application_set_id', '=', False), ('is_application_set_deployed', '=', True)]}" >
+                            <h2 class="alert-warning text-center" role="alert">Application set not deployed</h2>
+                            <p  class="alert-warning text-center" role="alert">The chosen application set was not deployed, so it's not possible to deploy this application.</p>
+                        </div>
+                        <group string="General information">
+                            <field name="name" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                            <field name="application_set_id"
+                                   domain="[('is_master', '=', False)]"
+                                   attrs="{'readonly': [('is_deployed', '=', True)]}"
+                            />
+                        </group>
+                        <group string="Customizations">
+                            <field name="template_id" />
+                            <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                            <field name="value_ids" />
+                        </group>
+                        <group colspan="2" string="YAML Configuration">
+                            <field name="config" widget="ace" />
+                        </group>
+
                     </group>
                 </sheet>
                 <div class="oe_chatter">
@@ -51,10 +98,14 @@
     <record id="application_tree" model="ir.ui.view">
         <field name="model">argocd.application</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="create_date" />
+            <tree decoration-success="is_deployed"
+                  decoration-warning="not is_deployed"
+            >
+                <field name="is_deployed" invisible="1"/>
                 <field name="name" />
+                <field name="application_set_id" />
                 <field name="template_id" />
+                <field name="create_date" />
                 <field name="tag_ids" widget="many2many_tags" />
                 <field name="description" />
             </tree>

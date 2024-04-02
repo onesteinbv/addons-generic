@@ -10,7 +10,7 @@ class SaleSubscription(models.Model):
 
     def calculate_recurring_next_date(self, start_date):
         if self.account_invoice_ids_count == 0:
-            self.recurring_next_date = date.today
+            self.recurring_next_date = date.today()
         else:
             if self.sale_subscription_line_ids.mapped("product_id").filtered(
                 lambda x: x.first_of_period_billing_policy

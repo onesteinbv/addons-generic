@@ -8,15 +8,33 @@
         sequence="10"
     />
     <menuitem
-        id="application_template_menu"
-        action="application_template_action"
+        id="application_set_menu"
+        action="application_set_action"
         parent="argocd_root_menu"
         sequence="20"
     />
     <menuitem
+        id="config_menu"
+        parent="argocd_root_menu"
+        sequence="30"
+        name="Configuration"
+    />
+    <menuitem
         id="application_tag_menu"
         action="application_tag_action"
-        parent="argocd_root_menu"
+        parent="config_menu"
+        sequence="10"
+    />
+    <menuitem
+        id="application_template_menu"
+        action="application_template_action"
+        parent="config_menu"
+        sequence="20"
+    />
+    <menuitem
+        id="application_set_template_menu"
+        action="application_set_template_action"
+        parent="config_menu"
         sequence="30"
     />
 </odoo>

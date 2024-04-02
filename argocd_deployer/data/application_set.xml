@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="application_set_master" model="argocd.application.set">
+        <field name="name">master</field>
+        <field name="description">Master application set</field>
+        <field name="repository_url">git@github.com:onesteinbv/flavoured-odoo-k8s.git</field>
+        <field name="branch">main</field>
+        <field name="repository_directory">/home/tarteo/repo</field>
+        <field name="deployment_directory"></field>
+        <field name="template_id" ref="application_set_template_master"/>
+        <field name="is_master">True</field>
+    </record>
+    <record id="application_set_default" model="argocd.application.set">
+        <field name="name">default</field>
+        <field name="description">Default application set</field>
+        <field name="repository_url">git@github.com:onesteinbv/flavoured-odoo-k8s.git</field>
+        <field name="branch">main</field>
+        <field name="repository_directory">/home/tarteo/repo</field>
+        <field name="deployment_directory">instances</field>
+        <field name="domain_format">%(application_name)s.curq.k8s.onestein.eu</field>
+        <field name="subdomain_format">%(subdomain)s.%(application_name)s.curq.k8s.onestein.eu</field>
+        <field name="template_id" ref="application_set_template_default"/>
+        <field name="is_master">False</field>
+    </record>
+</odoo>
