@@ -13,6 +13,8 @@
         "subscription_oca",
     ],
     "data": [
+        "security/ir_model_access.xml",
+        "security/ir_rule.xml",
         "data/mail_template_data.xml",
         "templates/subscription_portal_templates.xml",
         "views/sale_subscription_view.xml",
