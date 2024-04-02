@@ -199,7 +199,7 @@ metadata:
         mock_change_files = MagicMock()
         self._disable_simulation()  # We're patching instead
 
-        def reset_mocks(message, instruction):
+        def reset_mocks(instruction, message):
             """Reset the mocks so they can be reused again"""
             mock_repository.reset_mock()
             mock_remote.reset_mock()
@@ -218,7 +218,7 @@ metadata:
                         "argocd_deployer.application_set_master"
                     ).immediate_deploy,
                     "instruction": {"add": "application_set.yaml"},
-                    "message": "Added `test-set`",
+                    "message": "Added `%s`",
                 },
                 "expected": {
                     "message": "Added `test-set`",
@@ -230,7 +230,7 @@ metadata:
                 "fixture": {
                     "callback": self.application_set.immediate_deploy,
                     "instruction": {"add": "application_set.yaml"},
-                    "message": "Added `test-set`",
+                    "message": "Added `%s`",
                 },
                 "expected": {
                     "message": "Added `test-set`",
@@ -244,10 +244,10 @@ metadata:
                         "argocd_deployer.application_set_master"
                     ).immediate_destroy,
                     "instruction": {"remove": "application_set.yaml"},
-                    "message": "Removed `test-set`",
+                    "message": "Removed `%s`",
                 },
                 "expected": {
-                    "message": "Rmoved `test-set`",
+                    "message": "Removed `test-set`",
                     "files": ["application_set.yaml"],
                 },
             },
@@ -256,7 +256,7 @@ metadata:
                 "fixture": {
                     "callback": self.application_set.immediate_destroy,
                     "instruction": {"remove": "application_set.yaml"},
-                    "message": "Removed `test-set`",
+                    "message": "Removed `%s`",
                 },
                 "expected": {
                     "message": "Removed `test-set`",
@@ -286,8 +286,8 @@ metadata:
                     mock_change_files.assert_called_once()
                     mock_repository.commit.called_once_with(
                         mock_repository,
-                        test_case["expected"]["message"],
                         test_case["expected"]["files"],
+                        test_case["expected"]["message"],
                     )
                     mock_remote.push.assert_called_once()
                     self.env.cr.execute("ROLLBACK TO test_deploy;")
