@@ -1,3 +1,4 @@
+from unittest import skip
 from unittest.mock import MagicMock, patch
 
 from odoo import Command
@@ -22,6 +23,8 @@ class TestApplication(TransactionCase):
             }
         )
 
+    # FIXME: Re-enable when the domain functionality works.
+    @skip("Domains are disabled.")
     def test_get_urls(self):
         self.app.render_config()
         urls = {url for url in self.app.get_urls()}

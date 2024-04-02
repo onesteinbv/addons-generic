@@ -44,8 +44,6 @@ class Application(models.Model):
     )
     application_set_id = fields.Many2one(
         "argocd.application.set",
-        required=True,
-        default=lambda self: self.env.ref("argocd_deployer.application_set_default"),
     )
     is_deployed = fields.Boolean(compute="_compute_is_deployed")
     is_application_set_deployed = fields.Boolean(
@@ -73,10 +71,10 @@ class Application(models.Model):
         self.ensure_one()
         values = {"application_name": self.name}
         if subdomain:
-            domain_format = self.application_set_id.subdomain_format
+            domain_format = self.application_set_id.subdomain_format or ""
             values["subdomain"] = subdomain
         else:
-            domain_format = self.application_set_id.domain_format
+            domain_format = self.application_set_id.domain_format or ""
         return domain_format % values
 
     @api.depends("config")
