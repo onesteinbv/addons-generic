@@ -26,10 +26,9 @@
     "demo": ["demo/ir_config_parameter_demo.xml"],
     "assets": {
         "web.assets_frontend": [
-            "argocd_website/static/src/js/portal.js", 
-            "argocd_website/static/src/scss/portal.scss"
+            "argocd_website/static/src/js/portal.js",
+            "argocd_website/static/src/scss/portal.scss",
         ]
     },
     "external_dependencies": {"python": ["yaml", "requests", "dnspython==2.6.1"]},
-
 }
