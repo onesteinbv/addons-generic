@@ -187,6 +187,7 @@ class ApplicationSet(models.Model):
         for app_set in self:
             if app_set.is_master:
                 path = app_set._get_master_repository_directory("ignore")
+                path = os.path.join(path, "master_application_set/templates")
             else:
                 path = app_set._get_application_set_deployment_directory("ignore")
             path = os.path.join(
@@ -263,15 +264,23 @@ class ApplicationSet(models.Model):
         return template_yaml
 
     def _create_master_application_set(self):
+        """The master application set will be deployed in a master_application_set folder
+        in the root of the repository. There will be a templates folder in it, and a
+        Chart.yaml file."""
         self.ensure_one()
         template_yaml = self._get_argocd_template()
-        application_set_dir = self._get_master_repository_directory("create")
-        yaml_file = os.path.join(application_set_dir, "application_set.yaml")
+        repo_dir = self._get_master_repository_directory("create")
+        application_set_dir = os.path.join(repo_dir, "master_application_set")
+        template_dir = os.path.join(application_set_dir, "templates")
+        if not os.path.exists(template_dir):
+            os.makedirs(template_dir)
         message = "Added application set `%s`."
+
+        yaml_file = os.path.join(template_dir, "application_set.yaml")
         with open(yaml_file, "w") as fh:
             fh.write(template_yaml)
 
-        chart_file = os.path.join(application_set_dir, "..", "Chart.yaml")
+        chart_file = os.path.join(application_set_dir, "Chart.yaml")
         with open(chart_file, "w") as fh:
             fh.write(
                 f"""apiVersion: v2
@@ -300,14 +309,15 @@ appVersion: "1.0.0"
     def _remove_master_application_set(self):
         """Remove an application set for ArgoCD."""
         self.ensure_one()
-        deployment_directory = self._get_master_deployment_directory("error")
+        repo_dir = self._get_master_repository_directory("error")
+        application_set_dir = os.path.join(repo_dir, "master_application_set")
+        template_dir = os.path.join(application_set_dir, "templates")
         message = "Removed application set `%s`."
-        application_set_dir = deployment_directory
-        yaml_file = os.path.join(application_set_dir, "application_set.yaml")
+        yaml_file = os.path.join(template_dir, "application_set.yaml")
+        chart_file = os.path.join(application_set_dir, "Chart.yaml")
+        os.remove(chart_file)
         os.remove(yaml_file)
-        if not self.is_master:
-            os.removedirs(application_set_dir)
-        chart_file = os.path.join(application_set_dir, "..", "Chart.yaml")
+        os.removedirs(template_dir)
 
         return {REMOVE_FILES: [yaml_file, chart_file]}, message
 
