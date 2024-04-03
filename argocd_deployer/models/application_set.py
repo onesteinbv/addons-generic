@@ -126,7 +126,7 @@ class ApplicationSet(models.Model):
         get_param = self.env["ir.config_parameter"].get_param
         path = os.path.join(
             get_param("argocd.application_set_repo_directory", ""),
-            get_param("argocd.application_set_branch"),
+            get_param("argocd.application_set_branch", "master"),
         )
         self._create_path_or_error(
             path, "Master repository directory", path_does_not_exist_action
@@ -250,7 +250,7 @@ class ApplicationSet(models.Model):
     def _get_argocd_template(self):
         get_param = self.env["ir.config_parameter"].get_param
         replacements = {
-            "{{.config.repository_url}}": get_param("argocd.application_set_repo")
+            "{{.config.repository_url}}": get_param("argocd.application_set_repo", "")
             or "",
             "{{.config.branch}}": get_param("argocd.application_set_branch", "master")
             or "",

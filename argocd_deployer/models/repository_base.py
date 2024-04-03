@@ -85,6 +85,6 @@ class RepositoryBase(models.AbstractModel):
         for application in self:
             application.is_immediate_repo_action_visible = safe_eval(
                 self.env["ir.config_parameter"].get_param(
-                    "argocd.allow_immediate_deployment"
+                    "argocd.allow_immediate_deployment", "False"
                 )
             )
