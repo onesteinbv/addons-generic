@@ -161,8 +161,7 @@ class ApplicationSet(models.Model):
         """Return the directory in which all application sets live."""
         self.ensure_one()
         path = os.path.join(
-            self._get_application_set_repository_directory(path_does_not_exist_action),
-            self.deployment_directory,
+            self._get_master_deployment_directory(path_does_not_exist_action),
             self.name,
         )
         self._create_path_or_error(
@@ -187,7 +186,7 @@ class ApplicationSet(models.Model):
     def _compute_is_deployed(self):
         for app_set in self:
             if app_set.is_master:
-                path = app_set._get_master_deployment_directory("ignore")
+                path = app_set._get_master_repository_directory("ignore")
             else:
                 path = app_set._get_application_set_deployment_directory("ignore")
             path = os.path.join(
@@ -266,8 +265,7 @@ class ApplicationSet(models.Model):
     def _create_master_application_set(self):
         self.ensure_one()
         template_yaml = self._get_argocd_template()
-        deployment_directory = self._get_master_deployment_directory("create")
-        application_set_dir = deployment_directory
+        application_set_dir = self._get_master_repository_directory("create")
         yaml_file = os.path.join(application_set_dir, "application_set.yaml")
         message = "Added application set `%s`."
         with open(yaml_file, "w") as fh:
