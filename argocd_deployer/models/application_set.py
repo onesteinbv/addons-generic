@@ -71,16 +71,10 @@ class ApplicationSet(models.Model):
 
     @api.constrains("deployment_directory")
     def _check_deployment_directory(self):
-        if not self.is_master:
-            if not self.deployment_directory:
-                raise ValidationError("Deployment directory is required.")
-            if self.deployment_directory[-1] == "/":
-                raise ValidationError("Deployment directories should not end with '/'.")
-        else:
-            if self.deployment_directory:
-                raise ValidationError(
-                    "The master deployment directory should be empty."
-                )
+        if not self.deployment_directory:
+            raise ValidationError("Deployment directory is required.")
+        if self.deployment_directory[-1] == "/":
+            raise ValidationError("Deployment directories should not end with '/'.")
 
     @api.constrains("is_master")
     def _check_is_master_deployment(self):
@@ -123,40 +117,26 @@ class ApplicationSet(models.Model):
 
     @api.model
     def _get_master_repository_directory(self, path_does_not_exist_action="create"):
-        get_param = self.env["ir.config_parameter"].get_param
+        master = self.env.ref("argocd_deployer.application_set_master")
         path = os.path.join(
-            get_param("argocd.application_set_repo_directory", ""),
-            get_param("argocd.application_set_branch", "master"),
+            master.repository_directory,
+            master.branch,
         )
         self._create_path_or_error(
             path, "Master repository directory", path_does_not_exist_action
         )
         return path
 
+    @api.model
     def _get_master_deployment_directory(self, path_does_not_exist_action="create"):
         """Return the directory the master application set lives."""
-        get_param = self.env["ir.config_parameter"].get_param
+        master = self.env.ref("argocd_deployer.application_set_master")
         path = os.path.join(
             self._get_master_repository_directory(path_does_not_exist_action),
-            get_param("argocd.master_application_set_directory", ""),
+            master.deployment_directory,
         )
         self._create_path_or_error(
             path, "Master deployment directory", path_does_not_exist_action
-        )
-        return path
-
-    def _get_application_set_deployment_directory(
-        self, path_does_not_exist_action="create"
-    ):
-        """Return the directory in which all application sets live."""
-        get_param = self.env["ir.config_parameter"].get_param
-        path = os.path.join(
-            self._get_master_repository_directory(path_does_not_exist_action),
-            get_param("argocd.application_set_deployment_directory", ""),
-            self.name,
-        )
-        self._create_path_or_error(
-            path, "Application set deployment directory", path_does_not_exist_action
         )
         return path
 
@@ -165,6 +145,7 @@ class ApplicationSet(models.Model):
     ):
         """Return the directory in which the applications in the current application
         set are located."""
+        self.ensure_one()
         path = os.path.join(
             self.repository_directory,
             self.branch,
@@ -174,9 +155,24 @@ class ApplicationSet(models.Model):
         )
         return path
 
+    def _get_application_set_deployment_directory(
+        self, path_does_not_exist_action="create"
+    ):
+        """Return the directory in which all application sets live."""
+        self.ensure_one()
+        path = os.path.join(
+            self._get_master_deployment_directory(path_does_not_exist_action),
+            self.name,
+        )
+        self._create_path_or_error(
+            path, "Application set deployment directory", path_does_not_exist_action
+        )
+        return path
+
     def _get_application_deployment_directory(
         self, application_name, path_does_not_exist_action="create"
     ):
+        self.ensure_one()
         path = os.path.join(
             self._get_application_set_repository_directory(path_does_not_exist_action),
             self.deployment_directory,
@@ -190,7 +186,7 @@ class ApplicationSet(models.Model):
     def _compute_is_deployed(self):
         for app_set in self:
             if app_set.is_master:
-                path = app_set._get_master_deployment_directory()
+                path = app_set._get_master_repository_directory("ignore")
             else:
                 path = app_set._get_application_set_deployment_directory("ignore")
             path = os.path.join(
@@ -248,16 +244,13 @@ class ApplicationSet(models.Model):
         return message % self.name
 
     def _get_argocd_template(self):
-        get_param = self.env["ir.config_parameter"].get_param
+        master = self.env.ref("argocd_deployer.application_set_master")
         replacements = {
-            "{{.config.repository_url}}": get_param("argocd.application_set_repo", "")
-            or "",
-            "{{.config.branch}}": get_param("argocd.application_set_branch", "master")
-            or "",
-            "{{.config.deployment_directory}}": get_param(
-                "argocd.application_set_deployment_directory", "application_sets"
-            )
-            or "",
+            "{{.config.repository_url}}": master.repository_url or "" or "",
+            "{{.config.branch}}": master.branch or "main",
+            "{{.config.deployment_directory}}": (
+                master.deployment_directory or "application_sets"
+            ),
             "{{.application_set.name}}": self.name or "",
             "{{.application_set.repository_url}}": self.repository_url or "",
             "{{.application_set.branch}}": self.branch or "",
@@ -272,8 +265,7 @@ class ApplicationSet(models.Model):
     def _create_master_application_set(self):
         self.ensure_one()
         template_yaml = self._get_argocd_template()
-        deployment_directory = self._get_master_deployment_directory("create")
-        application_set_dir = deployment_directory
+        application_set_dir = self._get_master_repository_directory("create")
         yaml_file = os.path.join(application_set_dir, "application_set.yaml")
         message = "Added application set `%s`."
         with open(yaml_file, "w") as fh:

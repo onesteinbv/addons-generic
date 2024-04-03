@@ -19,10 +19,6 @@ System parameters
 -----------------
 The following system parameters can be configured.
 
-- ``argocd.application_set_repo``: Set to the SSH URL of the repository that stores the application sets.
-- ``argocd.application_set_branch``: Set to the branch that contains the application sets. Should normally be HEAD or main.
-- ``argocd.application_set_repo_directory``: The local folder that contains the .git folder of the repository that contains the application sets.
-- ``argocd.application_set_deployment_directory``: The folder inside the repository that will contain the application sets.
 - ``argocd.git_simulation_mode``: For debugging purposes. Can be set to values like ``none``, ``push``, ``pull``, ``push&pull``.
   By setting one of these values, the corresponding git action will be skipped. This can prevent delays and repo clogging when doing manual
   tests.

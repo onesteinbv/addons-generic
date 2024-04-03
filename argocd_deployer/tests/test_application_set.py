@@ -1,4 +1,3 @@
-import os
 from unittest.mock import MagicMock, mock_open, patch
 
 from odoo.exceptions import UserError
@@ -40,57 +39,47 @@ metadata:
             }
         )
 
+        cls.master_application_set = cls.env.ref(
+            "argocd_deployer.application_set_master"
+        )
+        cls.default_application_set = cls.env.ref(
+            "argocd_deployer.application_set_default"
+        )
         cls.templated_yaml = f"""
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  repoURL: {cls.env.ref("argocd_deployer.application_set_repo").value}
-  revision: {cls.env.ref("argocd_deployer.application_set_branch").value}
-  path: {cls.env.ref("argocd_deployer.application_set_deployment_directory").value}
+  repoURL: {cls.master_application_set.repository_url}
+  revision: {cls.master_application_set.branch}
+  path: {cls.master_application_set.deployment_directory}
   template-path: {{{{.path.path}}}}
 """
 
     def test_get_master_repository_directory(self):
         """The master repository directory is stored in the config.
         Check that it behaves."""
-        self.env["ir.config_parameter"].set_param(
-            "argocd.application_set_repo_directory", "/home/nonexistent/directory"
-        )
-        master_path = os.path.join(
-            self.env["ir.config_parameter"].get_param(
-                "argocd.application_set_repo_directory"
-            ),
-            self.env["ir.config_parameter"].get_param("argocd.application_set_branch"),
-        )
+        master = self.env.ref("argocd_deployer.application_set_master")
+        master.repository_directory = "/home/test"
+        master.deployment_directory = "application_sets"
         with patch("os.makedirs") as mkdirs:
             self.application_set._get_master_repository_directory()
-            mkdirs.assert_called_with(master_path, mode=0o775)
-        self.application_set.repository_directory = "/this_directory_does_not_exist/"
+            mkdirs.assert_called_with("/home/test/main", mode=0o775)
         with self.assertRaisesRegex(UserError, "Master repository directory"):
             self.application_set._get_master_repository_directory("error")
 
     def test_master_deployment_directory(self):
         """The master deployment directory is the folder inside the master
         repository master application set lives. It's specified in the config."""
-        self.env["ir.config_parameter"].set_param(
-            "argocd.application_set_repo_directory", "/home/nonexistent/directory"
-        )
-        master_deployment_path = os.path.join(
-            self.env["ir.config_parameter"].get_param(
-                "argocd.application_set_repo_directory"
-            ),
-            self.env["ir.config_parameter"].get_param("argocd.application_set_branch"),
-            self.env["ir.config_parameter"].get_param(
-                "argocd.master_application_set_directory"
-            ),
-        )
+        master = self.env.ref("argocd_deployer.application_set_master")
+        master.repository_directory = "/home/test"
+        master.deployment_directory = "application_sets"
         with patch("os.makedirs") as mkdirs:
-            self.application_set._get_master_deployment_directory()
-            mkdirs.assert_called_with(master_deployment_path, mode=0o775)
+            self.env["argocd.application.set"]._get_master_deployment_directory()
+            mkdirs.assert_called_with("/home/test/main/application_sets", mode=0o775)
         self.application_set.deployment_directory = "/this_directory_does_not_exist"
         with patch(
             f"{APPLICATION_SET_PATCH}._get_master_repository_directory",
-            return_value=master_deployment_path,
+            return_value="/home/test",
         ):
             with self.assertRaisesRegex(UserError, "Master deployment directory"):
                 self.application_set._get_master_deployment_directory("error")
@@ -98,26 +87,17 @@ metadata:
     def test_get_application_set_deployment_directory(self):
         """The application set deployment directory is folder inside the master
         repository where the application sets live. It's specified in the config."""
-        self.env["ir.config_parameter"].set_param(
-            "argocd.application_set_repo_directory", "/home/nonexistent/directory"
-        )
-        master_deployment_path = os.path.join(
-            self.env["ir.config_parameter"].get_param(
-                "argocd.application_set_repo_directory"
-            ),
-            self.env["ir.config_parameter"].get_param("argocd.application_set_branch"),
-            self.env["ir.config_parameter"].get_param(
-                "argocd.application_set_deployment_directory"
-            ),
-            self.application_set.name,
-        )
+        master = self.env.ref("argocd_deployer.application_set_master")
+        master.repository_directory = "/home/test"
+        master.branch = "Olive"
         with patch("os.makedirs") as mkdirs:
             self.application_set._get_application_set_deployment_directory()
-            mkdirs.assert_called_with(master_deployment_path, mode=0o775)
-        self.application_set.deployment_directory = "/this_directory_does_not_exist"
+            mkdirs.assert_called_with(
+                "/home/test/Olive/application_sets/test-set", mode=0o775
+            )
         with patch(
-            f"{APPLICATION_SET_PATCH}._get_master_repository_directory",
-            return_value=master_deployment_path,
+            f"{APPLICATION_SET_PATCH}._get_master_deployment_directory",
+            return_value="/home/nonexistent/directory",
         ):
             with self.assertRaisesRegex(
                 UserError, "Application set deployment directory"
@@ -162,7 +142,7 @@ metadata:
             with patch("os.makedirs") as mock_makedir:
                 with patch("os.path.join", return_value="joined/path"):
                     files, message = self.application_set._create_application_set()
-                    self.assertEqual(3, mock_makedir.call_count)
+                    self.assertEqual(4, mock_makedir.call_count)
                     mock_makedir.assert_called_with("joined/path")
                     m.assert_called_once_with("joined/path", "w")
                     m().write.assert_called_once()
