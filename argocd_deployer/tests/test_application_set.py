@@ -1,4 +1,3 @@
-import os
 from unittest.mock import MagicMock, mock_open, patch
 
 from odoo.exceptions import UserError
@@ -40,8 +39,12 @@ metadata:
             }
         )
 
-        cls.master_application_set = cls.env.ref("argocd_deployer.application_set_master")
-        cls.default_application_set = cls.env.ref("argocd_deployer.application_set_default")
+        cls.master_application_set = cls.env.ref(
+            "argocd_deployer.application_set_master"
+        )
+        cls.default_application_set = cls.env.ref(
+            "argocd_deployer.application_set_default"
+        )
         cls.templated_yaml = f"""
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet

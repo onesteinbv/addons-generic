@@ -76,7 +76,6 @@ class ApplicationSet(models.Model):
         if self.deployment_directory[-1] == "/":
             raise ValidationError("Deployment directories should not end with '/'.")
 
-
     @api.constrains("is_master")
     def _check_is_master_deployment(self):
         if not self.is_master:
@@ -248,8 +247,7 @@ class ApplicationSet(models.Model):
     def _get_argocd_template(self):
         master = self.env.ref("argocd_deployer.application_set_master")
         replacements = {
-            "{{.config.repository_url}}": master.repository_url or ""
-            or "",
+            "{{.config.repository_url}}": master.repository_url or "" or "",
             "{{.config.branch}}": master.branch or "main",
             "{{.config.deployment_directory}}": (
                 master.deployment_directory or "application_sets"
