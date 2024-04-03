@@ -1,25 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
-    <record id="application_set_repo" model="ir.config_parameter">
-        <field name="key">argocd.application_set_repo</field>
-        <field name="value">git@github.com:onesteinbv/odoo-generator-k8s.git</field>
-    </record>
-    <record id="application_set_branch" model="ir.config_parameter">
-        <field name="key">argocd.application_set_branch</field>
-        <field name="value">main</field>
-    </record>
-    <record id="application_set_repo_directory" model="ir.config_parameter">
-        <field name="key">argocd.application_set_repo_directory</field>
-        <field name="value">/home/tarteo/repo</field>
-    </record>
-    <record id="application_set_deployment_directory" model="ir.config_parameter">
-        <field name="key">argocd.application_set_deployment_directory</field>
-        <field name="value">application_sets</field>
-    </record>
-    <record id="master_application_set_directory" model="ir.config_parameter">
-        <field name="key">argocd.master_application_set_directory</field>
-        <field name="value">application_set_deployment/templates</field>
-    </record>
     <record id="application_set_destruction_delay" model="ir.config_parameter">
         <field name="key">argocd.application_set_destruction_delay</field>
         <field name="value">3600</field>
@@ -27,5 +7,13 @@
     <record id="application_destruction_delay" model="ir.config_parameter">
         <field name="key">argocd.application_destruction_delay</field>
         <field name="value">60</field>
+    </record>
+    <record id="git_simulation_mode" model="ir.config_parameter">
+        <field name="key">argocd.git_simulation_mode</field>
+        <field name="value">none</field>
+    </record>
+    <record id="allow_immediate_deployment" model="ir.config_parameter">
+        <field name="key">argocd.allow_immediate_deployment</field>
+        <field name="value">False</field>
     </record>
 </odoo>
