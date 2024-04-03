@@ -92,7 +92,9 @@ metadata:
         master.branch = "Olive"
         with patch("os.makedirs") as mkdirs:
             self.application_set._get_application_set_deployment_directory()
-            mkdirs.assert_called_with("/home/test/Olive/application_sets/test-set", mode=0o775)
+            mkdirs.assert_called_with(
+                "/home/test/Olive/application_sets/test-set", mode=0o775
+            )
         with patch(
             f"{APPLICATION_SET_PATCH}._get_master_deployment_directory",
             return_value="/home/nonexistent/directory",
