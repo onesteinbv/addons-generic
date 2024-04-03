@@ -87,12 +87,14 @@ metadata:
     def test_get_application_set_deployment_directory(self):
         """The application set deployment directory is folder inside the master
         repository where the application sets live. It's specified in the config."""
-
+        master = self.env.ref("argocd_deployer.application_set_master")
+        master.repository_directory = "/home/test"
+        master.branch = "Olive"
         with patch("os.makedirs") as mkdirs:
             self.application_set._get_application_set_deployment_directory()
-            mkdirs.assert_called_with("/home/test/Olive/instances/test-set", mode=0o775)
+            mkdirs.assert_called_with("/home/test/Olive/application_sets/test-set", mode=0o775)
         with patch(
-            f"{APPLICATION_SET_PATCH}._get_application_set_repository_directory",
+            f"{APPLICATION_SET_PATCH}._get_master_deployment_directory",
             return_value="/home/nonexistent/directory",
         ):
             with self.assertRaisesRegex(
@@ -138,7 +140,7 @@ metadata:
             with patch("os.makedirs") as mock_makedir:
                 with patch("os.path.join", return_value="joined/path"):
                     files, message = self.application_set._create_application_set()
-                    self.assertEqual(3, mock_makedir.call_count)
+                    self.assertEqual(4, mock_makedir.call_count)
                     mock_makedir.assert_called_with("joined/path")
                     m.assert_called_once_with("joined/path", "w")
                     m().write.assert_called_once()
