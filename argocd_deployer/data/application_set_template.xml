@@ -2,30 +2,31 @@
     <record id="application_set_template_master" model="argocd.application.set.template">
         <field name="name">Master application set template - Do not change</field>
         <field name="yaml">apiVersion: argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: curq-application-sets
+  name: curq-master-application-set
   namespace: argocd
 spec:
   goTemplate: true
   generators:
-  - git:
-      repoURL: {{.config.repository_url}}
-      revision: {{.config.branch}}
-      files:
-      - path: {{.config.deployment_directory}}
+    - git:
+        repoURL: {{.config.repository_url}}
+        revision: {{.config.branch}}
+        files:
+          - path: {{.config.deployment_directory}}/**/application_set.yaml
   template:
     metadata:
-      name: curq-application-sets
+      name: "application-set-{{ "{{ " }}.path.basename{{ " }}" }}"
     spec:
       project: "default"
       source:
         repoURL: {{.config.repository_url}}
         targetRevision: {{.config.branch}}
-        path: {{.config.deployment_directory}}/{{ "{{ " }}.path.basename{{ " }}" }}
+        path: "{{ "{{ " }}.path.filename{{ " }}" }}"
       destination:
         name: in-cluster
-        namespace: argocd
+        namespace: "application-set-{{ "{{ " }}.path.basename{{ " }}" }}"
       syncPolicy:
         syncOptions:
         - CreateNamespace=true
