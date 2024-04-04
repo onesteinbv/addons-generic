@@ -239,7 +239,7 @@ class ApplicationSet(models.Model):
             return Repo.clone_from(self.repository_url, directory)
 
     def _get_branch(self):
-        return self.branch
+        return self.env.ref("argocd_deployer.application_set_master").branch
 
     def _format_commit_message(self, message):
         return message % self.name
