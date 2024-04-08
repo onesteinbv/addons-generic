@@ -13,7 +13,7 @@ class AccountAccount(models.Model):
     sort_code = fields.Char(string="Sorting code")
 
     def write(self, vals):
-        resp = super(AccountAccount, self).write(vals)
+        resp = super().write(vals)
 
         for rec in self.filtered(
             lambda acc: not acc.referentiecode

@@ -68,22 +68,23 @@ class AccountChartTemplate(models.Model):
         for journal in resp_journals:
             if journal["code"] == "CABA":
                 journal["active"] = False
-            if journal["type"] == "general" and journal["code"] == _("EXCH"):
-                journal["subtype"] = "general_exch"
-            if journal["type"] == "general" and journal["code"] == _("MISC"):
-                journal["subtype"] = "general_misc"
-            if journal["type"] == "general" and journal["code"] == _("ACCR"):
-                journal["subtype"] = "general_accr"
-            if journal["type"] == "general" and journal["code"] == _("DEPR"):
-                journal["subtype"] = "general_depr"
-            if journal["type"] == "general" and journal["code"] == _("FCR"):
-                journal["subtype"] = "general_fcr"
-            if journal["type"] == "general" and journal["code"] == _("WAG"):
-                journal["subtype"] = "general_wag"
-            if journal["type"] == "general" and journal["code"] == _("STJ"):
-                journal["subtype"] = "general_stj"
-            if journal["type"] == "general" and journal["code"] == _("TAX"):
-                journal["subtype"] = "general_tax"
+            if journal["type"] == "general":
+                subtype = "general_misc"
+                if journal["code"] == _("EXCH"):
+                    subtype = "general_exch"
+                elif journal["code"] == _("ACCR"):
+                    subtype = "general_accr"
+                elif journal["code"] == _("DEPR"):
+                    subtype = "general_depr"
+                elif journal["code"] == _("FCR"):
+                    subtype = "general_fcr"
+                elif journal["code"] == _("WAG"):
+                    subtype = "general_wag"
+                elif journal["code"] == _("STJ"):
+                    subtype = "general_stj"
+                elif journal["code"] == _("TAX"):
+                    subtype = "general_tax"
+                journal["subtype"] = subtype
         return resp_journals
 
     @api.model
@@ -318,6 +319,11 @@ class AccountChartTemplate(models.Model):
                 )
             if journals:
                 group.allowed_journal_ids = journals
+
+        # Set the accounts allowed journal
+        all_groups = self.env["account.group"].search([("company_id", "=", company.id)])
+        for group in all_groups:
+            group.accounts_set_allowed_journals()
 
     def get_allowed_account_journals_based_on_type(self, all_journals, type_list):
         return all_journals.filtered(lambda j: j.type in type_list)
