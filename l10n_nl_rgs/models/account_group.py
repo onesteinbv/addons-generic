@@ -73,13 +73,10 @@ class AccountGroup(models.Model):
         return records
 
     def accounts_set_allowed_journals(self):
-        for rec in self:
-            if rec.auto_allowed_journals:
-                rec.with_context(
-                    group_allowed_journal_change=True
-                ).account_ids.allowed_journal_ids = rec.active_allowed_journal_ids
+        for rec in self.filtered(lambda g: g.auto_allowed_journals):
+            rec.account_ids.group_set_allowed_journals()
 
-    @api.depends("parent_id", "parent_id.allowed_journal_ids")
+    @api.depends("parent_id", "parent_id.allowed_journal_ids", "allowed_journal_ids")
     @api.onchange("parent_id", "allowed_journal_ids")
     def _compute_active_allowed_journals(self):
         for rec in self:
