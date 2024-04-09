@@ -110,7 +110,7 @@ class Application(models.Model):
 
     @staticmethod
     def _get_domain(helm):
-        return helm.get("domain") or helm.get("globals", {}).get("domain")
+        return helm.get("domain") or helm.get("global", {}).get("domain")
 
     def get_urls(self):
         self.ensure_one()
