@@ -68,15 +68,22 @@ options.registry.dynamic_project_list = dynamicSnippetCarouselOptions.extend({
         for (const index in projectCategories) {
             this.projectCategories[projectCategories[index].id] = projectCategories[index];
         }
-        const projectCategoriesSelectorEl = uiFragment.querySelector('[data-name="project_category_opt"]');
+        const projectCategoriesSelectorEl = uiFragment.querySelector('[id="start_project_checkboxes"]');
         for (const id in this.projectCategories) {
-            const button = document.createElement('we-button');
-            button.dataset.selectDataAttribute = JSON.stringify(
-                this.projectCategories[id]
+            const checkbox = document.createElement('we-checkbox');
+            console.log(id)
+            console.log(this.projectCategories)
+            console.log(projectCategoriesSelectorEl)
+            checkbox.dataset.selectDataAttribute = JSON.stringify(
+                this.projectCategories[id].id
                 // This._markupDictionary(this.projectCategories[id])
             );
-            button.innerText = this.projectCategories[id].name;
-            projectCategoriesSelectorEl.appendChild(button);
+            checkbox.setAttribute('data-attribute-name','projectCategory_'+this.projectCategories[id].name.replace(/[^a-zA-Z0-9]/g,'_'))
+            checkbox.setAttribute('string',this.projectCategories[id].name)
+//            Checkbox.name=this.projectCategories[id].name
+//            checkbox.string=this.projectCategories[id].name
+//            button.innerText = this.projectCategories[id].name;
+            projectCategoriesSelectorEl.after(checkbox);
         }
     },
 

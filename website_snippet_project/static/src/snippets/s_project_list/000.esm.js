@@ -13,10 +13,15 @@ publicWidget.registry.dynamic_project_list = DynamicSnippetCarousel.extend({
      * @returns Parsed JSON object
      */
     _parseCategoryData: function() {
+        const keys = Object.keys(this.$el.get(0).dataset)
+        const ids = []
+        for (let i = 0; i < keys.length; i++) {
+            if (keys[i].startsWith('projectCategory_') && this.$el.get(0).dataset[keys[i]]){
+                ids.push(parseInt(this.$el.get(0).dataset[keys[i]]))
+            }
+        }
         const projectCategoryData = this.$el.get(0).dataset.projectCategory;
-        if (!projectCategoryData)
-            return {id: "all", name: "", description: ""};
-        return JSON.parse(projectCategoryData);
+        return ids;
     },
 
     /**
@@ -27,13 +32,12 @@ publicWidget.registry.dynamic_project_list = DynamicSnippetCarousel.extend({
      */
     _getCategorySearchDomain: function() {
         const searchDomain = [];
-        const projectCategory = this._parseCategoryData();
-        if (projectCategory.id === "all") {
+        const ids = this._parseCategoryData();
+        if (ids.length === 0) {
             return searchDomain;
         }
-        if (projectCategory.id) {
-            searchDomain.push(['category_id', '=', projectCategory.id]);
-        }
+        searchDomain.push(['category_id', 'in', ids]);
+
         return searchDomain;
     },
 

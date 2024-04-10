@@ -2,9 +2,10 @@
     <template id="s_dynamic_project_list_options_template" inherit_id="website.s_dynamic_snippet_options_template">
         <xpath expr="//we-select[@data-name='filter_opt']" position="after">
             <t t-if="snippet_name == 'dynamic_project_list'">
-                <we-select string="Category" data-name="project_category_opt" data-attribute-name="projectCategory">
-                    <we-button class="o_we_user_value_widget" data-select-data-attribute=""><div>All</div></we-button>
-                </we-select>
+<!--                <div data-selector=".o_project_category" data-name="project_category_div" string="Category">-->
+                    <we-title id="start_project_checkboxes">Project Categories</we-title>
+
+<!--                </div>-->
             </t>
         </xpath>
     </template>
