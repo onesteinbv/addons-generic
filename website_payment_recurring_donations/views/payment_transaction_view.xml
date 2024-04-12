@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2023 Onestein - Anjeel Haria
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+
+    <record id="payment_transaction_recurring_donations_form" model="ir.ui.view">
+        <field name="name">Recurring Donations Form</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.payment_transaction_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <field name="is_recurring_donation_terminated" invisible="1"/>
+                <button string="Terminate Recurring Donation"
+                        type="object"
+                        name="action_terminate_recurring_donation"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|',('is_recurring_donation_terminated', '=', True), ('donation_frequency', 'in', (False,'onetime'))]}"/>
+            </header>
+            <xpath expr="//field[@name='amount']" position="after">
+                <field name="recurring_donation_provider_reference" readonly="1"
+                       attrs="{'invisible': [('donation_frequency', 'in', (False,'onetime'))]}"/>
+                <field name="donation_frequency" readonly="1"
+                       attrs="{'invisible': [('donation_frequency', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_payment_transaction_partner" model="ir.actions.act_window">
+        <field name="name">Payment Transactions</field>
+        <field name="res_model">payment.transaction</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('partner_id','=', active_id)]</field>
+        <field name="context">{'create': False}</field>
+    </record>
+</odoo>

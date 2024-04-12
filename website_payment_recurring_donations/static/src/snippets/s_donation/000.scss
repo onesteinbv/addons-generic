@@ -1,0 +1,16 @@
+.s_donation:not([data-vcss]) {
+    .donation_frequency{
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        border: 0;
+        clip: rect(0 0 0 0);
+    }
+}
+
+.o_donation_payment_form{
+    @include o-input-number-no-arrows();
+}

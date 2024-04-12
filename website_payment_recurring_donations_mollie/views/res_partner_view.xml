@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2023 Onestein - Anjeel Haria
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+    <record id="res_partner_form_subscriptions" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="mollie_customer_id" attrs="{'invisible': [('mollie_customer_id', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
