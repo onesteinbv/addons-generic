@@ -1,0 +1,38 @@
+<odoo>
+	<record id="run_sync_wizard_confirm_form" model="ir.ui.view">
+        <field name="name">run.sync.confirm.form</field>
+        <field name="model">run.sync.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <span>You're about to run NextCloud sync. Confirm?</span>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button class="btn btn-primary" type="object" name="run_sync_cron" string="Yes"/>
+                    <button special="cancel" string="No" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="run_sync_wizard_confirm_message" model="ir.actions.act_window">
+        <field name="name">Run Sync</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">run.sync.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="run_sync_wizard_confirm_form"/>
+        <field name="context">{}</field>
+        <field name="target">new</field>
+    </record>
+
+	<menuitem
+		id="menu_nextcloud_sync"
+		name="Run Sync"
+		parent="nextcloud_odoo_sync.menu_main_nextcloud_nextcloud"
+		action="run_sync_wizard_confirm_message"
+		sequence="10"/>
+</odoo>

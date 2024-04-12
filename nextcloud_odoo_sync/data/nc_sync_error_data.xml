@@ -1,0 +1,15 @@
+<odoo>
+	<record id="nc_sync_error_1000" model="nc.sync.error">
+        <field name="name">ERR-1000</field>
+        <field name="description">Invalid user/password</field>
+        <field name="type">nextcloud</field>
+        <field name="severity">critical</field>
+    </record>
+
+    <record id="nc_sync_error_1001" model="nc.sync.error">
+        <field name="name">ERR-1001</field>
+        <field name="description">Invalid API URL</field>
+        <field name="type">nextcloud</field>
+        <field name="severity">critical</field>
+    </record>
+</odoo>

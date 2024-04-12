@@ -1,0 +1,29 @@
+<odoo>
+	<record id="calendar_alarm_notif_at_event_start" model="calendar.alarm">
+        <field name="name">Notification - At the event's starts</field>
+        <field name="duration" eval="1" />
+        <field name="interval">minutes</field>
+        <field name="alarm_type">notification</field>
+    </record>
+
+    <record id="calendar_alarm_notif_5_mins" model="calendar.alarm">
+        <field name="name">Notification - 5 minutes</field>
+        <field name="duration" eval="5" />
+        <field name="interval">minutes</field>
+        <field name="alarm_type">notification</field>
+    </record>
+
+    <record id="calendar_alarm_notif_10_mins" model="calendar.alarm">
+        <field name="name">Notification - 10 minutes</field>
+        <field name="duration" eval="10" />
+        <field name="interval">minutes</field>
+        <field name="alarm_type">notification</field>
+    </record>
+
+    <record id="calendar_alarm_notif_2_days" model="calendar.alarm">
+        <field name="name">Notification - 2 Days</field>
+        <field name="duration" eval="2" />
+        <field name="interval">days</field>
+        <field name="alarm_type">notification</field>
+    </record>
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+	<data noupdate="1">
+		<record id="ir_cron_nextcloud_sync_log_capacity" model="ir.cron">
+	    	<field name="active" eval="False"/>
+	        <field name="name">NextCloud-Odoo Sync Log Deletion Cron</field>
+	        <field name="interval_number">1</field>
+	        <field name="interval_type">days</field>
+	        <field name="numbercall">-1</field>
+	        <field name="nextcall" eval="(DateTime.now() + timedelta(minutes=5)).strftime('%Y-%m-%d %H:%M:%S')" />
+	        <field name="doall" eval="False"/>
+	        <field name="model_id" ref="model_nc_sync_log"/>
+	        <field name="code">model.delete_logs()</field>
+	        <field name="state">code</field>
+	    </record>
+	</data>
+</odoo>
