@@ -1,0 +1,17 @@
+<odoo>
+	<record id="res_users_form_view_simple_modif_inherit" model="ir.ui.view">
+        <field name="name">view.users.form.simple.modif.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+			<xpath expr="//group[@name='signature']" position="after">
+				<group>
+					<button name="setup_nc_sync_user" string="Setup Nextcloud User" type="object" class="btn btn-primary"/>
+				</group>
+				<group>
+					<button name="sync_user_events" string="Sync my events" type="object" class="btn btn-primary"/>
+				</group>
+			</xpath>
+      	</field>
+	</record>
+</odoo>

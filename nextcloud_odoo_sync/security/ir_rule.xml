@@ -1,0 +1,11 @@
+<odoo>
+    <record model="ir.rule" id="nc_sync_user_own_rule">
+            <field name="name">Users can read and setup their own Nextcloud configuration</field>
+            <field name="model_id" ref="nextcloud_odoo_sync.model_nc_sync_user"/>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+            <field name='perm_read' eval='True'/>
+            <field name='perm_create' eval='True'/>
+            <field name='perm_unlink' eval='True'/>
+            <field name='perm_write' eval='True'/>
+    </record>
+</odoo>

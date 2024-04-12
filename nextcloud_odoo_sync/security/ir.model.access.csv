@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_nextcloud_sync_user_all,access.nextcloud.sync.user.all,model_nc_sync_user,base.group_user,1,1,1,0
+access_nextcloud_sync_user_user,access.nextcloud.sync.user.user,model_nc_sync_user,base.group_user,1,1,1,1
+access_nextcloud_sync_log_admin,access.nextcloud.sync.log.admin,model_nc_sync_log,nextcloud_odoo_sync.group_nextcloud_sync_admin,1,1,1,1
+access_nextcloud_sync_log_line_admin,access.nextcloud.sync.log.line.admin,model_nc_sync_log_line,nextcloud_odoo_sync.group_nextcloud_sync_admin,1,1,1,1
+access_nextcloud_sync_error_admin,access.nextcloud.sync.error.admin,model_nc_sync_error,base.group_system,1,1,1,1
+access_nextcloud_event_status_admin,access.nextcloud.event.status.admin,model_nc_event_status,nextcloud_odoo_sync.group_nextcloud_sync_admin,1,1,1,1
+access_nextcloud_event_status_all,access.nextcloud.event.status.all,model_nc_event_status,base.group_user,1,0,0,0
+access_nextcloud_calendar_all,access.nextcloud.calendar.all,model_nc_calendar,base.group_user,1,0,0,0
+access_nextcloud_calendar_admin,access.nextcloud.calendar.admin,model_nc_calendar,nextcloud_odoo_sync.group_nextcloud_sync_admin,1,1,1,1
+access_run_sync_wizard,access.run.sync.wizard,model_run_sync_wizard,base.group_user,1,1,1,1
+access_calendar_event_nchash_all,access.calendar.event.nchash.all,model_calendar_event_nchash,base.group_user,1,0,0,0
+access_calendar_event_nchash_admin,access.calendar.event.nchash.admin,model_calendar_event_nchash,base.group_system,1,1,1,1

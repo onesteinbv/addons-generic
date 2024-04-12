@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="res_config_settings_nextcloud_view_form" model="ir.ui.view">
+		<field name="name">res.config.settings.nextcloud.view.form</field>
+           <field name="model">res.config.settings</field>
+           <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+           <field name="arch" type="xml">
+           	<xpath expr="//div[hasclass('settings')]" position="inside">
+           		<div class="app_settings_block" data-string="Nextcloud" string="Nextcloud" data-key="nextcloud_odoo_sync" id="nextcloud">
+           			<div id="nextcloud_general_settings">
+                        <div>
+                        <h2>Recurring Event Limits And Log Capacity</h2>
+                        <div class="row mt16 o_settings_container" name="default_recurring_events_limit_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box" id="default_limits" title="These limits would be applied to new recurring events being created from nextcloud or to be synced with nextcloud.">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Default Recurring Event Limits</span>
+                                    <div class="text-muted">
+                                        Default Limits Applied To Recurring Events(With End Date As 'Forever') Being Created From/To be Synced to Nextcloud.
+                                        Define In Years The Limit For Each Of Frequency For Which The Events Should Be Created.
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label string="Daily Limit(In Years)" for="daily_recurring_events_limit" class="col-lg-3"/>
+                                            <field name="daily_recurring_events_limit" required="1"/>
+                                        </div>
+                                        <div class="row mt16">
+                                            <label string="Weekly Limit(In Years)" for="weekly_recurring_events_limit" class="col-lg-3"/>
+                                            <field name="weekly_recurring_events_limit" required="1"/>
+                                        </div>
+                                        <div class="row mt16">
+                                            <label string="Monthly Limit(In Years)" for="monthly_recurring_events_limit" class="col-lg-3"/>
+                                            <field name="monthly_recurring_events_limit" required="1"/>
+                                        </div>
+                                        <div class="row mt16">
+                                            <label string="Yearly Limit(In Years)" for="yearly_recurring_events_limit" class="col-lg-3"/>
+                                            <field name="yearly_recurring_events_limit" required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box" id="logs_setting">
+                                <div class="o_setting_right_pane">
+                                    <label for="log_capacity"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <field name="log_capacity" required="1"/> days
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+           		</div>
+           	</xpath>
+           </field>
+	</record>
+
+	<record id="res_config_settings_nc_sync_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'nextcloud_odoo_sync', 'bin_size': False}</field>
+    </record>
+
+    <menuitem
+        id="nc_sync_settings_menu"
+        name="Settings"
+        parent="menu_main_nextcloud_config"
+        action="nextcloud_odoo_sync.res_config_settings_nc_sync_settings_action"
+        sequence="0"/>
+</odoo>
