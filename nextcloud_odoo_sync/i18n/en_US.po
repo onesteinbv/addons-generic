@@ -1,0 +1,586 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* nextcloud_odoo_sync
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-19 06:50+0000\n"
+"PO-Revision-Date: 2023-01-19 06:50+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.calendar_event_form_view
+msgid "Calendar"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model,name:nextcloud_odoo_sync.model_calendar_event
+msgid "Calendar Event"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.calendar_event_form_view
+msgid "Calendar Hash"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model,name:nextcloud_odoo_sync.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.ui.menu,name:nextcloud_odoo_sync.menu_main_nextcloud_config
+msgid "Configuration"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__operation_type__conflict
+msgid "Conflict"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log__state__connecting
+msgid "Connecting"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_res_config_settings__nextcloud_connection_status
+msgid "Connection Status"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__operation_type__create
+msgid "Create"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_calendar__create_uid
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_event_status__create_uid
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_error__create_uid
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__create_uid
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__create_uid
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_calendar__create_date
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_event_status__create_date
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_error__create_date
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__create_date
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__create_date
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_error__severity__critical
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__severity__critical
+msgid "Critical"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__data_send
+msgid "Data Send"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__date_end
+msgid "Date End"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__date_start
+msgid "Date Start"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_error__severity__debug
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__severity__debug
+msgid "Debug"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__operation_type__delete
+msgid "Delete"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_error__description
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__description
+msgid "Description"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_calendar__display_name
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_event_status__display_name
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_error__display_name
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__display_name
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__display_name
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__duration
+msgid "Duration"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_res_config_settings__enable_calendar_sync
+msgid "Enable Calendar Syc"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_log_form_view
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_log_tree_view
+msgid "End"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_res_config_settings__nextcloud_error
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_error__severity__error
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log__state__error
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__operation_type__error
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__severity__error
+msgid "Error"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__error_code_id
+msgid "Error Code"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.actions.act_window,name:nextcloud_odoo_sync.nc_sync_error_action
+#: model:ir.ui.menu,name:nextcloud_odoo_sync.menu_main_nc_sync_error
+msgid "Error List"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log__state__failed
+msgid "Failed"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__res_config_settings__nextcloud_connection_status__fail
+msgid "Failed to login"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.res_config_settings_view_form
+msgid "General"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_calendar__id
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_event_status__id
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_error__id
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__id
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__id
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user__id
+msgid "ID"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log__state__in_progress
+msgid "In Progress"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_error__severity__info
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__severity__info
+msgid "Info"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_calendar____last_update
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_event_status____last_update
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_error____last_update
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log____last_update
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line____last_update
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_calendar__write_uid
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_event_status__write_uid
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_error__write_uid
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__write_uid
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__write_uid
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_calendar__write_date
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_event_status__write_date
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_error__write_date
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__write_date
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__write_date
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__line_ids
+msgid "Line"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__log_id
+msgid "Log"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_res_config_settings__nextcloud_login
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__operation_type__login
+msgid "Login"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_calendar__name
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_event_status__name
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_error__name
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__name
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user__name
+msgid "Name"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_calendar_event__nc_calendar_ids
+msgid "Nc Calendar"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_calendar_event__nc_calendar_hash
+msgid "Nc Calendar Hash"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_calendar_event__nc_color
+msgid "Nc Color"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_calendar_event__nc_resources
+msgid "Nc Resources"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_calendar_event__nc_status
+msgid "Nc Status"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_calendar_event__nc_uid
+msgid "Nc Uid"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__new_value
+msgid "New Value"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__next_cloud_url
+msgid "Next Cloud Url"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_error__type__nextcloud
+msgid "NextCloud"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model,name:nextcloud_odoo_sync.model_nextcloud_base
+msgid "NextCloud Base API"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.ui.menu,name:nextcloud_odoo_sync.menu_main_nextcloud
+msgid "NextCloud Sync"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_log_form_view
+msgid "NextCloud URL"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_user_form_view
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_user_tree_view
+msgid "NextCloud User ID"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_user_form_view
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_user_tree_view
+msgid "NextCloud Username"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model,name:nextcloud_odoo_sync.model_nextcloud_webdav
+msgid "NextCloud WebDav"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.calendar_event_form_view
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.res_config_settings_view_form
+msgid "Nextcloud"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.module.category,name:nextcloud_odoo_sync.module_nextcloud_sync
+msgid "Nextcloud Sync"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_error_tree_view
+msgid "Nextcloud Sync Error Tree"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_log_form_view
+msgid "Nextcloud Sync Log Form"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_log_tree_view
+msgid "Nextcloud Sync Log Tree"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_user_form_view
+msgid "Nextcloud Sync User Form"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_user_tree_view
+msgid "Nextcloud Sync User Tree"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user__nextcloud_user_id
+msgid "Nextcloud User"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_error__type__odoo
+msgid "Odoo"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_log_form_view
+msgid "Odoo URL"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__odoo_url
+msgid "Odoo Url"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_user_form_view
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_user_tree_view
+msgid "Odoo User"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log__state__ok
+msgid "Ok"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__res_config_settings__nextcloud_connection_status__online
+msgid "Online"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__operation_type
+msgid "Operation Type"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_res_config_settings__nextcloud_password
+msgid "Password"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__prev_value
+msgid "Prev Value"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_log_form_view
+msgid "Previous Value"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__operation_type__read
+msgid "Read"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.calendar_event_form_view
+msgid "Resources"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__response_description
+msgid "Response Description"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_res_config_settings__nextcloud_url
+msgid "Server URL"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.actions.act_window,name:nextcloud_odoo_sync.res_config_settings_nc_sync_settings_action
+#: model:ir.ui.menu,name:nextcloud_odoo_sync.nc_sync_settings_menu
+msgid "Settings"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_error__severity
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log_line__severity
+msgid "Severity"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_log_form_view
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_log_tree_view
+msgid "Start"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_log__state
+msgid "State"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.calendar_event_form_view
+msgid "Status"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.ui.menu,name:nextcloud_odoo_sync.menu_main_nextcloud_nextcloud
+msgid "Sync"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.ui.menu,name:nextcloud_odoo_sync.menu_main_nextcloud_sync_log
+msgid "Sync Activity"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:res.groups,name:nextcloud_odoo_sync.group_nextcloud_sync_admin
+msgid "Sync Admin"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user__sync_calendar
+msgid "Sync Calendar"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_log_form_view
+msgid "Sync Code"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:res.groups,name:nextcloud_odoo_sync.group_nextcloud_sync_user
+msgid "Sync User"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.nc_sync_log_tree_view
+msgid "Sync code"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.actions.act_window,name:nextcloud_odoo_sync.nc_sync_log_action
+msgid "Sync's"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_error__type
+msgid "Type"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model_terms:ir.ui.view,arch_db:nextcloud_odoo_sync.calendar_event_form_view
+msgid "UID"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user__user_id
+msgid "User"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields,field_description:nextcloud_odoo_sync.field_nc_sync_user__user_name
+msgid "User Name"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.actions.act_window,name:nextcloud_odoo_sync.nc_sync_user_action
+#: model:ir.ui.menu,name:nextcloud_odoo_sync.menu_main_nextcloud_sync_user
+msgid "User Setup"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_error__severity__warning
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__operation_type__warning
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__severity__warning
+msgid "Warning"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model.fields.selection,name:nextcloud_odoo_sync.selection__nc_sync_log_line__operation_type__write
+msgid "Write"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model,name:nextcloud_odoo_sync.model_nc_calendar
+msgid "nc.calendar"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model,name:nextcloud_odoo_sync.model_nc_event_status
+msgid "nc.event.status"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model,name:nextcloud_odoo_sync.model_nc_sync_error
+msgid "nc.sync.error"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model,name:nextcloud_odoo_sync.model_nc_sync_log
+msgid "nc.sync.log"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model,name:nextcloud_odoo_sync.model_nc_sync_log_line
+msgid "nc.sync.log.line"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model,name:nextcloud_odoo_sync.model_nc_sync_user
+msgid "nc.sync.user"
+msgstr ""
+
+#. module: nextcloud_odoo_sync
+#: model:ir.model,name:nextcloud_odoo_sync.model_nextcloud_caldav
+msgid "nextcloud.caldav"
+msgstr ""

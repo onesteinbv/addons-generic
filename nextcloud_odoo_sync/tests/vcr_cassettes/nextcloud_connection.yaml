@@ -1,0 +1,166 @@
+interactions:
+- request:
+    body: "<?xml version='1.0' encoding='utf-8'?>\r\n<D:propfind xmlns:D=\"DAV:\"
+      xmlns:C=\"urn:ietf:params:xml:ns:caldav\"><D:prop><D:current-user-principal/></D:prop></D:propfind>"
+    headers:
+      Accept:
+      - text/xml, text/calendar
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '164'
+      Content-Type:
+      - text/xml
+      Depth:
+      - '0'
+      User-Agent:
+      - Mozilla/5.0
+    method: PROPFIND
+    uri: https://next-iscale.onestein.eu/remote.php/dav
+  response:
+    body:
+      string: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<d:error xmlns:d=\"DAV:\"
+        xmlns:s=\"http://sabredav.org/ns\">\n  <s:exception>Sabre\\DAV\\Exception\\NotAuthenticated</s:exception>\n
+        \ <s:message>No public access to this resource., No 'Authorization: Basic'
+        header found. Either the client didn't send one, or the server is misconfigured,
+        No 'Authorization: Bearer' header found. Either the client didn't send one,
+        or the server is mis-configured, No 'Authorization: Basic' header found. Either
+        the client didn't send one, or the server is misconfigured</s:message>\n</d:error>\n"
+    headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Connection:
+      - Keep-Alive
+      Content-Length:
+      - '557'
+      Content-Security-Policy:
+      - default-src 'none';
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Fri, 04 Aug 2023 09:06:12 GMT
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Keep-Alive:
+      - timeout=5, max=100
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Server:
+      - Apache/2.4.41 (Ubuntu)
+      Set-Cookie:
+      - ocesbiiz1k5x=5lu55klvpci65h5hbj65jailal; path=/; secure; HttpOnly; SameSite=Lax
+      - oc_sessionPassphrase=%2BDG9kDpvoP3oEo0orBXBfwc%2Fe9DM6RDnnHJ24RAbAZnrvxsLGU9TZqZF2feArqqs5kpPOOXv%2B7P8SMjyGduZ6dv11C85rauntaJDdLokNv2%2B4tU4zja8sYPwZTJbtx6T;
+        path=/; secure; HttpOnly; SameSite=Lax
+      - ocesbiiz1k5x=delgbfoaqd9so4hg5j3in35sbq; path=/; secure; HttpOnly; SameSite=Lax
+      - ocesbiiz1k5x=delgbfoaqd9so4hg5j3in35sbq; path=/; secure; HttpOnly; SameSite=Lax
+      - __Host-nc_sameSiteCookielax=true; path=/; httponly;secure; expires=Fri, 31-Dec-2100
+        23:59:59 GMT; SameSite=lax
+      - __Host-nc_sameSiteCookiestrict=true; path=/; httponly;secure; expires=Fri,
+        31-Dec-2100 23:59:59 GMT; SameSite=strict
+      - ocesbiiz1k5x=delgbfoaqd9so4hg5j3in35sbq; path=/; secure; HttpOnly; SameSite=Lax
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      WWW-Authenticate:
+      - Basic realm="Nextcloud", charset="UTF-8"
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Robots-Tag:
+      - none
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 401
+      message: Unauthorized
+- request:
+    body: "<?xml version='1.0' encoding='utf-8'?>\r\n<D:propfind xmlns:D=\"DAV:\"
+      xmlns:C=\"urn:ietf:params:xml:ns:caldav\"><D:prop><D:current-user-principal/></D:prop></D:propfind>"
+    headers:
+      Accept:
+      - text/xml, text/calendar
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '164'
+      Content-Type:
+      - text/xml
+      Cookie:
+      - __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=%2BDG9kDpvoP3oEo0orBXBfwc%2Fe9DM6RDnnHJ24RAbAZnrvxsLGU9TZqZF2feArqqs5kpPOOXv%2B7P8SMjyGduZ6dv11C85rauntaJDdLokNv2%2B4tU4zja8sYPwZTJbtx6T;
+        ocesbiiz1k5x=delgbfoaqd9so4hg5j3in35sbq
+      Depth:
+      - '0'
+      User-Agent:
+      - Mozilla/5.0
+    method: PROPFIND
+    uri: https://next-iscale.onestein.eu/remote.php/dav
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA3WQTW+DMAyG7/0VKPdi2BFBqko9VNphO1S7Z+AVquBEdtL154+o0I9JPdmWH/t9
+        7XpzGW12RpbBUaPKvFAbvaq7aow2DBJMiJJNCEnVNWq3/arUXEqj+hB8BSDmm7Ez59zxEUgWwLU3
+        wv1Sa13s/hF0Jwgv4QnRkwdG8Y4EU94z/mhgHF3A3PceJkGoYW5MgGfnk98lT7GNzEhhHQV57Xmg
+        dvDGvlx3IwTShIChE6J9kIHXO+Eue32b3h8On1DmZfZWFNnHeyLmzgJf/cLjpfD0er36AyYNozuh
+        AQAA
+    headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Connection:
+      - Keep-Alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '231'
+      Content-Security-Policy:
+      - default-src 'none';
+      Content-Type:
+      - application/xml; charset=utf-8
+      DAV:
+      - 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search,
+        nextcloud-checksum-update, nc-calendar-search, nc-enable-birthday-calendar
+      Date:
+      - Fri, 04 Aug 2023 09:06:12 GMT
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Keep-Alive:
+      - timeout=5, max=99
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Server:
+      - Apache/2.4.41 (Ubuntu)
+      Set-Cookie:
+      - ocesbiiz1k5x=delgbfoaqd9so4hg5j3in35sbq; path=/; secure; HttpOnly; SameSite=Lax
+      - ocesbiiz1k5x=4pfkt55sg55qjmv44kvd0voc4u; path=/; secure; HttpOnly; SameSite=Lax
+      - cookie_test=test; expires=Fri, 04-Aug-2023 10:06:13 GMT; Max-Age=3600
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      Vary:
+      - Brief,Prefer
+      X-Content-Type-Options:
+      - nosniff
+      X-Debug-Token:
+      - qTTftHjcFbouRb5h2l81
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - qTTftHjcFbouRb5h2l81
+      X-Robots-Tag:
+      - none
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 207
+      message: Multi-Status
+version: 1

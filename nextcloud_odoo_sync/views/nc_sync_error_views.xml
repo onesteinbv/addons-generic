@@ -1,0 +1,27 @@
+<odoo>
+	<record id="nc_sync_error_tree_view" model="ir.ui.view">
+		<field name="name">nc.sync.error.tree.view</field>
+		<field name="model">nc.sync.error</field>
+		<field name="arch" type="xml">
+			<tree string="Nextcloud Sync Error Tree" editable="bottom">
+				<field name="name" required="1"/>
+				<field name="description" required="1"/>
+				<field name="type" required="1"/>
+				<field name="severity" required="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="nc_sync_error_action" model="ir.actions.act_window">
+		<field name="name">Error List</field>
+		<field name="res_model">nc.sync.error</field>
+		<field name="view_mode">tree</field>
+	</record>
+
+	<menuitem
+		id="menu_main_nc_sync_error"
+		name="Error List"
+		parent="menu_main_nextcloud_config"
+		sequence="3"
+		action="nc_sync_error_action"/>
+</odoo>

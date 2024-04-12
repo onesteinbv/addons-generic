@@ -1,0 +1,8 @@
+<odoo>
+	<!-- Nextcloud sync Admin -->
+	<record id="group_nextcloud_sync_admin" model="res.groups">
+		<field name="name">Sync Admin</field>
+		<field name="category_id" eval="0"/>
+		<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+	</record>
+</odoo>

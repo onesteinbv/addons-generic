@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Nextcloud Calendar -->
+	<record id="nc_calendar_tree_view" model="ir.ui.view">
+		<field name="name">nc.calendar.tree.view</field>
+		<field name="model">nc.calendar</field>
+		<field name="arch" type="xml">
+			<tree string="Nextcloud Calendar List">
+				<field name="name"/>
+				<field name="user_id"/>
+				<field name="calendar_url"/>
+			</tree>
+		</field>
+	</record>
+</odoo>

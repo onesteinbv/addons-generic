@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2023 Onestein - Anjeel Haria
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+
+    <template id="payment_checkout" inherit_id="website_payment.payment_checkout">
+        <!-- Add One Time Monthly Option -->
+        <xpath expr="//div[hasclass('o_donation_payment_form')]/div[1]" position="inside">
+            <div class="col-lg-6 px-0">
+                <label class="col-form-label font-weight-bold">Donation Frequency</label>
+                <div class="custom-control custom-radio my-2">
+                    <input class="custom-control-input donation_frequency" type="radio" name="donation_frequency"
+                           id="frequency_onetime" value="onetime" t-att-checked="is_onetime or None"
+                    />
+                    <label class="custom-control-label mt-0" for="frequency_onetime">
+                        Just Once
+                    </label>
+                </div>
+                <div class="custom-control custom-radio my-2">
+                    <input class="custom-control-input donation_frequency" type="radio" name="donation_frequency"
+                           id="frequency_monthly" value="monthly" t-att-checked="is_monthly or None"
+                    />
+                    <label class="custom-control-label mt-0" for="frequency_monthly">
+                        Give Monthly
+                    </label>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_payment_recurring_donations_mollie
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-22 13:53+0000\n"
+"PO-Revision-Date: 2023-09-22 13:53+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_payment_recurring_donations_mollie
+#: code:addons/website_payment_recurring_donations_mollie/models/payment_transaction.py:0
+#, python-format
+msgid "Mollie: canceled due to status: %s"
+msgstr "Mollie: geannuleerd vanwege status: %s"
+
+#. module: website_payment_recurring_donations_mollie
+#: model:ir.model,name:website_payment_recurring_donations_mollie.model_payment_transaction
+msgid "Payment Transaction"
+msgstr "Betalingstransactie"
+
+#. module: website_payment_recurring_donations_mollie
+#: code:addons/website_payment_recurring_donations_mollie/models/payment_transaction.py:0
+#, python-format
+msgid "Received data with invalid payment status: %s"
+msgstr "Gegevens ontvangen met ongeldige betalingsstatus: %s"

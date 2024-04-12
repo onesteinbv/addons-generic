@@ -1,0 +1,13 @@
+<odoo>
+	<record id="nc_event_status_confirmed" model="nc.event.status">
+        <field name="name">Confirmed</field>
+    </record>
+
+    <record id="nc_event_status_tentative" model="nc.event.status">
+        <field name="name">Tentative</field>
+    </record>
+
+    <record id="nc_event_status_canceled" model="nc.event.status">
+        <field name="name">Canceled</field>
+    </record>
+</odoo>

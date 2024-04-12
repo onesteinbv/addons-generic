@@ -1,0 +1,91 @@
+<odoo>
+	<record id="nc_sync_user_tree_view" model="ir.ui.view">
+		<field name="name">nc.sync.user.tree.view</field>
+		<field name="model">nc.sync.user</field>
+		<field name="arch" type="xml">
+			<tree string="Nextcloud Sync User Tree">
+				<field name="user_id"/>
+				<field name="user_name"/>
+				<field name="nextcloud_url"/>
+				<field name="sync_calendar"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="nc_sync_user_form_view" model="ir.ui.view">
+		<field name="name">nc.sync.user.form.view</field>
+		<field name="model">nc.sync.user</field>
+		<field name="arch" type="xml">
+			<form string="Nextcloud Sync User Form">
+				<header invisible="context.get('pop_up', False)">
+					<button name="check_nc_connection" string="Login to Nextcloud" type="object" class="btn btn-primary"
+						invisible="not context.get('no_footer',False)" attrs="{'invisible':[('user_has_calendar','=',True)]}"/>
+					<button name="check_nc_connection" string="Refresh NextCloud Calendars" type="object" class="btn btn-primary" attrs="{'invisible':[('user_has_calendar','!=',True)]}"/>
+				</header>
+				<sheet>
+					<div class="oe_title" invisible="context.get('pop_up', False)">
+                        <div>
+                            <label for="user_id"/>
+                        </div>
+                        <h3>
+                            <field name="user_id"/>
+                        </h3>
+                    </div>
+					<group>
+						<group>
+							<field name="user_has_calendar" invisible="1"/>
+							<field name="user_name"/>
+							<field name="nc_calendar_id" widget="selection" domain="[('user_id', '=', user_id)]"
+								attrs="{'required': [('user_has_calendar', '=', True),('nc_email','!=',False)], 'invisible':['|',('user_has_calendar', '=', False),('nc_email','=',False)]}"/>
+							<field name="nc_calendar_ids" widget="many2many_tags" domain="[('user_id', '=', user_id),('id','!=',nc_calendar_id)]"
+								attrs="{'invisible':['|',('user_has_calendar', '=', False),('nc_email','=',False)]}" options="{'no_create': True, 'no_create_edit':True}"/>
+							<field name="nc_email" attrs="{'invisible':[('user_has_calendar','=',False)]}" readonly="1" force_save="1"/>
+						</group>
+						<group>
+							<field name="nc_password" password="True"/>
+							<field name="start_date" attrs="{'required': [('user_has_calendar', '=', True)], 'invisible':[('user_has_calendar', '=', False)]}"/>
+							<field name="nextcloud_url"/>
+							<field name="sync_calendar" attrs="{'invisible':['|',('nc_calendar_id','=',False),('nc_email','=',False)]}"/>
+							<field name="nextcloud_user_id" invisible="1"/>
+						</group>
+					</group>
+					<div class="alert alert-info" role="alert" attrs="{'invisible': [('nc_calendar_id', '=', False)]}">
+					  	<span>
+					  		<field name="user_message" readonly="1" force_save="1"/>
+					  	</span>
+					</div>
+					<div class="alert alert-info" role="alert" attrs="{'invisible': ['|',('nc_email', '!=', False),('user_has_calendar','=',False)]}">
+					  	<span>
+					  		Make sure you use the correct username to login. The Email field should be populated with your email
+					  	</span>
+					</div>
+				</sheet>
+				<footer invisible="context.get('no_footer',False)">
+					<button name="check_nc_connection" string="Login to Nextcloud" type="object" class="btn btn-primary"
+						attrs="{'invisible':[('user_has_calendar','=',True)]}"/>
+					<button name="save_user_config" string="Save" icon="fa-check" class="btn btn-primary" type="object"
+						attrs="{'invisible':[('user_has_calendar','=',False)]}"/>
+					<button name="check_nc_connection" string="Refresh NextCloud Calendars" type="object" class="btn btn-primary" attrs="{'invisible':[('user_has_calendar','!=',True)]}"/>
+					<button string="Discard" class="btn-secondary" special="cancel" icon="fa-times"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="nc_sync_user_action" model="ir.actions.act_window">
+		<field name="name">User Setup</field>
+		<field name="res_model">nc.sync.user</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'no_footer':1}</field>
+	</record>
+
+	<menuitem name="Nextcloud Sync" id="menu_main_nextcloud"
+		groups="nextcloud_odoo_sync.group_nextcloud_sync_admin"
+		sequence="100" web_icon="nextcloud_odoo_sync,static/description/icon.png"/>
+
+	<menuitem
+		id="menu_main_nextcloud_config"
+		name="Configuration"
+		parent="menu_main_nextcloud"
+		sequence="50"/>
+</odoo>

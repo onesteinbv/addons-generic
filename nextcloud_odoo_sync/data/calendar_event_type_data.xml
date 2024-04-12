@@ -1,0 +1,61 @@
+<odoo>
+	<record id="calendar_event_type_anniversary" model="calendar.event.type">
+        <field name="name">Anniversary</field>
+    </record>
+
+    <record id="calendar_event_type_appointment" model="calendar.event.type">
+        <field name="name">Appointment</field>
+    </record>
+
+    <record id="calendar_event_type_business" model="calendar.event.type">
+        <field name="name">Business</field>
+    </record>
+
+    <record id="calendar_event_type_education" model="calendar.event.type">
+        <field name="name">Education</field>
+    </record>
+
+    <record id="calendar_event_type_holiday" model="calendar.event.type">
+        <field name="name">Holiday</field>
+    </record>
+
+    <record id="calendar_event_type_meeting" model="calendar.event.type">
+        <field name="name">Meeting</field>
+    </record>
+
+    <record id="calendar_event_type_miscellaneous" model="calendar.event.type">
+        <field name="name">Miscellaneous</field>
+    </record>
+
+    <record id="calendar_event_type_non_working_hours" model="calendar.event.type">
+        <field name="name">Non-working hours</field>
+    </record>
+
+    <record id="calendar_event_type_not_in_office" model="calendar.event.type">
+        <field name="name">Not in office</field>
+    </record>
+
+    <record id="calendar_event_type_personal" model="calendar.event.type">
+        <field name="name">Personal</field>
+    </record>
+
+    <record id="calendar_event_type_phone_call" model="calendar.event.type">
+        <field name="name">Phone call</field>
+    </record>
+
+    <record id="calendar_event_type_sick_day" model="calendar.event.type">
+        <field name="name">Sick day</field>
+    </record>
+
+    <record id="calendar_event_type_special_occasion" model="calendar.event.type">
+        <field name="name">Special occasion</field>
+    </record>
+
+    <record id="calendar_event_type_travel" model="calendar.event.type">
+        <field name="name">Travel</field>
+    </record>
+
+    <record id="calendar_event_type_vacation" model="calendar.event.type">
+        <field name="name">Vacation</field>
+    </record>
+</odoo>

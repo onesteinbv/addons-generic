@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2023 Onestein - Anjeel Haria
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+
+    <template id="s_donation_button" inherit_id="website_payment.s_donation_button" name="Donation Button">
+        <xpath expr="//span[@id='s_donation_description_inputs']" position="after">
+            <ul style="list-style:none;padding:0px;display:flex">
+                <li>
+                    <label role="button" class="btn btn-outline-primary btn-lg mr-3 active">
+                        <input type="radio" class="donation_frequency" name="donation_frequency" id="frequency_onetime"
+                               value="onetime" checked=""/>
+                        <span>Just Once</span>
+                    </label>
+                </li>
+                <li>
+                    <label role="button" class="btn btn-outline-primary btn-lg mr-3">
+                        <input type="radio" class="donation_frequency" name="donation_frequency" id="frequency_monthly"
+                               value="monthly"/>
+                        <span>Give Monthly</span>
+                    </label>
+                </li>
+            </ul>
+        </xpath>
+    </template>
+
+    <record id="website_payment_recurring_donations.s_donation_000_js" model="ir.asset">
+        <field name="name">Donation 000 JS</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">website_payment_recurring_donations/static/src/snippets/s_donation/000.js</field>
+    </record>
+
+    <record id="website_payment_recurring_donations.s_donation_000_scss" model="ir.asset">
+        <field name="name">Donation 000 SCSS</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">website_payment_recurring_donations/static/src/snippets/s_donation/000.scss</field>
+    </record>
+</odoo>
