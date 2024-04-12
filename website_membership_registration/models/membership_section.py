@@ -8,16 +8,19 @@ class MembershipSection(models.Model):
         string="# of Following Members",
         compute="_compute_partner_ids",
         store=True,
+        compute_sudo=False,
     )
     applicant_partner_count = fields.Integer(
         string="# of Applicant Members",
         compute="_compute_partner_ids",
         store=True,
+        compute_sudo=False,
     )
     collaborator_partner_count = fields.Integer(
         string="# of Collaborating Members",
         compute="_compute_partner_ids",
         store=True,
+        compute_sudo=False,
     )
 
     @api.depends(
