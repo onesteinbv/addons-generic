@@ -30,7 +30,7 @@ class Application(models.Model):
         return (
             self.is_deployed
             and "argocd_sale.redeployment_notification_mail_template"
-            or "argocd_sale.deployment_notification_mail_template"  # Consecutive deployments  # First deployment
+            or "argocd_sale.deployment_notification_mail_template"  # First deployment
         )
 
     def send_deployment_notification(self):
