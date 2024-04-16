@@ -2,6 +2,8 @@ import logging
 from datetime import timedelta
 
 import requests
+import yaml
+from yaml import Loader
 
 from odoo import _, fields, models
 from odoo.exceptions import MissingError, ValidationError
@@ -30,7 +32,9 @@ class Application(models.Model):
     def check_health(self):
         self.ensure_one()
         try:
-            res = requests.get("https://" + self.domain)
+            config = yaml.load(self.config, Loader=Loader)
+            helm = yaml.load(config["helm"], Loader=Loader)
+            res = requests.get("https://%s" % self._get_domain(helm))
         except Exception:
             return False
         return res.ok
