@@ -1,7 +1,7 @@
 # Copyright (c) 2023 iScale Solutions Inc.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 
-from odoo import models, fields
+from odoo import fields, models
 from odoo.exceptions import UserError
 
 
@@ -27,7 +27,9 @@ class ResUsers(models.Model):
         return action
 
     def sync_user_events(self):
-        sync_users = self.env["nc.sync.user"].search([("user_id", "=", self.id)],limit=1)
+        sync_users = self.env["nc.sync.user"].search(
+            [("user_id", "=", self.id)], limit=1
+        )
         if not sync_users:
             raise UserError("Sync User not found")
         elif sync_users and not sync_users.sync_calendar:

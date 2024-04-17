@@ -1,9 +1,10 @@
 from datetime import datetime
 from unittest.mock import MagicMock, patch
+
+from caldav.objects import Calendar, Event
+
 from odoo.tests.common import TransactionCase
 from odoo.tools import html2plaintext
-from caldav.objects import Event, Calendar
-from odoo.addons.nextcloud_odoo_sync.models.nextcloud_caldav import Nextcloudcaldav
 
 
 class TestSyncNextcloud(TransactionCase):

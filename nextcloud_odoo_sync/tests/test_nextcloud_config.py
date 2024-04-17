@@ -1,9 +1,11 @@
 # Copyright (c) 2023 iScale Solutions Inc.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 
+from unittest.mock import MagicMock, patch
+
+from caldav.objects import Calendar, Event
+
 from odoo.tests import common
-from unittest.mock import patch, MagicMock
-from caldav.objects import Event, Calendar
 
 
 class TestNextCloudConfig(common.TransactionCase):

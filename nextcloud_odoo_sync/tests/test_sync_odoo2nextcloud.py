@@ -1,8 +1,10 @@
 from unittest.mock import MagicMock, patch
-from odoo.addons.nextcloud_odoo_sync.tests.test_sync_common import TestSyncNextcloud
-from odoo.addons.nextcloud_odoo_sync.models.nextcloud_caldav import Nextcloudcaldav
-from odoo.addons.nextcloud_odoo_sync.models.nc_sync_user import NcSyncUser
+
 from caldav.objects import Calendar, Event
+
+from odoo.addons.nextcloud_odoo_sync.models.nc_sync_user import NcSyncUser
+from odoo.addons.nextcloud_odoo_sync.models.nextcloud_caldav import Nextcloudcaldav
+from odoo.addons.nextcloud_odoo_sync.tests.test_sync_common import TestSyncNextcloud
 
 
 class TestSyncOdoo2Nextcloud(TestSyncNextcloud):
@@ -25,7 +27,6 @@ class TestSyncOdoo2Nextcloud(TestSyncNextcloud):
         ) as mock_get_nc_event_hash_by_uid, patch.object(
             self.env.cr, "commit"
         ) as mock_cr_commit:
-
             mock_get_user_calendar.return_value = cal_event.parent
             mock_save_event.return_value = cal_event
             mock_save.return_value = True
