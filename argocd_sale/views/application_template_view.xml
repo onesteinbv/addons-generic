@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="argocd_deployer.application_template_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="auto_send_deployment_notification" />
+                <field name="send_deployment_mail" />
             </xpath>
         </field>
     </record>
