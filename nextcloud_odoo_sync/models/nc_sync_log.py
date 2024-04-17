@@ -1,10 +1,10 @@
 # Copyright (c) 2023 iScale Solutions Inc.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 
-from datetime import datetime, timedelta
-from odoo import models, fields
-
 import logging
+from datetime import datetime, timedelta
+
+from odoo import fields, models
 
 _logger = logging.getLogger(__name__)
 

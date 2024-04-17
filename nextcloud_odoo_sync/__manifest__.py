@@ -6,7 +6,7 @@
     "category": "Others",
     "description": """Sync Nextcloud apps into Odoo""",
     "author": "iScale Solutions Inc.",
-    "website": "http://iscale-solutions.com",
+    "website": "https://www.onestein.nl",
     "external_dependencies": {"python": ["caldav"]},
     "depends": ["base", "calendar", "resource", "contacts"],
     "maintainers": ["iscale-solutions"],

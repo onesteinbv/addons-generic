@@ -2,8 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 
 import requests
+
 from odoo import models
-from odoo.http import request
 
 
 class NextcloudBase(models.AbstractModel):
@@ -62,6 +62,7 @@ class NextcloudBase(models.AbstractModel):
         :return json api response
         """
         return resp.json()
+
     #
     # def get(self, url="", params=None):
     #     url = self.get_full_url(url, "/ocs/v1.php/cloud/users")
@@ -107,13 +108,8 @@ class NextcloudBase(models.AbstractModel):
                 "OCS-APIRequest": "true",
                 "Content-Type": "application/x-www-form-urlencoded",
             },
-            "auth_pk": (
-                username,
-                password
-            ),
+            "auth_pk": (username, password),
         }
-        request = requests.get(
-            res, auth=data["auth_pk"], headers=data["h_get"]
-        )
+        request = requests.get(res, auth=data["auth_pk"], headers=data["h_get"])
         result = self.rtn(request)
         return result["ocs"]["data"]

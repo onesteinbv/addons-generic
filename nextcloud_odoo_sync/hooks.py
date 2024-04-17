@@ -4,9 +4,8 @@ import ast
 
 from odoo import SUPERUSER_ID, api
 
-ACTIONS = (
-    "calendar.action_calendar_event",
-)
+ACTIONS = ("calendar.action_calendar_event",)
+
 
 def uninstall_hook(cr, registry):
     """Restore calendar action"""

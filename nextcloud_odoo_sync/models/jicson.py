@@ -1,5 +1,5 @@
-from urllib.request import Request, urlopen
 import io
+from urllib.request import Request, urlopen
 
 
 class StreamObject:

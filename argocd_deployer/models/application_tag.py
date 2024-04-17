@@ -19,9 +19,14 @@ class ApplicationTag(models.Model):
 
     def get_domain_yaml_path(self, application_set=False):
         self.ensure_one()
-        if not application_set:
-            return self.domain_yaml_path
-        if application_set.id in self.domain_override_ids.application_set_id.ids:
-            return self.domain_override_ids.filtered(
+        if (
+            not application_set
+            or application_set.id not in self.domain_override_ids.application_set_id.ids
+        ):
+            return self.domain_yaml_path or ""
+        return (
+            self.domain_override_ids.filtered(
                 lambda do: do.application_set_id == application_set
             ).domain_yaml_path
+            or ""
+        )
