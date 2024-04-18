@@ -4,10 +4,10 @@
 {
     "name": "List Owned Databases",
     "summary": "When using the database selector, the list of databases "
-               "now consists of any databases the current user has "
-               "ownership of through role membership, rather than only "
-               "those specifically owned by the user. "
-               "Must be declared as a server-wide module.",
+    "now consists of any databases the current user has "
+    "ownership of through role membership, rather than only "
+    "those specifically owned by the user. "
+    "Must be declared as a server-wide module.",
     "author": "Onestein",
     "website": "https://www.onestein.nl",
     "category": "Tools",

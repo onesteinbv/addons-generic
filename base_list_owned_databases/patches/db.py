@@ -5,8 +5,8 @@
 # user is a member of.
 import logging
 from contextlib import closing
+
 import odoo
-from odoo.exceptions import AccessDenied
 import odoo.release
 import odoo.sql_db
 import odoo.tools
@@ -15,19 +15,19 @@ _logger = logging.getLogger(__name__)
 
 
 def list_dbs(force=False):
-    if not odoo.tools.config['list_db'] and not force:
+    if not odoo.tools.config["list_db"] and not force:
         raise odoo.exceptions.AccessDenied()
 
-    if not odoo.tools.config['dbfilter'] and odoo.tools.config['db_name']:
+    if not odoo.tools.config["dbfilter"] and odoo.tools.config["db_name"]:
         # In case --db-filter is not provided and --database is passed, Odoo will not
         # fetch the list of databases available on the postgres server and instead will
         # use the value of --database as comma seperated list of exposed databases.
-        res = sorted(db.strip() for db in odoo.tools.config['db_name'].split(','))
+        res = sorted(db.strip() for db in odoo.tools.config["db_name"].split(","))
         return res
 
-    chosen_template = odoo.tools.config['db_template']
-    templates_list = tuple(set(['postgres', chosen_template]))
-    db = odoo.sql_db.db_connect('postgres')
+    chosen_template = odoo.tools.config["db_template"]
+    templates_list = tuple({"postgres", chosen_template})
+    db = odoo.sql_db.db_connect("postgres")
     with closing(db.cursor()) as cr:
         try:
             # ### START OF PATCH ####
@@ -36,9 +36,9 @@ def list_dbs(force=False):
             #     (templates_list,))
             cr.execute(
                 """SELECT datname
-                FROM pg_database 
-                WHERE NOT datistemplate AND datallowconn AND datname NOT IN %s 
-                    AND datdba IN 
+                FROM pg_database
+                WHERE NOT datistemplate AND datallowconn AND datname NOT IN %s
+                    AND datdba IN
                 (
                     WITH RECURSIVE membership_tree(grpid, userid) AS (
                         -- Get all roles and list them as their own group as well
@@ -56,12 +56,12 @@ def list_dbs(force=False):
                     AND t.userid IN (SELECT usesysid FROM pg_user WHERE usename=current_user)
                 )
                 ORDER BY datname;""",
-            (templates_list,)
+                (templates_list,),
             )
             # ### END OF PATCH ###
             res = [odoo.tools.ustr(name) for (name,) in cr.fetchall()]
         except Exception:
-            _logger.exception('Listing databases failed:')
+            _logger.exception("Listing databases failed:")
             res = []
     return res
 
