@@ -113,7 +113,7 @@ msgid ""
 "<span>Membership Level</span>\n"
 "                                                        <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
-"<span>Lidmaatschapsnivea</span>\n"
+"<span>Lidmaatschapsniveau</span>\n"
 "                                                        <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_membership_registration
@@ -131,23 +131,23 @@ msgid ""
 "<span>Nickname</span>\n"
 "                                                        <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
-"<span>Bijnaam</span>\n"
+"<span>Gebruikersnaam</span>\n"
 "                                                        <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_membership_registration
 #: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
 msgid "<span>Phone</span>"
-msgstr ""
+msgstr "<span>Telefoon</span>"
 
 #. module: website_membership_registration
 #: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
 msgid "<span>Publish me as a member</span>"
-msgstr "<span>Publish me as a member</span>"
+msgstr "<span>Publiceer mij als lid</span>"
 
 #. module: website_membership_registration
 #: model_terms:ir.ui.view,arch_db:website_membership_registration.portal_my_details
 msgid "<span>Publish me</span>"
-msgstr "<span>Publiceer mij als lid</span>"
+msgstr "<span>Publiceer mij</span>"
 
 #. module: website_membership_registration
 #: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
@@ -155,13 +155,13 @@ msgid ""
 "<span>State / Province</span>\n"
 "                                                    <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
-"<span>State / Provincie</span>\n"
+"<span>Provincie</span>\n"
 "                                                    <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_membership_registration
 #: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
 msgid "<span>Street 2</span>"
-msgstr "<span>Straat 2</span>"
+msgstr "<span>Toevoeging</span>"
 
 #. module: website_membership_registration
 #: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
@@ -169,7 +169,7 @@ msgid ""
 "<span>Street and Number</span>\n"
 "                                                    <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
-"<span>Straat and Nummer</span>\n"
+"<span>Straat en huisnummer</span>\n"
 "                                                    <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_membership_registration
