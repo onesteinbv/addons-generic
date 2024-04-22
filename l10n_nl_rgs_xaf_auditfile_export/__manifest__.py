@@ -11,7 +11,7 @@
     "data": [
         "views/templates.xml",
     ],
-    "auto_install": True,
+    "auto_install": False,
     "installable": True,
     "license": "LGPL-3",
 }
