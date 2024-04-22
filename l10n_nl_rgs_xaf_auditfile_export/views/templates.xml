@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="auditfile_template" inherit_id="l10n_nl_xaf_auditfile_export.auditfile_template">
-        <xpath expr="//generalLedger/ledgerAccount/accTp" position="after">
+
+    <template id="auditfile_template" inherit_id="l10n_nl_xaf_auditfile_export.auditfile_template" primary="True">
+        <xpath expr="//*[local-name()='accTp']" position="after">
             <leadReference><t t-esc="a.referentiecode" /></leadReference>
             <!-- <leadCrossRef><t t-esc="a.referentieomslagcode" /></leadCrossRef> -->
         </xpath>
     </template>
+
 </odoo>
