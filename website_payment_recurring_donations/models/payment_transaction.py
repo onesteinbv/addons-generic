@@ -8,14 +8,12 @@ class PaymentTransaction(models.Model):
     _inherit = "payment.transaction"
 
     donation_frequency = fields.Selection(
-        [("onetime", "One Time"), ("monthly", "Monthly")], string="Donation Frequency"
+        [("onetime", "One Time"), ("monthly", "Monthly")]
     )
     recurring_donation_provider_reference = fields.Char(
         "Provider Reference For Recurring Donation"
     )
-    is_recurring_donation_terminated = fields.Boolean(
-        "Is Recurring Donation Terminated"
-    )
+    is_recurring_donation_terminated = fields.Boolean()
 
     def _send_donation_email(
         self, is_internal_notification=False, comment=None, recipient_email=None

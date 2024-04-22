@@ -170,10 +170,10 @@ class PaymentTransaction(models.Model):
                         subscription.get("canceledAt")[0:19], "%Y-%m-%dT%H:%M:%S"
                     )
                 msg = _(
-                    "<b>The recurring donation on mollie has been terminated on %s"
-                    % (canceled_date)
+                    "The recurring donation on mollie has been terminated on %s.",
+                    canceled_date,
                 )
-                self.sudo().message_post(body=msg)
+                self.sudo().message_post(body=f"<b>{msg}</b>")
         except Exception:
             _logger.info(_("Mollie customer or subscription not found"))
         # marking all related payment transactions for recurring donations having same provider reference as terminated.

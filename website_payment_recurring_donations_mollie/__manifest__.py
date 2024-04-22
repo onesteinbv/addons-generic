@@ -3,6 +3,8 @@
 {
     "name": "Recurring donations using Mollie Subscriptions",
     "version": "16.0.1.0.0",
+    "author": "Onestein",
+    "website": "https://www.onestein.nl",
     "category": "Website",
     "license": "LGPL-3",
     "summary": "Recurring donations using Mollie Subscriptions",

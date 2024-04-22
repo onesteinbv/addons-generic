@@ -26,13 +26,13 @@
         </xpath>
     </template>
 
-    <record id="website_payment_recurring_donations.s_donation_000_js" model="ir.asset">
+    <record id="s_donation_000_js" model="ir.asset">
         <field name="name">Donation 000 JS</field>
         <field name="bundle">web.assets_frontend</field>
-        <field name="path">website_payment_recurring_donations/static/src/snippets/s_donation/000.js</field>
+        <field name="path">website_payment_recurring_donations/static/src/snippets/s_donation/000.esm.js</field>
     </record>
 
-    <record id="website_payment_recurring_donations.s_donation_000_scss" model="ir.asset">
+    <record id="s_donation_000_scss" model="ir.asset">
         <field name="name">Donation 000 SCSS</field>
         <field name="bundle">web.assets_frontend</field>
         <field name="path">website_payment_recurring_donations/static/src/snippets/s_donation/000.scss</field>
