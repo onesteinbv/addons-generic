@@ -18,8 +18,8 @@ exclude: |
   readme/.*\.(rst|md)$|
   # You don't usually want a bot to modify your legal texts
   (LICENSE.*|COPYING.*)|
-  # Emesa: prevent "not used from manifest" for indirectly loaded test data
-  custom/addons/([^/]+)/test_data/
+  # Temporary modules
+  nextcloud_odoo_sync/
 default_language_version:
   python: python3
   node: "16.17.0"

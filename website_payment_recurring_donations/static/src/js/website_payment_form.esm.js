@@ -5,6 +5,7 @@
 import checkoutForm from 'payment.checkout_form';
 
 checkoutForm.include({
+    // eslint-disable-next-line no-unused-vars
     _prepareTransactionRouteParams: function (code, paymentOptionId, flow) {
         const transactionRouteParams = this._super(...arguments);
         return $('.o_donation_payment_form').length ? {
