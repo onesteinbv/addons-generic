@@ -20,7 +20,6 @@ publicWidget.registry.dynamic_project_list = DynamicSnippetCarousel.extend({
                 ids.push(parseInt(this.$el.get(0).dataset[keys[i]]))
             }
         }
-        const projectCategoryData = this.$el.get(0).dataset.projectCategory;
         return ids;
     },
 
@@ -31,13 +30,14 @@ publicWidget.registry.dynamic_project_list = DynamicSnippetCarousel.extend({
      * @returns Search domain
      */
     _getCategorySearchDomain: function() {
+
         const searchDomain = [];
-        const ids = this._parseCategoryData();
-        if (ids.length === 0) {
+        const filterByCategoryIds = JSON.parse(this.$el.get(0).dataset.filterByCategoryIds || '[]');
+
+        if (filterByCategoryIds.length === 0) {
             return searchDomain;
         }
-        searchDomain.push(['category_id', 'in', ids]);
-
+        searchDomain.push(['category_id', 'in', filterByCategoryIds]);
         return searchDomain;
     },
 

@@ -1,12 +1,16 @@
 <odoo>
     <template id="s_dynamic_project_list_options_template" inherit_id="website.s_dynamic_snippet_options_template">
         <xpath expr="//we-select[@data-name='filter_opt']" position="after">
-            <t t-if="snippet_name == 'dynamic_project_list'">
-<!--                <div data-selector=".o_project_category" data-name="project_category_div" string="Category">-->
-                    <we-title id="start_project_checkboxes">Project Categories</we-title>
-
-<!--                </div>-->
-            </t>
+            <we-many2many t-if="snippet_name == 'dynamic_project_list'"
+                          string="Project categories"
+                          data-name="project_categ_opt"
+                          data-model="project.project"
+                          data-m2o-field="category_id"
+                          data-domain='[["website_published", "=", true]]'
+                          data-limit="10"
+                          data-set-tags=""
+                          data-attribute-name="filterByCategoryIds"
+                          data-no-preview="true"/>
         </xpath>
     </template>
 
