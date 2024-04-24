@@ -148,6 +148,17 @@
         <field name="tax_dest_id" ref="btw_I_21"/>
     </record>
 
+    <record id="position_tax_btw_verlegd_9" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_btw_verlegd"/>
+        <field name="tax_src_id" ref="btw_9_buy"/>
+        <field name="tax_dest_id" ref="btw_ink_1"/>
+    </record>
+    <record id="position_tax_btw_verlegd_9_incl" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_btw_verlegd"/>
+        <field name="tax_src_id" ref="btw_9_buy_incl"/>
+        <field name="tax_dest_id" ref="btw_ink_1"/>
+    </record>
+
     <record id="position_tax_btw_verlegd_7" model="account.fiscal.position.tax.template">
         <field name="position_id" ref="fiscal_position_template_btw_verlegd"/>
         <field name="tax_src_id" ref="btw_21_buy"/>

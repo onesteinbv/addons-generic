@@ -600,16 +600,16 @@
                 (0,0, {
                     'factor_percent': 100,
                     'repartition_type': 'base',
-                    'minus_report_expression_ids': [ref('l10n_nl.tax_report_rub_2a_tag')],
+                    'plus_report_expression_ids': [ref('l10n_nl.tax_report_rub_2a_tag')],
                 }),
                 (0,0, {
-                    'factor_percent': 100,
+                    'factor_percent': -100,
                     'repartition_type': 'tax',
                     'account_id': ref('vat_payable_v'),
                     'minus_report_expression_ids': [ref('l10n_nl.tax_report_rub_btw_2a_tag')],
                 }),
                 (0,0, {
-                    'factor_percent': -100,
+                    'factor_percent': 100,
                     'repartition_type': 'tax',
                     'account_id': ref('vat_payable_v'),
                     'plus_report_expression_ids': [ref('l10n_nl.tax_report_rub_btw_5b_tag')],
@@ -619,16 +619,64 @@
                 (0,0, {
                     'factor_percent': 100,
                     'repartition_type': 'base',
-                    'plus_report_expression_ids': [ref('l10n_nl.tax_report_rub_2a_tag')],
+                    'minus_report_expression_ids': [ref('l10n_nl.tax_report_rub_2a_tag')],
                 }),
                 (0,0, {
-                    'factor_percent': 100,
+                    'factor_percent': -100,
                     'repartition_type': 'tax',
                     'account_id': ref('vat_payable_v'),
                     'plus_report_expression_ids': [ref('l10n_nl.tax_report_rub_btw_2a_tag')],
                 }),
                 (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('vat_payable_v'),
+                    'minus_report_expression_ids': [ref('l10n_nl.tax_report_rub_btw_5b_tag')],
+                }),
+            ]"/>
+    </record>
+    <record id="btw_ink_1" model="account.tax.template">
+        <field name="sequence">15</field>
+        <field name="chart_template_id" ref="l10nnl_rgs_chart_template"/>
+        <field name="name">Inkopen - BTW verlegd (9%)</field>
+        <field name="description">9% BTW verlegd</field>
+        <field eval="9" name="amount"/>
+        <field name="amount_type">percent</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="tax_group_id" ref="l10n_nl.tax_group_9"/>
+        <field name="invoice_repartition_line_ids" eval="[(5,0,0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                    'plus_report_expression_ids': [ref('l10n_nl.tax_report_rub_2a_tag')],
+                }),
+                (0,0, {
                     'factor_percent': -100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('vat_payable_v'),
+                    'minus_report_expression_ids': [ref('l10n_nl.tax_report_rub_btw_2a_tag')],
+                }),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('vat_payable_v'),
+                    'plus_report_expression_ids': [ref('l10n_nl.tax_report_rub_btw_5b_tag')],
+                }),
+            ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5,0,0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                    'minus_report_expression_ids': [ref('l10n_nl.tax_report_rub_2a_tag')],
+                }),
+                (0,0, {
+                    'factor_percent': -100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('vat_payable_v'),
+                    'plus_report_expression_ids': [ref('l10n_nl.tax_report_rub_btw_2a_tag')],
+                }),
+                (0,0, {
+                    'factor_percent': 100,
                     'repartition_type': 'tax',
                     'account_id': ref('vat_payable_v'),
                     'minus_report_expression_ids': [ref('l10n_nl.tax_report_rub_btw_5b_tag')],
