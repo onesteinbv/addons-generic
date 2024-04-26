@@ -4,7 +4,7 @@
 
 {
     "name": "Netherlands - RGS Accounting (3.5.2)",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "category": "Accounting/Localizations/Account Charts",
     "author": "Onestein",
     "website": "https://www.onestein.nl",

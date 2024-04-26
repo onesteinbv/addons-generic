@@ -530,7 +530,7 @@
         <field name="amount_type">percent</field>
         <field name="type_tax_use">sale</field>
         <field name="tax_scope">consu</field>
-        <field name="tax_group_id" ref="l10n_nl.tax_group_0"/>
+        <field name="tax_group_id" ref="tax_group_verlegd"/>
         <field name="invoice_repartition_line_ids" eval="[(5,0,0),
                 (0,0, {
                     'factor_percent': 100,
@@ -563,7 +563,7 @@
         <field name="amount_type">percent</field>
         <field name="type_tax_use">sale</field>
         <field name="tax_scope">service</field>
-        <field name="tax_group_id" ref="l10n_nl.tax_group_0"/>
+        <field name="tax_group_id" ref="tax_group_verlegd"/>
         <field name="invoice_repartition_line_ids" eval="[(5,0,0),
                 (0,0, {
                     'factor_percent': 100,
@@ -595,7 +595,7 @@
         <field eval="21" name="amount"/>
         <field name="amount_type">percent</field>
         <field name="type_tax_use">purchase</field>
-        <field name="tax_group_id" ref="l10n_nl.tax_group_21"/>
+        <field name="tax_group_id" ref="tax_group_verlegd"/>
         <field name="invoice_repartition_line_ids" eval="[(5,0,0),
                 (0,0, {
                     'factor_percent': 100,
@@ -643,7 +643,7 @@
         <field eval="9" name="amount"/>
         <field name="amount_type">percent</field>
         <field name="type_tax_use">purchase</field>
-        <field name="tax_group_id" ref="l10n_nl.tax_group_9"/>
+        <field name="tax_group_id" ref="tax_group_verlegd"/>
         <field name="invoice_repartition_line_ids" eval="[(5,0,0),
                 (0,0, {
                     'factor_percent': 100,
