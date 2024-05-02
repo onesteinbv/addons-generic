@@ -382,7 +382,7 @@
 "1103102","Rekening-courant groepsmaatschappij 3","Rekening-courant groepsmaatschappij 3","1103102","BVorVogVr3","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103099","0","G.B.C",1
 "1103103","Rekening-courant groepsmaatschappij 4","Rekening-courant groepsmaatschappij 4","1103103","BVorVogVr4","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103099","0","G.B.D",1
 "1103104","Rekening-courant groepsmaatschappij 5","Rekening-courant groepsmaatschappij 5","1103104","BVorVogVr5","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103099","0","G.B.E",1
-"1103105","Vordering / lening Daeb","Vordering / lening groepsmaatschappij 1","1103105","BVorVogVg1","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103099","0","G.B.P",0
+"1103105","Vordering / lening Daeb","Vordering / lening groepsmaatschappij 1","1103105","BVorVogVg1","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103099","0","G.B.P",1
 "1103106","Rekening-courant DAEB","Rekening-courant DAEB","1103106","BVorVogDae","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103099","0","G.B.Q",1
 "1103107","Rekening-courant Niet-DAEB","Rekening-courant Niet-DAEB","1103107","BVorVogNda","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103099","0","G.B.R",1
 "1103110","Rekening-courant overige verbonden maatschappij 1","Rekening-courant overige verbonden maatschappij 1","1103110","BVorVovVr1","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103109","0","G.C.A",0
@@ -418,7 +418,7 @@
 "1103340","Vorderingen op lid D van de coöperatie","Vorderingen op lid D van de coöperatie","1103340","BVorVlcLi4","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103300","0","G.E.D",1
 "1103350","Vorderingen op lid E van de coöperatie","Vorderingen op lid E van de coöperatie","1103350","BVorVlcLi5","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103300","0","G.E.E",1
 "1103390","Interne lening (kortlopend)","Interne lening (kortlopend)","1103390","BVorOvrIln","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103000","0","G.K.V",1
-"1103400","Margin-call deposito","Margin-call deposito","1103400","BVorOvrMcd","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103000","0","G.K.W",1
+"1103007","Margin-call deposito","Margin-call deposito","1103007","BVorOvrMcd","asset_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1103000","0","G.K.W",1
 "1104010","Vooruitbetaalde facturen","Vooruitbetaalde facturen","1104010","BVorOvaVof","liability_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1104000","1","G.L.A",0
 "1104020","Vooruitverzonden op bestellingen","Vooruitverzonden op bestellingen","1104020","BVorOvaVbs","liability_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1104000","1","G.L.B",0
 "1104030","Nog te factureren of nog te verzenden facturen","Nog te factureren of nog te verzenden facturen","1104030","BVorOvaNtf","liability_current","l10n_nl_rgs.l10nnl_rgs_chart_template","l10n_nl_rgs.account_tag_1104000","1","G.L.C",0

@@ -4,7 +4,7 @@
 
 {
     "name": "Netherlands - RGS Accounting (3.5.2)",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "category": "Accounting/Localizations/Account Charts",
     "author": "Onestein",
     "website": "https://www.onestein.nl",
@@ -20,6 +20,7 @@
         "data/account_fiscal_position_template.xml",
         "data/account_fiscal_position_tax_template.xml",
         "data/account_fiscal_position_account_template.xml",
+        "data/account_reconcile_model_template.xml",
         "data/account_chart_template_data.xml",
         "views/res_config_settings_views.xml",
         "views/account_account_views.xml",
