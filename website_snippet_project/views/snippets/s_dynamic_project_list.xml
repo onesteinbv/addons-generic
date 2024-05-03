@@ -1,16 +1,6 @@
 <odoo>
-
-    <template id="s_dynamic_project_list_template" inherit_id="website.s_dynamic_snippet_template">
-        <div class="dynamic_snippet_template" position="before">
-            <t t-if="snippet_name == 's_dynamic_project_list'">
-                <h3 class="text-center">Name</h3>
-                <h4 class="text-center">Subtitle</h4>
-            </t>
-        </div>
-    </template>
-
     <template id="s_dynamic_project_list_snippet" name="Projects">
-        <t t-call="website_snippet_project.s_dynamic_project_list_template">
+        <t t-call="website.s_dynamic_snippet_template">
             <t t-set="snippet_name" t-value="'s_dynamic_project_list'"/>
         </t>
     </template>
