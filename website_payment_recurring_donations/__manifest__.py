@@ -19,7 +19,7 @@
     ],
     "assets": {
         "web.assets_frontend": [
-            "website_payment_recurring_donations/static/src/js/website_payment_form.js",
+            "website_payment_recurring_donations/static/src/js/website_payment_form.esm.js",
         ],
     },
 }
