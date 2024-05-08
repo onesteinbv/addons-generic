@@ -16,7 +16,7 @@
         "views/application_view.xml",
         "views/application_set_view.xml",
         "templates/application_description.xml",
-        "security/ir_model_access.xml",
+        "security/ir.model.access.csv",
         "menuitems.xml",
     ],
     "depends": ["queue_job", "mail"],
