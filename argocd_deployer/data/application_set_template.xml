@@ -17,7 +17,7 @@ spec:
           - path: {{.config.deployment_directory}}/**/application_set.yaml
   template:
     metadata:
-      name: "application-set-{{ "{{ " }}.path.basename{{ " }}" }}"
+      name: "{{.application_set.namespace_prefix}}{{ "{{ " }}.path.basename{{ " }}" }}"
     spec:
       project: "default"
       source:
@@ -26,7 +26,7 @@ spec:
         path: "{{ "{{ " }}.path.filename{{ " }}" }}"
       destination:
         name: in-cluster
-        namespace: "application-set-{{ "{{ " }}.path.basename{{ " }}" }}"
+        namespace: "{{.application_set.namespace_prefix}}{{ "{{ " }}.path.basename{{ " }}" }}"
       syncPolicy:
         syncOptions:
         - CreateNamespace=true
@@ -40,7 +40,7 @@ spec:
         <field name="yaml">apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: "flavoured-odoo-{{.application_set.name}}"
+  name: "{{.application_set.namespace_prefix}}{{.application_set.name}}"
   namespace: argocd
 spec:
   goTemplate: true
@@ -52,7 +52,7 @@ spec:
       - path: {{.application_set.deployment_directory}}/**/config.yaml
   template:
     metadata:
-      name: "flavoured-odoo-{{ .path.basename }}"
+      name: "{{.application_set.namespace_prefix}}{{ .path.basename }}"
     spec:
       project: "default"
       source:
@@ -64,7 +64,7 @@ spec:
             {{ .helm }}
       destination:
         name: in-cluster
-        namespace: "flavoured-odoo-{{ .path.basename }}"
+        namespace: "{{.application_set.namespace_prefix}}{{ .path.basename }}"
       syncPolicy:
         syncOptions:
         - CreateNamespace=true

@@ -1,0 +1,8 @@
+<odoo noupdate="1">
+    <record id="namespace_prefix_flavoured_odoo" model="argocd.application.namespace.prefix">
+        <field name="name">flavoured-odoo-</field>
+    </record>
+    <record id="namespace_prefix_application_set" model="argocd.application.namespace.prefix">
+        <field name="name">application-set-</field>
+    </record>
+</odoo>

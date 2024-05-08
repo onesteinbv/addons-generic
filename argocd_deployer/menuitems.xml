@@ -37,4 +37,11 @@
         parent="config_menu"
         sequence="30"
     />
+
+    <menuitem
+        id="application_namespace_prefix_menu"
+        action="application_namespace_prefix_action"
+        parent="config_menu"
+        sequence="40"
+    />
 </odoo>

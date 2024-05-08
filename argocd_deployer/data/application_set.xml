@@ -8,6 +8,7 @@
         <field name="repository_directory">/home/tarteo/repo</field>
         <field name="deployment_directory">application_sets</field>
         <field name="template_id" ref="application_set_template_master"/>
+        <field name="namespace_prefix_id" ref="argocd_deployer.namespace_prefix_application_set"/>
         <field name="is_master">True</field>
     </record>
     <record id="application_set_default" model="argocd.application.set">
@@ -20,6 +21,7 @@
         <field name="domain_format">%(application_name)s.curq.k8s.onestein.eu</field>
         <field name="subdomain_format">%(subdomain)s.%(application_name)s.curq.k8s.onestein.eu</field>
         <field name="template_id" ref="application_set_template_default"/>
+        <field name="namespace_prefix_id" ref="argocd_deployer.namespace_prefix_flavoured_odoo"/>
         <field name="is_master">False</field>
     </record>
 </odoo>
