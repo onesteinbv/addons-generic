@@ -25,20 +25,50 @@ class Application(models.Model):
         for app in self.filtered(lambda a: a.subscription_id):
             app.partner_id = app.subscription_id.partner_id
 
-    def _get_deployment_notification_mail_template(self):
+    def _get_queue_mail_template(self):
         self.ensure_one()
-        return "argocd_sale.deployment_notification_mail_template"
+        return False
 
-    def send_deployment_notification(self):
+    def _get_deployment_mail_template(self):
+        self.ensure_one()
+        if not self.template_id.send_deployment_mail:
+            return False
+        if self.is_deployed:
+            return "argocd_sale.redeployment_mail_template"
+        return "argocd_sale.deployment_mail_template"
+
+    def send_queue_mail(self):
         self.ensure_one()
         if not self.partner_id:
             raise UserError(_("Please provide a partner"))
-        mail_template_id = self._get_deployment_notification_mail_template()
+        mail_template_id = self._get_queue_mail_template()
+        if not mail_template_id:
+            return
         template = self.env.ref(mail_template_id)
         template.sudo().send_mail(self.id, force_send=True)
 
+    def send_deployment_mail(self, mail_template_id=None):
+        self.ensure_one()
+        if not self.partner_id:
+            raise UserError(_("Please provide a partner"))
+        if mail_template_id is None:
+            mail_template_id = self._get_deployment_mail_template()
+        if not mail_template_id:
+            return
+        template = self.env.ref(mail_template_id)
+        template.sudo().send_mail(
+            self.id, force_send=True, email_layout_xmlid="mail.mail_notification_layout"
+        )
+
+    def immediate_deploy(self):
+        self.ensure_one()
+        mail_template_id = self._get_deployment_mail_template()
+        res = super().immediate_deploy()
+        self.send_deployment_mail(mail_template_id)
+        return res
+
     def deploy(self):
         res = super().deploy()
-        if self.template_id.auto_send_deployment_notification and self.partner_id:
-            self.send_deployment_notification()
+        if self.partner_id:
+            self.send_queue_mail()
         return res
