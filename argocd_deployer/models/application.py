@@ -45,7 +45,9 @@ class Application(models.Model):
     application_set_id = fields.Many2one(
         "argocd.application.set",
     )
-    is_deployed = fields.Boolean(compute="_compute_is_deployed")
+    is_deployed = fields.Boolean(
+        compute="_compute_is_deployed", search="_search_is_deployed"
+    )
     is_application_set_deployed = fields.Boolean(
         string="Is App. Set deployed", related="application_set_id.is_deployed"
     )
@@ -97,6 +99,28 @@ class Application(models.Model):
                 "config.yaml",
             )
             app.is_deployed = os.path.isfile(path)
+
+    def _search_is_deployed(self, operator, value):
+        if operator not in ["=", "!="]:
+            raise NotImplementedError("Operator not supported. Use '=' or '!='.")
+        if not isinstance(value, bool):
+            raise NotImplementedError("Value must be boolean")
+
+        # TODO: When there are many apps, this will be pretty slow. If so,
+        #       may need to come up with a better search method.
+        if operator == "=" and value or operator == "!=" and not value:
+            apps = (
+                self.env["argocd.application"]
+                .search([])
+                .filtered(lambda a: a.is_deployed)
+            )
+        else:
+            apps = (
+                self.env["argocd.application"]
+                .search([])
+                .filtered(lambda a: not a.is_deployed)
+            )
+        return [("id", "in", apps.ids)]
 
     def _render_description(self):
         self.ensure_one()
