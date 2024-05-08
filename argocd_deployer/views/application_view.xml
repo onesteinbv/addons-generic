@@ -95,6 +95,16 @@
         </field>
     </record>
 
+    <record id="application_search" model="ir.ui.view">
+        <field name="model">argocd.application</field>
+        <field name="arch" type="xml">
+            <search string="Applications">
+                <filter name="deployed_applications" string="Deployed Apps" domain="[('is_deployed', '=', True)]"/>
+                <filter name="not_deployed_applications" string="Not Deployed Apps" domain="[('is_deployed', '!=', True)]"/>
+            </search>
+        </field>
+    </record>
+
     <record id="application_tree" model="ir.ui.view">
         <field name="model">argocd.application</field>
         <field name="arch" type="xml">

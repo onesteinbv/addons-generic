@@ -100,3 +100,36 @@ class TestApplication(TransactionCase):
                 mock_repository, "Removed `test-set`", ["application_set.yaml"]
             )
             mock_remote.push.assert_called_once()
+
+    def test_search_is_deployed(self):
+        app2 = self.env["argocd.application"].create(
+            {
+                "name": "myapp2",
+                "template_id": self.env.ref(
+                    "argocd_deployer.demo_curq_basis_application_template"
+                ).id,
+                "tag_ids": [
+                    self.env.ref(
+                        "argocd_deployer.demo_matomo_server_application_tag"
+                    ).id,
+                ],
+            }
+        )
+        result = self.env["argocd.application"].search([("is_deployed", "=", False)])
+        self.assertEqual(self.app | app2, result)
+        result = self.env["argocd.application"].search([("is_deployed", "!=", True)])
+        self.assertEqual(self.app | app2, result)
+
+        with patch(
+            "odoo.addons.argocd_deployer.models.application.Application.is_deployed",
+            return_value=True,
+        ):
+            result = self.env["argocd.application"].search([("is_deployed", "=", True)])
+            self.assertEqual(self.app | app2, result)
+            result = self.env["argocd.application"].search(
+                [("is_deployed", "!=", False)]
+            )
+            self.assertEqual(self.app | app2, result)
+
+        with self.assertRaisesRegex(NotImplementedError, "Operator not supported."):
+            self.env["argocd.application"].search([("is_deployed", "in", [True])])
