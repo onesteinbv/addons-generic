@@ -48,6 +48,7 @@ class ApplicationSet(models.Model):
         help="The domain format used to build the domain for the deployment.",
         default="-",
     )
+    namespace_prefix_id = fields.Many2one("argocd.application.namespace.prefix")
 
     _sql_constraints = [
         ("application_set_name_unique", "unique(name)", "Already exists"),
@@ -256,6 +257,8 @@ class ApplicationSet(models.Model):
             "{{.application_set.repository_url}}": self.repository_url or "",
             "{{.application_set.branch}}": self.branch or "",
             "{{.application_set.deployment_directory}}": self.deployment_directory
+            or "",
+            "{{.application_set.namespace_prefix}}": self.namespace_prefix_id.name
             or "",
         }
         template_yaml = self.template_id.yaml

@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock, mock_open, patch
 
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tests import TransactionCase
 
 APPLICATION_SET_PATCH = (
@@ -25,6 +25,8 @@ metadata:
   revision: {{.config.branch}}
   path: {{.config.deployment_directory}}
   template-path: {{.path.path}}
+  destination:
+    namespace: {{.application_set.namespace_prefix}}{{.path.basename}}
 """,
             }
         )
@@ -36,6 +38,9 @@ metadata:
                 "template_id": cls.application_set_template.id,
                 "repository_directory": "/home/test",
                 "deployment_directory": "instances",
+                "namespace_prefix_id": cls.env.ref(
+                    "argocd_deployer.namespace_prefix_application_set"
+                ).id,
             }
         )
 
@@ -53,7 +58,46 @@ metadata:
   revision: {cls.master_application_set.branch}
   path: {cls.master_application_set.deployment_directory}
   template-path: {{{{.path.path}}}}
+  destination:
+    namespace: application-set-{{{{.path.basename}}}}
 """
+
+    def test_name(self):
+        """Name may only contain lowercase letters, digits and underscores."""
+        params = {
+            "template_id": self.env.ref(
+                "argocd_deployer.application_set_template_default"
+            ).id,
+            "repository_url": "git@github.com:odoo/odoo-no-exist.git",
+            "repository_directory": "/home/test",
+        }
+
+        with self.assertRaisesRegex(
+            ValidationError, "Only lowercase letters, numbers and dashes"
+        ):
+            self.env["argocd.application.set"].create(
+                {
+                    **params,
+                    "name": "Hello",
+                }
+            )
+
+        with self.assertRaisesRegex(ValidationError, "max 100 characters"):
+            self.env["argocd.application.set"].create(
+                {
+                    **params,
+                    "name": "this-name-is-waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay-"
+                    "toooooooooooooooooooooo-ridiculously-long-and should-"
+                    "totally-not-be-allowed",
+                }
+            )
+
+        self.env["argocd.application.set"].create(
+            {
+                **params,
+                "name": "hello-the-namespace",
+            }
+        )
 
     def test_get_master_repository_directory(self):
         """The master repository directory is stored in the config.

@@ -7,6 +7,7 @@
     "version": "16.0.1.1.0",
     "data": [
         "data/ir_config_parameter_data.xml",
+        "data/application_namespace_prefix.xml",
         "data/application_set_template.xml",
         "data/application_set.xml",
         "views/application_template_view.xml",
@@ -15,6 +16,7 @@
         "views/application_value_view.xml",
         "views/application_view.xml",
         "views/application_set_view.xml",
+        "views/application_namespace_prefix_view.xml",
         "templates/application_description.xml",
         "security/ir.model.access.csv",
         "menuitems.xml",

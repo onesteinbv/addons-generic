@@ -79,6 +79,7 @@
                         <group name="group_applications" string="Applications">
                             <field name="domain_format"/>
                             <field name="subdomain_format"/>
+                            <field name="namespace_prefix_id"/>
                         </group>
                     </group>
                 </sheet>
