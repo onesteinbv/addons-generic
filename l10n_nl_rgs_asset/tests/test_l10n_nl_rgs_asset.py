@@ -28,7 +28,7 @@ class TestRGSAsset(TransactionCase):
                 ("company_id", "=", self.company_rgs.id),
             ]
         )
-        self.assertEqual(group_profile, 9)
+        self.assertEqual(group_profile, 11)
 
     def test_02_post_init_hook(self):
         """Test post_init_hook"""
@@ -70,7 +70,7 @@ class TestRGSAsset(TransactionCase):
                 ("company_id", "=", company_1.id),
             ]
         )
-        self.assertEqual(group_profile, 9)
+        self.assertEqual(group_profile, 11)
 
         # Force call post_init_hook
         post_init_hook(self.cr, self.registry)
@@ -87,4 +87,4 @@ class TestRGSAsset(TransactionCase):
                 ("company_id", "=", company_1.id),
             ]
         )
-        self.assertEqual(group_profile, 9)
+        self.assertEqual(group_profile, 11)
