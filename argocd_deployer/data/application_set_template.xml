@@ -40,7 +40,7 @@ spec:
         <field name="yaml">apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: "{{.application_set.namespace_prefix}}{{.application_set.name}}"
+  name: "{{.application_set.name}}"
   namespace: argocd
 spec:
   goTemplate: true
