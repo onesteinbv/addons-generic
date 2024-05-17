@@ -53,6 +53,8 @@ spec:
   template:
     metadata:
       name: "{{.application_set.namespace_prefix}}{{ .path.basename }}"
+      labels:
+        applicationSet: "{{.application_set.name}}"
     spec:
       project: "default"
       source:
