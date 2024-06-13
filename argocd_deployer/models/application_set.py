@@ -60,15 +60,41 @@ class ApplicationSet(models.Model):
     ]
     is_master = fields.Boolean(
         default=False,
+        compute="_compute_is_master",
+        store=True,
         help="Indicates that this is the master application set. "
-        "This set must be manually installed in ArgoCD. There can only be a "
-        "single master set. Application sets deployed in CURQ are deployed in "
+        "This set must be manually installed in ArgoCD. "
+        "Application sets deployed in CURQ are deployed in "
         "the master set.",
     )
     is_destroying = fields.Boolean(compute="_compute_is_destroying")
     application_ids = fields.One2many(
         "argocd.application", inverse_name="application_set_id"
     )
+    master_application_set_id = fields.Many2one(comodel_name="argocd.application.set")
+
+    @api.constrains("repository_directory")
+    def _check_unique_repository_directory(self):
+        if not self.is_master:
+            return
+        other_masters = (
+            self.env["argocd.application.set"].search(
+                [
+                    ("is_master", "=", True),
+                    ("repository_directory", "=", self.repository_directory),
+                ]
+            )
+            - self
+        )
+        if other_masters:
+            raise ValidationError(
+                "Master application set with the same `Repository Directory` exists."
+            )
+
+    @api.depends("master_application_set_id")
+    def _compute_is_master(self):
+        for app_set in self:
+            app_set.is_master = not bool(app_set.master_application_set_id)
 
     @api.constrains("deployment_directory")
     def _check_deployment_directory(self):
@@ -76,21 +102,6 @@ class ApplicationSet(models.Model):
             raise ValidationError("Deployment directory is required.")
         if self.deployment_directory[-1] == "/":
             raise ValidationError("Deployment directories should not end with '/'.")
-
-    @api.constrains("is_master")
-    def _check_is_master_deployment(self):
-        if not self.is_master:
-            return
-        other_masters = (
-            self.env["argocd.application.set"].search(
-                [
-                    ("is_master", "=", True),
-                ]
-            )
-            - self
-        )
-        if other_masters:
-            raise ValidationError("There can be only one master application set.")
 
     @api.constrains("name")
     def _constrain_name(self):
@@ -116,9 +127,9 @@ class ApplicationSet(models.Model):
             else:
                 raise NotImplementedError("Path does not exist.")
 
-    @api.model
     def _get_master_repository_directory(self, path_does_not_exist_action="create"):
-        master = self.env.ref("argocd_deployer.application_set_master")
+        self.ensure_one()
+        master = self.master_application_set_id or self
         path = os.path.join(
             master.repository_directory,
             master.branch,
@@ -128,10 +139,10 @@ class ApplicationSet(models.Model):
         )
         return path
 
-    @api.model
     def _get_master_deployment_directory(self, path_does_not_exist_action="create"):
         """Return the directory the master application set lives."""
-        master = self.env.ref("argocd_deployer.application_set_master")
+        self.ensure_one()
+        master = self.master_application_set_id or self
         path = os.path.join(
             self._get_master_repository_directory(path_does_not_exist_action),
             master.deployment_directory,
@@ -240,7 +251,7 @@ class ApplicationSet(models.Model):
             return Repo.clone_from(self.repository_url, directory)
 
     def _get_branch(self):
-        return self.env.ref("argocd_deployer.application_set_master").branch
+        return self.master_application_set_id.branch or self.branch
 
     def _format_commit_message(self, message):
         return message % self.name
