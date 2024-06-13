@@ -73,7 +73,8 @@
                             <field name="deployment_directory" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
                         </group>
                         <group id="group_local_install" string="Local install">
-                            <field name="is_master" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                            <field name="master_application_set_id" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
+                            <field name="is_master" />
                             <field name="repository_directory" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
                         </group>
                         <group name="group_applications" string="Applications">
