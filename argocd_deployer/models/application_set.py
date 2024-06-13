@@ -257,7 +257,8 @@ class ApplicationSet(models.Model):
         return message % self.name
 
     def _get_argocd_template(self):
-        master = self.env.ref("argocd_deployer.application_set_master")
+        self.ensure_one()
+        master = self.master_application_set_id or self
         replacements = {
             "{{.config.repository_url}}": master.repository_url or "" or "",
             "{{.config.branch}}": master.branch or "main",

@@ -1,7 +1,7 @@
 <odoo>
     <record id="application_set_template_master" model="argocd.application.set.template">
         <field name="name">Master application set template - Do not change</field>
-        <field name="yaml">apiVersion: argoproj.io/v1alpha1
+        <field name="yaml">
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
