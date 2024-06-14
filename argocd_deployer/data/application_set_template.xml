@@ -24,6 +24,8 @@ spec:
         repoURL: {{.config.repository_url}}
         targetRevision: {{.config.branch}}
         path: "{{ "{{ " }}.path.path{{ " }}" }}"
+        directory:
+          recurse: true
       destination:
         name: in-cluster
         namespace: "{{.application_set.namespace_prefix}}{{ "{{ " }}.path.basename{{ " }}" }}"
