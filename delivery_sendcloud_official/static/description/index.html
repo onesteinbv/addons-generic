@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="generator"
+      content="Docutils 0.15.1: http://docutils.sourceforge.net/"
+    />
+    <title>Sendcloud Shipping</title>
+    <style type="text/css">
+      /*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+      /* used to remove borders from tables and images */
+      .borderless,
+      table.borderless td,
+      table.borderless th {
+        border: 0;
+      }
+
+      table.borderless td,
+      table.borderless th {
+        /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+        padding: 0 0.5em 0 0 !important;
+      }
+
+      .first {
+        /* Override more specific margin styles with "! important". */
+        margin-top: 0 !important;
+      }
+
+      .last,
+      .with-subtitle {
+        margin-bottom: 0 !important;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .subscript {
+        vertical-align: sub;
+        font-size: smaller;
+      }
+
+      .superscript {
+        vertical-align: super;
+        font-size: smaller;
+      }
+
+      a.toc-backref {
+        text-decoration: none;
+        color: black;
+      }
+
+      blockquote.epigraph {
+        margin: 2em 5em;
+      }
+
+      dl.docutils dd {
+        margin-bottom: 0.5em;
+      }
+
+      object[type="image/svg+xml"],
+      object[type="application/x-shockwave-flash"] {
+        overflow: hidden;
+      }
+
+      /* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+      div.abstract {
+        margin: 2em 5em;
+      }
+
+      div.abstract p.topic-title {
+        font-weight: bold;
+        text-align: center;
+      }
+
+      div.admonition,
+      div.attention,
+      div.caution,
+      div.danger,
+      div.error,
+      div.hint,
+      div.important,
+      div.note,
+      div.tip,
+      div.warning {
+        margin: 2em;
+        border: medium outset;
+        padding: 1em;
+      }
+
+      div.admonition p.admonition-title,
+      div.hint p.admonition-title,
+      div.important p.admonition-title,
+      div.note p.admonition-title,
+      div.tip p.admonition-title {
+        font-weight: bold;
+        font-family: sans-serif;
+      }
+
+      div.attention p.admonition-title,
+      div.caution p.admonition-title,
+      div.danger p.admonition-title,
+      div.error p.admonition-title,
+      div.warning p.admonition-title,
+      .code .error {
+        color: red;
+        font-weight: bold;
+        font-family: sans-serif;
+      }
+
+      /* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+      div.dedication {
+        margin: 2em 5em;
+        text-align: center;
+        font-style: italic;
+      }
+
+      div.dedication p.topic-title {
+        font-weight: bold;
+        font-style: normal;
+      }
+
+      div.figure {
+        margin-left: 2em;
+        margin-right: 2em;
+      }
+
+      div.footer,
+      div.header {
+        clear: both;
+        font-size: smaller;
+      }
+
+      div.line-block {
+        display: block;
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+
+      div.line-block div.line-block {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 1.5em;
+      }
+
+      div.sidebar {
+        margin: 0 0 0.5em 1em;
+        border: medium outset;
+        padding: 1em;
+        background-color: #ffffee;
+        width: 40%;
+        float: right;
+        clear: right;
+      }
+
+      div.sidebar p.rubric {
+        font-family: sans-serif;
+        font-size: medium;
+      }
+
+      div.system-messages {
+        margin: 5em;
+      }
+
+      div.system-messages h1 {
+        color: red;
+      }
+
+      div.system-message {
+        border: medium outset;
+        padding: 1em;
+      }
+
+      div.system-message p.system-message-title {
+        color: red;
+        font-weight: bold;
+      }
+
+      div.topic {
+        margin: 2em;
+      }
+
+      h1.section-subtitle,
+      h2.section-subtitle,
+      h3.section-subtitle,
+      h4.section-subtitle,
+      h5.section-subtitle,
+      h6.section-subtitle {
+        margin-top: 0.4em;
+      }
+
+      h1.title {
+        text-align: center;
+      }
+
+      h2.subtitle {
+        text-align: center;
+      }
+
+      hr.docutils {
+        width: 75%;
+      }
+
+      img.align-left,
+      .figure.align-left,
+      object.align-left,
+      table.align-left {
+        margin-left: 5%;
+        margin-bottom: 5%;
+        margin-top: 2%;
+        max-width: 90%;
+        clear: right
+        float: left;
+      }
+
+      img.align-right,
+      .figure.align-right,
+      object.align-right,
+      table.align-right {
+        clear: right;
+        float: right;
+        margin-left: 1em;
+      }
+
+      img.align-center,
+      .figure.align-center,
+      object.align-center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.align-center {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .align-left {
+        text-align: left;
+      }
+
+      .align-center {
+        clear: both;
+        text-align: center;
+      }
+
+      .align-right {
+        text-align: right;
+      }
+
+      /* reset inner alignment in figures */
+      div.align-right {
+        text-align: inherit;
+      }
+
+      /* div.align-center * { */
+      /*   text-align: left } */
+
+      .align-top {
+        vertical-align: top;
+      }
+
+      .align-middle {
+        vertical-align: middle;
+      }
+
+      .align-bottom {
+        vertical-align: bottom;
+      }
+
+      ol.simple,
+      ul.simple {
+        margin-bottom: 1em;
+      }
+
+      ol.arabic {
+        list-style: decimal;
+      }
+
+      ol.loweralpha {
+        list-style: lower-alpha;
+      }
+
+      ol.upperalpha {
+        list-style: upper-alpha;
+      }
+
+      ol.lowerroman {
+        list-style: lower-roman;
+      }
+
+      ol.upperroman {
+        list-style: upper-roman;
+      }
+
+      p.attribution {
+        text-align: right;
+        margin-left: 50%;
+      }
+
+      p.caption {
+        font-style: italic;
+      }
+
+      p.credits {
+        font-style: italic;
+        font-size: smaller;
+      }
+
+      p.label {
+        white-space: nowrap;
+      }
+
+      p.rubric {
+        font-weight: bold;
+        font-size: larger;
+        color: maroon;
+        text-align: center;
+      }
+
+      p.sidebar-title {
+        font-family: sans-serif;
+        font-weight: bold;
+        font-size: larger;
+      }
+
+      p.sidebar-subtitle {
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      p.topic-title {
+        font-weight: bold;
+      }
+
+      pre.address {
+        margin-bottom: 0;
+        margin-top: 0;
+        font: inherit;
+      }
+
+      pre.literal-block,
+      pre.doctest-block,
+      pre.math,
+      pre.code {
+        margin-left: 2em;
+        margin-right: 2em;
+      }
+
+      pre.code .ln {
+        color: grey;
+      } /* line numbers */
+      pre.code,
+      code {
+        background-color: #eeeeee;
+      }
+      pre.code .comment,
+      code .comment {
+        color: #5c6576;
+      }
+      pre.code .keyword,
+      code .keyword {
+        color: #3b0d06;
+        font-weight: bold;
+      }
+      pre.code .literal.string,
+      code .literal.string {
+        color: #0c5404;
+      }
+      pre.code .name.builtin,
+      code .name.builtin {
+        color: #352b84;
+      }
+      pre.code .deleted,
+      code .deleted {
+        background-color: #deb0a1;
+      }
+      pre.code .inserted,
+      code .inserted {
+        background-color: #a3d289;
+      }
+
+      span.classifier {
+        font-family: sans-serif;
+        font-style: oblique;
+      }
+
+      span.classifier-delimiter {
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      span.interpreted {
+        font-family: sans-serif;
+      }
+
+      span.option {
+        white-space: nowrap;
+      }
+
+      span.pre {
+        white-space: pre;
+      }
+
+      span.problematic {
+        color: red;
+      }
+
+      span.section-subtitle {
+        /* font-size relative to parent (h1..h6 element) */
+        font-size: 80%;
+      }
+
+      table.citation {
+        border-left: solid 1px gray;
+        margin-left: 1px;
+      }
+
+      table.docinfo {
+        margin: 2em 4em;
+      }
+
+      table.docutils {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      table.footnote {
+        border-left: solid 1px black;
+        margin-left: 1px;
+      }
+
+      table.docutils td,
+      table.docutils th,
+      table.docinfo td,
+      table.docinfo th {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        vertical-align: top;
+      }
+
+      table.docutils th.field-name,
+      table.docinfo th.docinfo-name {
+        font-weight: bold;
+        text-align: left;
+        white-space: nowrap;
+        padding-left: 0;
+      }
+
+      /* "booktabs" style (no vertical lines) */
+      table.docutils.booktabs {
+        border: 0px;
+        border-top: 2px solid;
+        border-bottom: 2px solid;
+        border-collapse: collapse;
+      }
+      table.docutils.booktabs * {
+        border: 0px;
+      }
+      table.docutils.booktabs th {
+        border-bottom: thin solid;
+        text-align: left;
+      }
+
+      h1 tt.docutils,
+      h2 tt.docutils,
+      h3 tt.docutils,
+      h4 tt.docutils,
+      h5 tt.docutils,
+      h6 tt.docutils {
+        font-size: 100%;
+      }
+
+      ul.auto-toc {
+        list-style-type: none;
+      }
+
+    hr {
+  border:none;
+  border-top:2px dashed lightgrey;
+  color:#fff;
+  background-color:#fff;
+  height:1px;
+  width:99%;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="document" id="sendcloud-shipping">
+      <h1 class="title">Sendcloud Shipping</h1>
+      <p>This module is part of the Sendcloud official connector for Odoo.</p>
+      <p>
+        At the moment, the Sendcloud official connector for Odoo consists of two
+        modules: delivery_sendcloud_official and website_sendcloud_official.
+      </p>
+      <ol class="arabic simple">
+        <li>delivery_sendcloud_official. This module works for the backend.</li>
+        <li>
+          website_sendcloud_official. This module is for the frontend (webshop)
+          and it depends on delivery_sendcloud_official.
+        </li>
+      </ol>
+      <p>
+        This module mostly implements what’s described in
+        <a
+          class="reference external"
+          href="https://docs.sendcloud.sc/api/v2/shipping/"
+          >https://docs.sendcloud.sc/api/v2/shipping/</a
+        >
+      </p>
+      <p>
+        Full documentation for developers is in
+        <a class="reference external" href="https://docs.sendcloud.sc/"
+          >https://docs.sendcloud.sc/</a
+        >.
+      </p>
+      <p>
+        This module works for the Community Edition as well as the Enterprise
+        Edition.
+      </p>
+      <p><strong>Table of contents</strong></p>
+      <div class="contents local topic" id="contents">
+        <ul class="simple">
+          <li>
+            <a class="reference internal" href="#installation" id="id1"
+              >Installation</a
+            >
+          </li>
+          <li>
+            <a class="reference internal" href="#configuration" id="id2"
+              >Configuration</a
+            >
+            <ul>
+              <li>
+                <a class="reference internal" href="#odoo-integration" id="id3"
+                  >Odoo Integration</a
+                >
+              </li>
+              <li>
+                <a
+                  class="reference internal"
+                  href="#sendcloud-panel-settings"
+                  id="id5"
+                  >Sendcloud panel settings</a
+                >
+              </li>
+              <li>
+                <a
+                  class="reference internal"
+                  href="#synchronize-sendcloud-objects"
+                  id="id6"
+                  >Synchronize Sendcloud objects</a
+                >
+              </li>
+              <li>
+                <a
+                  class="reference internal"
+                  href="#sender-addresses-and-warehouses"
+                  id="id7"
+                  >Sender Addresses and Warehouses</a
+                >
+              </li>
+              <li>
+                <a class="reference internal" href="#test-mode" id="id8"
+                  >Test Mode</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="reference internal" href="#usage" id="id9">Usage</a>
+          </li>
+          <li>
+            <a class="reference internal" href="#quickstart" id="id10"
+              >Quickstart</a
+            >
+            <ul>
+              <li>
+                <a
+                  class="reference internal"
+                  href="#map-of-sendcloud-odoo-data-models"
+                  id="id11"
+                  >Map of Sendcloud-Odoo data models</a
+                >
+              </li>
+              <li>
+                <a
+                  class="reference internal"
+                  href="#multicollo-parcels"
+                  id="id12"
+                  >Multicollo parcels</a
+                >
+              </li>
+              <li>
+                <a
+                  class="reference internal"
+                  href="#service-point-picker"
+                  id="id13"
+                  >Service Point Picker</a
+                >
+              </li>
+              <li>
+                <a class="reference internal" href="#cancel-parcels" id="id14"
+                  >Cancel parcels</a
+                >
+              </li>
+              <li>
+                <a class="reference internal" href="#shipping-outside-eu" id="id14b"
+                  >Deliver outside EU</a
+                >
+              </li>
+              <li>
+                <a class="reference internal" href="#troubleshooting" id="id15"
+                  >Troubleshooting</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="reference internal" href="#known-issues-roadmap" id="id16"
+              >Known issues / Roadmap</a
+            >
+          </li>
+          <li><a class="reference internal" href="#todo" id="id17">TODO</a></li>
+          <li>
+            <a class="reference internal" href="#bug-tracker" id="id18"
+              >Bug Tracker</a
+            >
+          </li>
+          <li>
+            <a class="reference internal" href="#credits" id="id19">Credits</a>
+            <ul>
+              <li>
+                <a class="reference internal" href="#authors" id="id20"
+                  >Authors</a
+                >
+              </li>
+              <li>
+                <a class="reference internal" href="#maintainers" id="id21"
+                  >Maintainers</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+ <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+      <div class="section" id="installation">
+        <h1><a class="toc-backref" href="#id1">Installation</a></h1>
+        <p>
+          In the Odoo configuration file add
+          <tt class="docutils literal">delivery_sendcloud_official</tt> in the
+          list <tt class="docutils literal">server_wide_modules</tt>:
+        </p>
+        <pre class="code ini literal-block">
+<span class="k">[options]</span>
+<span class="na">(...)</span>
+<span class="na">server_wide_modules</span> <span class="o">=</span> <span class="s">web,delivery_sendcloud_official</span>
+<span class="na">(...)</span>
+</pre>
+        <p>A restart of the Odoo server is required afterwards.</p>
+      </div>
+       <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+      <div class="section" id="configuration">
+        <h1><a class="toc-backref" href="#id2">Configuration</a></h1>
+        <p>Create an account on sendcloud.com and choose a plan.</p>
+        <p>
+          Go to integrations and select Odoo integration to use the Odoo
+          integration or select api integration if you only want to use the api
+          integration (see readme for more information).
+        </p>
+              <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+        <div class="section" id="odoo-integration">
+          <h2><a class="toc-backref" href="#id3">Odoo Integration</a></h2>
+          <p>
+            Go to Sendcloud &gt; Configuration &gt; Wizards &gt; Setup the
+            Sendcloud Integration. Click on Setup Integration. A wizard will pop
+            up.
+          </p>
+          <img class="align-left" alt="Image_10.png" src="Image_10.png" />
+          <p>
+            Select Odoo Integration. Start Setup. You will be redirected to a
+            Sendcloud page asking you to authorize OdooShop to access your
+            Sendcloud account. Click on Connect in the Sendcloud page.
+          </p>
+          <img class="align-left" alt="Image_20.png" src="Image_20.png" />
+          <p>
+            Go back to the Odoo Integration configuration. An integration
+            “OdooShop” is now present in the Integration list view. Open the
+            OdooShop Integration form. Edit the OdooShop Integration. The
+            changes you make will be in sync, Sendcloud side, with the
+            integration configuration.
+          </p>
+          <img class="align-left" alt="Image_30.png" src="Image_30.png" />
+          <p>
+            In case multiple integrations are present, sort the integrations by
+            sequence, to allow Odoo to choose the default one that will be used.
+          </p>
+          <p>
+            Please note that when using the Odoo integration an "incoming order"
+            is created in Sendcloud as soon as you validate the salesorder. The
+            “incoming order” has status “in process” in Sendcloud and is not
+            forwarded to the carrier yet.
+          </p>
+          <img class="align-left" alt="Image_40.png" src="Image_40.png" />
+          <p>
+            When you validate the delivery in Odoo the label is created and the
+            pick-up assignment is send to the carrier.
+          </p>
+          <img class="align-left" alt="Image_50.png" src="Image_50.png" />
+          <p>
+            In previous version there was a possibility to connect to the API integration instead of the Odoo integration.
+            To benefit from Sendcloud support we highly recommend you to upgrade to the latest version of this module with
+            the Odoo integration.
+          </p>
+        </div>
+        <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+        <div class="section" id="sendcloud-panel-settings">
+          <h2>
+            <a class="toc-backref" href="#id5">Sendcloud panel settings</a>
+          </h2>
+          <p>
+            When you configure the Integration settings in the online Sendcloud
+            panel (<a
+              class="reference external"
+              href="https://panel.sendcloud.sc/"
+              >https://panel.sendcloud.sc/</a
+            >) those settings are also sync-ed with the Integration settings
+            Odoo side.
+          </p>
+        </div>
+              <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+        <div class="section" id="synchronize-sendcloud-objects">
+          <h2>
+            <a class="toc-backref" href="#id6">Synchronize Sendcloud objects</a>
+          </h2>
+          <p>
+            After the setup of the integration with Sendcloud server is
+            completed, second step is to synchronize the objects present in
+            Sendcloud server to Odoo. To synchronize Sendcloud objects for the
+            first time:
+          </p>
+          <p>
+            Go to Sendcloud &gt; Configuration &gt; Wizards &gt;Sync the
+            Sendcloud Objects. A wizard will pop up.
+          </p>
+          <img class="align-left" alt="Image_70.png" src="Image_70.png" />
+          <p>
+            Select all the objects. Confirm. This will retrieve the required
+            data from Sendcloud server.
+          </p>
+          <img class="align-left" alt="Image_80.png" src="Image_80.png" />
+          <p>
+            Some Sendcloud objects will be automatically synchronized from the
+            Sendcloud server to Odoo. Those Sendcloud objects are:
+          </p>
+          <ul class="simple">
+            <li>Parcel Statuses</li>
+            <li>Invoices</li>
+            <li>Shipping Methods</li>
+            <li>Sender Addresses</li>
+          </ul>
+          <p>
+            To configure how often those objects should be retrieved from the
+            Sendcloud server:
+          </p>
+          <p>
+            Go to Settings &gt; Technical &gt; Automation &gt; Scheduled
+            Actions. Search Scheduled Actions for “Sendcloud”.
+          </p>
+          <img class="align-left" alt="Image_90.png" src="Image_90.png" />
+          <p>Set the “Execute Every” value according to your needs.</p>
+        </div>
+              <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+        <div class="section" id="sender-addresses-and-warehouses">
+          <h2>
+            <a class="toc-backref" href="#id7"
+              >Sender Addresses and Warehouses</a
+            >
+          </h2>
+          <p>
+            In case of multiple warehouses configured in Odoo (eg.: user belongs
+            to group “Manage multiple Warehouse”):
+          </p>
+          <p>
+            Go to Sendcloud &gt; Configuration &gt; Integration. Click on
+            Configure Warehouse Addresses. A wizard will pop up. Set the
+            corresponding Sendcloud Sender Address for each of the warehouse
+            addresses.
+          </p>
+          <img class="align-left" alt="Image_100.png" src="Image_100.png" />
+          <p>
+            Alternatively, in Inventory &gt; Configuration &gt; Warehouses,
+            select an address. In the address form, go to Sales and Purchase tab
+            and set the Sencloud Sender Address. In Sale Order &gt; Delivery:
+            select the Warehouse. Check that the address of the Warehouse has a
+            Sendcloud Senser Address.
+          </p>
+          <img class="align-left" alt="Image_110.png" src="Image_110.png" />
+        </div>
+              <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+        <div class="section" id="test-mode">
+          <h2><a class="toc-backref" href="#id8">Test Mode</a></h2>
+          <p>
+            Enabling the Test Mode allows you to access extra functionalities
+            that are useful to test the connector.
+          </p>
+          <p>
+            To enable the Test Mode, go to the “General Settings”: under the
+            Sendcloud section you can find the “Enable Test Mode” flag.
+          </p>
+          <p>
+            There is no seperate test environment available on the Sendcloud
+            portal. This means that as soon as you create labels the carries is
+            given the order to pickup the goods. You can use carrier "unstamped
+            letter" for testing. When testing with other carriers make sure that
+            you cancel the labels in the Sendcloud portal within a couple of
+            hours otherwise the label will be billed and picked up.
+          </p>
+          <p>
+            Since there is no test environment it's very important to know that
+            Sendcloud stores it records based on the delivery number, for
+            instance WH/OUT/0001, this field is idempotent. So when you start
+            testing and you will use delivery number WH/OUT/00001 this number is
+            stored in Sendcloud. When you go live and use the same delivery
+            numbers, in this case WH/OUT/00001, Sendcloud will treat this as an
+            update of the existing record and will send back the
+            shipping-address that was already stored (created while testing). To
+            avoid this problem you should set a different prefix on the sequence
+            out in your testenvironment. In debug mode, Technical/Sequences
+            Identifiers/Sequences, select the sequence out and adjust this to
+            WH/OUT/TEST for instance.
+          </p>
+          <img class="align-left" alt="Image_120.png" src="Image_120.png" />
+        </div>
+      </div>
+            <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+      <div class="section" id="usage">
+        <h1><a class="toc-backref" href="#id9">Usage</a></h1>
+      </div>
+            <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+      <div class="section" id="quickstart">
+        <h1><a class="toc-backref" href="#id10">Quickstart</a></h1>
+        <p>In short this is how the module works:</p>
+        <ul class="simple">
+          <li>
+            the user creates a sale order in Odoo; the user clicks on “Add
+            shipping” button and selects one of the shipping methods provided by
+            Sendcloud
+          </li>
+          <li>
+            when confirming the sale order, a delivery document is generated
+            (stock.picking)
+          </li>
+          <li>
+            when confirming the picking, a parcel (or multiple parcels) for the
+            specific sales order are created in Sendcloud under Shipping &gt;
+            Created labels
+          </li>
+          <li>
+            the picking is updated with the information from Sendcloud (tracking
+            number, tracking url, label etc…)
+          </li>
+        </ul>
+              <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+        <div class="section" id="map-of-sendcloud-odoo-data-models">
+          <h2>
+            <a class="toc-backref" href="#id11"
+              >Map of Sendcloud-Odoo data models</a
+            >
+          </h2>
+          <table border="1" class="docutils">
+            <colgroup>
+              <col width="47%" />
+              <col width="53%" />
+            </colgroup>
+            <thead valign="bottom">
+              <tr>
+                <th class="head">Sendcloud</th>
+                <th class="head">Odoo</th>
+              </tr>
+            </thead>
+            <tbody valign="top">
+              <tr>
+                <td>Integration</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>Brand</td>
+                <td>Website Shop</td>
+              </tr>
+              <tr>
+                <td>Order</td>
+                <td>Sales Order</td>
+              </tr>
+              <tr>
+                <td>Shipment</td>
+                <td>Picking</td>
+              </tr>
+              <tr>
+                <td>Parcel (colli)</td>
+                <td>Picking packs</td>
+              </tr>
+              <tr>
+                <td>Sender address</td>
+                <td>Warehouse address</td>
+              </tr>
+              <tr>
+                <td>Shipping Method</td>
+                <td>Shipping Method</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+              <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+        <div class="section" id="multicollo-parcels">
+          <h2><a class="toc-backref" href="#id12">Multicollo parcels</a></h2>
+          <p>
+            In Inventory &gt; Configuration &gt; Delivery Packages, set the
+            carrier to Sendcloud. In the out picking, put the products in
+            different Sendcloud packages to create Multicollo parcels.
+          </p>
+        </div>
+              <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+        <div class="section" id="service-point-picker">
+          <h2><a class="toc-backref" href="#id13">Service Point Picker</a></h2>
+          <p>
+            The module contains a widget, the Service Point Picker, that allows
+            the selection of the service point. The widget is placed in the
+            “Sendcloud Shipping” tab of the picking. The widget is visible in
+            case the following is true:
+          </p>
+          <blockquote>
+            <ul class="simple">
+              <li>
+                the configuration in the Sendcloud panel has the Service Point
+                flag to True (in the Sendcloud integration config)
+              </li>
+              <li>
+                the Shipping Method selected in the picking is provided by
+                Sendcloud
+              </li>
+              <li>
+                the Shipping Method has field sendcloud_service_point_input ==
+                “required”
+              </li>
+              <li>
+                all the criteria (from country, to country, weight) match with
+                the current order
+              </li>
+            </ul>
+          </blockquote>
+        </div>
+              <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+        <div class="section" id="cancel-parcels">
+          <h2><a class="toc-backref" href="#id14">Cancel parcels</a></h2>
+          <p>
+            When canceling parcels a confirmation popup will ask for
+            confirmation.
+          </p>
+        </div>
+              <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+        <div class="section" id="shipping-outside-eu">
+          <h2><a class="toc-backref" href="#id14b">Shipping outside EU</a></h2>
+          <p>
+            Install either OCA module 'product_harmonized_system' or Enterprise module 'account_intrastat' for delivery outside of EU.
+            Both include extra field 'country of origin'.
+          </p>
+        </div>
+              <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+        <div class="section" id="troubleshooting">
+          <h2><a class="toc-backref" href="#id15">Troubleshooting</a></h2>
+          <p>
+            If the communication to the Sendcloud server fails (eg.: while
+            creating a parcel), the exchanged message is stored in a Log
+            section, under Logging &gt; Actions.
+          </p>
+        </div>
+      </div>
+            <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+      <div class="section" id="known-issues-roadmap">
+        <h1><a class="toc-backref" href="#id16">Known issues / Roadmap</a></h1>
+      </div>
+            <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+      <div class="section" id="todo">
+        <h1><a class="toc-backref" href="#id17">TODO</a></h1>
+        <ul class="simple">
+          <li>Enable different Shipping Methods for different Websites</li>
+        </ul>
+      </div>
+            <div>
+          <br></br>
+          <hr></hr>
+          <br></br>
+        </div>
+      <div class="section" id="credits">
+        <h1><a class="toc-backref" href="#id19">Credits</a></h1>
+        <div class="section" id="authors">
+          <h2><a class="toc-backref" href="#id20">Authors</a></h2>
+          <ul class="simple">
+            <li>Onestein</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

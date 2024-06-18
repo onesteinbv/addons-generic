@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2021 Onestein (<https://www.onestein.nl>)
+     License OPL-1 (https://www.odoo.com/documentation/16.0/legal/licenses.html#odoo-apps). -->
+
+<odoo>
+    <!-- ONBOARDING STEPS -->
+    <template id="onboarding_integration_step">
+        <t t-call="base.onboarding_step">
+            <t t-set="title">Setup Integration</t>
+            <t t-set="description">Setup Sendcloud Integration.</t>
+            <t t-set="done_icon" t-value="'fa-star'" />
+            <t t-set="done_text">Well done!</t>
+            <t t-set="btn_text">Setup</t>
+            <t t-set="model" t-value="'res.company'" />
+            <t t-set="method" t-value="'action_open_sendcloud_onboarding_integration'" />
+            <t t-set="state" t-value="state.get('sendcloud_onboarding_integration_state')" />
+        </t>
+    </template>
+    <template id="onboarding_sync_step">
+        <t t-call="base.onboarding_step">
+            <t t-set="title">Sync Sendcloud objects</t>
+            <t t-set="description">Synchronize Sendcloud objects.</t>
+            <t t-set="done_icon" t-value="'fa-star'" />
+            <t t-set="done_text">Looks great!</t>
+            <t t-set="btn_text">Sync</t>
+            <t t-set="model" t-value="'res.company'" />
+            <t t-set="method" t-value="'action_sendcloud_onboarding_sync'" />
+            <t t-set="state" t-value="state.get('sendcloud_onboarding_sync_state')" />
+        </t>
+    </template>
+    <template id="onboarding_warehouse_address_step">
+        <t t-call="base.onboarding_step">
+            <t t-set="title">Configure Warehouse Addresses</t>
+            <t t-set="description">Set Sendcloud Warehouse Addresses.</t>
+            <t t-set="done_icon" t-value="'fa-star'" />
+            <t t-set="done_text">Enjoy!</t>
+            <t t-set="btn_text">Configure</t>
+            <t t-set="model" t-value="'res.company'" />
+            <t t-set="method" t-value="'action_open_sendcloud_onboarding_warehouse_address'" />
+            <t t-set="state" t-value="state.get('sendcloud_onboarding_warehouse_address_state')" />
+        </t>
+    </template>
+
+    <!-- ONBOARDING PANEL-->
+    <template id="sendcloud_onboarding_panel" name="sendcloud.onboarding.panel">
+        <t t-call="base.onboarding_container">
+            <t t-set="classes" t-value="'o_onboarding_blue'" />
+            <t t-set="bg_image" t-value="'/delivery_sendcloud_official/static/img/sendcloud_onboarding_bg.jpg'"/>
+            <t t-set="close_method" t-value="'action_close_sendcloud_onboarding'" />
+            <t t-set="close_model" t-value="'res.company'" />
+            <t t-call="delivery_sendcloud_official.onboarding_integration_step" name="integration_step" />
+            <t t-call="delivery_sendcloud_official.onboarding_sync_step" name="sync_step" />
+            <t t-call="delivery_sendcloud_official.onboarding_warehouse_address_step" name="warehouse_address_step" />
+        </t>
+    </template>
+
+    <!-- CONFIGURATION ACTIONS -->
+    <record id="action_sendcloud_onboarding_integration_wizard" model="ir.actions.act_window">
+        <field name="name">Setup the Sendcloud Integration</field>
+        <field name="res_model">sendcloud.integration.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sendcloud_onboarding_integration_configuration_form" />
+        <field name="target">new</field>
+    </record>
+    <record id="action_sendcloud_onboarding_sync_wizard" model="ir.actions.act_window">
+        <field name="name">Sync the Sendcloud Objects</field>
+        <field name="res_model">sendcloud.sync.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sendcloud_onboarding_sync_configuration_form" />
+        <field name="target">new</field>
+    </record>
+    <record id="action_sendcloud_onboarding_warehouse_wizard" model="ir.actions.act_window">
+        <field name="name">Setup the sender addresses of the warehouses</field>
+        <field name="res_model">sendcloud.warehouse.address.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sendcloud_onboarding_warehouse_configuration_form" />
+        <field name="target">new</field>
+    </record>
+
+</odoo>

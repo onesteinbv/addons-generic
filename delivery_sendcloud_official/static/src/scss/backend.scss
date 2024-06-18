@@ -1,0 +1,16 @@
+/* Copyright 2021 Onestein (<https://www.onestein.nl>)
+ * License OPL-1 (https://www.odoo.com/documentation/16.0/legal/licenses.html#odoo-apps). */
+
+.o_delivery_sendcloud_widget {
+    .o_delivery_sendcloud_select {
+        min-width: 30px;
+    }
+
+    .o_delivery_sendcloud_detail {
+        background-color: $white;
+        resize: none;
+        box-shadow: none;
+        border: 1px solid $border-color;
+        min-height: 1em;
+    }
+}
