@@ -18,6 +18,7 @@ class Subscription(models.Model):
         )
 
     def _invoice_paid_hook(self):
+        # TODO: Refactor
         for subscription in self.filtered(
             lambda i: len(i.invoice_ids) == 1
             and i.sale_subscription_line_ids.filtered(
