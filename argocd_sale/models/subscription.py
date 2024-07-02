@@ -1,7 +1,6 @@
 from datetime import timedelta
 
-from odoo import Command, _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo import Command, fields, models
 
 
 class Subscription(models.Model):
@@ -17,16 +16,6 @@ class Subscription(models.Model):
             .sudo()
             .get_param("argocd_sale.grace_period", "0")
         )
-
-    @api.constrains("sale_subscription_line_ids")
-    def _check_multiple_application_products(self):
-        app_lines = self.sale_subscription_line_ids.filtered(
-            lambda l: l.product_id.application_template_id
-        )
-        if len(app_lines) > 1:
-            raise ValidationError(
-                _("Subscription can only have one application, please remove one")
-            )
 
     def _customer_name_to_application_name(self):
         self.ensure_one()

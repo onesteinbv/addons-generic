@@ -6,7 +6,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='application_set_id']" position="after">
                 <field name="partner_id" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
-                <field name="subscription_id" options="{'no_create': True}" attrs="{'readonly': [('is_deployed', '=', True)]}" />
+                <field name="subscription_id" options="{'no_create': True}" />
+                <field name="subscription_line_id" options="{'no_create': True}" />
             </xpath>
             <xpath expr="//header" position="inside">
                 <button
