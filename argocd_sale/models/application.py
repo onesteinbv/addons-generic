@@ -12,13 +12,13 @@ class Application(models.Model):
         readonly=False,
     )
 
+    subscription_id = fields.Many2one(comodel_name="sale.subscription")
+
     def is_created_by_reseller(self):
         self.ensure_one()
         return self.partner_id.is_reseller or (
             self.partner_id.parent_id and self.partner_id.parent_id.is_reseller
         )
-
-    subscription_id = fields.Many2one(comodel_name="sale.subscription")
 
     @api.depends("subscription_id", "subscription_id.partner_id")
     def _compute_partner_id(self):

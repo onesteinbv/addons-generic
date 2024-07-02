@@ -4,6 +4,11 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    application_set_id = fields.Many2one(
+        comodel_name="argocd.application.set",
+        help="The application set in which this product will be deployed.",
+    )
+
     application_template_id = fields.Many2one(
         string="Application Template", comodel_name="argocd.application.template"
     )
@@ -19,9 +24,4 @@ class ProductTemplate(models.Model):
         string="Resellers",
         column1="product_template_id",
         column2="partner_id",
-    )
-
-    application_set_id = fields.Many2one(
-        comodel_name="argocd.application.set",
-        help="The application set in which this product will be deployed.",
     )
