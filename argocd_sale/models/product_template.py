@@ -13,11 +13,6 @@ class ProductTemplate(models.Model):
         string="Application Tags",
     )
 
-    application_filter_ids = fields.Many2many(
-        comodel_name="argocd.application.template",
-        string="Only applies to (leave empty for all)",
-    )
-
     reseller_partner_ids = fields.Many2many(
         comodel_name="res.partner",
         relation="product_reseller_rel",
