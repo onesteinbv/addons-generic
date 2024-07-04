@@ -11,9 +11,9 @@ class Application(models.Model):
         readonly=False,
     )
     subscription_id = fields.Many2one(
-        comodel_name="sale.subscription", compute="_compute_subscription_id"
+        comodel_name="sale.subscription", compute="_compute_subscription_id", store=True
     )
-    subscription_line_id = fields.Many2one(comodel_name="sale.subscription")
+    subscription_line_id = fields.Many2one(comodel_name="sale.subscription.line")
 
     _sql_constraints = [
         (

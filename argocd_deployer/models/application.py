@@ -263,11 +263,11 @@ class Application(models.Model):
         self.ensure_one()
         self._apply_repository_changes(self._get_destroy_content)
 
-    def destroy(self):
+    def destroy(self, eta=0):
         self.ensure_one()
         delay = safe_eval(
             self.env["ir.config_parameter"].get_param(
                 "argocd.application_destruction_delay", "0"
             )
         )
-        self.with_delay(eta=delay).immediate_destroy()
+        self.with_delay(eta=eta or delay).immediate_destroy()

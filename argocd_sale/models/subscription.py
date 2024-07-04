@@ -18,14 +18,16 @@ class Subscription(models.Model):
         )
 
     def _invoice_paid_hook(self):
-        # TODO: Refactor
-        for subscription in self.filtered(
-            lambda i: len(i.invoice_ids) == 1
-            and i.sale_subscription_line_ids.filtered(
+        for subscription in self:
+            # Start the subscription, which is not done by subscription_oca, so we do it here for our purposes
+            # this probably should be moved to subscription_oca.
+            if len(
+                subscription.invoice_ids
+            ) == 1 and subscription.sale_subscription_line_ids.filtered(
                 lambda l: l.product_id.application_template_id
-            )
-        ):  # Create the application after the first invoice has been paid
-            subscription.action_start_subscription()
+            ):
+                subscription.action_start_subscription()
+
             lines = subscription.sale_subscription_line_ids.filtered(
                 lambda l: l.product_id.application_template_id
             )

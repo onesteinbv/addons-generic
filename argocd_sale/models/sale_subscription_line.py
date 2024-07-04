@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class SubscriptionLine(models.Model):
@@ -24,6 +25,42 @@ class SubscriptionLine(models.Model):
         for replace in replacements:
             name = name.replace(replace, replacements[replace])
         return "".join(c for c in name if c.isalnum() or c == "-")
+
+    def write(self, vals):
+        to_redeploy = self.env["argocd.application"]
+        if "product_id" in vals or "product_uom_qty" in vals:
+            product = self.env["product.product"].browse(vals["product_id"])
+            qty = int(
+                vals["product_uom_qty"]
+            )  # Cast to int just to make sure. I'm not sure if it's required
+            # All lines that already have an application
+            for line in self.filtered(lambda l: l.application_ids):
+                product_changed = product != line.product_id
+                # TODO: Enforce only up here e.g. 50GB to 20GB in some cases should not be allowed, but 5 users to 4 should
+                if (
+                    product_changed
+                    and product.product_tmpl_id != line.product_id.product_tmpl_id
+                ):
+                    raise UserError(
+                        _(
+                            "This variant has a different product template, please create a new line and delete this one instead."
+                        )
+                    )
+                qty_changed = line.product_uom_qty != qty
+                if product_changed or qty_changed:
+                    to_redeploy += line.application_ids
+        res = super().write(vals)
+        for app in to_redeploy:
+            app.deploy()
+        return res
+
+    @api.ondelete(at_uninstall=True)
+    def _unlink_and_destroy_app(self):
+        for line in self.filtered(lambda l: l.application_ids):
+            delta = (
+                line.sale_subscription_id.recurring_next_date - fields.Datetime.now()
+            )
+            line.application_ids.destroy(eta=delta.total_seconds())
 
     def _invoice_paid_hook(self):
         self.ensure_one()
