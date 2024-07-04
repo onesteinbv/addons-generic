@@ -42,7 +42,7 @@ class TestFields(TransactionCase):
         self.assertFalse(sub.paid_for_date)
 
         # Needs sale_recurring_payment_mollie e.g. installed to work, we can't do this here
-        # self.env["payment.transaction"]._process_payment_provider_subscription_recurring_payment(
+        # self.env["payment.transaction"]._process_payment_provider_mandate_recurring_payment(
         #     sub
         # )
 

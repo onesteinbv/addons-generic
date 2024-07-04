@@ -1,9 +1,9 @@
 {
-    "name": "Website Sale - Recurring Payment Mollie",
+    "name": "Sale - Recurring Payment Mollie",
     "version": "16.0.0.1",
     "category": "eCommerce",
     "license": "LGPL-3",
-    "summary": "Website Sale - Recurring Payment Mollie",
+    "summary": "Sale - Recurring Payment Mollie",
     "website": "https://www.onestein.nl",
     "depends": ["payment_mollie_official", "sale_recurring_payment"],
     "data": [
