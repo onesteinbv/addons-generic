@@ -1,12 +1,13 @@
 from odoo import api, fields, models
+from odoo.fields import Command
 
 
 class PaymentTransaction(models.Model):
     _inherit = "payment.transaction"
 
-    payment_provider_subscription_id = fields.Many2one(
-        "payment.provider.subscription",
-        string="Payment Provider Subscription",
+    payment_provider_mandate_id = fields.Many2one(
+        "payment.provider.mandate",
+        string="Payment Provider Mandate",
         readonly=True,
     )
 
@@ -24,13 +25,13 @@ class PaymentTransaction(models.Model):
         create_sub_for_invoice = (
             self.invoice_ids
             and self.invoice_ids[0].subscription_id
-            and not self.invoice_ids[0].subscription_id.payment_provider_subscription_id
+            and not self.invoice_ids[0].subscription_id.payment_provider_mandate_id
         )
         if not create_sub_for_sale_order and not create_sub_for_invoice:
             return res
 
         payment_data = self._provider_get_payment_data()
-        if not self._must_create_subscription(payment_data):
+        if not self._must_create_mandate(payment_data):
             return res
 
         if create_sub_for_sale_order:
@@ -44,79 +45,62 @@ class PaymentTransaction(models.Model):
             invoice = self.invoice_ids[0]
             subscription = invoice.subscription_id
         # pylint: disable=assignment-from-none
-        subscription_for_payment_provider = (
-            self._create_subscription_for_payment_provider(subscription, payment_data)
+        mandate_for_payment_provider = self._get_mandate_reference_for_payment_provider(
+            payment_data
         )
-        payment_provider_subscription = self._create_payment_provider_subscription(
-            subscription_for_payment_provider
+        payment_provider_mandate = self._create_payment_provider_mandate(
+            mandate_for_payment_provider
         )
-        subscription.payment_provider_subscription_id = payment_provider_subscription.id
-        self.payment_provider_subscription_id = payment_provider_subscription.id
+        subscription.payment_provider_mandate_id = payment_provider_mandate.id
+        self.payment_provider_mandate_id = payment_provider_mandate.id
 
     def _provider_get_payment_data(self):
         self.ensure_one()
         return {}
 
-    def _must_create_subscription(self, data):
+    def _must_create_mandate(self, data):
         # This method needs to be extended in each provider module
         self.ensure_one()
         return False
 
-    def _create_subscription_for_payment_provider(self, subscription, payment_data):
-        # This method needs to be extended in each provider module.
-        # We expect to receive a data structure containing the payment data;
-        # We expect to return a data structure (depending on the payment provider implementation) describing the payment provider subscription
+    def _get_mandate_reference_for_payment_provider(self, payment):
+        # This method needs to be extended in each provider module
         self.ensure_one()
-        return None
+        return False
 
-    def _create_payment_provider_subscription(self, subscription):
-        # This method needs to be extended in each provider module.
-        # We expect to receive the payment provider subscription;
-        # This method processes them in order to create an Odoo payment.provider.subscription
-        self.ensure_one()
-        return self.env["payment.provider.subscription"]
+    def _create_payment_provider_mandate(self, mandate_reference):
+        # We expect to receive the payment provider mandate reference;
+        # This method processes them in order to create an Odoo payment.provider.mandate
+        return self.env["payment.provider.mandate"].create(
+            {"reference": mandate_reference, "provider_id": self.provider_id.id}
+        )
 
-    def _process_payment_provider_subscription_recurring_payment(
-        self, subscription, payment
-    ):
+    def _process_payment_provider_recurring_payment(self, subscription, invoice):
         # This method needs to be extended in each provider module.
         # This method should process payment transactions(recurring payments) for subscription invoices
-        payment_transaction = self._get_payment_transaction(subscription, payment)
-        done_payment_transaction = (
-            payment_transaction.update_state_recurring_payment_transaction(
-                subscription.payment_provider_subscription_id.provider_id, payment
-            )
+        payment_transaction = self._get_payment_transaction_by_mandate_id_for_invoice(
+            invoice.id,
+            subscription.payment_provider_mandate_id.id,
         )
-        if done_payment_transaction:
-            unpaid_invoices = subscription.invoice_ids.filtered(
-                lambda i: i.payment_state == "not_paid"
-            ).sorted("invoice_date")
-            unpaid_invoice = unpaid_invoices and unpaid_invoices[0]
-            if not unpaid_invoice:
-                subscription.generate_invoice()
-                unpaid_invoice = subscription.invoice_ids.filtered(
-                    lambda i: i.payment_state == "not_paid"
-                ).sorted("invoice_date")[0]
-            done_payment_transaction.invoice_ids = [(6, 0, unpaid_invoice.ids)]
-            done_payment_transaction._reconcile_after_done()
+        return payment_transaction
+
+    def create_provider_recurring_payment(self, subscription):
+        # This method needs to be extended in each provider module.
+        # This method should create recurring payments at the provider end
+        # We expect to receive a data structure containing the payment data(depending on the payment provider implementation)
         return None
 
-    def _get_payment_transaction(self, subscription, payment):
-        # This method needs to be extended in each provider module.
-        # This method should search for payment transaction if not found should create one with provided details
-        return self.env["payment.transaction"]
-
     def _prepare_vals_for_recurring_payment_transaction_for_subscription(
-        self, provider_reference, amount, subscription, currency
+        self, invoice, subscription
     ):
         # This method should return the vals for creating payment transactions
         vals = {
-            "amount": amount,
-            "currency_id": currency.id or subscription.currency_id.id,
-            "provider_reference": provider_reference,
+            "amount": invoice.amount_residual,
+            "currency_id": subscription.currency_id.id,
             "partner_id": subscription.partner_id.id,
-            "payment_provider_subscription_id": subscription.payment_provider_subscription_id.id,
-            "provider_id": subscription.payment_provider_subscription_id.provider_id.id,
+            "payment_provider_mandate_id": subscription.payment_provider_mandate_id.id,
+            "provider_id": subscription.payment_provider_mandate_id.provider_id.id,
+            "invoice_ids": [Command.set([invoice.id])],
         }
         return vals
 
@@ -126,14 +110,14 @@ class PaymentTransaction(models.Model):
         # This method should update the state of payment transactions and return done payment transactions if any
         return self.env["payment.transaction"]
 
-    def _get_payment_transaction_by_provider_reference(
-        self, provider_reference, provider_id
+    def _get_payment_transaction_by_mandate_id_for_invoice(
+        self, invoice_id, payment_provider_mandate_id
     ):
-        # This method should search for payment transaction with provider reference provided
+        # This method should search for payment transaction with payment_provider_mandate_id and invoice provided
         return self.search(
             [
-                ("provider_reference", "=", provider_reference),
-                ("provider_id", "=", provider_id),
+                ("payment_provider_mandate_id", "=", payment_provider_mandate_id),
+                ("invoice_ids", "in", invoice_id),
             ],
             limit=1,
         )

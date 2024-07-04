@@ -1,4 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-payment_provider_subscription_all,payment.provider.subscription.all,model_payment_provider_subscription,,1,0,0,0
-payment_provider_subscription_system,payment.provider.subscription.system,model_payment_provider_subscription,base.group_system,1,1,1,1
-payment_provider_subscription_user,payment.provider.subscription.user,model_payment_provider_subscription,base.group_user,1,1,1,0
+payment_provider_mandate_all,payment.provider.mandate.all,model_payment_provider_mandate,,1,0,0,0
+payment_provider_mandate_system,payment.provider.mandate.system,model_payment_provider_mandate,base.group_system,1,1,1,1
+payment_provider_mandate_user,payment.provider.mandate.user,model_payment_provider_mandate,base.group_user,1,1,1,0

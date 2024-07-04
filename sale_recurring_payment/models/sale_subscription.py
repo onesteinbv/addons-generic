@@ -13,17 +13,17 @@ _logger = logging.getLogger(__name__)
 class SaleSubscription(models.Model):
     _inherit = "sale.subscription"
 
-    payment_provider_subscription_id = fields.Many2one(
-        "payment.provider.subscription",
-        string="Payment Provider Subscription",
+    payment_provider_mandate_id = fields.Many2one(
+        "payment.provider.mandate",
+        string="Payment Provider Mandate",
         readonly=True,
     )
-    is_payment_provider_subscription_terminated = fields.Boolean()
+    is_payment_provider_mandate_terminated = fields.Boolean()
     last_date_invoiced = fields.Date(
-        help="Date when last invoice was generated for the subscription",
+        help="Date when last invoice was generated for the mandate",
     )
     paid_for_date = fields.Date(
-        help="The date until the subscription is paid for (invoice date + recurring rule)",
+        help="The date until the mandate is paid for (invoice date + recurring rule)",
         compute="_compute_paid_for_date",
         store=True,
     )
@@ -45,13 +45,13 @@ class SaleSubscription(models.Model):
             sub.paid_for_date = paid_for_date
 
     @api.model
-    def cron_update_payment_provider_subscriptions(self):
+    def cron_update_payment_provider_payments(self):
         date_ref = fields.Date.context_today(self)
         sale_subscriptions = self.search(
             [
                 ("template_id.invoicing_mode", "!=", "sale_and_invoice"),
-                ("payment_provider_subscription_id", "!=", False),
-                ("is_payment_provider_subscription_terminated", "=", False),
+                ("payment_provider_mandate_id", "!=", False),
+                ("is_payment_provider_mandate_terminated", "=", False),
                 "|",
                 ("recurring_next_date", "<=", date_ref),
                 ("last_date_invoiced", "=", date_ref),
@@ -65,33 +65,31 @@ class SaleSubscription(models.Model):
             ).with_company(company)
             for sale_subscription in sale_subscriptions_to_update:
                 try:
-                    sale_subscription.update_sale_subscription_payments_and_subscription_status(
-                        date_ref
-                    )
+                    sale_subscription.update_sale_subscription_payments(date_ref)
                 except Exception as exception:
                     sale_subscription._log_provider_exception(
                         exception, "updating subscription"
                     )
         return True
 
-    def update_sale_subscription_payments_and_subscription_status(self, date_ref):
+    def update_sale_subscription_payments(self, date_ref):
         # This method needs to be extended in each provider module.
-        # This method updates the payments, their status and subscription status for sale subscriptions
+        # This method updates the payments and their status for sale subscriptions
         return True
 
     @api.model
-    def cron_terminate_payment_provider_subscriptions(self):
+    def cron_terminate_payment_provider_mandates(self):
         date_ref = fields.Date.context_today(self)
         sale_subscriptions = self.search(
             [
-                ("payment_provider_subscription_id", "!=", False),
-                ("is_payment_provider_subscription_terminated", "=", False),
+                ("payment_provider_mandate_id", "!=", False),
+                ("is_payment_provider_mandate_terminated", "=", False),
                 ("date", "<=", date_ref),
             ]
         )
         for sale_subscription in sale_subscriptions:
             try:
-                sale_subscription.terminate_payment_provider_subscription()
+                sale_subscription.terminate_payment_provider_mandate()
             except Exception as exception:
                 sale_subscription._log_provider_exception(
                     exception, "terminating subscription"
@@ -109,19 +107,19 @@ class SaleSubscription(models.Model):
                 if (
                     record.stage_id
                     and record.stage_id.type == "post"
-                    and record.payment_provider_subscription_id
-                    and record.is_payment_provider_subscription_terminated
+                    and record.payment_provider_mandate_id
+                    and record.is_payment_provider_mandate_terminated
                 ):
                     raise UserError(
                         _(
-                            "Terminated subscriptions with payment provider subscription also terminated cannot be "
+                            "Terminated subscriptions with payment provider mandate also terminated cannot be "
                             "updated. Please generate a new subscription"
                         )
                     )
         if "sale_subscription_line_ids" in values:
             # Don't allow changes on in-progress subs because atm it will not be reflected in the payment provider (e.g. Mollie)
             if self.filtered(
-                lambda sub: sub.payment_provider_subscription_id and sub.in_progress
+                lambda sub: sub.payment_provider_mandate_id and sub.in_progress
             ):
                 raise UserError(
                     _(
@@ -135,16 +133,16 @@ class SaleSubscription(models.Model):
                 if (
                     record.stage_id
                     and record.stage_id.type == "post"
-                    and record.payment_provider_subscription_id
-                    and not record.is_payment_provider_subscription_terminated
+                    and record.payment_provider_mandate_id
+                    and not record.is_payment_provider_mandate_terminated
                 ):
-                    record.terminate_payment_provider_subscription()
+                    record.terminate_payment_provider_mandate()
         return res
 
     @api.model
-    def terminate_payment_provider_subscription(self):
+    def terminate_payment_provider_mandate(self):
         # This method cancels/terminates the subscription
-        # This method needs to be extended in each provider module to end the subscriptions on provider end.
+        # This method needs to be extended in each provider module to end the mandates on provider end.
         vals = {"date": datetime.today(), "recurring_next_date": False}
         stage = self.stage_id
         closed_stage = self.env["sale.subscription.stage"].search(
@@ -160,7 +158,7 @@ class SaleSubscription(models.Model):
         _logger.warning(
             _("Payment Provider %(name)s: Error " "while %(process)s"),
             dict(
-                name=self.payment_provider_subscription_id.provider_id.name,
+                name=self.payment_provider_mandate_id.provider_id.name,
                 process=process,
             ),
             exc_info=True,
@@ -171,7 +169,7 @@ class SaleSubscription(models.Model):
                 " while {process} - {exception}. See server logs for "
                 "more details."
             ).format(
-                name=self.payment_provider_subscription_id.provider_id.name,
+                name=self.payment_provider_mandate_id.provider_id.name,
                 process=process,
                 exception=escape(str(exception)) or _("N/A"),
             ),
