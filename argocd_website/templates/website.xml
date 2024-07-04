@@ -1,5 +1,71 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <template id="order_progress_bar">
+        <section class="s_process_steps pt0 pb0 s_process_steps_connector_line" data-vcss="001">
+            <div class="container">
+                <div class="row g-0">
+                    <div class="s_process_step col-lg-4">
+                        <svg class="s_process_step_connector" viewBox="0 0 350 80" preserveAspectRatio="none"
+                             style="left: calc(50% + 40px); height: 12px; width: calc(100% - 80px);">
+                            <path d="M 0 40 L 350 40" vector-effect="non-scaling-stroke" marker-end="" />
+                        </svg>
+                        <div class="s_process_step_icon mt16 mb4">
+                            <i t-attf-class="fa fa-shopping-basket mx-auto rounded-circle #{current_step == 'configure' and 'bg-primary' or 'bg-light'}"
+                               style="width: 2.5rem; height: 2.5rem; line-height: 2.5rem" />
+                        </div>
+                        <div class="s_process_step_content">
+                            <span t-attf-class="o_default_snippet_text #{current_step == 'configure' and 'font-weight-bold' or 'text-muted'}">Configure</span>
+                        </div>
+                    </div>
+                    <div class="s_process_step col-lg-4">
+                        <svg class="s_process_step_connector" viewBox="0 0 350 80" preserveAspectRatio="none"
+                             style="left: calc(50% + 40px); height: 12px; width: calc(100% - 80px);">
+                            <path d="M 0 40 L 350 40" vector-effect="non-scaling-stroke" marker-end="" />
+                        </svg>
+                        <div class="s_process_step_icon mt16 mb4">
+                            <i t-attf-class="fa fa-unlock-alt mx-auto rounded-circle #{current_step == 'signup' and 'bg-dark' or 'bg-light'}"
+                               style="width: 2.5rem; height: 2.5rem; line-height: 2.5rem" />
+                        </div>
+                        <div class="s_process_step_content">
+                            <span t-attf-class="o_default_snippet_text #{current_step == 'signup' and 'fw-bold' or 'text-muted'}">Sign up</span>
+                        </div>
+                    </div>
+                    <div class="s_process_step col-lg-4">
+                        <svg class="s_process_step_connector" viewBox="0 0 242.5 80" preserveAspectRatio="none"
+                             style="left: calc(50% + 40px); height: 12px; width: calc(100% - 80px);">
+                            <path d="M 0 40 L 242.5 40" vector-effect="non-scaling-stroke" marker-end="" />
+                        </svg>
+                        <div class="s_process_step_icon mt16 mb4">
+                            <i class="fa fa-paypal mx-auto rounded-circle #{current_step == 'payment' and 'bg-primary' or 'bg-light'}"
+                               style="width: 2.5rem; height: 2.5rem; line-height: 2.5rem" />
+                        </div>
+                        <div class="s_process_step_content">
+                            <span t-attf-class="o_default_snippet_text #{current_step == 'payment' and 'font-weight-bold' or 'text-muted'}">Payment</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="order">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <t t-call="argocd_website.order_progress_bar" />
+                <section class="container mt32 mb32">
+                    <h1><t t-esc="product_tmpl.name" /></h1>
+                    <t t-as="attribute_line" t-foreach="product_tmpl.valid_product_template_attribute_line_ids">
+
+                    </t>
+                    <t t-as="optional_product" t-foreach="product_tmpl.optional_product_ids">
+
+                    </t>
+                </section>
+            </div>
+        </t>
+    </template>
+
     <template id="error">
         <div class="text-danger form-text">
             <t t-esc="error['message']"></t>

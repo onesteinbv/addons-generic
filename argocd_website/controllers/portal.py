@@ -28,7 +28,7 @@ class PortalController(CustomerPortal):
         auth="user",
         website=True,
     )
-    def portal_my_contracts(self, page=1, sortby=None, **kw):
+    def portal_my_applications(self, page=1, sortby=None, **kw):
         values = self._prepare_portal_layout_values()
         searchbar_sortings = {
             "name": {"label": _("Name"), "order": "name desc"},

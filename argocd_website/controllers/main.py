@@ -42,8 +42,31 @@ class MainController(Controller):
             post["email"],
         ):
             return {"subject": "email", "message": _("Invalid email address.")}
-
         return False
+
+    @route(
+        [
+            """/application/order/<model("product.product","[('application_template_id', '!=', False), ('sale_ok', '=', True)]"):product>"""
+        ],
+        type="http",
+        auth="public",
+        website=True,
+        methods=["GET"],
+        sitemap=True,
+    )
+    def order(self, product):
+        if not product.application_template_id or not product.sale_ok:
+            return request.not_found()
+        product_tmpl = product.product_tmpl_id
+
+        return request.render(
+            "argocd_website.order",
+            {
+                "product": product,
+                "product_tmpl": product_tmpl,
+                "current_step": "configure",
+            },
+        )
 
     @route(
         [
