@@ -11,7 +11,10 @@ class Application(models.Model):
         readonly=False,
     )
     subscription_id = fields.Many2one(
-        comodel_name="sale.subscription", compute="_compute_subscription_id", store=True
+        comodel_name="sale.subscription",
+        compute="_compute_subscription_id",
+        store=True,
+        readonly=False,
     )
     subscription_line_id = fields.Many2one(comodel_name="sale.subscription.line")
 

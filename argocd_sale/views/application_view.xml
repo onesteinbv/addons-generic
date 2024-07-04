@@ -9,15 +9,6 @@
                 <field name="subscription_id" options="{'no_create': True}" />
                 <field name="subscription_line_id" options="{'no_create': True}" />
             </xpath>
-            <xpath expr="//header" position="inside">
-                <button
-                    name="send_deployment_notification"
-                    type="object"
-                    class="btn-secondary"
-                    string="Send Deployment Notification Mail"
-                    confirm="Are you want to send a deployment notification?"
-                />  <!-- Can be nice if you still want to send an email -->
-            </xpath>
         </field>
     </record>
 
