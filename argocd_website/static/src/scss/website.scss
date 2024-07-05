@@ -1,0 +1,13 @@
+.argocd_sale_order_configure {
+     > .row {
+        border: $border-width solid $border-color;
+        &:not(:last-child) {
+            border-bottom: 0;
+        }
+
+        &:last-child {
+            border-bottom: $border-width solid $border-color;
+        }
+    }
+
+}

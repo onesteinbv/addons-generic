@@ -43,7 +43,6 @@
                             <span t-attf-class="o_default_snippet_text #{current_step == 'payment' and 'font-weight-bold' or 'text-muted'}">Payment</span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -53,14 +52,39 @@
         <t t-call="website.layout">
             <div id="wrap">
                 <t t-call="argocd_website.order_progress_bar" />
+                <div class="oe_structure"/>
                 <section class="container mt32 mb32">
-                    <h1><t t-esc="product_tmpl.name" /></h1>
-                    <t t-as="attribute_line" t-foreach="product_tmpl.valid_product_template_attribute_line_ids">
+                    <div class="row">
+                        <div class="col-md-8 col-12 argocd_sale_order_configure">
+                            <div class="row align-items-center">
+                                <div class="col-2 pt-3 pb-3">
+                                    <span
+                                        t-field="product_tmpl.image_128"
+                                        t-options="{'widget': 'image', 'itemprop': 'image', 'class': 'h-100'}"
+                                    />
+                                </div>
+                                <div class="col-10 pt-3 pb-3">
+                                    <div>
+                                        <strong class="d-block" t-field="product_tmpl.name" />
+                                        <span t-field="product_tmpl.description_sale" />
+                                    </div>
+                                </div>
+                            </div>
+                            <t t-as="attribute_line" t-foreach="product_tmpl.valid_product_template_attribute_line_ids">
+                                <div class="row">
+                                    <div class="col">
+                                        <span>hello</span>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-as="optional_product" t-foreach="product_tmpl.optional_product_ids">
 
-                    </t>
-                    <t t-as="optional_product" t-foreach="product_tmpl.optional_product_ids">
-
-                    </t>
+                            </t>
+                        </div>
+                        <div class="col-4">
+                            Result here
+                        </div>
+                    </div>
                 </section>
             </div>
         </t>

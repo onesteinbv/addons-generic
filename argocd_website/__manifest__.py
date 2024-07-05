@@ -28,6 +28,7 @@
         "web.assets_frontend": [
             "argocd_website/static/src/js/portal.js",
             "argocd_website/static/src/scss/portal.scss",
+            "argocd_website/static/src/scss/website.scss",
         ]
     },
     "external_dependencies": {"python": ["yaml", "requests", "dnspython==2.6.1"]},
