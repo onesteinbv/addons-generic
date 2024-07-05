@@ -62,8 +62,8 @@ class MainController(Controller):
         return request.render(
             "argocd_website.order",
             {
-                "product": product,
-                "product_tmpl": product_tmpl,
+                "main_product": product,
+                "main_product_tmpl": product_tmpl,
                 "current_step": "configure",
             },
         )

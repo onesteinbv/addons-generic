@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="order_progress_bar">
-        <section class="s_process_steps pt0 pb0 s_process_steps_connector_line" data-vcss="001">
+        <section class="s_process_steps pt16 pb0 s_process_steps_connector_line" data-vcss="001">
             <div class="container">
                 <div class="row g-0">
                     <div class="s_process_step col-lg-4">
@@ -48,6 +48,43 @@
         </section>
     </template>
 
+    <template id="order_attribute_display">
+        <select class="form-select">
+            <option>blablabla</option>
+        </select>
+    </template>
+
+
+    <template id="order_configure_product">
+        <div class="argocd_sale_configure_product mb-4">
+            <div class="row align-items-center">
+                <div class="col-2 pt-3 pb-3">
+                    <span
+                        t-field="product_tmpl.image_128"
+                        t-options="{'widget': 'image', 'itemprop': 'image', 'class': 'h-100'}"
+                    />
+                </div>
+                <div class="col-9 pt-3 pb-3">
+                    <div>
+                        <strong class="d-block" t-field="product_tmpl.name" />
+                        <span t-field="product_tmpl.description_sale" />
+                    </div>
+                </div>
+                <div class="col-1 align-self-start pt-3 pb-3 d-flex justify-content-end" t-if="product_tmpl != main_product_tmpl">
+                    <input type="checkbox" class="form-check-input" />
+                </div>
+            </div>
+            <t t-as="attribute_line" t-foreach="product_tmpl.valid_product_template_attribute_line_ids">
+                <div class="row">
+                    <div class="col pb-3 pt-3">
+                        <label t-field="attribute_line.attribute_id.name" class="d-block form-label" />
+                        <t t-call="argocd_website.order_attribute_display" />
+                    </div>
+                </div>
+            </t>
+        </div>
+    </template>
+
     <template id="order">
         <t t-call="website.layout">
             <div id="wrap">
@@ -55,34 +92,20 @@
                 <div class="oe_structure"/>
                 <section class="container mt32 mb32">
                     <div class="row">
-                        <div class="col-md-8 col-12 argocd_sale_order_configure">
-                            <div class="row align-items-center">
-                                <div class="col-2 pt-3 pb-3">
-                                    <span
-                                        t-field="product_tmpl.image_128"
-                                        t-options="{'widget': 'image', 'itemprop': 'image', 'class': 'h-100'}"
-                                    />
-                                </div>
-                                <div class="col-10 pt-3 pb-3">
-                                    <div>
-                                        <strong class="d-block" t-field="product_tmpl.name" />
-                                        <span t-field="product_tmpl.description_sale" />
-                                    </div>
-                                </div>
-                            </div>
-                            <t t-as="attribute_line" t-foreach="product_tmpl.valid_product_template_attribute_line_ids">
-                                <div class="row">
-                                    <div class="col">
-                                        <span>hello</span>
-                                    </div>
-                                </div>
-                            </t>
-                            <t t-as="optional_product" t-foreach="product_tmpl.optional_product_ids">
-
+                        <div class="col-md-8 col-12">
+                            <t t-set="product_tmpl" t-value="main_product_tmpl"/>
+                            <div t-call="argocd_website.order_configure_product" />
+                            <t t-as="product_tmpl" t-foreach="product_tmpl.optional_product_ids">
+                                <div t-call="argocd_website.order_configure_product" />
                             </t>
                         </div>
                         <div class="col-4">
-                            Result here
+                            <div class="row g-0">
+                                Here comes order lines
+                            </div>
+                            <div class="row g-0 d-grid">
+                                <button class="btn btn-primary">Go to payment</button>
+                            </div>
                         </div>
                     </div>
                 </section>
