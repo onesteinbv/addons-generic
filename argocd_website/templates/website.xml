@@ -50,7 +50,14 @@
 
     <template id="order_attribute_display">
         <select class="form-select">
-            <option>blablabla</option>
+            <t t-foreach="attribute_line.product_template_value_ids" t-as="value">
+                <option t-att-value="value.id">
+                    <t t-esc="value.name" />
+                    <t t-if="value.price_extra">
+                        (+ <t t-esc="value.price_extra" t-options="{'widget': 'monetary', 'display_currency': product_tmpl.currency_id}" />)
+                    </t>
+                </option>
+            </t>
         </select>
     </template>
 
@@ -66,8 +73,11 @@
                 </div>
                 <div class="col-9 pt-3 pb-3">
                     <div>
-                        <strong class="d-block" t-field="product_tmpl.name" />
-                        <span t-field="product_tmpl.description_sale" />
+                        <div>
+                            <strong t-field="product_tmpl.name" />
+                            <small class="d-block" t-field="product_tmpl.description_sale" />
+                        </div>
+                        <small t-field="product_tmpl.list_price" t-options="{'widget': 'monetary', 'display_currency': product_tmpl.currency_id}" />
                     </div>
                 </div>
                 <div class="col-1 align-self-start pt-3 pb-3 d-flex justify-content-end" t-if="product_tmpl != main_product_tmpl">
