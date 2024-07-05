@@ -8,7 +8,7 @@ class Website(models.Model):
     @api.returns("sale.subscription")
     def get_current_subscription(self, product_tmpl=False):
         """
-        Get current draft subscription. We can have per 'main' product a different cart.
+        Get current draft subscription. Start a new when a different "main" product is selected.
         """
         self.ensure_one()
         subscription_sudo = self.env["sale.subscription"].sudo()
