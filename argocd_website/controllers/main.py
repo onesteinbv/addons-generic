@@ -46,7 +46,8 @@ class MainController(Controller):
 
     @route(
         [
-            """/application/order/<model("product.product","[('application_template_id', '!=', False), ('sale_ok', '=', True)]"):product>"""
+            """/application/order/<model("product.product","[('application_template_id', '!=', False), ('sale_ok', '=', True)]"):product>""",
+            """/application/order""",
         ],
         type="http",
         auth="public",
@@ -54,16 +55,25 @@ class MainController(Controller):
         methods=["GET"],
         sitemap=True,
     )
-    def order(self, product):
-        if not product.application_template_id or not product.sale_ok:
-            return request.not_found()
-        product_tmpl = product.product_tmpl_id
+    def order(self, product=False):
+        main_product_tmpl = request.env["product.template"]
+        if product:
+            if not product.application_template_id or not product.sale_ok:
+                return request.not_found()
+            main_product_tmpl = product.product_tmpl_id.sudo()
+            optional_products = main_product_tmpl.optional_product_ids.filtered_domain(
+                [("application_template_id", "!=", False), ("sale_ok", "=", True)]
+            )
+        else:
+            optional_products = request.env["product.template"].search(
+                [("application_template_id", "!=", False), ("sale_ok", "=", True)]
+            )
 
         return request.render(
             "argocd_website.order",
             {
-                "main_product": product.sudo(),
-                "main_product_tmpl": product_tmpl.sudo(),
+                "main_product_tmpl": main_product_tmpl,
+                "optional_products": optional_products,
                 "current_step": "configure",
             },
         )

@@ -104,14 +104,19 @@
                     <div class="row">
                         <div class="col-md-8 col-12">
                             <t t-set="product_tmpl" t-value="main_product_tmpl"/>
-                            <div t-call="argocd_website.order_configure_product" />
-                            <t t-as="product_tmpl" t-foreach="product_tmpl.optional_product_ids">
+                            <div t-call="argocd_website.order_configure_product" t-if="main_product_tmpl" />
+                            <t t-as="product_tmpl" t-foreach="optional_products">
                                 <div t-call="argocd_website.order_configure_product" />
                             </t>
                         </div>
                         <div class="col-4">
                             <div class="row g-0">
-                                Here comes order lines
+                                <h3>Your Order</h3>
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex align-items-center">
+
+                                    </li>
+                                </ul>
                             </div>
                             <div class="row g-0 d-grid">
                                 <button class="btn btn-primary">Go to payment</button>
