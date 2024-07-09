@@ -68,12 +68,26 @@ class MainController(Controller):
             optional_products = request.env["product.template"].search(
                 [("application_template_id", "!=", False), ("sale_ok", "=", True)]
             )
+        website = request.website.sudo()
+        if "last_main_product_tmpl_id" in request.session:
+            if (
+                request.session["last_main_product_tmpl_id"] != main_product_tmpl
+                and main_product_tmpl.id
+            ):
+                website.reset_subscription()
+        subscription = website.ensure_subscription()
+        if not subscription.sale_subscription_line_ids:
+            website.update_subscription_product(product.id)
+        request.session["last_main_product_tmpl_id"] = (
+            main_product_tmpl and main_product_tmpl.id
+        )
 
         return request.render(
             "argocd_website.order",
             {
                 "main_product_tmpl": main_product_tmpl,
                 "optional_products": optional_products,
+                "subscription": subscription,
                 "current_step": "configure",
             },
         )
