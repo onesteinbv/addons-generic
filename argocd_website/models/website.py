@@ -66,6 +66,7 @@ class Website(models.Model):
             request.session["subscription_id"] = subscription.id
         else:
             subscription.partner_id = partner
-            subscription.onchange_partner_id()
+        subscription.onchange_partner_id()
+        subscription.onchange_partner_id_fpos()
 
         return subscription
