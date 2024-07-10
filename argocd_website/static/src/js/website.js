@@ -2,6 +2,7 @@ odoo.define("argocd_website.website", function (require) {
     "use strict";
 
     var publicWidget = require("web.public.widget");
+    var { qweb } = require("web.core");
 
     publicWidget.registry.OrderAppProductConfigurator = publicWidget.Widget.extend({
         selector: ".js_order_app_product",
@@ -39,6 +40,40 @@ odoo.define("argocd_website.website", function (require) {
             }).then(function () {
                 // To be implemented
             });
+        }
+    });
+
+    publicWidget.registry.OrderAppDetails = publicWidget.Widget.extend({
+        selector: ".js_order_app_details",
+
+        start: function () {
+            this._super();
+            this.$proceedBtn = this.$el.find(".js_order_app_proceed");
+            this.$list = this.$el.find(".js_order_app_lines");
+            this.$loader = this.$el.find(".spinner-border");
+
+            this.refreshSubscription();
+        },
+
+        refreshSubscription: function() {
+            this.$loader.removeClass("d-none");
+            this.$proceedBtn.addClass("d-none");
+
+            this._rpc({
+                route: "/application/ensure_subscription"
+            }).then(function (data) {
+                console.log(data);
+                this.$loader.addClass("d-none");
+                this.$proceedBtn.removeClass("d-none");
+
+                var details = qweb.render(
+                    "argo_website.List", {
+                        subscription: {}
+                    }
+                );
+                this.$list.html(details);
+            }.bind(this));
+
         }
     });
 

@@ -44,6 +44,11 @@ class MainController(Controller):
             return {"subject": "email", "message": _("Invalid email address.")}
         return False
 
+    @route("/application/ensure_subscription", type="json", auth="public", website=True)
+    def ensure_subscription(self):
+        website = request.website.sudo()
+        return website.ensure_subscription()
+
     @route(
         [
             """/application/order/<model("product.product","[('application_template_id', '!=', False), ('sale_ok', '=', True)]"):product>""",
@@ -70,19 +75,21 @@ class MainController(Controller):
             )
         website = request.website.sudo()
         if "last_main_product_tmpl_id" in request.session:
+            last_main_product_tmpl_id = request.session["last_main_product_tmpl_id"]
             if (
-                request.session["last_main_product_tmpl_id"] != main_product_tmpl
-                and main_product_tmpl.id
+                last_main_product_tmpl_id
+                and not main_product_tmpl
+                or last_main_product_tmpl_id != main_product_tmpl.id
             ):
                 website.reset_subscription()
         subscription = website.ensure_subscription()
-        if not subscription.sale_subscription_line_ids:
+        if main_product_tmpl and not subscription.sale_subscription_line_ids:
             website.update_subscription_product(
-                product.product_tmpl_id.id,
+                main_product_tmpl.id,
                 product.product_template_variant_value_ids.ids,
             )
         request.session["last_main_product_tmpl_id"] = (
-            main_product_tmpl and main_product_tmpl.id
+            main_product_tmpl and main_product_tmpl.id or False
         )
 
         return request.render(

@@ -95,6 +95,26 @@
         </div>
     </template>
 
+    <template id="order_details">
+        <div class="js_order_app_details">
+            <div class="row">
+                <h3>Your Order</h3>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="spinner-border text-secondary mb-2"  role="status" />
+                </div>
+            </div>
+            <div class="row js_order_app_list">
+            </div>
+            <div class="row">
+                <div class="col-12 d-grid">
+                    <button class="btn btn-primary js_order_app_proceed d-none">Go to payment</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
     <template id="order">
         <t t-call="website.layout">
             <div id="wrap">
@@ -110,17 +130,7 @@
                             </t>
                         </div>
                         <div class="col-4">
-                            <div class="row g-0">
-                                <h3>Your Order</h3>
-                                <ul class="list-group">
-                                    <li class="list-group-item d-flex align-items-center">
-
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="row g-0 d-grid">
-                                <button class="btn btn-primary">Go to payment</button>
-                            </div>
+                            <t t-call="argocd_website.order_details" />
                         </div>
                     </div>
                 </section>
