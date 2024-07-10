@@ -44,10 +44,35 @@ class MainController(Controller):
             return {"subject": "email", "message": _("Invalid email address.")}
         return False
 
-    @route("/application/ensure_subscription", type="json", auth="public", website=True)
-    def ensure_subscription(self):
+    @route(
+        "/application/get_subscription_details",
+        type="json",
+        auth="public",
+        website=True,
+    )
+    def get_subscription_details(self):
         website = request.website.sudo()
-        return website.ensure_subscription()
+        sub = website.ensure_subscription()
+        return {
+            "currency_id": sub.currency_id.id,
+            "amount_tax": sub.amount_tax,
+            "amount_total": sub.amount_total,
+            "lines": [
+                {
+                    "name": line.product_id.product_tmpl_id.name,
+                    "price_base": line.product_id.product_tmpl_id.list_price,
+                    "variant_values": [
+                        {
+                            "name": variant.attribute_id.name,
+                            "value": variant.name,
+                            "price_extra": variant.price_extra,
+                        }
+                        for variant in line.product_id.product_template_variant_value_ids
+                    ],
+                }
+                for line in sub.sale_subscription_line_ids
+            ],
+        }
 
     @route(
         [

@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <template>
     <t t-name="argo_website.List">
-        <ul class="list-group">
-            <li class="list-group-item d-flex align-items-center">
-
+        <ul class="list-group mb-2">
+            <li class="list-group-item d-grid"
+                t-foreach="sub.lines" t-as="line">
+                <div class="row">
+                    <div class="col-11" t-esc="line.name" />
+                    <div class="col-1" t-esc="line.price_base" />
+                </div>
+                <div class="row" t-if="line.variant_values" t-as="variant_value" t-foreach="line.variant_values">
+                    <div class="col-11 small"
+                         t-esc="variant_value.name" />
+                    <div class="col-1 small"
+                         t-if="variant_value.price_extra"
+                         t-esc="variant_value.price_extra"
+                         t-options="{'widget': 'monetary', 'display_currency': sub.currency_id}"
+                    />
+                </div>
             </li>
         </ul>
     </t>

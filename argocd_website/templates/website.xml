@@ -105,7 +105,9 @@
                     <div class="spinner-border text-secondary mb-2"  role="status" />
                 </div>
             </div>
-            <div class="row js_order_app_list">
+            <div class="row">
+                <div class="col-12 js_order_app_list">
+                </div>
             </div>
             <div class="row">
                 <div class="col-12 d-grid">

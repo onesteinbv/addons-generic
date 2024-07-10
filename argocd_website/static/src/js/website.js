@@ -49,7 +49,7 @@ odoo.define("argocd_website.website", function (require) {
         start: function () {
             this._super();
             this.$proceedBtn = this.$el.find(".js_order_app_proceed");
-            this.$list = this.$el.find(".js_order_app_lines");
+            this.$list = this.$el.find(".js_order_app_list");
             this.$loader = this.$el.find(".spinner-border");
 
             this.refreshSubscription();
@@ -58,20 +58,22 @@ odoo.define("argocd_website.website", function (require) {
         refreshSubscription: function() {
             this.$loader.removeClass("d-none");
             this.$proceedBtn.addClass("d-none");
+            this.$list.addClass("d-none");
 
             this._rpc({
-                route: "/application/ensure_subscription"
+                route: "/application/get_subscription_details"
             }).then(function (data) {
-                console.log(data);
-                this.$loader.addClass("d-none");
-                this.$proceedBtn.removeClass("d-none");
 
                 var details = qweb.render(
                     "argo_website.List", {
-                        subscription: {}
+                        sub: data
                     }
                 );
                 this.$list.html(details);
+
+                this.$loader.addClass("d-none");
+                this.$proceedBtn.removeClass("d-none");
+                this.$list.removeClass("d-none");
             }.bind(this));
 
         }
