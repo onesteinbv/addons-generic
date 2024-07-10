@@ -1,4 +1,5 @@
-from odoo import Command, api, models
+from odoo import Command, _, api, models
+from odoo.exceptions import UserError
 from odoo.http import request
 
 
@@ -9,12 +10,23 @@ class Website(models.Model):
         subscription = self.ensure_subscription()
         subscription.sale_subscription_line_ids = [Command.clear()]
 
-    def update_subscription_product(self, product_id):
-        product = self.env["product.product"].browse(product_id)
+    def update_subscription_product(self, product_template_id, combination):
+        product_template = self.env["product.template"].browse(product_template_id)
+
+        if not product_template.application_template_id or not product_template.sale_ok:
+            raise UserError(_("Product not available"))
+
+        combination = self.env["product.template.attribute.value"].browse(combination)
+        combination_possible = product_template._is_combination_possible(combination)
+        if not combination_possible:
+            raise UserError(_("Combination is not possible"))
+        product = product_template._get_variant_for_combination(combination)
+
         subscription = self.ensure_subscription()
         existing_line = subscription.sale_subscription_line_ids.filtered(
-            lambda l: l.product_id.product_tmpl_id == product.product_tmpl_id
+            lambda l: l.product_id.product_tmpl_id == product_template
         )
+
         if not existing_line:
             subscription.sale_subscription_line_ids = [
                 Command.create({"product_id": product.id})

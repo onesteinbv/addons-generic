@@ -49,7 +49,7 @@
     </template>
 
     <template id="order_attribute_display">
-        <select class="form-select">
+        <select class="form-select js_order_app_attribute">
             <t t-foreach="attribute_line.product_template_value_ids" t-as="value">
                 <option t-att-value="value.id">
                     <t t-esc="value.name" />
@@ -63,7 +63,7 @@
 
 
     <template id="order_configure_product">
-        <div class="argocd_sale_configure_product mb-4">
+        <div class="js_order_app_product mb-4" t-att-data-id="product_tmpl.id">
             <div class="row align-items-center">
                 <div class="col-2 pt-3 pb-3">
                     <span
@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="col-1 align-self-start pt-3 pb-3 d-flex justify-content-end" t-if="product_tmpl != main_product_tmpl">
-                    <input type="checkbox" class="form-check-input" />
+                    <input type="checkbox" class="form-check-input js_order_app_toggle" />
                 </div>
             </div>
             <t t-as="attribute_line" t-foreach="product_tmpl.valid_product_template_attribute_line_ids">

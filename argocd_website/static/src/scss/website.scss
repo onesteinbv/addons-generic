@@ -1,4 +1,4 @@
-.argocd_sale_configure_product {
+.js_order_app_product {
      > .row {
         border: $border-width solid $border-color;
         &:not(:last-child) {
@@ -9,5 +9,4 @@
             border-bottom: $border-width solid $border-color;
         }
     }
-
 }

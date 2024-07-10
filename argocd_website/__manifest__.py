@@ -27,6 +27,7 @@
     "assets": {
         "web.assets_frontend": [
             "argocd_website/static/src/js/portal.js",
+            "argocd_website/static/src/js/website.js",
             "argocd_website/static/src/scss/portal.scss",
             "argocd_website/static/src/scss/website.scss",
         ]

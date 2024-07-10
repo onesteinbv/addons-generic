@@ -77,7 +77,10 @@ class MainController(Controller):
                 website.reset_subscription()
         subscription = website.ensure_subscription()
         if not subscription.sale_subscription_line_ids:
-            website.update_subscription_product(product.id)
+            website.update_subscription_product(
+                product.product_tmpl_id.id,
+                product.product_template_variant_value_ids.ids,
+            )
         request.session["last_main_product_tmpl_id"] = (
             main_product_tmpl and main_product_tmpl.id
         )
