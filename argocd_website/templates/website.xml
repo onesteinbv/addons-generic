@@ -49,9 +49,14 @@
     </template>
 
     <template id="order_attribute_display">
+
+        <!-- TODO: Implement display types (product.attribute.display_type) -->
         <select class="form-select js_order_app_attribute">
+            <t t-set="current_values"
+               t-value="subscription.sale_subscription_line_ids.filtered(lambda l: l.product_id.product_tmpl_id == product_tmpl).mapped('product_id.product_template_variant_value_ids').ids"
+            />
             <t t-foreach="attribute_line.product_template_value_ids" t-as="value">
-                <option t-att-value="value.id">
+                <option t-att-value="value.id" t-att="['selected' if value.id in current_values else 'unselected', '']">
                     <t t-esc="value.name" />
                     <t t-if="value.price_extra">
                         (+ <t t-esc="value.price_extra" t-options="{'widget': 'monetary', 'display_currency': product_tmpl.currency_id}" />)
@@ -64,7 +69,11 @@
 
     <template id="order_configure_product">
         <div class="js_order_app_product mb-4" t-att-data-id="product_tmpl.id">
-            <div class="row align-items-center js_order_app_product_header">
+            <t t-set="product_tmpl_in_sub" t-value="product_tmpl in subscription.sale_subscription_line_ids.mapped('product_id.product_tmpl_id')" />
+
+            <div t-attf-class="
+                row align-items-center js_order_app_product_header #{'bg-light' if product_tmpl_in_sub else ''}
+            ">
                 <div class="col-2 pt-3 pb-3">
                     <span
                         t-field="product_tmpl.image_128"
@@ -81,7 +90,8 @@
                     </div>
                 </div>
                 <div class="col-1 align-self-start pt-3 pb-3 d-flex justify-content-end" t-if="product_tmpl != main_product_tmpl">
-                    <input type="checkbox" class="form-check-input js_order_app_toggle" />
+                    <input type="checkbox" class="form-check-input js_order_app_toggle" t-if="product_tmpl_in_sub" checked="checked" />
+                    <input type="checkbox" class="form-check-input js_order_app_toggle" t-else="" />
                 </div>
             </div>
             <t t-as="attribute_line" t-foreach="product_tmpl.valid_product_template_attribute_line_ids">
