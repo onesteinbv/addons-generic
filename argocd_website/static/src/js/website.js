@@ -63,7 +63,6 @@ odoo.define("argocd_website.website", function (require) {
             this._rpc({
                 route: "/application/get_subscription_details"
             }).then(function (data) {
-
                 var details = qweb.render(
                     "argo_website.List", {
                         sub: data

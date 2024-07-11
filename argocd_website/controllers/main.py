@@ -53,19 +53,28 @@ class MainController(Controller):
     def get_subscription_details(self):
         website = request.website.sudo()
         sub = website.ensure_subscription()
+        currency = sub.currency_id
         return {
             "currency_id": sub.currency_id.id,
             "amount_tax": sub.amount_tax,
             "amount_total": sub.amount_total,
+            "amount_tax_formatted": currency.format(sub.amount_tax),
+            "amount_total_formatted": currency.format(sub.amount_total),
             "lines": [
                 {
                     "name": line.product_id.product_tmpl_id.name,
                     "price_base": line.product_id.product_tmpl_id.list_price,
+                    "price_base_formatted": currency.format(
+                        line.product_id.product_tmpl_id.list_price
+                    ),
                     "variant_values": [
                         {
                             "name": variant.attribute_id.name,
                             "value": variant.name,
                             "price_extra": variant.price_extra,
+                            "price_extra_formatted": currency.format(
+                                variant.price_extra
+                            ),
                         }
                         for variant in line.product_id.product_template_variant_value_ids
                     ],
