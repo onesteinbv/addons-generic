@@ -158,51 +158,6 @@ class MainController(Controller):
 
     @route(
         [
-            """/application/additional/<model("product.product","[('application_template_id.active', '=', True), ('application_template_id', '!=', False)]"):product>"""
-        ],
-        type="http",
-        auth="public",
-        website=True,
-        methods=["GET"],
-        sitemap=True,
-    )
-    def additional(self, product):
-        if (
-            not product.application_template_id
-            or not product.application_template_id.active
-            or not product.sale_ok
-        ):
-            return request.not_found()
-
-        additional_products = (
-            request.env["product.product"]
-            .search(
-                [
-                    ("application_tag_ids", "!=", False),
-                    ("sale_ok", "=", True),
-                    "|",
-                    ("application_filter_ids", "=", False),
-                    (
-                        "application_filter_ids",
-                        "in",
-                        product.application_template_id.ids,
-                    ),
-                ]
-            )
-            .sudo()
-        )
-        if not additional_products:
-            return request.redirect("/application/signup/%s" % product.id)
-        return request.render(
-            "argocd_website.additional",
-            {
-                "product": product,
-                "additional_products": additional_products,
-            },
-        )
-
-    @route(
-        [
             """/application/signup/<model("product.product","[('application_template_id.active', '=', True), ('application_template_id', '!=', False)]"):product>"""
         ],
         type="http",
