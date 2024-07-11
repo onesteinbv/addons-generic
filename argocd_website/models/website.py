@@ -33,6 +33,7 @@ class Website(models.Model):
             ]
         else:
             existing_line.product_id = product
+        subscription._compute_total()  # Depends is not correctly set on this method
 
     def remove_subscription_product(self, product_template_id):
         subscription = self.ensure_subscription()

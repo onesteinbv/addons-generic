@@ -9,4 +9,11 @@
             border-bottom: $border-width solid $border-color;
         }
     }
+
+    .js_order_app_product_header {
+        cursor: pointer;
+        input {
+            cursor: pointer;
+        }
+    }
 }

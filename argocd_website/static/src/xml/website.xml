@@ -10,8 +10,10 @@
                         <div class="col-3 fw-bold text-end" t-esc="line.price_base_formatted" />
                     </div>
                     <div class="row" t-if="line.variant_values" t-as="variant_value" t-foreach="line.variant_values">
-                        <div class="col-9 small"
-                             t-esc="variant_value.name" />
+                        <div class="col-9 small">
+                            <span t-esc="variant_value.name" />:
+                            <span class="badge text-bg-light" t-esc="variant_value.value" />
+                        </div>
                         <div class="col-3 small text-end"
                              t-if="variant_value.price_extra"
                              t-esc="variant_value.price_extra_formatted"

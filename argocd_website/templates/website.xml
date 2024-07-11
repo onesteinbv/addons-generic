@@ -64,7 +64,7 @@
 
     <template id="order_configure_product">
         <div class="js_order_app_product mb-4" t-att-data-id="product_tmpl.id">
-            <div class="row align-items-center">
+            <div class="row align-items-center js_order_app_product_header">
                 <div class="col-2 pt-3 pb-3">
                     <span
                         t-field="product_tmpl.image_128"

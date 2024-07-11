@@ -45,6 +45,26 @@ class MainController(Controller):
         return False
 
     @route(
+        "/application/update_subscription_product",
+        type="json",
+        auth="public",
+        website=True,
+    )
+    def update_subscription_product(self, product_template_id, combination):
+        website = request.website.sudo()
+        website.update_subscription_product(product_template_id, combination)
+
+    @route(
+        "/application/remove_subscription_product",
+        type="json",
+        auth="public",
+        website=True,
+    )
+    def remove_subscription_product(self, product_template_id):
+        website = request.website.sudo()
+        website.remove_subscription_product(product_template_id)
+
+    @route(
         "/application/get_subscription_details",
         type="json",
         auth="public",

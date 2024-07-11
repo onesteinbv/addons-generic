@@ -8,22 +8,58 @@ odoo.define("argocd_website.website", function (require) {
         selector: ".js_order_app_product",
         events: {
             "change .js_order_app_attribute": "_onAttributeChange",
-            "change .js_order_app_toggle": "_onToggleChange"
+            "change .js_order_app_toggle": "_onToggleChange",
+            "click .js_order_app_product_header": "_onClickHeader"
+        },
+
+        init: function (websiteRoot) {
+            this._super.apply(this, arguments);
+            this._websiteRoot = websiteRoot;
         },
 
         start: function () {
-            this._super();
+            this._super.apply(this, arguments);
             this.productTemplateId = parseInt(this.$el.attr("data-id"), 10);
             this.$attributes = this.$el.find(".js_order_app_attribute");
+            this.$toggle = this.$el.find(".js_order_app_toggle");
+            this.$header = this.$el.find(".js_order_app_product_header");
+        },
+
+        _isActive: function () {
+            if (!this.$toggle.length) return true;
+            return this.$toggle.is(":checked");
+        },
+
+        _onClickHeader: function (ev) {
+            if (ev.target.nodeName == "INPUT") return;
+            this.$toggle.click();
         },
 
         _onAttributeChange: function () {
             // TODO: Look for available combinations, and change the other attribute selectors accordingly
+            if (!this._isActive()) return;
             this._updateSubscriptionProduct();
         },
 
         _onToggleChange: function () {
-            console.log(arguments);
+            if (this._isActive()) {
+                this._updateSubscriptionProduct();
+                this.$header.addClass("bg-light");
+            } else {
+                this._removeSubscriptionProduct();
+                this.$header.removeClass("bg-light");
+            }
+        },
+
+        _removeSubscriptionProduct: function () {
+            return this._rpc({
+                route: "/application/remove_subscription_product",
+                params: {
+                    product_template_id: this.productTemplateId
+                }
+            }).then(function () {
+                this._websiteRoot.trigger("refreshSubscription");
+            }.bind(this));
         },
 
         _updateSubscriptionProduct: function() {
@@ -31,20 +67,25 @@ odoo.define("argocd_website.website", function (require) {
                 return parseInt($(this).val(), 10);
             }).get();
 
-            this._rpc({
+            return this._rpc({
                 route: "/application/update_subscription_product",
                 params: {
                     product_template_id: this.productTemplateId,
                     combination: combination
                 }
             }).then(function () {
-                // To be implemented
-            });
+                this._websiteRoot.trigger("refreshSubscription");
+            }.bind(this));
         }
     });
 
     publicWidget.registry.OrderAppDetails = publicWidget.Widget.extend({
         selector: ".js_order_app_details",
+
+        init: function (websiteRoot) {
+            this._super.apply(this, arguments);
+            this._websiteRoot = websiteRoot;
+        },
 
         start: function () {
             this._super();
@@ -53,9 +94,10 @@ odoo.define("argocd_website.website", function (require) {
             this.$loader = this.$el.find(".spinner-border");
 
             this.refreshSubscription();
+            this._websiteRoot.on("refreshSubscription", this, this.refreshSubscription);
         },
 
-        refreshSubscription: function() {
+        refreshSubscription: function () {
             this.$loader.removeClass("d-none");
             this.$proceedBtn.addClass("d-none");
             this.$list.addClass("d-none");
@@ -74,7 +116,6 @@ odoo.define("argocd_website.website", function (require) {
                 this.$proceedBtn.removeClass("d-none");
                 this.$list.removeClass("d-none");
             }.bind(this));
-
         }
     });
 
