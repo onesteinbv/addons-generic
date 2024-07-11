@@ -71,9 +71,9 @@
         <div class="js_order_app_product mb-4" t-att-data-id="product_tmpl.id">
             <t t-set="product_tmpl_in_sub" t-value="product_tmpl in subscription.sale_subscription_line_ids.mapped('product_id.product_tmpl_id')" />
 
-            <div t-attf-class="
-                row align-items-center js_order_app_product_header #{'bg-light' if product_tmpl_in_sub else ''}
-            ">
+            <div
+                t-attf-class="row align-items-center js_order_app_product_header #{'bg-light' if product_tmpl_in_sub else ''}"
+            >
                 <div class="col-2 pt-3 pb-3">
                     <span
                         t-field="product_tmpl.image_128"
