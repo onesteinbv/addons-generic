@@ -229,12 +229,14 @@ class MainController(Controller):
                 login = users_sudo.signup(signup_values)
                 users_sudo.reset_password(post["email"])
                 new_user = users_sudo.search([("login", "=", login)])
-                request.env = api.Environment(
+                env = api.Environment(
                     request.env.cr, new_user.id, request.session.context
                 )
+                request.session.pre_login = login
+                request.session.pre_uid = new_user.id
+                request.session.finalize(env)
+                request.env = env
                 request.update_context(**request.session.context)
-                # request env needs to be able to access the latest changes from the auth layers
-                request.env.cr.commit()
 
             # else:
             #     partner = (
