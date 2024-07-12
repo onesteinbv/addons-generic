@@ -1,12 +1,12 @@
 import re
 
-from odoo import _
+from odoo import _, api
 from odoo.exceptions import ValidationError
 from odoo.http import Controller, request, route
 
 
 class MainController(Controller):
-    def _validate(self, post, captcha_enabled):
+    def _validate(self, post, captcha_enabled, check_email_unique=False):
         if captcha_enabled:
             try:
                 request.env["librecaptcha"].answer(
@@ -35,13 +35,27 @@ class MainController(Controller):
             return {"subject": "zip", "message": _("Zip is required.")}
         if not post["city"]:
             return {"subject": "city", "message": _("City is required.")}
-        if not post["coc"]:
-            return {"subject": "coc", "message": _("CoC number is required.")}
+        if not post["company_registry"]:
+            return {
+                "subject": "company_registry",
+                "message": _("CoC number is required."),
+            }
         if not re.match(
             "^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$",
             post["email"],
         ):
             return {"subject": "email", "message": _("Invalid email address.")}
+        if check_email_unique:
+            existing_users = (
+                request.env["res.users"]
+                .sudo()
+                .search([("login", "=", post["email"])], count=True)
+            )
+            if existing_users:
+                return {
+                    "subject": "email",
+                    "message": _("Email address already in use."),
+                }
         return False
 
     @route(
@@ -165,8 +179,6 @@ class MainController(Controller):
         sitemap=True,
     )
     def signup(self, **post):
-        error = False
-        default = False
         website = request.website.sudo()
         captcha_enabled = request.env["librecaptcha"].is_enabled()
 
@@ -174,78 +186,99 @@ class MainController(Controller):
         if not subscription.sale_subscription_line_ids:
             return request.redirect("/application/order")
 
-        # if request.httprequest.method == "POST":
-        #     error = self._validate(post, captcha_enabled)
-        #     if not error:
-        #         partner = (
-        #             request.env["res.partner"]
-        #             .sudo()
-        #             .create(
-        #                 {
-        #                     "company_type": "company",
-        #                     "name": post["name"],
-        #                     "type": "other",
-        #                     "email": post["email"],
-        #                     "street": " ".join(
-        #                         [
-        #                             post["street_name"],
-        #                             post["street_number"],
-        #                             post["street_number2"],
-        #                         ]
-        #                     ),
-        #                     "company_registry": post["coc"],
-        #                     "zip": post["zip"],
-        #                     "city": post["city"],
-        #                     "customer_rank": 1,
-        #                     "lang": "nl_NL",
-        #                     "parent_id": request.env.user.partner_id.id,
-        #                 }
-        #             )
-        #         )
-        #         subscription = (
-        #             request.env["sale.subscription"]
-        #             .sudo()
-        #             .create(
-        #                 {
-        #                     "partner_id": partner.id,
-        #                     "sale_subscription_line_ids": [
-        #                         Command.create({"product_id": product.id})
-        #                     ]
-        #                     + [
-        #                         Command.create({"product_id": additional_product.id})
-        #                         for additional_product in additional_products
-        #                     ],
-        #                     "pricelist_id": partner.property_product_pricelist.id,  # pricelist_id is done with an onchange in subscription_oca 👴
-        #                 }
-        #             )
-        #         )
-        #         subscription.generate_invoice()
-        #         subscription.invoice_ids.ensure_one()
-        #         invoice_id = subscription.invoice_ids.id
-        #         ctx = request.env.context.copy()
-        #         ctx.update(
-        #             {
-        #                 "active_id": invoice_id,
-        #                 "active_model": "account.move",
-        #             }
-        #         )
-        #         link_wizard = (
-        #             request.env["payment.link.wizard"]
-        #             .sudo()
-        #             .with_context(ctx)
-        #             .create({})
-        #         )
-        #         link_wizard._compute_link()
-        #         return request.redirect(link_wizard.link)
-        #     default = post
+        user = request.env.user
+        user_is_public = user._is_public()
+        render_values = {
+            "subscription": subscription,
+            "user_is_public": user_is_public,
+            "captcha_enabled": captcha_enabled,
+        }
 
-        return request.render(
-            "argocd_website.signup",
-            {
-                "subscription": subscription,
-                "user": request.env.user,
-                "error": error,
-                "default": default,
-                "captcha_enabled": captcha_enabled,
-            },
-        )
+        if request.httprequest.method == "POST":
+            error = self._validate(post, captcha_enabled, user_is_public)
+            render_values.update(default=post, error=error)
+            if error:
+                return request.render("argocd_website.signup", render_values)
+
+            # Prepare post data for the ORM
+            values = post.copy()
+            values.update(
+                street=" ".join(
+                    [
+                        post["street_name"],
+                        post["street_number"],
+                        post["street_number2"],
+                    ]
+                ),
+                type=user_is_public and "invoice" or "other",
+                company_type="company",
+                customer_rank=1,
+                lang=request.env.lang,
+            )
+            values.pop("street_name")
+            values.pop("street_number")
+            values.pop("street_number2")
+            values.pop("terms_of_use")
+
+            if user_is_public:
+                users_sudo = request.env["res.users"].sudo()
+                signup_values = values.copy()
+                signup_values.update(
+                    login=post["email"], tz=request.httprequest.cookies.get("tz")
+                )
+                login = users_sudo.signup(signup_values)
+                users_sudo.reset_password(post["email"])
+                new_user = users_sudo.search([("login", "=", login)])
+                request.env = api.Environment(
+                    request.env.cr, new_user.id, request.session.context
+                )
+                request.update_context(**request.session.context)
+                # request env needs to be able to access the latest changes from the auth layers
+                request.env.cr.commit()
+
+            # else:
+            #     partner = (
+            #         request.env["res.partner"]
+            #         .sudo()
+            #         .create(
+            #             {
+            #                 "company_type": "company",
+            #                 "name": post["name"],
+            #                 "type": user_is_public and "invoice" or "other",
+            #                 "email": post["email"],
+            #                 "street": " ".join(
+            #                     [
+            #                         post["street_name"],
+            #                         post["street_number"],
+            #                         post["street_number2"],
+            #                     ]
+            #                 ),
+            #                 "company_registry": post["company_registry"],
+            #                 "zip": post["zip"],
+            #                 "city": post["city"],
+            #                 "customer_rank": 1,
+            #             }
+            #         )
+            #     )
+            #     partner.parent_id = user.partner_id
+
+            # subscription.generate_invoice()
+            # subscription.invoice_ids.ensure_one()
+            # invoice_id = subscription.invoice_ids.id
+            # ctx = request.env.context.copy()
+            # ctx.update(
+            #     {
+            #         "active_id": invoice_id,
+            #         "active_model": "account.move",
+            #     }
+            # )
+            # link_wizard = (
+            #     request.env["payment.link.wizard"]
+            #     .sudo()
+            #     .with_context(ctx)
+            #     .create({})
+            # )
+            # link_wizard._compute_link()
+            # return request.redirect(link_wizard.link)
+
+        return request.render("argocd_website.signup", render_values)

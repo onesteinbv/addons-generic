@@ -174,7 +174,7 @@
                                t-attf-value="#{default and default['email'] or env.user.login}"
                         />
                         <t t-if="error and error['subject'] == 'email'">
-                            <t t-call="application_website.error"/>
+                            <t t-call="argocd_website.error"/>
                         </t>
                         <t t-else="">
                             <div class="form-text">
@@ -195,16 +195,16 @@
                             <t t-call="argocd_website.error"/>
                         </t>
                     </div>
-                    <div t-attf-class="#{error and error['subject'] == 'coc' and 'has-error' or ''} mb-3">
-                        <label for="coc" class="form-label">CoC Number <span class="text-info">*</span></label>
+                    <div t-attf-class="#{error and error['subject'] == 'company_registry' and 'has-error' or ''} mb-3">
+                        <label for="company_registry" class="form-label">CoC Number <span class="text-info">*</span></label>
                         <input type="text"
                                class="form-control"
-                               name="coc"
+                               name="company_registry"
                                required="true"
-                               id="coc" placeholder="12345678"
-                               t-attf-value="#{default and default['coc']}"
+                               id="company_registry" placeholder="12345678"
+                               t-attf-value="#{default and default['company_registry']}"
                         />
-                        <t t-if="error and error['subject'] == 'coc'">
+                        <t t-if="error and error['subject'] == 'company_registry'">
                             <t t-call="argocd_website.error"/>
                         </t>
                     </div>
@@ -276,7 +276,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card mt16" t-if="user._is_public()">
+            <div class="card mt16" t-if="user_is_public">
                 <div class="card-header bg-light h3">
                     Account
                 </div>
