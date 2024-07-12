@@ -118,9 +118,9 @@
                 <div class="col-12 js_order_app_list">
                 </div>
             </div>
-            <div class="row" t-if="proceedUrl">
+            <div class="row">
                 <div class="col-12 d-grid">
-                    <a t-att-href="proceedUrl" class="btn btn-primary js_order_app_proceed d-none disabled">Go to payment</a>
+                    <t t-out="0" />
                 </div>
             </div>
         </div>
@@ -141,8 +141,9 @@
                             </t>
                         </div>
                         <div class="col-md-4 col-12">
-                            <t t-set="proceedUrl" t-value="'/application/signup'" />
-                            <t t-call="argocd_website.order_details" />
+                            <t t-call="argocd_website.order_details" >
+                                <a href="/application/signup" class="btn btn-primary js_order_app_proceed d-none disabled">Go to payment</a>
+                            </t>
                         </div>
                     </div>
                 </section>
@@ -157,7 +158,6 @@
     </template>
 
     <template id="form">
-        <form t-attf-action="/application/signup" method="post">
             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
             <div class="card">
                 <div class="card-header bg-light h3">
@@ -276,6 +276,14 @@
                     </div>
                 </div>
             </div>
+            <div class="card mt16" t-if="user._is_public()">
+                <div class="card-header bg-light h3">
+                    Account
+                </div>
+                <div class="card-body">
+                    <span>You are currently not logged in if you have an account, please make sure to <a href="/web/login">login</a>.</span>
+                </div>
+            </div>
 
             <div class="mb-3 mt-3">
                 <div class="form-check">
@@ -297,7 +305,6 @@
                     <t t-call="argocd_website.error"/>
                 </t>
             </div>
-        </form>
     </template>
 
     <template id="signup" name="Signup">
@@ -306,17 +313,20 @@
                 <t t-set="current_step" t-value="'signup'" />
                 <t t-call="argocd_website.order_progress_bar" />
                 <div class="oe_structure"/>
-                <section class="container mt32 mb32">
-                    <div class="row">
-                        <div class="col-md-8 col-12">
-                            <t t-call="argocd_website.form" />
+                <form t-attf-action="/application/signup" method="post">
+                    <section class="container mt32 mb32">
+                        <div class="row">
+                            <div class="col-md-8 col-12">
+                                <t t-call="argocd_website.form" />
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <t t-call="argocd_website.order_details">
+                                    <button type="submit" class="btn btn-primary js_order_app_proceed d-none disabled">Go to payment</button>
+                                </t>
+                            </div>
                         </div>
-                        <div class="col-md-4 col-12">
-                            <t t-set="proceedUrl" t-value="'/application/signup'" />
-                            <t t-call="argocd_website.order_details" />
-                        </div>
-                    </div>
-                </section>
+                    </section>
+                </form>
                 <div class="oe_structure"/>
             </div>
         </t>
