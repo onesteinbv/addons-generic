@@ -14,7 +14,7 @@
                                style="width: 2.5rem; height: 2.5rem; line-height: 2.5rem" />
                         </div>
                         <div class="s_process_step_content">
-                            <span t-attf-class="o_default_snippet_text #{current_step == 'configure' and 'font-weight-bold' or 'text-muted'}">Configure</span>
+                            <span t-attf-class="o_default_snippet_text #{current_step == 'configure' and 'fw-bold' or 'text-muted'}">Configure</span>
                         </div>
                     </div>
                     <div class="s_process_step col-lg-4">
@@ -23,7 +23,7 @@
                             <path d="M 0 40 L 350 40" vector-effect="non-scaling-stroke" marker-end="" />
                         </svg>
                         <div class="s_process_step_icon mt16 mb4">
-                            <i t-attf-class="fa fa-unlock-alt mx-auto rounded-circle #{current_step == 'signup' and 'bg-dark' or 'bg-light'}"
+                            <i t-attf-class="fa fa-unlock-alt mx-auto rounded-circle #{current_step == 'signup' and 'bg-primary' or 'bg-light'}"
                                style="width: 2.5rem; height: 2.5rem; line-height: 2.5rem" />
                         </div>
                         <div class="s_process_step_content">
@@ -40,7 +40,7 @@
                                style="width: 2.5rem; height: 2.5rem; line-height: 2.5rem" />
                         </div>
                         <div class="s_process_step_content">
-                            <span t-attf-class="o_default_snippet_text #{current_step == 'payment' and 'font-weight-bold' or 'text-muted'}">Payment</span>
+                            <span t-attf-class="o_default_snippet_text #{current_step == 'payment' and 'fw-bold' or 'text-muted'}">Payment</span>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,6 @@
             </t>
         </select>
     </template>
-
 
     <template id="order_configure_product">
         <div class="js_order_app_product mb-4" t-att-data-id="product_tmpl.id">
@@ -119,9 +118,9 @@
                 <div class="col-12 js_order_app_list">
                 </div>
             </div>
-            <div class="row">
+            <div class="row" t-if="proceedUrl">
                 <div class="col-12 d-grid">
-                    <button class="btn btn-primary js_order_app_proceed d-none">Go to payment</button>
+                    <a t-att-href="proceedUrl" class="btn btn-primary js_order_app_proceed d-none disabled">Go to payment</a>
                 </div>
             </div>
         </div>
@@ -141,7 +140,8 @@
                                 <div t-call="argocd_website.order_configure_product" />
                             </t>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-12">
+                            <t t-set="proceedUrl" t-value="'/application/signup'" />
                             <t t-call="argocd_website.order_details" />
                         </div>
                     </div>
@@ -156,241 +156,165 @@
         </div>
     </template>
 
-    <template id="additional_product">
-        <div class="border rounded p-3 d-flex flex-column">
-            <div class="w-100 d-flex">
-                <div t-field="additional_product.image_128"
-                     t-options="{'widget': 'image', 'itemprop': 'image', 'width': 75, 'height': 75}"
-                     class="flex-shrink-0"
-                />
-                <div class="flex-grow-1 p-2 pt-1">
-                    <strong t-field="additional_product.name" /><br />
-                    <span t-field="additional_product.description_sale" class="text-muted" />
+    <template id="form">
+        <form t-attf-action="/application/signup" method="post">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+            <div class="card">
+                <div class="card-header bg-light h3">
+                    Company information
                 </div>
-                <input type="checkbox" t-attf-name="additional_product_#{additional_product.id}" value="1"/>
-            </div>
-            <div class="w-100 text-end small">
-                +
-                <span
-                    t-esc="additional_product.list_price"
-                    t-options="{'widget': 'monetary', 'display_currency': additional_product.currency_id}"
-                />
-                <span class="text-muted"> / month </span>
-            </div>
-        </div>
-    </template>
-
-    <template id="additional" name="Signup">
-        <t t-call="website.layout">
-            <div id="wrap" class="o_application_additional_products_form">
-                <div class="oe_structure"/>
-                <section class="container mt32 mb32">
-                    <form t-attf-action="/application/signup/#{product.id}" method="get">
-                        <div class="row">
-                            <t t-set="categories" t-value="additional_products.mapped('categ_id').sorted('sequence')" />
-                            <t t-foreach="categories" t-as="category">
-                                <h2 t-esc="category.name" />
-                                <t t-foreach="additional_products.filtered(lambda a: a.categ_id.id == category.id)" t-as="additional_product">
-                                    <div class="col-md-3 p-2">
-                                        <t t-call="argocd_website.additional_product" />
-                                    </div>
-                                </t>
-                            </t>
-                        </div>
-                        <button class="btn btn-primary mt16">Continue</button>
-                    </form>
-                </section>
-                <div class="oe_structure"/>
-            </div>
-        </t>
-    </template>
-
-    <template id="form" name="Signup">
-        <t t-call="website.layout">
-            <div id="wrap" class="o_application_registration_form">
-                <div class="oe_structure"/>
-                <section class="container">
-                    <div class="col-md-12">
-                        <form t-attf-action="/application/signup/#{product.id}#{additional_products_query}" method="post">
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                            <input type="hidden" name="product" t-attf-value="#{product.id}" />
-
-                            <div class="accordion mt32" id="form-accordion">
-                                <div class="card">
-                                    <div class="card-header bg-light h3">
-                                        Company information
-                                    </div>
-                                    <div class="card-body">
-                                        <div t-attf-class="#{error and error['subject'] == 'email' and 'has-error' or ''} mb-3" >
-                                            <label for="email" class="form-label">Email Address *</label>
-                                            <input type="email"
-                                                   class="form-control"
-                                                   name="email"
-                                                   required="true"
-                                                   id="email" placeholder="Email Address"
-                                                   t-attf-value="#{default and default['email'] or env.user.login}"
-                                            />
-                                            <t t-if="error and error['subject'] == 'email'">
-                                                <t t-call="application_website.error"/>
-                                            </t>
-                                            <t t-else="">
-                                                <div class="form-text">
-                                                    This will be used to validate your registration and login.
-                                                </div>
-                                            </t>
-                                        </div>
-                                        <div t-attf-class="#{error and error['subject'] == 'name' and 'has-error' or ''} mb-3">
-                                            <label for="name" class="form-label">Company Name *</label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   name="name"
-                                                   required="true"
-                                                   id="name" placeholder="Company Name"
-                                                   t-attf-value="#{default and default['name']}"
-                                            />
-                                            <t t-if="error and error['subject'] == 'name'">
-                                                <t t-call="argocd_website.error"/>
-                                            </t>
-                                        </div>
-                                        <div t-attf-class="#{error and error['subject'] == 'coc' and 'has-error' or ''} mb-3">
-                                            <label for="coc" class="form-label">CoC Number *</label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   name="coc"
-                                                   required="true"
-                                                   id="coc" placeholder="12345678"
-                                                   t-attf-value="#{default and default['coc']}"
-                                            />
-                                            <t t-if="error and error['subject'] == 'coc'">
-                                                <t t-call="argocd_website.error"/>
-                                            </t>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="street_name" class="form-label">Address *</label>
-                                            <div class="row mb-3">
-                                                <div t-attf-class="#{error and error['subject'] == 'street_name' and 'has-error' or ''} col-sm-8">
-                                                    <input type="text"
-                                                           class="form-control"
-                                                           name="street_name"
-                                                           id="street_name" placeholder="Street"
-                                                           t-attf-value="#{default and default['street_name']}"
-                                                    />
-                                                    <t t-if="error and error['subject'] == 'street_name'">
-                                                        <t t-call="argocd_website.error"/>
-                                                    </t>
-                                                </div>
-                                                <div t-attf-class="#{error and error['subject'] == 'street_number' and 'has-error' or ''} col-sm-2">
-                                                    <input type="number"
-                                                           class="form-control"
-                                                           name="street_number"
-                                                           required="true"
-                                                           id="street_number" placeholder="Street Number"
-                                                           t-attf-value="#{default and default['street_number']}"
-                                                    />
-                                                    <t t-if="error and error['subject'] == 'street_number'">
-                                                        <t t-call="argocd_website.error"/>
-                                                    </t>
-                                                </div>
-                                                <div t-attf-class="#{error and error['subject'] == 'street_number2' and 'has-error' or ''} col-sm-2">
-                                                    <input type="text"
-                                                           class="form-control"
-                                                           name="street_number2"
-                                                           id="street_number2" placeholder="Addition"
-                                                           t-attf-value="#{default and default['street_number2']}"
-                                                    />
-                                                    <t t-if="error and error['subject'] == 'street_number2'">
-                                                        <t t-call="argocd_website.error"/>
-                                                    </t>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row mb-3">
-                                                <div t-attf-class="#{error and error['subject'] == 'zip' and 'has-error' or ''} col-sm-6">
-                                                    <input type="text"
-                                                           class="form-control"
-                                                           name="zip"
-                                                           required="true"
-                                                           id="street" placeholder="Zip"
-                                                           t-attf-value="#{default and default['zip']}"/>
-                                                    <t t-if="error and error['subject'] == 'zip'">
-                                                        <t t-call="argocd_website.error"/>
-                                                    </t>
-                                                </div>
-                                                <div t-attf-class="#{error and error['subject'] == 'city' and 'has-error' or ''} col-sm-6">
-                                                    <input type="text"
-                                                           class="form-control"
-                                                           name="city"
-                                                           required="true"
-                                                           id="city" placeholder="City"
-                                                           t-attf-value="#{default and default['city']}"
-                                                    />
-                                                    <t t-if="error and error['subject'] == 'city'">
-                                                        <t t-call="argocd_website.error"/>
-                                                    </t>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header bg-light h3 d-flex" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#your-order">
-                                        <span class="flex-fill">Your order <small><small class="text-muted">Click for details</small></small></span>
-                                        <span class="badge bg-secondary align-self-center">
-                                            <t t-esc="total" t-options="{'widget': 'monetary', 'display_currency': currency}" /> <small>excl. VAT</small>
-                                        </span>
-                                    </div>
-                                    <div id="your-order" class="collapse" data-parent="#form-accordion">
-                                        <div class="card-body">
-                                            <table class="table table-borderless">
-                                                <tr>
-                                                    <th>Product / service</th>
-                                                    <th>Price</th>
-                                                </tr>
-                                                <tr>
-                                                    <td><t t-esc="product.name" /></td>
-                                                    <td>
-                                                        <span t-field="product.list_price" t-options="{'widget': 'monetary'}" />
-                                                        <small class="text-muted">/ month</small>
-                                                    </td>
-                                                </tr>
-                                                <tr t-foreach="additional_products" t-as="additional_product">
-                                                    <td><t t-esc="additional_product.name" /></td>
-                                                    <td>
-                                                        <span t-field="additional_product.list_price" t-options="{'widget': 'monetary'}" />
-                                                        <small class="text-muted">/ month</small>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="card-body">
+                    <div t-attf-class="#{error and error['subject'] == 'email' and 'has-error' or ''} mb-3" >
+                        <label for="email" class="form-label">Email Address <span class="text-info">*</span></label>
+                        <input type="email"
+                               class="form-control"
+                               name="email"
+                               required="true"
+                               id="email" placeholder="Email Address"
+                               t-attf-value="#{default and default['email'] or env.user.login}"
+                        />
+                        <t t-if="error and error['subject'] == 'email'">
+                            <t t-call="application_website.error"/>
+                        </t>
+                        <t t-else="">
+                            <div class="form-text">
+                                This will be used to validate your registration and login.
                             </div>
-
-                            <div class="mb-3 mt-3">
-                                <div class="form-check">
-                                    <label>
-                                        <input name="terms_of_use" class="form-check-input" type="checkbox" id="terms_of_use"/>
-                                        <label class="form-check-label" for="terms_of_use">I agree to the <a href="#">terms of use</a></label>
-                                    </label>
-                                </div>
-                                <div t-attf-class="#{error and error['subject'] == 'terms_of_use' and 'has-error' or ''}">
-                                    <t t-if="error and error['subject'] == 'terms_of_use'">
-                                        <t t-call="argocd_website.error"/>
-                                    </t>
-                                </div>
-                            </div>
-                            <div t-if="captcha_enabled"
-                                 t-attf-class="#{error and error['subject'] == 'captcha' and 'has-error' or ''} form-group mb-3">
-                                <t t-call="base_librecaptcha.widget" />
-                                <t t-if="error and error['subject'] == 'captcha'">
+                        </t>
+                    </div>
+                    <div t-attf-class="#{error and error['subject'] == 'name' and 'has-error' or ''} mb-3">
+                        <label for="name" class="form-label">Company Name <span class="text-info">*</span></label>
+                        <input type="text"
+                               class="form-control"
+                               name="name"
+                               required="true"
+                               id="name" placeholder="Company Name"
+                               t-attf-value="#{default and default['name']}"
+                        />
+                        <t t-if="error and error['subject'] == 'name'">
+                            <t t-call="argocd_website.error"/>
+                        </t>
+                    </div>
+                    <div t-attf-class="#{error and error['subject'] == 'coc' and 'has-error' or ''} mb-3">
+                        <label for="coc" class="form-label">CoC Number <span class="text-info">*</span></label>
+                        <input type="text"
+                               class="form-control"
+                               name="coc"
+                               required="true"
+                               id="coc" placeholder="12345678"
+                               t-attf-value="#{default and default['coc']}"
+                        />
+                        <t t-if="error and error['subject'] == 'coc'">
+                            <t t-call="argocd_website.error"/>
+                        </t>
+                    </div>
+                    <div class="form-group">
+                        <label for="street_name" class="form-label">Address <span class="text-info">*</span></label>
+                        <div class="row mb-3">
+                            <div t-attf-class="#{error and error['subject'] == 'street_name' and 'has-error' or ''} col-sm-8">
+                                <input type="text"
+                                       class="form-control"
+                                       name="street_name"
+                                       id="street_name" placeholder="Street"
+                                       t-attf-value="#{default and default['street_name']}"
+                                />
+                                <t t-if="error and error['subject'] == 'street_name'">
                                     <t t-call="argocd_website.error"/>
                                 </t>
                             </div>
-                            <button class="btn btn-primary mb32">
-                                Go to payment
-                            </button>
-                        </form>
+                            <div t-attf-class="#{error and error['subject'] == 'street_number' and 'has-error' or ''} col-sm-2">
+                                <input type="number"
+                                       class="form-control"
+                                       name="street_number"
+                                       required="true"
+                                       id="street_number" placeholder="Street Number"
+                                       t-attf-value="#{default and default['street_number']}"
+                                />
+                                <t t-if="error and error['subject'] == 'street_number'">
+                                    <t t-call="argocd_website.error"/>
+                                </t>
+                            </div>
+                            <div t-attf-class="#{error and error['subject'] == 'street_number2' and 'has-error' or ''} col-sm-2">
+                                <input type="text"
+                                       class="form-control"
+                                       name="street_number2"
+                                       id="street_number2" placeholder="Addition"
+                                       t-attf-value="#{default and default['street_number2']}"
+                                />
+                                <t t-if="error and error['subject'] == 'street_number2'">
+                                    <t t-call="argocd_website.error"/>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row mb-3">
+                            <div t-attf-class="#{error and error['subject'] == 'zip' and 'has-error' or ''} col-sm-6">
+                                <input type="text"
+                                       class="form-control"
+                                       name="zip"
+                                       required="true"
+                                       id="street" placeholder="Zip"
+                                       t-attf-value="#{default and default['zip']}"/>
+                                <t t-if="error and error['subject'] == 'zip'">
+                                    <t t-call="argocd_website.error"/>
+                                </t>
+                            </div>
+                            <div t-attf-class="#{error and error['subject'] == 'city' and 'has-error' or ''} col-sm-6">
+                                <input type="text"
+                                       class="form-control"
+                                       name="city"
+                                       required="true"
+                                       id="city" placeholder="City"
+                                       t-attf-value="#{default and default['city']}"
+                                />
+                                <t t-if="error and error['subject'] == 'city'">
+                                    <t t-call="argocd_website.error"/>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <div class="form-check">
+                    <label>
+                        <input name="terms_of_use" class="form-check-input" type="checkbox" id="terms_of_use"/>
+                        <label class="form-check-label" for="terms_of_use">I agree to the <a href="#">terms of use</a></label>
+                    </label>
+                </div>
+                <div t-attf-class="#{error and error['subject'] == 'terms_of_use' and 'has-error' or ''}">
+                    <t t-if="error and error['subject'] == 'terms_of_use'">
+                        <t t-call="argocd_website.error"/>
+                    </t>
+                </div>
+            </div>
+            <div t-if="captcha_enabled"
+                 t-attf-class="#{error and error['subject'] == 'captcha' and 'has-error' or ''} form-group mb-3">
+                <t t-call="base_librecaptcha.widget" />
+                <t t-if="error and error['subject'] == 'captcha'">
+                    <t t-call="argocd_website.error"/>
+                </t>
+            </div>
+        </form>
+    </template>
+
+    <template id="signup" name="Signup">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <t t-set="current_step" t-value="'signup'" />
+                <t t-call="argocd_website.order_progress_bar" />
+                <div class="oe_structure"/>
+                <section class="container mt32 mb32">
+                    <div class="row">
+                        <div class="col-md-8 col-12">
+                            <t t-call="argocd_website.form" />
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <t t-set="proceedUrl" t-value="'/application/signup'" />
+                            <t t-call="argocd_website.order_details" />
+                        </div>
                     </div>
                 </section>
                 <div class="oe_structure"/>

@@ -115,6 +115,7 @@ odoo.define("argocd_website.website", function (require) {
                 this.$loader.addClass("d-none");
                 this.$proceedBtn.removeClass("d-none");
                 this.$list.removeClass("d-none");
+                this.$proceedBtn.toggleClass("disabled", !data.lines.length);
             }.bind(this));
         }
     });
