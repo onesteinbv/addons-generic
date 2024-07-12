@@ -281,7 +281,7 @@
                     Account
                 </div>
                 <div class="card-body">
-                    <span>You are currently not logged in if you have an account, please make sure to <a href="/web/login">login</a>.</span>
+                    <span>You are currently not logged in if you already have an account, please make sure to <a href="/web/login">login</a>.</span>
                 </div>
             </div>
 
