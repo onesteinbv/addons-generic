@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_role_view_tree" model="ir.ui.view">
+        <field name="name">project.role.view.tree</field>
+        <field name="model">project.role</field>
+        <field name="inherit_id" ref="project_role.project_role_view_tree" />
+        <field name="arch" type="xml">
+            <field name="complete_name" position="after">
+                <field name="is_manager"/>
+            </field>
+        </field>
+    </record>
+    <record id="project_role_view_form" model="ir.ui.view">
+        <field name="name">project.role.view.form</field>
+        <field name="model">project.role</field>
+        <field name="inherit_id" ref="project_role.project_role_view_form" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_manager"/>
+            </field>
+        </field>
+    </record>
+    <record id="project_role_search" model="ir.ui.view">
+        <field name="name">project.role.search</field>
+        <field name="model">project.role</field>
+        <field name="inherit_id" ref="project_role.project_role_search" />
+        <field name="arch" type="xml">
+            <field name="active" position="after">
+                <field name="is_manager" />
+                <filter
+                    name="manager"
+                    string="Managers"
+                    domain="[('is_manager','=',True)]"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

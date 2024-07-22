@@ -16,6 +16,7 @@
     ],
     "data": [
         "templates/project_project_template.xml",
+        "views/res_partner_view.xml",
     ],
     "assets": {
         "web.assets_frontend": [
