@@ -12,5 +12,6 @@
     ],
     "data": [
         "views/project_project.xml",
+        "views/project_role.xml",
     ],
 }

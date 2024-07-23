@@ -10,24 +10,26 @@
                             <div class="col-lg-12">
                                 <div class="card card-body bg-light">
                                     <div class="o_web_project_project_manager">
-                                        <h4>Project Manager:</h4>
+                                        <h4>Project Managers:</h4>
                                         <ul>
-                                            <t t-set="project_manager" t-value="project.user_id.partner_id" />
-                                            <li t-if="project_manager">
-                                                <img
-                                                    t-att-src="image_data_uri(project.user_id.image_128 or project.user_id.partner_id.avatar_128)"
-                                                    alt="User"
-                                                    height="48" width="48"
-                                                />
-                                                <t t-if="project_manager.website_published">
-                                                    <a t-attf-href="/partners/#{slug(project_manager)}">
-                                                        <t t-esc="project_manager.display_name" />
-                                                    </a>
-                                                </t>
-                                                <t t-else="">
-                                                    <span t-esc="project_manager.display_name" />
-                                                </t>
-                                            </li>
+                                            <t t-set="project_managers" t-value="(project.user_id.partner_id + project.manager_member_ids).filtered(lambda pm:not pm.is_anonymous)" />
+                                            <t t-if="project_managers">
+                                                <li t-foreach="project_managers" t-as="project_manager">
+                                                    <img
+                                                        t-att-src="image_data_uri(project_manager.user_id.image_128 or project_manager.avatar_128)"
+                                                        alt="User"
+                                                        height="48" width="48"
+                                                    />
+                                                    <t t-if="project_manager.website_published">
+                                                        <a t-attf-href="/partners/#{slug(project_manager)}">
+                                                            <t t-esc="project_manager.display_name" />
+                                                        </a>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="project_manager.display_name" />
+                                                    </t>
+                                                </li>
+                                            </t>
                                             <h5 t-else="">No Project Manager found.</h5>
                                         </ul>
                                     </div>
@@ -40,7 +42,7 @@
                             <div class="col-lg-12">
                                 <h4>Team Members</h4>
                             </div>
-                            <div class="col-lg-6" t-foreach="project.member_ids" t-as="member">
+                            <div class="col-lg-6" t-foreach="(project.team_member_ids).filtered(lambda tm:not tm.is_anonymous)" t-as="member">
                                 <div class="o_web_project_project_member">
                                     <img
                                         t-att-src="image_data_uri(member.image_128 or member.avatar_128)"
@@ -57,7 +59,7 @@
                                     </t>
                                 </div>
                             </div>
-                            <h5 class="col-lg-6" t-if="not project.member_ids">
+                            <h5 class="col-lg-6" t-if="not project.team_member_ids.filtered(lambda tm:not tm.is_anonymous)">
                                 No Team member found.
                             </h5>
                         </div>
