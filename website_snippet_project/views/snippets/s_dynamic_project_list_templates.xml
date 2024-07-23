@@ -3,12 +3,12 @@
     <template id="dynamic_filter_template_project_project_view_detail" name="Classic Card - Detailed">
         <t t-foreach="records" t-as="data" data-number-of-elements="3" data-thumb="/website_snippet_project/static/src/img/snippets_options/project_view_detail.svg">
             <t t-set="record" t-value="data['_record']" data-arrow-position="bottom"/>
-            <div class="o_carousel_project_card card h-100 w-100">
-                <img class="card-img-top o_img_project_square o_img_project_cover h-auto" loading="lazy" t-att-src="data['image_512']" t-att-alt="record.display_name"/>
+            <div class="o_carousel_project_card card h-100 w-100  text-center">
+                <img class="card-img-top o_img_project_square o_img_project_cover" loading="lazy" t-att-src="data['image_512']" t-att-alt="record.display_name"/>
                 <div class="o_carousel_project_card_body card-body d-flex flex-column justify-content-between">
                     <div class="card-title h5" t-field="record.display_name"/>
                     <div class="card-text flex-grow-1 text-muted h6" t-field="record.description"/>
-                    <div class="d-flex justify-content-between flex-wrap flex-md-column flex-lg-row align-items-center align-self-end w-100 mt-2 pt-3 border-top">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-column align-items-center align-self-end w-100 mt-2 pt-3 border-top">
                         <a class="btn btn-primary" t-attf-href="/projects/#{data['slug']}">
                             Discover
                         </a>
@@ -59,7 +59,7 @@
         <t t-foreach="records" t-as="data" data-thumb="/website_snippet_project/static/src/img/snippets_options/project_image_with_name.svg">
             <t t-set="record" t-value="data['_record']"/>
             <div class="card h-100 border-0 w-100 rounded-0 bg-transparent o_dynamic_project_hovered" t-att-data-url="record.website_url">
-                <img class="card-img-top h-auto o_img_project_square o_img_project_cover rounded" loading="lazy" t-att-src="data['image_512']" t-att-alt="record.display_name"/>
+                <img class="card-img-top o_img_project_square o_img_project_cover rounded" loading="lazy" t-att-src="data['image_512']" t-att-alt="record.display_name"/>
                 <div class="h6 text-center mt-2 p-2" t-field="record.display_name"/>
             </div>
         </t>
