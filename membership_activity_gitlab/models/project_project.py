@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 
 import dateutil
-
+from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models
 
 
@@ -28,6 +28,9 @@ class Project(models.Model):
             since = project.get_last_membership_activity_date_by_type(
                 "membership_activity_cde.commit"
             )
+            # Adding a second to avoid duplicate activities as gitlab considers
+            # activities on the since date as well
+            since += relativedelta(seconds=1)
             # Because pagination excludes X-Total header if it returns more than 10000 records we do it this way
             # https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers
             project.with_delay(max_retries=0).get_gitlab_commits_iterated(
@@ -70,6 +73,9 @@ class Project(models.Model):
             since = project.get_last_membership_activity_date_by_type(
                 "membership_activity_cde.pr"
             )
+            # Adding a second to avoid duplicate activities as gitlab considers
+            # activities on the since date as well
+            since += relativedelta(seconds=1)
             # Because pagination excludes X-Total header if it returns more than 10000 records we do it this way
             # https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers
             project.with_delay(max_retries=0).get_gitlab_merge_requests_iterated(
@@ -112,6 +118,9 @@ class Project(models.Model):
             since = project.get_last_membership_activity_date_by_type(
                 "membership_activity_cde.issue"
             )
+            # Adding a second to avoid duplicate activities as gitlab considers
+            # activities on the since date as well
+            since += relativedelta(seconds=1)
             # Because pagination excludes X-Total header if it returns more than 10000 records we do it this way
             # https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers
             project.with_delay(max_retries=0).get_gitlab_issues_iterated(
@@ -154,6 +163,9 @@ class Project(models.Model):
             since = project.get_last_membership_activity_date_by_type(
                 "membership_activity_cde.comment"
             )
+            # Adding a second to avoid duplicate activities as gitlab considers
+            # activities on the since date as well
+            since += relativedelta(seconds=1)
             # Because pagination excludes X-Total header if it returns more than 10000 records we do it this way
             # https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers
             project.with_delay(max_retries=0).get_gitlab_notes_iterated(
@@ -200,6 +212,9 @@ class Project(models.Model):
             since = project.get_last_membership_activity_date_by_type(
                 "membership_activity_cde.review"
             )
+            # Adding a second to avoid duplicate activities as gitlab considers
+            # activities on the since date as well
+            since += relativedelta(seconds=1)
             # Because pagination excludes X-Total header if it returns more than 10000 records we do it this way
             # https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers
             project.with_delay(max_retries=0).get_gitlab_approvals_iterated(
