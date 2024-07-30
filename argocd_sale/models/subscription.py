@@ -9,6 +9,7 @@ class Subscription(models.Model):
     application_ids = fields.One2many(
         comodel_name="argocd.application", inverse_name="subscription_id"
     )
+    end_partner_id = fields.Many2one(comodel_name="res.partner")
 
     def _get_grace_period(self):
         return int(

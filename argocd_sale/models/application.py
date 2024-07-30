@@ -37,7 +37,13 @@ class Application(models.Model):
         for app in self.filtered(lambda a: a.subscription_line_id):
             app.subscription_id = app.subscription_line_id.sale_subscription_id
 
-    @api.depends("subscription_id", "subscription_id.partner_id")
+    @api.depends(
+        "subscription_id",
+        "subscription_id.partner_id",
+        "subscription_id.end_partner_id",
+    )
     def _compute_partner_id(self):
         for app in self.filtered(lambda a: a.subscription_id):
-            app.partner_id = app.subscription_id.partner_id
+            app.partner_id = (
+                app.subscription_id.end_partner_id or app.subscription_id.partner_id
+            )

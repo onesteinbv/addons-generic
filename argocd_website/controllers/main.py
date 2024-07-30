@@ -201,24 +201,24 @@ class MainController(Controller):
                 return request.render("argocd_website.signup", render_values)
 
             # Prepare post data for the ORM
-            values = post.copy()
-            values.update(
-                street=" ".join(
+            values = {
+                "street": " ".join(
                     [
                         post["street_name"],
                         post["street_number"],
                         post["street_number2"],
                     ]
                 ),
-                type=user_is_public and "invoice" or "other",
-                company_type="company",
-                customer_rank=1,
-                lang=request.env.lang,
-            )
-            values.pop("street_name")
-            values.pop("street_number")
-            values.pop("street_number2")
-            values.pop("terms_of_use")
+                "type": user_is_public and "invoice" or "other",
+                "company_type": "company",
+                "customer_rank": 1,
+                "lang": request.env.lang,
+                "name": post["name"],
+                "email": post["email"],
+                "company_registry": post["company_registry"],
+                "zip": post["zip"],
+                "city": post["city"],
+            }
 
             if user_is_public:
                 users_sudo = request.env["res.users"].sudo()
@@ -237,35 +237,18 @@ class MainController(Controller):
                 request.session.finalize(env)
                 request.env = env
                 request.update_context(**request.session.context)
+                subscription.user_id = new_user
+                subscription.partner_id = new_user.partner_id
+            else:  # TODO: elif partner.is_reseller?
+                partner = request.env["res.partner"].sudo().create(values)
+                partner.parent_id = user.partner_id
 
-            # else:
-            #     partner = (
-            #         request.env["res.partner"]
-            #         .sudo()
-            #         .create(
-            #             {
-            #                 "company_type": "company",
-            #                 "name": post["name"],
-            #                 "type": user_is_public and "invoice" or "other",
-            #                 "email": post["email"],
-            #                 "street": " ".join(
-            #                     [
-            #                         post["street_name"],
-            #                         post["street_number"],
-            #                         post["street_number2"],
-            #                     ]
-            #                 ),
-            #                 "company_registry": post["company_registry"],
-            #                 "zip": post["zip"],
-            #                 "city": post["city"],
-            #                 "customer_rank": 1,
-            #             }
-            #         )
-            #     )
-            #     partner.parent_id = user.partner_id
+                subscription.partner_id = user.partner_id
+                subscription.user_id = user
+                subscription.end_partner_id = partner
 
-            # subscription.generate_invoice()
-            # subscription.invoice_ids.ensure_one()
+            subscription.generate_invoice()
+            subscription.invoice_ids.ensure_one()
             # invoice_id = subscription.invoice_ids.id
             # ctx = request.env.context.copy()
             # ctx.update(

@@ -74,11 +74,13 @@ class Website(models.Model):
                     "website_id": self.id,
                     "pricelist_id": partner.property_product_pricelist.id,
                     "stage_id": draft_stage and draft_stage.id,
+                    "user_id": user.id,
                 }
             )
             request.session["subscription_id"] = subscription.id
         else:
             subscription.partner_id = partner
+            subscription.user_id = user
         subscription.onchange_partner_id()
         subscription.onchange_partner_id_fpos()
 

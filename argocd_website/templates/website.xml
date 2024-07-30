@@ -171,7 +171,7 @@
                                name="email"
                                required="true"
                                id="email" placeholder="Email Address"
-                               t-attf-value="#{default and default['email'] or env.user.login}"
+                               t-attf-value="#{default and default['email'] or not user_is_public and env.user.login or ''}"
                         />
                         <t t-if="error and error['subject'] == 'email'">
                             <t t-call="argocd_website.error"/>
@@ -350,6 +350,41 @@
                 We are building your application, this can take 5 to 10 minutes. <br />
                 An email will be sent when your application is ready. <br /><br />
                 Kind regards, <br /><i>Onestein</i>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="portal_subscription_page" inherit_id="subscription_portal.portal_subscription_page">
+        <xpath expr="//div[@id='general_information']">
+            <div
+                t-if="subscription.end_partner_id"
+                class="col-12 col-md-6 mb-4 mb-md-0"
+            >
+                <h6>
+                    <strong>End Customer:</strong>
+                </h6>
+                <div class="row">
+                    <div class="col flex-grow-0 pr-3">
+                        <img
+                            t-if="subscription.end_partner_id.image_128"
+                            class="rounded-circle mt-1 o_portal_contact_img"
+                            t-att-src="image_data_uri(subscription.end_partner_id.image_128)"
+                            alt="Contact"
+                        />
+                        <img
+                            t-else=""
+                            class="rounded-circle mt-1 o_portal_contact_img"
+                            src="/web/static/img/user_menu_avatar.png"
+                            alt="Contact"
+                        />
+                    </div>
+                    <div class="col pl-sm-0">
+                        <address
+                            t-field="subscription.end_partner_id"
+                            t-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'
+                        />
+                    </div>
+                </div>
             </div>
         </xpath>
     </template>
