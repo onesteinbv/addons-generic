@@ -27,7 +27,7 @@ class ResPartner(models.Model):
             if partner.parent_id:
                 allowed_reselling_products_ids += (
                     partner.parent_id.reselling_product_ids
-                )
+                )  # Notice no recursion
             partner.allowed_reselling_products_ids = allowed_reselling_products_ids
 
     @api.depends("allowed_reselling_products_ids")
