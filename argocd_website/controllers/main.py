@@ -242,10 +242,11 @@ class MainController(Controller):
                 subscription.partner_id = new_user.partner_id
             elif user.partner_id.is_reseller:
                 # Create end customer
+                reselling_partner = user.partner_id.parent_id or user.partner_id
                 partner = request.env["res.partner"].sudo().create(values)
-                partner.parent_id = user.partner_id
+                partner.parent_id = reselling_partner
 
-                subscription.partner_id = user.partner_id
+                subscription.partner_id = reselling_partner
                 subscription.user_id = user
                 subscription.end_partner_id = partner
             else:
