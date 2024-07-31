@@ -268,6 +268,8 @@ class MainController(Controller):
                 request.env["payment.link.wizard"].sudo().with_context(ctx).create({})
             )
             link_wizard._compute_link()
-            return request.redirect(link_wizard.link)
+            return request.redirect(
+                link_wizard.link
+            )  # This will redirect to /payment/confirmation if the invoice has been paid
 
         return request.render("argocd_website.signup", render_values)
