@@ -8,6 +8,7 @@
     "depends": [
         "website",
         "payment",
+        "account_payment",
         "argocd_sale",
         "portal",
         "auth_signup",

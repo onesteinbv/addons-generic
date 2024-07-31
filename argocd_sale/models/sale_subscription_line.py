@@ -73,7 +73,7 @@ class SubscriptionLine(models.Model):
         application = application_sudo.create(
             {
                 "name": name,
-                "subscription_line_id": self.subscription_line_id.id,
+                "subscription_line_id": self.id,
                 "tag_ids": self.product_id.application_tag_ids.ids,
                 "template_id": self.product_id.application_template_id.id,
                 "application_set_id": self.product_id.application_set_id.id,

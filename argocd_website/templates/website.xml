@@ -36,7 +36,7 @@
                             <path d="M 0 40 L 242.5 40" vector-effect="non-scaling-stroke" marker-end="" />
                         </svg>
                         <div class="s_process_step_icon mt16 mb4">
-                            <i class="fa fa-paypal mx-auto rounded-circle #{current_step == 'payment' and 'bg-primary' or 'bg-light'}"
+                            <i t-attf-class="fa fa-paypal mx-auto rounded-circle #{current_step == 'payment' and 'bg-primary' or 'bg-light'}"
                                style="width: 2.5rem; height: 2.5rem; line-height: 2.5rem" />
                         </div>
                         <div class="s_process_step_content">
@@ -352,6 +352,23 @@
                 Kind regards, <br /><i>Onestein</i>
             </div>
         </xpath>
+    </template>
+
+    <template id="portal_breadcrumb" inherit_id="payment.portal_breadcrumb">
+        <!--
+        The above doesn't work for the /payment/status page, so we just replace it for every case to save time.
+        And otherwise it will not look nice IMO
+        -->
+        <xpath expr="//div[hasclass('row')]" position="attributes">
+            <attribute name="t-if">not is_paying_for_app_subscription</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('row')]" position="after">
+            <div class="pb32">
+                <t t-set="current_step" t-value="'payment'" />
+                <t t-call="argocd_website.order_progress_bar" t-if="is_paying_for_app_subscription" />
+            </div>
+        </xpath>
+
     </template>
 
     <template id="portal_subscription_page" inherit_id="subscription_portal.portal_subscription_page">
