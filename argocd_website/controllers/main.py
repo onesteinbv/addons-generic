@@ -253,23 +253,21 @@ class MainController(Controller):
                 subscription.partner_id = user.partner_id
                 subscription.user_id = user
 
-            subscription.generate_invoice()
+            if not subscription.invoice_ids:
+                subscription.generate_invoice()
             subscription.invoice_ids.ensure_one()
-            # invoice_id = subscription.invoice_ids.id
-            # ctx = request.env.context.copy()
-            # ctx.update(
-            #     {
-            #         "active_id": invoice_id,
-            #         "active_model": "account.move",
-            #     }
-            # )
-            # link_wizard = (
-            #     request.env["payment.link.wizard"]
-            #     .sudo()
-            #     .with_context(ctx)
-            #     .create({})
-            # )
-            # link_wizard._compute_link()
-            # return request.redirect(link_wizard.link)
+            invoice_id = subscription.invoice_ids.id
+            ctx = request.env.context.copy()
+            ctx.update(
+                {
+                    "active_id": invoice_id,
+                    "active_model": "account.move",
+                }
+            )
+            link_wizard = (
+                request.env["payment.link.wizard"].sudo().with_context(ctx).create({})
+            )
+            link_wizard._compute_link()
+            return request.redirect(link_wizard.link)
 
         return request.render("argocd_website.signup", render_values)
