@@ -15,6 +15,9 @@ class ResPartner(models.Model):
         comodel_name="product.template",
         compute="_compute_allowed_reselling_products_ids",
         store=True,
+        relation="product_reseller_all_rel",
+        column1="partner_id",
+        column2="product_template_id",
     )
     is_reseller = fields.Boolean(compute="_compute_is_reseller")
 

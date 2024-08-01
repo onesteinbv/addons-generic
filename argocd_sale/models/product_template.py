@@ -25,3 +25,10 @@ class ProductTemplate(models.Model):
         column1="product_template_id",
         column2="partner_id",
     )
+
+    allowed_reseller_partner_ids = fields.Many2many(
+        comodel_name="res.partner",
+        relation="product_reseller_all_rel",
+        column1="product_template_id",
+        column2="partner_id",
+    )

@@ -133,7 +133,7 @@ class MainController(Controller):
         if product:
             if not product.application_template_id or not product.sale_ok:
                 return request.not_found()
-            main_product_tmpl = product.product_tmpl_id.sudo()
+            main_product_tmpl = product.product_tmpl_id
             optional_products = main_product_tmpl.optional_product_ids.filtered_domain(
                 [("application_template_id", "!=", False), ("sale_ok", "=", True)]
             )
