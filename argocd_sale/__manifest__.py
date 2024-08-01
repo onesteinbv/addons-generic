@@ -22,5 +22,6 @@
         "views/application_view.xml",
         "views/res_config_settings_view.xml",
         "views/sale_subscription_view.xml",
+        "views/product_attribute_view.xml",
     ],
 }

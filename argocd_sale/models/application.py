@@ -32,6 +32,13 @@ class Application(models.Model):
             self.partner_id.parent_id and self.partner_id.parent_id.is_reseller
         )
 
+    def get_attribute(self, argocd_identifier):
+        self.ensure_one()
+        variant_value = self.subscription_line_id.product_id.product_template_variant_value_ids.filtered(
+            lambda kv: kv.attribute_id.argocd_identifier == argocd_identifier
+        ).product_attribute_value_id
+        return variant_value.argocd_name or variant_value.name
+
     @api.depends("subscription_line_id", "subscription_line_id.sale_subscription_id")
     def _compute_subscription_id(self):
         for app in self.filtered(lambda a: a.subscription_line_id):
