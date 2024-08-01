@@ -118,20 +118,9 @@
             <t t-else="">
                 <p>You have no applications currently.</p>
             </t>
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Request new application
-                </button>
-                <ul class="dropdown-menu">
-                    <li t-foreach="products" t-as="product">
-                        <a
-                            class="dropdown-item"
-                            t-attf-href="/application/additional/#{product.id}">
-                            <t t-esc="product.name" />
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <a href="/application/order" class="btn btn-primary">
+                Request new application
+            </a>
         </t>
     </template>
 
@@ -240,29 +229,6 @@
         </t>
     </template>
 
-    <template id="portal_application_delete_modal">
-        <div class="modal fade" tabindex="-1" role="dialog" t-att-id="modalId">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Delete Application</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete this application? You'll get an email to confirm the deletion.</p>
-                    </div>
-                    <div class="modal-footer justify-content-start">
-                        <a type="action" class="btn btn-danger" t-attf-href="/my/applications/#{app.id}/request-delete">
-                            Delete
-                        </a>
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
-
-
     <template id="portal_application_upgrade_modal">
         <div class="modal fade" tabindex="-1" role="dialog" t-att-id="modalId or 'modalUpgrade'">
             <div class="modal-dialog" role="document">
@@ -283,34 +249,6 @@
                 </div>
             </div>
         </div>
-    </template>
-
-    <template id="portal_application_confirm_deletion_page" name="Delete Application">
-        <t t-call="portal.portal_layout">
-            <t t-call="portal.portal_record_layout">
-                <t t-set="card_header">
-                    <div class="d-flex">
-                        <h2 class="mb-0 flex-fill">
-                            <span>
-                                Application - <span t-field="app.name" />
-                            </span>
-                        </h2>
-                    </div>
-                </t>
-                <t t-set="card_body">
-                    <p class="mb16">
-                        Are you sure you want to delete this application (<i><t t-esc="app.name" /></i>)?
-                        <strong class="text-danger">This action is irreversible!</strong>
-                    </p>
-                    <form method="POST">
-                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                        <input type="hidden" name="token" t-att-value="app.deletion_token" />
-                        <button class="btn btn-danger">Delete</button>
-                        <a class="btn btn-link" t-attf-href="/my/applications/#{app.id}">Cancel</a>
-                    </form>
-                </t>
-            </t>
-        </t>
     </template>
 
     <template id="error_page" name="Error">

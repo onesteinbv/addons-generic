@@ -51,22 +51,3 @@ class SaleSubscription(models.Model):
         self.date_stop = self.recurring_next_date
 
         self.close_subscription(close_reason_id)
-
-    def _stop_service_hook(self):
-        self.ensure_one()
-        self.date_stop = False
-
-    def cron_subscription_management(self):
-        today = fields.Date.today()
-        for subscription in self.search(
-            [
-                (
-                    "date_stop",
-                    "!=",
-                    False,
-                ),  # Not sure if any date is greater than False
-                ("date_stop", "<", today),  # We give them the whole day
-            ]
-        ):
-            subscription._stop_service_hook()
-        return super().cron_subscription_management()

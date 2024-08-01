@@ -20,10 +20,3 @@ class Subscription(models.Model):
         )
         template = self.env["sale.subscription.template"].browse(template_id)
         return template
-
-    def _stop_service_hook(self):
-        res = super()._stop_service_hook()
-        apps_to_destroy = self.application_ids
-        for app in apps_to_destroy:
-            app.destroy()
-        return res

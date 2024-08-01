@@ -1,6 +1,6 @@
 import logging
 
-from odoo import Command, _, fields, http
+from odoo import Command, _, http
 from odoo.exceptions import AccessError, MissingError, ValidationError
 from odoo.http import request
 
@@ -51,9 +51,6 @@ class PortalController(CustomerPortal):
         apps = request.env["argocd.application"].search(
             [], order=order, limit=self._items_per_page, offset=pager["offset"]
         )
-        products = request.env["product.product"].search(
-            [("application_template_id", "!=", False), ("sale_ok", "=", True)]
-        )
         values.update(
             {
                 "apps": apps.sudo(),  # We don't have access to the invoice lines without this
@@ -62,7 +59,6 @@ class PortalController(CustomerPortal):
                 "default_url": "/my/applications",
                 "searchbar_sortings": searchbar_sortings,
                 "sortby": sortby,
-                "products": products.sudo(),
             }
         )
         return request.render("argocd_website.portal_my_applications", values)
@@ -84,61 +80,6 @@ class PortalController(CustomerPortal):
             "message": kw.get("message"),
         }
         return request.render("argocd_website.portal_application_page", values)
-
-    @http.route(
-        ["/my/applications/<int:app_id>/request-delete"],
-        type="http",
-        auth="user",
-        website=True,
-    )
-    def portal_my_application_request_delete(self, app_id, **kw):
-        try:
-            app_sudo = self._document_check_access("argocd.application", app_id)
-        except (AccessError, MissingError):
-            return request.redirect("/my")
-        app_sudo.request_destroy()
-        return request.redirect("/my/applications/%s?message=request_deletion" % app_id)
-
-    @http.route(
-        ["/my/applications/<int:app_id>/confirm-delete"],
-        type="http",
-        auth="user",
-        website=True,
-    )
-    def portal_my_application_confirm_delete(self, app_id, **kw):
-        try:
-            app_sudo = self._document_check_access("argocd.application", app_id)
-        except (AccessError, MissingError):
-            return request.redirect("/my/applications")
-        if not app_sudo.deletion_token:
-            return request.redirect("/my/applications")
-        if app_sudo.deletion_token != kw.get("token"):
-            return request.render(
-                "argocd_website.error_page", {"message": _("Invalid token")}
-            )
-        if fields.Datetime.now() > app_sudo.deletion_token_expiration:
-            return request.render(
-                "argocd_website.error_page", {"message": _("Token expired")}
-            )
-
-        if request.httprequest.method == "POST":
-            try:
-                app_sudo.confirm_destroy(kw.get("token"))
-            except ValidationError as e:
-                return request.render("argocd_website.error_page", {"message": str(e)})
-            return request.redirect(
-                "/my/applications/%s?message=pending_deletion" % app_id
-            )
-
-        values = {
-            "page_name": "Applications",
-            "app": app_sudo,
-            "message": kw.get("message"),
-        }
-
-        return request.render(
-            "argocd_website.portal_application_confirm_deletion_page", values
-        )
 
     @http.route(
         ["/my/applications/<int:app_id>/domain-names"],

@@ -17,7 +17,6 @@
         "subscription_portal",
     ],
     "data": [
-        "data/mail_template_data.xml",
         "data/ir_config_parameter_data.xml",
         "security/ir_model_access.xml",
         "security/ir_rule.xml",
