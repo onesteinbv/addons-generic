@@ -49,21 +49,37 @@
     </template>
 
     <template id="order_attribute_display">
-
-        <!-- TODO: Implement display types (product.attribute.display_type) -->
-        <select class="form-select js_order_app_attribute">
+        <div>
             <t t-set="current_values"
                t-value="subscription.sale_subscription_line_ids.filtered(lambda l: l.product_id.product_tmpl_id == product_tmpl).mapped('product_id.product_template_variant_value_ids').ids"
             />
-            <t t-foreach="attribute_line.product_template_value_ids" t-as="value">
-                <option t-att-value="value.id" t-att="['selected' if value.id in current_values else 'unselected', '']">
-                    <t t-esc="value.name" />
-                    <t t-if="value.price_extra">
-                        (+ <t t-esc="value.price_extra" t-options="{'widget': 'monetary', 'display_currency': product_tmpl.currency_id}" />)
-                    </t>
-                </option>
+            <t t-if="attribute_line.attribute_id.display_type == 'radio'">
+                <div class="js_order_app_attribute">
+                    <t t-set="any_value" t-value="attribute_line.product_template_value_ids.filtered(lambda v: v.id in current_values)" />
+                    <t t-set="first_value" t-value="attribute_line.product_template_value_ids.ids[0]" />
+                    <div class="mr8 mb8 d-inline-block " t-foreach="attribute_line.product_template_value_ids" t-as="value">
+                        <input type="radio"
+                               t-attf-id="#{product_tmpl.id}-#{attribute_line.attribute_id.id}-#{value.id}"
+                               t-attf-name="#{product_tmpl.id}-attribute_line.attribute_id.id}"
+                               t-att-value="value.id"
+                               class="btn-check"
+                               t-att="['checked' if value.id in current_values or not any_value and first_value == value.id else 'unchecked', '']"
+                        />
+                        <label class="btn btn-outline-secondary" t-attf-for="#{product_tmpl.id}-#{attribute_line.attribute_id.id}-#{value.id}" t-esc="value.name" />
+                    </div>
+                </div>
             </t>
-        </select>
+            <select class="form-select js_order_app_attribute" t-else="">
+                <t t-foreach="attribute_line.product_template_value_ids" t-as="value">
+                    <option t-att-value="value.id" t-att="['selected' if value.id in current_values else 'unselected', '']">
+                        <t t-esc="value.name" />
+                        <t t-if="value.price_extra">
+                            (+ <t t-esc="value.price_extra" t-options="{'widget': 'monetary', 'display_currency': product_tmpl.currency_id}" />)
+                        </t>
+                    </option>
+                </t>
+            </select>
+        </div>
     </template>
 
     <template id="order_configure_product">

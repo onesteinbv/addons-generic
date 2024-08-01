@@ -28,29 +28,34 @@ class SubscriptionLine(models.Model):
 
     def write(self, vals):
         to_redeploy = self.env["argocd.application"]
-        if "product_id" in vals or "product_uom_qty" in vals:
+        if "product_id" in vals:
             product = self.env["product.product"].browse(vals["product_id"])
+            # TODO: Enforce only up here e.g. 50GB to 20GB in some cases should not be allowed, but 5 users to 4 should
+            changed_lines = self.filtered(
+                lambda l: l.application_ids and product != l.product_id
+            )
+            invalid_changes = changed_lines.filtered(
+                lambda l: product.product_tmpl_id != l.product_id.product_tmpl_id
+            )
+            # TODO: Enforce only up here e.g. 50GB to 20GB in some cases should not be allowed, but 5 users to 4 should
+            if invalid_changes:
+                raise UserError(
+                    _(
+                        "This variant has a different product template, please create a new line and delete this one instead."
+                    )
+                )
+            to_redeploy += changed_lines.mapped("application_ids")
+
+        if "product_uom_qty" in vals:
             qty = int(
                 vals["product_uom_qty"]
             )  # Cast to int just to make sure. I'm not sure if it's required
-            # All lines that already have an application
-            for line in self.filtered(lambda l: l.application_ids):
-                product_changed = product != line.product_id
-                # TODO: Enforce only up here e.g. 50GB to 20GB in some cases should not be allowed, but 5 users to 4 should
-                if (
-                    product_changed
-                    and product.product_tmpl_id != line.product_id.product_tmpl_id
-                ):
-                    raise UserError(
-                        _(
-                            "This variant has a different product template, please create a new line and delete this one instead."
-                        )
-                    )
-                qty_changed = line.product_uom_qty != qty
-                if product_changed or qty_changed:
-                    to_redeploy += line.application_ids
+            to_redeploy += self.filtered(
+                lambda l: l.application_ids and l.product_uom_qty != qty
+            ).mapped("application_ids")
         res = super().write(vals)
         for app in to_redeploy:
+            app.render_config()
             app.deploy()
         return res
 

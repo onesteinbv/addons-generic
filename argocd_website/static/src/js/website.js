@@ -7,7 +7,8 @@ odoo.define("argocd_website.website", function (require) {
     publicWidget.registry.OrderAppProductConfigurator = publicWidget.Widget.extend({
         selector: ".js_order_app_product",
         events: {
-            "change .js_order_app_attribute": "_onAttributeChange",
+            "change select.js_order_app_attribute": "_onAttributeChange",
+            "change .js_order_app_attribute input": "_onAttributeChange",
             "change .js_order_app_toggle": "_onToggleChange",
             "click .js_order_app_product_header": "_onClickHeader"
         },
@@ -64,7 +65,14 @@ odoo.define("argocd_website.website", function (require) {
 
         _updateSubscriptionProduct: function() {
             var combination = this.$attributes.map(function () {
-                return parseInt($(this).val(), 10);
+                var $el = $(this);
+                var valueId = null;
+                if ($el.is("select")) {
+                    valueId = $el.val();
+                } else {
+                    valueId = $el.find(":checked").val();
+                }
+                return parseInt(valueId, 10);
             }).get();
 
             return this._rpc({
