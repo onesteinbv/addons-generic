@@ -6,7 +6,7 @@ from odoo.http import Controller, request, route
 
 
 class MainController(Controller):
-    def _validate(self, post, captcha_enabled, check_email_unique=False):
+    def _validate(self, post, captcha_enabled, is_public, is_reseller):
         if captcha_enabled:
             try:
                 request.env["librecaptcha"].answer(
@@ -15,37 +15,40 @@ class MainController(Controller):
             except ValidationError as e:
                 return {"subject": "captcha", "message": str(e)}
 
+        if is_public or is_reseller:
+            if not post["email"]:
+                return {"subject": "email", "message": _("Email Address is required.")}
+            if not post["name"]:
+                return {"subject": "name", "message": _("Company Name is required.")}
+            if not post["street_name"]:
+                return {"subject": "street_name", "message": _("Street is required.")}
+            if not post["street_number"]:
+                return {
+                    "subject": "street_number",
+                    "message": _("Street Number is required."),
+                }
+            if not post["zip"]:
+                return {"subject": "zip", "message": _("Zip is required.")}
+            if not post["city"]:
+                return {"subject": "city", "message": _("City is required.")}
+            if not post["company_registry"]:
+                return {
+                    "subject": "company_registry",
+                    "message": _("CoC number is required."),
+                }
+            if not re.match(
+                "^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$",
+                post["email"],
+            ):
+                return {"subject": "email", "message": _("Invalid email address.")}
+
         if "terms_of_use" not in post:
             return {
                 "subject": "terms_of_use",
                 "message": _("Please accept the terms of use."),
             }
-        if not post["email"]:
-            return {"subject": "email", "message": _("Email Address is required.")}
-        if not post["name"]:
-            return {"subject": "name", "message": _("Company Name is required.")}
-        if not post["street_name"]:
-            return {"subject": "street_name", "message": _("Street is required.")}
-        if not post["street_number"]:
-            return {
-                "subject": "street_number",
-                "message": _("Street Number is required."),
-            }
-        if not post["zip"]:
-            return {"subject": "zip", "message": _("Zip is required.")}
-        if not post["city"]:
-            return {"subject": "city", "message": _("City is required.")}
-        if not post["company_registry"]:
-            return {
-                "subject": "company_registry",
-                "message": _("CoC number is required."),
-            }
-        if not re.match(
-            "^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$",
-            post["email"],
-        ):
-            return {"subject": "email", "message": _("Invalid email address.")}
-        if check_email_unique:
+
+        if is_public:
             existing_users = (
                 request.env["res.users"]
                 .sudo()
@@ -190,35 +193,40 @@ class MainController(Controller):
         user_is_public = user._is_public()
         render_values = {
             "subscription": subscription,
-            "user_is_public": user_is_public,
+            "user": user,
+            "user_is_public": user_is_public,  # Shortcut
+            "user_is_reseller": user.partner_id.is_reseller,
             "captcha_enabled": captcha_enabled,
         }
 
         if request.httprequest.method == "POST":
-            error = self._validate(post, captcha_enabled, user_is_public)
+            error = self._validate(
+                post, captcha_enabled, user_is_public, user.partner_id.is_reseller
+            )
             render_values.update(default=post, error=error)
             if error:
                 return request.render("argocd_website.signup", render_values)
 
             # Prepare post data for the ORM
-            values = {
-                "street": " ".join(
-                    [
-                        post["street_name"],
-                        post["street_number"],
-                        post["street_number2"],
-                    ]
-                ),
-                "type": user_is_public and "invoice" or "other",
-                "company_type": "company",
-                "customer_rank": 1,
-                "lang": request.env.lang,
-                "name": post["name"],
-                "email": post["email"],
-                "company_registry": post["company_registry"],
-                "zip": post["zip"],
-                "city": post["city"],
-            }
+            if user_is_public or user.partner_id.is_reseller:
+                values = {
+                    "street": " ".join(
+                        [
+                            post["street_name"],
+                            post["street_number"],
+                            post["street_number2"],
+                        ]
+                    ),
+                    "type": user_is_public and "invoice" or "other",
+                    "company_type": "company",
+                    "customer_rank": 1,
+                    "lang": request.env.lang,
+                    "name": post["name"],
+                    "email": post["email"],
+                    "company_registry": post["company_registry"],
+                    "zip": post["zip"],
+                    "city": post["city"],
+                }
 
             if user_is_public:
                 # Create user
@@ -250,6 +258,7 @@ class MainController(Controller):
                 subscription.user_id = user
                 subscription.end_partner_id = partner
             else:
+                # Link subscription to current user
                 subscription.partner_id = user.partner_id
                 subscription.user_id = user
 

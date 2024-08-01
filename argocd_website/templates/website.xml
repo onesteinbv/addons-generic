@@ -158,153 +158,168 @@
     </template>
 
     <template id="form">
-            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-            <div class="card">
-                <div class="card-header bg-light h3">
-                    Company information
-                </div>
-                <div class="card-body">
-                    <div t-attf-class="#{error and error['subject'] == 'email' and 'has-error' or ''} mb-3" >
-                        <label for="email" class="form-label">Email Address <span class="text-info">*</span></label>
-                        <input type="email"
-                               class="form-control"
-                               name="email"
-                               required="true"
-                               id="email" placeholder="Email Address"
-                               t-attf-value="#{default and default['email'] or not user_is_public and env.user.login or ''}"
-                        />
-                        <t t-if="error and error['subject'] == 'email'">
-                            <t t-call="argocd_website.error"/>
-                        </t>
-                        <t t-else="">
-                            <div class="form-text">
-                                This will be used to validate your registration and login.
-                            </div>
-                        </t>
-                    </div>
-                    <div t-attf-class="#{error and error['subject'] == 'name' and 'has-error' or ''} mb-3">
-                        <label for="name" class="form-label">Company Name <span class="text-info">*</span></label>
-                        <input type="text"
-                               class="form-control"
-                               name="name"
-                               required="true"
-                               id="name" placeholder="Company Name"
-                               t-attf-value="#{default and default['name']}"
-                        />
-                        <t t-if="error and error['subject'] == 'name'">
-                            <t t-call="argocd_website.error"/>
-                        </t>
-                    </div>
-                    <div t-attf-class="#{error and error['subject'] == 'company_registry' and 'has-error' or ''} mb-3">
-                        <label for="company_registry" class="form-label">CoC Number <span class="text-info">*</span></label>
-                        <input type="text"
-                               class="form-control"
-                               name="company_registry"
-                               required="true"
-                               id="company_registry" placeholder="12345678"
-                               t-attf-value="#{default and default['company_registry']}"
-                        />
-                        <t t-if="error and error['subject'] == 'company_registry'">
-                            <t t-call="argocd_website.error"/>
-                        </t>
-                    </div>
-                    <div class="form-group">
-                        <label for="street_name" class="form-label">Address <span class="text-info">*</span></label>
-                        <div class="row mb-3">
-                            <div t-attf-class="#{error and error['subject'] == 'street_name' and 'has-error' or ''} col-sm-8">
-                                <input type="text"
-                                       class="form-control"
-                                       name="street_name"
-                                       id="street_name" placeholder="Street"
-                                       t-attf-value="#{default and default['street_name']}"
-                                />
-                                <t t-if="error and error['subject'] == 'street_name'">
-                                    <t t-call="argocd_website.error"/>
-                                </t>
-                            </div>
-                            <div t-attf-class="#{error and error['subject'] == 'street_number' and 'has-error' or ''} col-sm-2">
-                                <input type="number"
-                                       class="form-control"
-                                       name="street_number"
-                                       required="true"
-                                       id="street_number" placeholder="Street Number"
-                                       t-attf-value="#{default and default['street_number']}"
-                                />
-                                <t t-if="error and error['subject'] == 'street_number'">
-                                    <t t-call="argocd_website.error"/>
-                                </t>
-                            </div>
-                            <div t-attf-class="#{error and error['subject'] == 'street_number2' and 'has-error' or ''} col-sm-2">
-                                <input type="text"
-                                       class="form-control"
-                                       name="street_number2"
-                                       id="street_number2" placeholder="Addition"
-                                       t-attf-value="#{default and default['street_number2']}"
-                                />
-                                <t t-if="error and error['subject'] == 'street_number2'">
-                                    <t t-call="argocd_website.error"/>
-                                </t>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row mb-3">
-                            <div t-attf-class="#{error and error['subject'] == 'zip' and 'has-error' or ''} col-sm-6">
-                                <input type="text"
-                                       class="form-control"
-                                       name="zip"
-                                       required="true"
-                                       id="street" placeholder="Zip"
-                                       t-attf-value="#{default and default['zip']}"/>
-                                <t t-if="error and error['subject'] == 'zip'">
-                                    <t t-call="argocd_website.error"/>
-                                </t>
-                            </div>
-                            <div t-attf-class="#{error and error['subject'] == 'city' and 'has-error' or ''} col-sm-6">
-                                <input type="text"
-                                       class="form-control"
-                                       name="city"
-                                       required="true"
-                                       id="city" placeholder="City"
-                                       t-attf-value="#{default and default['city']}"
-                                />
-                                <t t-if="error and error['subject'] == 'city'">
-                                    <t t-call="argocd_website.error"/>
-                                </t>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+        <div class="card" >
+            <div class="card-header bg-light h3">
+                Company details
             </div>
-            <div class="card mt16" t-if="user_is_public">
-                <div class="card-header bg-light h3">
-                    Account
+            <div class="card-body" t-if="user_is_reseller or user_is_public">
+                <div t-attf-class="#{error and error['subject'] == 'email' and 'has-error' or ''} mb-3" >
+                    <label for="email" class="form-label">Email Address <span class="text-info">*</span></label>
+                    <input type="email"
+                           class="form-control"
+                           name="email"
+                           required="true"
+                           id="email" placeholder="Email Address"
+                           t-attf-value="#{default and default['email'] or not user_is_public and env.user.login or ''}"
+                    />
+                    <t t-if="error and error['subject'] == 'email'">
+                        <t t-call="argocd_website.error"/>
+                    </t>
+                    <t t-else="">
+                        <div class="form-text">
+                            This will be used to validate your registration and login.
+                        </div>
+                    </t>
                 </div>
-                <div class="card-body">
-                    <span>You are currently not logged in if you already have an account, please make sure to <a href="/web/login">login</a>.</span>
-                </div>
-            </div>
-
-            <div class="mb-3 mt-3">
-                <div class="form-check">
-                    <label>
-                        <input name="terms_of_use" class="form-check-input" type="checkbox" id="terms_of_use"/>
-                        <label class="form-check-label" for="terms_of_use">I agree to the <a href="#">terms of use</a></label>
-                    </label>
-                </div>
-                <div t-attf-class="#{error and error['subject'] == 'terms_of_use' and 'has-error' or ''}">
-                    <t t-if="error and error['subject'] == 'terms_of_use'">
+                <div t-attf-class="#{error and error['subject'] == 'name' and 'has-error' or ''} mb-3">
+                    <label for="name" class="form-label">Company Name <span class="text-info">*</span></label>
+                    <input type="text"
+                           class="form-control"
+                           name="name"
+                           required="true"
+                           id="name" placeholder="Company Name"
+                           t-attf-value="#{default and default['name']}"
+                    />
+                    <t t-if="error and error['subject'] == 'name'">
                         <t t-call="argocd_website.error"/>
                     </t>
                 </div>
+                <div t-attf-class="#{error and error['subject'] == 'company_registry' and 'has-error' or ''} mb-3">
+                    <label for="company_registry" class="form-label">CoC Number <span class="text-info">*</span></label>
+                    <input type="text"
+                           class="form-control"
+                           name="company_registry"
+                           required="true"
+                           id="company_registry" placeholder="12345678"
+                           t-attf-value="#{default and default['company_registry']}"
+                    />
+                    <t t-if="error and error['subject'] == 'company_registry'">
+                        <t t-call="argocd_website.error"/>
+                    </t>
+                </div>
+                <div class="form-group">
+                    <label for="street_name" class="form-label">Address <span class="text-info">*</span></label>
+                    <div class="row mb-3">
+                        <div t-attf-class="#{error and error['subject'] == 'street_name' and 'has-error' or ''} col-sm-8">
+                            <input type="text"
+                                   class="form-control"
+                                   name="street_name"
+                                   id="street_name" placeholder="Street"
+                                   t-attf-value="#{default and default['street_name']}"
+                            />
+                            <t t-if="error and error['subject'] == 'street_name'">
+                                <t t-call="argocd_website.error"/>
+                            </t>
+                        </div>
+                        <div t-attf-class="#{error and error['subject'] == 'street_number' and 'has-error' or ''} col-sm-2">
+                            <input type="number"
+                                   class="form-control"
+                                   name="street_number"
+                                   required="true"
+                                   id="street_number" placeholder="Street Number"
+                                   t-attf-value="#{default and default['street_number']}"
+                            />
+                            <t t-if="error and error['subject'] == 'street_number'">
+                                <t t-call="argocd_website.error"/>
+                            </t>
+                        </div>
+                        <div t-attf-class="#{error and error['subject'] == 'street_number2' and 'has-error' or ''} col-sm-2">
+                            <input type="text"
+                                   class="form-control"
+                                   name="street_number2"
+                                   id="street_number2" placeholder="Addition"
+                                   t-attf-value="#{default and default['street_number2']}"
+                            />
+                            <t t-if="error and error['subject'] == 'street_number2'">
+                                <t t-call="argocd_website.error"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row mb-3">
+                        <div t-attf-class="#{error and error['subject'] == 'zip' and 'has-error' or ''} col-sm-6">
+                            <input type="text"
+                                   class="form-control"
+                                   name="zip"
+                                   required="true"
+                                   id="street" placeholder="Zip"
+                                   t-attf-value="#{default and default['zip']}"/>
+                            <t t-if="error and error['subject'] == 'zip'">
+                                <t t-call="argocd_website.error"/>
+                            </t>
+                        </div>
+                        <div t-attf-class="#{error and error['subject'] == 'city' and 'has-error' or ''} col-sm-6">
+                            <input type="text"
+                                   class="form-control"
+                                   name="city"
+                                   required="true"
+                                   id="city" placeholder="City"
+                                   t-attf-value="#{default and default['city']}"
+                            />
+                            <t t-if="error and error['subject'] == 'city'">
+                                <t t-call="argocd_website.error"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div t-if="captcha_enabled"
-                 t-attf-class="#{error and error['subject'] == 'captcha' and 'has-error' or ''} form-group mb-3">
-                <t t-call="base_librecaptcha.widget" />
-                <t t-if="error and error['subject'] == 'captcha'">
+
+            <div class="card-body d-flex" t-else="">
+                <div class="flex-fill">
+                    <strong class="d-block">Address: </strong>
+                    <address t-field="user.partner_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name", "email"], "no_marker": True}'/>
+
+                    <strong>Chamber of Commerce #:</strong>
+                    <span t-field="user.partner_id.company_registry" />
+                </div>
+                <div>
+                    <a target="_blank" href="/my/account" class="btn btn-link"><i class="fa fa-pencil mr8" />Edit</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt16" t-if="user_is_public">
+            <div class="card-header bg-light h3">
+                Account
+            </div>
+            <div class="card-body">
+                <span>You are currently not logged in if you already have an account, please make sure to <a href="/web/login">login</a>.</span>
+            </div>
+        </div>
+
+        <div class="mb-3 mt-3">
+            <div class="form-check">
+                <label>
+                    <input name="terms_of_use" class="form-check-input" type="checkbox" id="terms_of_use"/>
+                    <label class="form-check-label" for="terms_of_use">I agree to the <a href="#">terms of use</a></label>
+                </label>
+            </div>
+            <div t-attf-class="#{error and error['subject'] == 'terms_of_use' and 'has-error' or ''}">
+                <t t-if="error and error['subject'] == 'terms_of_use'">
                     <t t-call="argocd_website.error"/>
                 </t>
             </div>
+        </div>
+        <div t-if="captcha_enabled"
+             t-attf-class="#{error and error['subject'] == 'captcha' and 'has-error' or ''} form-group mb-3">
+            <t t-call="base_librecaptcha.widget" />
+            <t t-if="error and error['subject'] == 'captcha'">
+                <t t-call="argocd_website.error"/>
+            </t>
+        </div>
     </template>
 
     <template id="signup" name="Signup">
