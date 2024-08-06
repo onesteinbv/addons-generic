@@ -17,3 +17,12 @@
         }
     }
 }
+
+
+.argocd_website_order_progress_bar.s_process_steps {
+    @include media-breakpoint-down(lg) {
+         .s_process_step .s_process_step_connector {
+            display: block;
+        }
+    }
+}

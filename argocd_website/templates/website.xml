@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="order_progress_bar">
-        <section class="s_process_steps pt16 pb0 s_process_steps_connector_line" data-vcss="001">
+        <section class="s_process_steps pt16 pb0 s_process_steps_connector_line argocd_website_order_progress_bar" data-vcss="001">
             <div class="container">
                 <div class="row g-0">
-                    <div class="s_process_step col-lg-4">
+                    <div class="s_process_step col-4">
                         <svg class="s_process_step_connector" viewBox="0 0 350 80" preserveAspectRatio="none"
                              style="left: calc(50% + 40px); height: 12px; width: calc(100% - 80px);">
                             <path d="M 0 40 L 350 40" vector-effect="non-scaling-stroke" marker-end="" />
@@ -17,7 +17,7 @@
                             <span t-attf-class="o_default_snippet_text #{current_step == 'configure' and 'fw-bold' or 'text-muted'}">Configure</span>
                         </div>
                     </div>
-                    <div class="s_process_step col-lg-4">
+                    <div class="s_process_step col-4">
                         <svg class="s_process_step_connector" viewBox="0 0 350 80" preserveAspectRatio="none"
                              style="left: calc(50% + 40px); height: 12px; width: calc(100% - 80px);">
                             <path d="M 0 40 L 350 40" vector-effect="non-scaling-stroke" marker-end="" />
@@ -30,7 +30,7 @@
                             <span t-attf-class="o_default_snippet_text #{current_step == 'signup' and 'fw-bold' or 'text-muted'}">Sign up</span>
                         </div>
                     </div>
-                    <div class="s_process_step col-lg-4">
+                    <div class="s_process_step col-4">
                         <svg class="s_process_step_connector" viewBox="0 0 242.5 80" preserveAspectRatio="none"
                              style="left: calc(50% + 40px); height: 12px; width: calc(100% - 80px);">
                             <path d="M 0 40 L 242.5 40" vector-effect="non-scaling-stroke" marker-end="" />
