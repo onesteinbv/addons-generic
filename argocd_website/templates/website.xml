@@ -89,13 +89,13 @@
             <div
                 t-attf-class="row align-items-center js_order_app_product_header #{'bg-light' if product_tmpl_in_sub else ''}"
             >
-                <div class="col-2 pt-3 pb-3">
+                <div class="col-2 col-sm-2 pt-3 pb-3">
                     <span
                         t-field="product_tmpl.image_128"
                         t-options="{'widget': 'image', 'itemprop': 'image', 'class': 'h-100'}"
                     />
                 </div>
-                <div class="col-9 pt-3 pb-3">
+                <div class="col-8 col-sm-9 pt-3 pb-3">
                     <div>
                         <div>
                             <strong t-field="product_tmpl.name" />
@@ -104,7 +104,7 @@
                         <small t-field="product_tmpl.list_price" t-options="{'widget': 'monetary', 'display_currency': product_tmpl.currency_id}" />
                     </div>
                 </div>
-                <div class="col-1 align-self-start pt-3 pb-3 d-flex justify-content-end" t-if="product_tmpl != main_product_tmpl">
+                <div class="col-2 col-sm-1 align-self-start pt-3 pb-3 d-flex justify-content-end" t-if="product_tmpl != main_product_tmpl">
                     <input type="checkbox" class="form-check-input js_order_app_toggle" t-if="product_tmpl_in_sub" checked="checked" />
                     <input type="checkbox" class="form-check-input js_order_app_toggle" t-else="" />
                 </div>
@@ -149,14 +149,14 @@
                 <div class="oe_structure"/>
                 <section class="container mt32 mb32">
                     <div class="row">
-                        <div class="col-md-8 col-12">
+                        <div class="col-lg-8 col-12">
                             <t t-set="product_tmpl" t-value="main_product_tmpl"/>
                             <div t-call="argocd_website.order_configure_product" t-if="main_product_tmpl" />
                             <t t-as="product_tmpl" t-foreach="optional_products">
                                 <div t-call="argocd_website.order_configure_product" />
                             </t>
                         </div>
-                        <div class="col-md-4 col-12">
+                        <div class="col-lg-4 col-12">
                             <t t-call="argocd_website.order_details" >
                                 <a href="/application/signup" class="btn btn-primary js_order_app_proceed d-none disabled">Go to payment</a>
                             </t>
@@ -347,10 +347,10 @@
                 <form t-attf-action="/application/signup" method="post">
                     <section class="container mt32 mb32">
                         <div class="row">
-                            <div class="col-md-8 col-12">
+                            <div class="col-lg-8 col-12">
                                 <t t-call="argocd_website.form" />
                             </div>
-                            <div class="col-md-4 col-12">
+                            <div class="col-lg-4 col-12">
                                 <t t-call="argocd_website.order_details">
                                     <button type="submit" class="btn btn-primary js_order_app_proceed d-none disabled">Go to payment</button>
                                 </t>
