@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from odoo import fields, models
 
 
@@ -20,3 +22,32 @@ class Subscription(models.Model):
         )
         template = self.env["sale.subscription.template"].browse(template_id)
         return template
+
+    def _cron_cleanup_abandoned(self):
+        period = int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("argocd_website.subscription_abandoned_period" "0")
+        )
+        if not period:
+            return
+        abandoned_date = fields.Datetime.now() - timedelta(days=period)
+        self.search(
+            [
+                (
+                    "website_id",
+                    "!=",
+                    False,
+                    "create_date",
+                    "<=",
+                    fields.Datetime.to_string(abandoned_date),
+                    "|",
+                    "stage_id.type",
+                    "=",
+                    "draft",
+                    "stage_id",
+                    "=",
+                    False,
+                )
+            ]
+        ).unlink()

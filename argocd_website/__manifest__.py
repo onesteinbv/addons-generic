@@ -18,6 +18,7 @@
     ],
     "data": [
         "data/ir_config_parameter_data.xml",
+        "data/ir_cron.xml",
         "security/ir_model_access.xml",
         "security/ir_rule.xml",
         "templates/website.xml",

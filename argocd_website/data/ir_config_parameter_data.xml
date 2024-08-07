@@ -4,4 +4,8 @@
         <field name="key">argocd_website.subscription_template_id</field>
         <field name="value">0</field>
     </record>
+    <record id="parameter_subscription_abandoned_period" model="ir.config_parameter">
+        <field name="key">argocd_website.subscription_abandoned_period</field>
+        <field name="value">14</field>
+    </record>
 </odoo>
