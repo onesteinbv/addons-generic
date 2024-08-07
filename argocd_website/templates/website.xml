@@ -151,9 +151,9 @@
                     <div class="row">
                         <div class="col-lg-8 col-12">
                             <t t-set="product_tmpl" t-value="main_product_tmpl"/>
-                            <div t-call="argocd_website.order_configure_product" t-if="main_product_tmpl" />
+                            <div t-call="argocd_website.order_configure_product" t-if="main_product_tmpl" class="col-12 gx-0 px-lg-3"/>
                             <t t-as="product_tmpl" t-foreach="optional_products">
-                                <div t-call="argocd_website.order_configure_product" />
+                                <div t-call="argocd_website.order_configure_product"  class="col-12 gx-0 px-lg-3" />
                             </t>
                         </div>
                         <div class="col-lg-4 col-12 gx-0 px-lg-3">
