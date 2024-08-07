@@ -121,7 +121,7 @@
     </template>
 
     <template id="order_details">
-        <div class="js_order_app_details">
+        <div class="js_order_app_details sticky-lg-top">
             <div class="row">
                 <h3>Your Order</h3>
             </div>

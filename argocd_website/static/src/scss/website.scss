@@ -18,6 +18,10 @@
     }
 }
 
+.js_order_app_details {
+    top: 1em;
+}
+
 
 .argocd_website_order_progress_bar.s_process_steps {
     @include media-breakpoint-down(lg) {

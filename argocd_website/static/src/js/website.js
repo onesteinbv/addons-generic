@@ -2,6 +2,7 @@ odoo.define("argocd_website.website", function (require) {
     "use strict";
 
     var publicWidget = require("web.public.widget");
+    var { SIZES, uiService } = require('@web/core/ui/ui_service');
     var { qweb } = require("web.core");
 
     publicWidget.registry.OrderAppProductConfigurator = publicWidget.Widget.extend({
@@ -32,7 +33,7 @@ odoo.define("argocd_website.website", function (require) {
         },
 
         _onClickHeader: function (ev) {
-            if (ev.target.nodeName == "INPUT") return;
+            if (ev.target.nodeName === "INPUT") return;
             this.$toggle.click();
         },
 
@@ -127,5 +128,23 @@ odoo.define("argocd_website.website", function (require) {
             }.bind(this));
         }
     });
+
+    var UpdateOrderDetailsPaddingMixin = {
+        start: function () {
+            var res = this._super(...arguments);
+            this.$orderDetails = this.$main.find(".js_order_app_details");
+            return res;
+        },
+
+        _updateMainPaddingTop: function () {
+            var isLarge = uiService.getSize() >= SIZES.LG;
+            this.$orderDetails.css("padding-top", this.fixedHeader && this._isShown() && isLarge ? this.headerHeight : "");
+            return this._super(...arguments);
+        }
+    };
+
+    publicWidget.registry.StandardAffixedHeader.include(UpdateOrderDetailsPaddingMixin)
+
+    publicWidget.registry.FixedHeader.include(UpdateOrderDetailsPaddingMixin);
 
 });
