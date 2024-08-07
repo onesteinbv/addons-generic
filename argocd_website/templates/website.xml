@@ -156,7 +156,7 @@
                                 <div t-call="argocd_website.order_configure_product" />
                             </t>
                         </div>
-                        <div class="col-lg-4 col-12">
+                        <div class="col-lg-4 col-12 gx-0 px-lg-3">
                             <t t-call="argocd_website.order_details" >
                                 <a href="/application/signup" class="btn btn-primary js_order_app_proceed d-none disabled">Go to payment</a>
                             </t>
@@ -347,10 +347,10 @@
                 <form t-attf-action="/application/signup" method="post">
                     <section class="container mt32 mb32">
                         <div class="row">
-                            <div class="col-lg-8 col-12">
+                            <div class="col-lg-8 col-12 gx-0 px-lg-3">
                                 <t t-call="argocd_website.form" />
                             </div>
-                            <div class="col-lg-4 col-12">
+                            <div class="col-lg-4 col-12 gx-0 px-lg-3">
                                 <t t-call="argocd_website.order_details">
                                     <button type="submit" class="btn btn-primary js_order_app_proceed d-none disabled">Go to payment</button>
                                 </t>
@@ -387,8 +387,7 @@
 
     <template id="portal_breadcrumb" inherit_id="payment.portal_breadcrumb">
         <!--
-        The above doesn't work for the /payment/status page, so we just replace it for every case to save time.
-        And otherwise it will not look nice IMO
+        The above doesn't work for the /payment/status page
         -->
         <xpath expr="//div[hasclass('row')]" position="attributes">
             <attribute name="t-if">not is_paying_for_app_subscription</attribute>
