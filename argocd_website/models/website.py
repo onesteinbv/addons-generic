@@ -34,6 +34,7 @@ class Website(models.Model):
         else:
             existing_line.product_id = product
         subscription._compute_total()  # Depends is not correctly set on this method
+        subscription.invoice_ids.unlink()
 
     def remove_subscription_product(self, product_template_id):
         subscription = self.ensure_subscription()
@@ -43,6 +44,7 @@ class Website(models.Model):
         subscription.sale_subscription_line_ids = [
             Command.unlink(t.id) for t in to_remove
         ]
+        subscription.invoice_ids.unlink()
 
     @api.returns("sale.subscription")
     def ensure_subscription(self):
@@ -56,8 +58,11 @@ class Website(models.Model):
         )  # Session is retrieved by cookie, so we don't need to filter on website
         if subscription_id:
             subscription = subscription.browse(subscription_id)
-            if not subscription.exists() or (
-                subscription.stage_id and subscription.stage_id.type != "draft"
+            if (
+                not subscription.exists()
+                or (subscription.stage_id and subscription.stage_id.type != "draft")
+                or not subscription.website_id
+                or subscription.invoice_ids
             ):
                 subscription = self.env["sale.subscription"]
 
