@@ -59,13 +59,11 @@ class SubscriptionLine(models.Model):
             app.deploy()
         return res
 
-    @api.ondelete(at_uninstall=True)
+    @api.ondelete(at_uninstall=False)
     def _unlink_and_destroy_app(self):
         for line in self.filtered(lambda l: l.application_ids):
-            delta = (
-                line.sale_subscription_id.recurring_next_date - fields.Datetime.now()
-            )
-            line.application_ids.destroy(eta=delta.total_seconds())
+            delta = line.sale_subscription_id.recurring_next_date - fields.Date.today()
+            line.application_ids.destroy(eta=int(delta.total_seconds()))
 
     def _invoice_paid_hook(self):
         self.ensure_one()

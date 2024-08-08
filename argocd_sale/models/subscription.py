@@ -63,9 +63,9 @@ class Subscription(models.Model):
             linked_apps.destroy()
         return True
 
-    def cron_update_payment_provider_subscriptions(self):
+    def cron_update_payment_provider_payments(self):
         # Process last payments first because in here paid_for_date can be updated
-        res = super().cron_update_payment_provider_subscriptions()
+        res = super().cron_update_payment_provider_payments()
         period = self._get_grace_period()
         if not period:
             return res
@@ -74,6 +74,20 @@ class Subscription(models.Model):
         late_subs = self.search(
             [("paid_for_date", "<", late_date), ("in_progress", "=", True)]
         )
-        late_subs.close_subscription()
+        for late_sub in late_subs:
+            late_sub.with_context(
+                no_destroy_app=True
+            ).close_subscription()  # no_destroy_app since we're doing the grace period action after this.
         late_subs._do_grace_period_action()
         return res
+
+    def close_subscription(self, close_reason_id=False):
+        if not self.env.context.get(
+            "no_destroy_app", False
+        ):  # This is fine since portal users don't have write access on sale.subscription and the super writes the record
+            # Destroy app
+            self.ensure_one()
+            delta = self.recurring_next_date - fields.Date.today()
+            for line in self.filtered(lambda l: l.application_ids):
+                line.application_ids.destroy(eta=int(delta.total_seconds()))
+        return super().close_subscription(close_reason_id)
