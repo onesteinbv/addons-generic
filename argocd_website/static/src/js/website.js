@@ -4,6 +4,7 @@ odoo.define("argocd_website.website", function (require) {
     var publicWidget = require("web.public.widget");
     var { SIZES, uiService } = require('@web/core/ui/ui_service');
     var { qweb } = require("web.core");
+    require("website.content.menu");
 
     publicWidget.registry.OrderAppProductConfigurator = publicWidget.Widget.extend({
         selector: ".js_order_app_product",
