@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from odoo import Command, fields, models
+from odoo import Command, _, fields, models
 
 
 class Subscription(models.Model):
@@ -10,6 +10,11 @@ class Subscription(models.Model):
         comodel_name="argocd.application", inverse_name="subscription_id"
     )
     end_partner_id = fields.Many2one(comodel_name="res.partner")
+    application_count = fields.Integer(compute="_compute_application_count")
+
+    def _compute_application_count(self):
+        for sub in self:
+            sub.application_count = len(sub.application_ids)
 
     def _get_grace_period(self):
         return int(
@@ -91,3 +96,13 @@ class Subscription(models.Model):
             for line in self.filtered(lambda l: l.application_ids):
                 line.application_ids.destroy(eta=int(delta.total_seconds()))
         return super().close_subscription(close_reason_id)
+
+    def view_applications(self):
+        return {
+            "name": _("Applications"),
+            "view_type": "form",
+            "view_mode": "tree,form",
+            "res_model": "argocd.application",
+            "type": "ir.actions.act_window",
+            "domain": [("id", "in", self.application_ids.ids)],
+        }
