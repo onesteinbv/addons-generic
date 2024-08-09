@@ -1,5 +1,4 @@
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 
 class Application(models.Model):
@@ -11,6 +10,21 @@ class Application(models.Model):
         store=True,
         readonly=False,
     )
+    subscription_id = fields.Many2one(
+        comodel_name="sale.subscription",
+        compute="_compute_subscription_id",
+        store=True,
+        readonly=False,
+    )
+    subscription_line_id = fields.Many2one(comodel_name="sale.subscription.line")
+
+    _sql_constraints = [
+        (
+            "application_subscription_line_id_unique",
+            "unique(subscription_line_id)",
+            "Only one application can be linked to a subscription line",
+        )
+    ]
 
     def is_created_by_reseller(self):
         self.ensure_one()
@@ -18,27 +32,25 @@ class Application(models.Model):
             self.partner_id.parent_id and self.partner_id.parent_id.is_reseller
         )
 
-    subscription_id = fields.Many2one(comodel_name="sale.subscription")
+    def get_attribute(self, argocd_identifier):
+        self.ensure_one()
+        variant_value = self.subscription_line_id.product_id.product_template_variant_value_ids.filtered(
+            lambda kv: kv.attribute_id.argocd_identifier == argocd_identifier
+        ).product_attribute_value_id
+        return variant_value.argocd_name or variant_value.name
 
-    @api.depends("subscription_id", "subscription_id.partner_id")
+    @api.depends("subscription_line_id", "subscription_line_id.sale_subscription_id")
+    def _compute_subscription_id(self):
+        for app in self.filtered(lambda a: a.subscription_line_id):
+            app.subscription_id = app.subscription_line_id.sale_subscription_id
+
+    @api.depends(
+        "subscription_id",
+        "subscription_id.partner_id",
+        "subscription_id.end_partner_id",
+    )
     def _compute_partner_id(self):
         for app in self.filtered(lambda a: a.subscription_id):
-            app.partner_id = app.subscription_id.partner_id
-
-    def _get_deployment_notification_mail_template(self):
-        self.ensure_one()
-        return "argocd_sale.deployment_notification_mail_template"
-
-    def send_deployment_notification(self):
-        self.ensure_one()
-        if not self.partner_id:
-            raise UserError(_("Please provide a partner"))
-        mail_template_id = self._get_deployment_notification_mail_template()
-        template = self.env.ref(mail_template_id)
-        template.sudo().send_mail(self.id, force_send=True)
-
-    def deploy(self):
-        res = super().deploy()
-        if self.template_id.auto_send_deployment_notification and self.partner_id:
-            self.send_deployment_notification()
-        return res
+            app.partner_id = (
+                app.subscription_id.end_partner_id or app.subscription_id.partner_id
+            )

@@ -11,7 +11,7 @@ class PortalSubscription(CustomerPortal):
         if "subscription_count" in counters:
             subscription_model = request.env["sale.subscription"]
             subscription_count = (
-                subscription_model.search_count([])
+                subscription_model.search_count(self._get_filter_domain({}))
                 if subscription_model.check_access_rights("read", raise_exception=False)
                 else 0
             )

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="cron_cleanup_abandoned_subs" model="ir.cron">
+        <field name="name">ArgoCD Website: Cleanup abandoned subscriptions</field>
+        <field name="model_id" ref="subscription_oca.model_sale_subscription"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_cleanup_abandoned()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+    </record>
+</odoo>

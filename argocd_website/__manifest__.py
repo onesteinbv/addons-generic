@@ -8,6 +8,7 @@
     "depends": [
         "website",
         "payment",
+        "account_payment",
         "argocd_sale",
         "portal",
         "auth_signup",
@@ -16,8 +17,8 @@
         "subscription_portal",
     ],
     "data": [
-        "data/mail_template_data.xml",
         "data/ir_config_parameter_data.xml",
+        "data/ir_cron.xml",
         "security/ir_model_access.xml",
         "security/ir_rule.xml",
         "templates/website.xml",
@@ -27,7 +28,10 @@
     "assets": {
         "web.assets_frontend": [
             "argocd_website/static/src/js/portal.js",
+            "argocd_website/static/src/js/website.js",
             "argocd_website/static/src/scss/portal.scss",
+            "argocd_website/static/src/scss/website.scss",
+            "argocd_website/static/src/xml/website.xml",
         ]
     },
     "external_dependencies": {"python": ["yaml", "requests", "dnspython==2.6.1"]},

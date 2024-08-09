@@ -1,9 +1,6 @@
 from datetime import timedelta
 
-from dateutil.relativedelta import relativedelta
-
-from odoo import Command, _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo import Command, _, fields, models
 
 
 class Subscription(models.Model):
@@ -12,24 +9,12 @@ class Subscription(models.Model):
     application_ids = fields.One2many(
         comodel_name="argocd.application", inverse_name="subscription_id"
     )
+    end_partner_id = fields.Many2one(comodel_name="res.partner")
+    application_count = fields.Integer(compute="_compute_application_count")
 
-    free_trial_end_date = fields.Date()
-
-    def create_invoice(self):
-        res = super().create_invoice()
-        if (
-            self.sale_subscription_line_ids.filtered(
-                lambda l: l.product_id.application_template_id
-            )
-            and len(self.invoice_ids) == 1
-        ):
-            # Set price of the first invoice to 1.00
-            free_period = self._get_free_period()
-            if free_period:
-                self.invoice_ids.invoice_line_ids.filtered(
-                    lambda l: l.product_id.application_template_id
-                ).price_unit = 1.0
-        return res
+    def _compute_application_count(self):
+        for sub in self:
+            sub.application_count = len(sub.application_ids)
 
     def _get_grace_period(self):
         return int(
@@ -38,66 +23,22 @@ class Subscription(models.Model):
             .get_param("argocd_sale.grace_period", "0")
         )
 
-    @api.constrains("sale_subscription_line_ids")
-    def _check_multiple_application_products(self):
-        app_lines = self.sale_subscription_line_ids.filtered(
-            lambda l: l.product_id.application_template_id
-        )
-        if len(app_lines) > 1:
-            raise ValidationError(
-                _("Subscription can only have one application, please remove one")
-            )
-
-    def _customer_name_to_application_name(self):
-        self.ensure_one()
-        replacements = {" ": "-", ".": "", "&": "-"}
-        partner = self.partner_id.commercial_partner_id
-        name = partner.display_name
-        name = name.strip().lower()
-        for replace in replacements:
-            name = name.replace(replace, replacements[replace])
-        return "".join(c for c in name if c.isalnum() or c == "-")
-
     def _invoice_paid_hook(self):
-        application_sudo = self.env["argocd.application"].sudo()
-
-        for subscription in self.filtered(
-            lambda i: len(i.invoice_ids) == 1
-            and i.sale_subscription_line_ids.filtered(
+        for subscription in self:
+            # Start the subscription, which is not done by subscription_oca, so we do it here for our purposes
+            # this probably should be moved to subscription_oca.
+            if len(
+                subscription.invoice_ids
+            ) == 1 and subscription.sale_subscription_line_ids.filtered(
                 lambda l: l.product_id.application_template_id
-            )
-        ):  # Create the application after the first invoice has been paid
-            free_period = subscription._get_free_period()
-            if free_period:
-                today = fields.Datetime.today()
-                subscription.recurring_next_date = today + free_period
-                subscription.free_trial_end_date = today + free_period
-            subscription.action_start_subscription()
+            ):
+                subscription.action_start_subscription()
+
             lines = subscription.sale_subscription_line_ids.filtered(
                 lambda l: l.product_id.application_template_id
             )
             for line in lines:
-                name = application_sudo.find_next_available_name(
-                    self._customer_name_to_application_name()
-                )
-                tags = subscription.sale_subscription_line_ids.filtered(
-                    lambda l: l.product_id.application_tag_ids
-                    and not l.product_id.application_filter_ids  # All lines with modules linked to them
-                    or line.product_id.application_template_id  # If there's no filter
-                    in l.product_id.application_filter_ids  # If there's a filter
-                ).mapped("product_id.application_tag_ids")
-
-                application = application_sudo.create(
-                    {
-                        "name": name,
-                        "subscription_id": subscription.id,
-                        "tag_ids": tags.ids,
-                        "template_id": line.product_id.application_template_id.id,
-                        "application_set_id": line.product_id.application_set_id.id,
-                    }
-                )
-                application.render_config()
-                application.deploy()
+                line._invoice_paid_hook()
 
     def _do_grace_period_action(self):
         """
@@ -109,7 +50,8 @@ class Subscription(models.Model):
             "argocd_sale.grace_period_action"
         )
         if not grace_period_action:
-            return False  # Do nothing
+            return False
+        linked_apps = self.mapped("sale_subscription_line_ids.application_ids")
         if grace_period_action == "add_tag":
             grace_period_tag_id = int(
                 self.env["ir.config_parameter"].get_param(
@@ -121,70 +63,46 @@ class Subscription(models.Model):
             tag = self.env["argocd.application.tag"].browse(grace_period_tag_id)
             if not tag:
                 return False
-            self.mapped("application_ids").write({"tag_ids": [Command.link(tag.id)]})
+            linked_apps.write({"tag_ids": [Command.link(tag.id)]})
         elif grace_period_action == "destroy_app":
-            self.mapped("application_ids").destroy()
+            linked_apps.destroy()
         return True
 
-    def cron_update_payment_provider_subscriptions(self):
+    def cron_update_payment_provider_payments(self):
         # Process last payments first because in here paid_for_date can be updated
-        res = super().cron_update_payment_provider_subscriptions()
+        res = super().cron_update_payment_provider_payments()
         period = self._get_grace_period()
         if not period:
             return res
         today = fields.Date.today()
         late_date = today - timedelta(days=period)
         late_subs = self.search(
-            [
-                ("paid_for_date", "<", late_date),
-                ("in_progress", "=", True),
-                "|",
-                ("free_trial_end_date", "<", today),
-                ("free_trial_end_date", "=", False),
-            ]
+            [("paid_for_date", "<", late_date), ("in_progress", "=", True)]
         )
-        if late_subs.filtered(
-            lambda s: not s.free_trial_end_date
-            or s.free_trial_end_date + timedelta(days=period) < today
-        ):
-            late_subs.close_subscription()
-            late_subs._do_grace_period_action()
+        for late_sub in late_subs:
+            late_sub.with_context(
+                no_destroy_app=True
+            ).close_subscription()  # no_destroy_app since we're doing the grace period action after this.
+        late_subs._do_grace_period_action()
         return res
 
-    def _get_free_period(self):
-        self.ensure_one()
-        if (
-            self.partner_id.is_reseller
-            or self.partner_id.parent_id
-            and self.partner_id.parent_id.is_reseller
-        ):
-            return None
-        existing_subs = self.partner_id.subscription_ids
-        if self.partner_id.parent_id:
-            existing_subs += self.partner_id.parent_id.subscription_ids
-        existing_subs -= self
-        if existing_subs:
-            return None
-        sudo_config = self.env["ir.config_parameter"].sudo()
-        free_period = int(
-            sudo_config.get_param("argocd_sale.subscription_free_period", "0")
-        )
-        if not free_period:
-            return None
-        free_period_type = sudo_config.get_param(
-            "argocd_sale.subscription_free_period_type"
-        )
-        valid_period_types = (
-            "years",
-            "months",
-            "days",
-            "leapdays",
-            "weeks",
-            "hours",
-            "minutes",
-            "seconds",
-            "microseconds",
-        )
-        if free_period_type not in valid_period_types:
-            return None
-        return relativedelta(**{free_period_type: free_period})
+    def close_subscription(self, close_reason_id=False):
+        if not self.env.context.get(
+            "no_destroy_app", False
+        ):  # This is fine since portal users don't have write access on sale.subscription and the super writes the record
+            # Destroy app
+            self.ensure_one()
+            delta = self.recurring_next_date - fields.Date.today()
+            for line in self.filtered(lambda l: l.application_ids):
+                line.application_ids.destroy(eta=int(delta.total_seconds()))
+        return super().close_subscription(close_reason_id)
+
+    def view_applications(self):
+        return {
+            "name": _("Applications"),
+            "view_type": "form",
+            "view_mode": "tree,form",
+            "res_model": "argocd.application",
+            "type": "ir.actions.act_window",
+            "domain": [("id", "in", self.application_ids.ids)],
+        }

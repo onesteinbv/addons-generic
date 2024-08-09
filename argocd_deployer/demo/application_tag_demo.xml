@@ -9,6 +9,5 @@
         <field name="name">Matomo Server</field>
         <field name="key">matomo_server</field>
         <field name="is_odoo_module" eval="False" />
-        <field name="domain_yaml_path">matomo.domain</field>
     </record>
 </odoo>

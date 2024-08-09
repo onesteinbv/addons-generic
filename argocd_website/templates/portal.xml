@@ -35,14 +35,21 @@
     </template>
 
     <template id="external_links_dropdown">
-        <div t-attf-class="dropdown position-static">
+        <t t-set="urls" t-value="app.get_urls()" />
+        <t t-if="len(urls) == 1">
+            <a class="btn btn-link" aria-expanded="false" aria-haspopup="true"
+               t-att-href="urls[0][0]" target="_blank" t-attf-title="Open #{urls[0][1]}">
+                <i class="fa fa-external-link fa-fw" />
+            </a>
+        </t>
+        <div t-attf-class="dropdown position-static" t-else="">
             <button class="btn btn-link" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false" aria-haspopup="true">
                 <i class="fa fa-external-link fa-fw" />
             </button>
 
             <ul class="dropdown-menu">
-                <li t-foreach="app.get_urls()" t-as="url">
+                <li t-foreach="urls" t-as="url">
                     <a t-att-href="url[0]" target="_blank" t-attf-title="Open #{url[1]}" class="dropdown-item">
                         <t t-esc="url[1]" />
                     </a>
@@ -100,9 +107,8 @@
                                 <t t-esc="app.partner_id.display_name" />
                             </td>
                             <td>
-                                <div>
-                                    <i class="fa fa-circle-o-notch fa-spin fa-fw js_health_check"
-                                       t-att-data-app-id="app.id" />
+                                <div class="js_health_check" t-att-data-app-id="app.id">
+                                    <i class="fa fa-circle-o-notch fa-spin fa-fw " />
                                 </div>
                             </td>
                             <td>
@@ -118,20 +124,9 @@
             <t t-else="">
                 <p>You have no applications currently.</p>
             </t>
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Request new application
-                </button>
-                <ul class="dropdown-menu">
-                    <li t-foreach="products" t-as="product">
-                        <a
-                            class="dropdown-item"
-                            t-attf-href="/application/additional/#{product.id}">
-                            <t t-esc="product.name" />
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <a href="/application/order" class="btn btn-primary">
+                Request new application
+            </a>
         </t>
     </template>
 
@@ -145,25 +140,10 @@
                                 Application - <span t-field="app.name" />
                             </span>
                         </h2>
-                        <!-- FIXME: Lets put the danger button here for now -->
                         <div>
-                            <t t-if="app.subscription_id">
-                                <button
-                                    type="button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modalCancelSub"
-                                    title="Cancel Subscription"
-                                    class="btn btn-danger"
-                                    t-if="app.subscription_id.in_progress"
-                                >
-                                    <span class="fa fa-ban fa-fw" />
-                                </button>
-                            </t>
-                            <t t-else="">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modalDelete" title="Delete" class="btn btn-danger">
-                                    <span class="fa fa-trash fa-fw" />
-                                </button>
-                            </t>
+                            <button class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#modalUpgrade">
+                                <i class="fa fa-angle-double-up fa-lg fa-fw" />
+                            </button>
                         </div>
                         <t t-call="argocd_website.external_links_dropdown" />
                     </div>
@@ -186,82 +166,34 @@
                             <strong>Chamber of Commerce #:</strong>
                             <span t-field="app.partner_id.company_registry" />
                         </div>
-                        <div>
+                        <div t-if="app.domain_ids">
                             <strong>Health: </strong>
-                            <span>
-                                <i class="fa fa-circle-o-notch fa-spin fa-fw js_health_check"
-                                   t-att-data-app-id="app.id" />
+                            <span class="js_health_check" t-att-data-app-id="app.id">
+                                <i class="fa fa-circle-o-notch fa-spin fa-fw" />
                             </span>
                         </div>
                     </div>
-                    <div class="mt32" t-if="app.subscription_id">
-                        <t t-call="subscription_portal.portal_subscription_cancel_modal">
-                            <t t-set="modalId" t-value="'modalCancelSub'" />
-                            <t t-set="subscription" t-value="app.subscription_id" />
-                        </t>
-                        <div>
-                            <div class="h3 d-flex">
-                                <span class="flex-fill">
-                                    Your subscription
-                                    <button class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#modalUpgrade">
-                                        <i class="fa fa-pencil fa-fw" />
-                                    </button>
-                                </span>
-                                <span class="badge bg-secondary align-self-center">
-                                    <t t-esc="app.subscription_id.recurring_total"
-                                       t-options="{'widget': 'monetary', 'display_currency': app.subscription_id.currency_id}" />
-                                    <small>excl. VAT</small>
-                                </span>
-                            </div>
-                        </div>
-                        <table class="table">
-                            <tr class="bg-100">
-                                <th>Product / service</th>
-                                <th>Price</th>
-                            </tr>
-                            <tr t-foreach="app.subscription_id.sale_subscription_line_ids" t-as="line">
-                                <td><t t-esc="line.product_id.name" /></td>
-                                <td>
-                                    <span t-field="line.price_unit" t-options="{'widget': 'monetary'}" />
-                                    <small class="text-muted">/ month</small>
-                                </td>
-                            </tr>
-                        </table>
+                    <div class="mt16" t-if="app.subscription_line_id">
+                        <ul class="list-group mb-2">
+                            <li class="list-group-item d-grid">
+                                <div class="row">
+                                    <div class="col-xl-9 col-8 fw-bold" t-esc="app.subscription_line_id.product_id.name" />
+                                </div>
+                                <div class="row" t-foreach="app.subscription_line_id.product_id.product_template_variant_value_ids" t-as="variant">
+                                    <div class="col-xl-9 col-8">
+                                        <span t-esc="variant.attribute_id.name" />:
+                                        <span class="badge text-bg-light" t-esc="variant.name" />
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </t>
             </t>
 
-            <t t-call="argocd_website.portal_application_delete_modal">
-                <t t-set="modalId" t-value="'modalDelete'" />
-            </t>
-
-
             <t t-call="argocd_website.portal_application_upgrade_modal" />
         </t>
     </template>
-
-    <template id="portal_application_delete_modal">
-        <div class="modal fade" tabindex="-1" role="dialog" t-att-id="modalId">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Delete Application</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete this application? You'll get an email to confirm the deletion.</p>
-                    </div>
-                    <div class="modal-footer justify-content-start">
-                        <a type="action" class="btn btn-danger" t-attf-href="/my/applications/#{app.id}/request-delete">
-                            Delete
-                        </a>
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
-
 
     <template id="portal_application_upgrade_modal">
         <div class="modal fade" tabindex="-1" role="dialog" t-att-id="modalId or 'modalUpgrade'">
@@ -283,34 +215,6 @@
                 </div>
             </div>
         </div>
-    </template>
-
-    <template id="portal_application_confirm_deletion_page" name="Delete Application">
-        <t t-call="portal.portal_layout">
-            <t t-call="portal.portal_record_layout">
-                <t t-set="card_header">
-                    <div class="d-flex">
-                        <h2 class="mb-0 flex-fill">
-                            <span>
-                                Application - <span t-field="app.name" />
-                            </span>
-                        </h2>
-                    </div>
-                </t>
-                <t t-set="card_body">
-                    <p class="mb16">
-                        Are you sure you want to delete this application (<i><t t-esc="app.name" /></i>)?
-                        <strong class="text-danger">This action is irreversible!</strong>
-                    </p>
-                    <form method="POST">
-                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                        <input type="hidden" name="token" t-att-value="app.deletion_token" />
-                        <button class="btn btn-danger">Delete</button>
-                        <a class="btn btn-link" t-attf-href="/my/applications/#{app.id}">Cancel</a>
-                    </form>
-                </t>
-            </t>
-        </t>
     </template>
 
     <template id="error_page" name="Error">
