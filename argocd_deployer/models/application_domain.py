@@ -11,6 +11,14 @@ class ApplicationDomain(models.Model):
     sequence = fields.Integer(default=10)
     name = fields.Char(required=True)
 
+    _sql_constraints = [
+        (
+            "application_domain_name_unique",
+            "unique(name)",
+            "Domain is already in use",
+        )
+    ]
+
     @api.model
     def create_domain(self, application, preferred, *alternatives, scope="Application"):
         existing = application.domain_ids.filtered(lambda d: d.scope == scope).sorted(

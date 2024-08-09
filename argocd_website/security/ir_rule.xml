@@ -34,7 +34,16 @@
         <field name="name">argocd_application_portal_access</field>
         <field name="model_id" ref="argocd_deployer.model_argocd_application"/>
         <field name="domain_force">
-            ['|', '|', '&', ('partner_id.parent_id', '!=', False), ('partner_id.parent_id', '=', user.partner_id.parent_id.id), ('partner_id', '=', user.partner_id.id), ('partner_id', 'child_of', user.partner_id.id)]
+            ['|', '|', '&amp;', ('partner_id.parent_id', '!=', False), ('partner_id.parent_id', '=', user.partner_id.parent_id.id), ('partner_id', '=', user.partner_id.id), ('partner_id', 'child_of', user.partner_id.id)]
+        </field>
+        <field name="groups" eval="[Command.link(ref('base.group_portal'))]"/>
+    </record>
+
+    <record id="argocd_application_domain_portal_rule" model="ir.rule">
+        <field name="name">argocd_application_domain_portal_rule</field>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application_domain"/>
+        <field name="domain_force">
+            ['|', '|', '&amp;', ('application_id.partner_id.parent_id', '!=', False), ('application_id.partner_id.parent_id', '=', user.partner_id.parent_id.id), ('application_id.partner_id', '=', user.partner_id.id), ('application_id.partner_id', 'child_of', user.partner_id.id)]
         </field>
         <field name="groups" eval="[Command.link(ref('base.group_portal'))]"/>
     </record>

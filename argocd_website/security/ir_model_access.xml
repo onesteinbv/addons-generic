@@ -40,10 +40,19 @@
         <field name="perm_unlink" eval="False"/>
     </record>
 
-    <!-- TODO: Required? -->
     <record id="argocd_application_portal_access" model="ir.model.access">
         <field name="name">argocd_application_portal_access</field>
         <field name="model_id" ref="argocd_deployer.model_argocd_application"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="argocd_application_domain_portal_access" model="ir.model.access">
+        <field name="name">argocd_application_domain_portal_access</field>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application_domain"/>
         <field name="group_id" ref="base.group_portal"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="False"/>
