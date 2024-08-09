@@ -1,0 +1,32 @@
+.js_order_app_product {
+     > .row {
+        border: $border-width solid $border-color;
+        &:not(:last-child) {
+            border-bottom: 0;
+        }
+
+        &:last-child {
+            border-bottom: $border-width solid $border-color;
+        }
+    }
+
+    .js_order_app_product_header {
+        cursor: pointer;
+        input {
+            cursor: pointer;
+        }
+    }
+}
+
+.js_order_app_details {
+    top: 1em;
+}
+
+
+.argocd_website_order_progress_bar.s_process_steps {
+    @include media-breakpoint-down(lg) {
+         .s_process_step .s_process_step_connector {
+            display: block;
+        }
+    }
+}

@@ -20,8 +20,6 @@ class TestInvoiceToApplication(common.TransactionCase):
                 "template_id": self.env.ref(
                     "argocd_deployer.application_set_template_default"
                 ).id,
-                "domain_format": "1",
-                "subdomain_format": "2",
             }
         )
         product.product_tmpl_id.application_set_id = application_set

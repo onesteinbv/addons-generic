@@ -28,9 +28,6 @@ class TestGracePeriod(TransactionCase):
         cls.env["ir.config_parameter"].set_param(
             "argocd_sale.grace_period_tag_id", cls.disable_odoo_tag.id
         )
-        cls.env["ir.config_parameter"].set_param(
-            "argocd_sale.subscription_free_period_type", ""  # Disable free period
-        )
 
     def _create_and_prepare_sub(self, paid_for_date=False, create_invoice=True):
         sub = self.env["sale.subscription"].create(

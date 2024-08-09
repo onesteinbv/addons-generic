@@ -2,9 +2,7 @@ import os
 import re
 
 import jinja2
-import yaml
 from git import Repo
-from yaml import Loader
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
@@ -42,6 +40,11 @@ class Application(models.Model):
         inverse_name="application_id",
         string="Values",
     )
+    domain_ids = fields.One2many(
+        comodel_name="argocd.application.domain",
+        inverse_name="application_id",
+        string="Domains",
+    )
     application_set_id = fields.Many2one(
         "argocd.application.set",
     )
@@ -61,23 +64,12 @@ class Application(models.Model):
         self.ensure_one()
         return bool(self.tag_ids.filtered(lambda t: t.key == key))
 
-    def format_domain(self, subdomain=None):
-        """
-        Helper method for generating the yaml / helm values. If no domain is specified in e.g. value_ids this can be used
-        to make a default domain.
-        Uses config parameters `argocd.application_subdomain_format` and `argocd.application_domain_format` for the format.
-
-        @param subdomain: tag key (e.g. matomo)
-        @return: formatted domain
-        """
+    def create_domain(self, preferred, *alternatives, scope="global"):
+        """Shortcut"""
         self.ensure_one()
-        values = {"application_name": self.name}
-        if subdomain:
-            domain_format = self.application_set_id.subdomain_format or ""
-            values["subdomain"] = subdomain
-        else:
-            domain_format = self.application_set_id.domain_format or ""
-        return domain_format % values
+        return self.env["argocd.application.domain"].create_domain(
+            self, preferred, *alternatives, scope=scope
+        )
 
     @api.depends("config")
     def _compute_description(self):
@@ -132,28 +124,16 @@ class Application(models.Model):
             raise_if_not_found=False,
         )
 
-    @staticmethod
-    def _get_domain(helm):
-        return helm.get("domain") or helm.get("global", {}).get("domain")
-
     def get_urls(self):
         self.ensure_one()
         urls = []
-        if not self.config:
-            return urls
-
-        config = yaml.load(self.config, Loader=Loader)
-        helm = yaml.load(config["helm"], Loader=Loader)
-        urls.append(("https://%s" % self._get_domain(helm), "Odoo"))
-        for tag in self.tag_ids.filtered(lambda t: bool(t.domain_yaml_path)):
-            yaml_path = tag.get_domain_yaml_path(self.application_set_id).split(".")
-            domain = helm
-            for p in yaml_path:
-                domain = domain.get(p)
-                if not domain:
-                    break
-            else:
-                urls.append(("https://%s" % domain, tag.name))
+        for scope in self.domain_ids.mapped("scope"):
+            prioritized_domain = self.domain_ids.filtered(
+                lambda d: d.scope == scope
+            ).sorted("sequence")[0]
+            urls.append(
+                ("https://%s" % prioritized_domain.name, prioritized_domain.scope)
+            )
         return urls
 
     @api.depends("tag_ids", "tag_ids.is_odoo_module")
@@ -163,20 +143,32 @@ class Application(models.Model):
                 application.tag_ids.filtered(lambda t: t.is_odoo_module).mapped("key")
             )
 
-    _sql_constraints = [("application_name_unique", "unique(name)", "Already exists")]
+    _sql_constraints = [
+        (
+            "application_name_unique",
+            "unique(application_set_id, name)",
+            "Already exists in this application set",
+        )
+    ]
 
     @api.model
-    def find_next_available_name(self, name):
+    def find_next_available_name(self, app_set, name):
         """
         Find a name which is available based on name (e.g. greg2)
 
+        @param app_set: application set
         @param name: a name
         @return: first available name
         """
-        if not self.search([("name", "=", name)], count=True):
+        if not self.search(
+            [("application_set_id", "=", app_set.id), ("name", "=", name)], count=True
+        ):
             return name
         i = 0
-        while self.search([("name", "=", name + str(i))], count=True):
+        while self.search(
+            [("application_set_id", "=", app_set.id), ("name", "=", name + str(i))],
+            count=True,
+        ):
             i += 1
         return name + str(i)
 
@@ -197,7 +189,7 @@ class Application(models.Model):
             "application": self,
             "has_tag": self.has_tag,
             "get_value": self.get_value,
-            "format_domain": self.format_domain,
+            "create_domain": self.create_domain,
         }
 
     def render_config(self, context=None):
@@ -263,11 +255,11 @@ class Application(models.Model):
         self.ensure_one()
         self._apply_repository_changes(self._get_destroy_content)
 
-    def destroy(self):
+    def destroy(self, eta=0):
         self.ensure_one()
         delay = safe_eval(
             self.env["ir.config_parameter"].get_param(
                 "argocd.application_destruction_delay", "0"
             )
         )
-        self.with_delay(eta=delay).immediate_destroy()
+        self.with_delay(eta=eta or delay).immediate_destroy()

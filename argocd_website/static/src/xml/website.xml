@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+    <t t-name="argo_website.List">
+        <div t-if="sub.lines">
+            <ul class="list-group mb-2">
+                <li class="list-group-item d-grid"
+                    t-foreach="sub.lines" t-as="line">
+                    <div class="row">
+                        <div class="col-xl-9 col-8 fw-bold" t-esc="line.name" />
+                        <div class="col-xl-3 col-4 fw-bold text-end" t-esc="line.price_base_formatted" />
+                    </div>
+                    <div class="row" t-if="line.variant_values" t-as="variant_value" t-foreach="line.variant_values">
+                        <div class="col-xl-9 col-8 small">
+                            <span t-esc="variant_value.name" />:
+                            <span class="badge text-bg-light" t-esc="variant_value.value" />
+                        </div>
+                        <div class="col-xl-3 col-4 small text-end"
+                             t-if="variant_value.price_extra"
+                             t-esc="variant_value.price_extra_formatted"
+                        />
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="list-group mb-2">
+                <li class="list-group-item list-group-item-secondary d-grid">
+                    <div class="row">
+                        <div class="col-xl-9 col-8">Tax</div>
+                        <div class="col-xl-3 col-4 text-end" t-esc="sub.amount_tax_formatted" />
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-9 col-8 fw-bold">Total</div>
+                        <div class="col-xl-3 col-4 fw-bold text-end" t-esc="sub.amount_total_formatted" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="mb-2" t-else="">
+            Empty
+        </div>
+    </t>
+</template>

@@ -12,13 +12,8 @@
                     <group name="application_group">
                         <field name="application_set_id"/>
                         <field name="application_template_id" />
-                        <field name="reseller_partner_ids" options="{'no_create_edit': True}" />
                         <field name="application_tag_ids" widget="many2many_tags"/>
-                        <field
-                            name="application_filter_ids"
-                            widget="many2many_tags"
-                            attrs="{'invisible': [('application_tag_ids', '=', [])]}"
-                        />
+                        <field name="reseller_partner_ids" options="{'no_create_edit': True}" />
                     </group>
                 </page>
             </xpath>
