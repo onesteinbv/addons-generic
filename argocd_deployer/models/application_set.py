@@ -38,16 +38,6 @@ class ApplicationSet(models.Model):
     deployment_directory = fields.Char(
         help="Folder inside the repository in which to store the application YAML files.",
     )
-    domain_format = fields.Char(
-        required=True,
-        help="The domain format used to build the domain for the deployment.",
-        default="-",
-    )
-    subdomain_format = fields.Char(
-        required=True,
-        help="The domain format used to build the domain for the deployment.",
-        default="-",
-    )
     namespace_prefix_id = fields.Many2one("argocd.application.namespace.prefix")
 
     _sql_constraints = [

@@ -20,7 +20,7 @@ class SubscriptionLine(models.Model):
         # Let's assume that here.
         product = self.product_id
         partner = self.sale_subscription_id.partner_id.commercial_partner_id
-        name = "%s-%s" % (partner.display_name, product.default_code or product.name)
+        name = "-".join([partner.display_name, product.default_code or product.name])
         name = name.strip().lower()
         for replace in replacements:
             name = name.replace(replace, replacements[replace])
@@ -72,7 +72,9 @@ class SubscriptionLine(models.Model):
         if self.application_ids or not self.product_id.application_template_id:
             return
 
-        name = application_sudo.find_next_available_name(self._to_application_name())
+        name = application_sudo.find_next_available_name(
+            self.product_id.application_set_id, self._to_application_name()
+        )
         application = application_sudo.create(
             {
                 "name": name,

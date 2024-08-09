@@ -1,8 +1,6 @@
 import logging
 
 import requests
-import yaml
-from yaml import Loader
 
 from odoo import _, fields, models
 from odoo.exceptions import MissingError, ValidationError
@@ -28,13 +26,15 @@ class Application(models.Model):
 
     def check_health(self):
         self.ensure_one()
-        try:
-            config = yaml.load(self.config, Loader=Loader)
-            helm = yaml.load(config["helm"], Loader=Loader)
-            res = requests.get("https://%s" % self._get_domain(helm))
-        except Exception:
-            return False
-        return res.ok
+        statuses = []
+        urls = self.get_urls()
+        for url in urls:
+            try:
+                response = requests.get(url[0])
+                statuses.append(response.ok)
+            except Exception:
+                statuses.append(False)
+        return statuses
 
     def dns_cname_check(self, domain, tag_id=None):
         """

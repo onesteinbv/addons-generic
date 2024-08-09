@@ -21,12 +21,16 @@ odoo.define("argocd_website.portal", function (require) {
                 model: "argocd.application",
                 method: "check_health",
                 args: [parseInt(appId, 10)]
-            }).then(function (healthy) {
-                $el.removeClass(["fa-spin", "fa-circle-o-notch"]);
-                if (healthy) {
-                    $el.addClass(["fa-heart", "text-success"]);
-                } else {
-                    $el.addClass(["fa-times", "text-danger"]);
+            }).then(function (healthStatuses) {
+                $el.html("");
+                for (var i in healthStatuses) {
+                    var $statusEl = $("<i class='fa fa-fw' />");
+                    if (healthStatuses[i]) {
+                        $statusEl.addClass(["fa-heart", "text-success"]);
+                    } else {
+                        $statusEl.addClass(["fa-times", "text-danger"]);
+                    }
+                    $el.append($statusEl);
                 }
             });
         }

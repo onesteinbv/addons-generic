@@ -107,9 +107,8 @@
                                 <t t-esc="app.partner_id.display_name" />
                             </td>
                             <td>
-                                <div>
-                                    <i class="fa fa-circle-o-notch fa-spin fa-fw js_health_check"
-                                       t-att-data-app-id="app.id" />
+                                <div class="js_health_check" t-att-data-app-id="app.id">
+                                    <i class="fa fa-circle-o-notch fa-spin fa-fw " />
                                 </div>
                             </td>
                             <td>
@@ -167,11 +166,10 @@
                             <strong>Chamber of Commerce #:</strong>
                             <span t-field="app.partner_id.company_registry" />
                         </div>
-                        <div>
+                        <div t-if="app.domain_ids">
                             <strong>Health: </strong>
-                            <span>
-                                <i class="fa fa-circle-o-notch fa-spin fa-fw js_health_check"
-                                   t-att-data-app-id="app.id" />
+                            <span class="js_health_check" t-att-data-app-id="app.id">
+                                <i class="fa fa-circle-o-notch fa-spin fa-fw" />
                             </span>
                         </div>
                     </div>

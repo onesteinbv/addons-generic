@@ -37,3 +37,12 @@ class ResPartner(models.Model):
     def _compute_is_reseller(self):
         for partner in self:
             partner.is_reseller = bool(partner.allowed_reselling_products_ids)
+
+    def to_valid_subdomain(self):
+        self.ensure_one()
+        replacements = {" ": "-", ".": "", "&": "-", "_": "-"}
+        name = self.display_name
+        name = name.strip().lower()
+        for replace in replacements:
+            name = name.replace(replace, replacements[replace])
+        return "".join(c for c in name if c.isalnum() or c == "-")
