@@ -35,14 +35,21 @@
     </template>
 
     <template id="external_links_dropdown">
-        <div t-attf-class="dropdown position-static">
+        <t t-set="urls" t-value="app.get_urls()" />
+        <t t-if="len(urls) == 1">
+            <a class="btn btn-link" aria-expanded="false" aria-haspopup="true"
+               t-att-href="urls[0][0]" target="_blank" t-attf-title="Open #{urls[0][1]}">
+                <i class="fa fa-external-link fa-fw" />
+            </a>
+        </t>
+        <div t-attf-class="dropdown position-static" t-else="">
             <button class="btn btn-link" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false" aria-haspopup="true">
                 <i class="fa fa-external-link fa-fw" />
             </button>
 
             <ul class="dropdown-menu">
-                <li t-foreach="app.get_urls()" t-as="url">
+                <li t-foreach="urls" t-as="url">
                     <a t-att-href="url[0]" target="_blank" t-attf-title="Open #{url[1]}" class="dropdown-item">
                         <t t-esc="url[1]" />
                     </a>
@@ -134,25 +141,10 @@
                                 Application - <span t-field="app.name" />
                             </span>
                         </h2>
-                        <!-- FIXME: Lets put the danger button here for now -->
                         <div>
-                            <t t-if="app.subscription_id">
-                                <button
-                                    type="button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modalCancelSub"
-                                    title="Cancel Subscription"
-                                    class="btn btn-danger"
-                                    t-if="app.subscription_id.in_progress"
-                                >
-                                    <span class="fa fa-ban fa-fw" />
-                                </button>
-                            </t>
-                            <t t-else="">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modalDelete" title="Delete" class="btn btn-danger">
-                                    <span class="fa fa-trash fa-fw" />
-                                </button>
-                            </t>
+                            <button class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#modalUpgrade">
+                                <i class="fa fa-angle-double-up fa-lg fa-fw" />
+                            </button>
                         </div>
                         <t t-call="argocd_website.external_links_dropdown" />
                     </div>
@@ -183,47 +175,23 @@
                             </span>
                         </div>
                     </div>
-                    <div class="mt32" t-if="app.subscription_id">
-                        <t t-call="subscription_portal.portal_subscription_cancel_modal">
-                            <t t-set="modalId" t-value="'modalCancelSub'" />
-                            <t t-set="subscription" t-value="app.subscription_id" />
-                        </t>
-                        <div>
-                            <div class="h3 d-flex">
-                                <span class="flex-fill">
-                                    Your subscription
-                                    <button class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#modalUpgrade">
-                                        <i class="fa fa-pencil fa-fw" />
-                                    </button>
-                                </span>
-                                <span class="badge bg-secondary align-self-center">
-                                    <t t-esc="app.subscription_id.recurring_total"
-                                       t-options="{'widget': 'monetary', 'display_currency': app.subscription_id.currency_id}" />
-                                    <small>excl. VAT</small>
-                                </span>
-                            </div>
-                        </div>
-                        <table class="table">
-                            <tr class="bg-100">
-                                <th>Product / service</th>
-                                <th>Price</th>
-                            </tr>
-                            <tr t-foreach="app.subscription_id.sale_subscription_line_ids" t-as="line">
-                                <td><t t-esc="line.product_id.name" /></td>
-                                <td>
-                                    <span t-field="line.price_unit" t-options="{'widget': 'monetary'}" />
-                                    <small class="text-muted">/ month</small>
-                                </td>
-                            </tr>
-                        </table>
+                    <div class="mt16" t-if="app.subscription_id">
+                        <ul class="list-group mb-2">
+                            <li class="list-group-item d-grid">
+                                <div class="row">
+                                    <div class="col-xl-9 col-8 fw-bold" t-esc="app.subscription_line_id.product_id.name" />
+                                </div>
+                                <div class="row" t-foreach="app.subscription_line_id.product_id.product_template_variant_value_ids" t-as="variant">
+                                    <div class="col-xl-9 col-8">
+                                        <span t-esc="variant.attribute_id.name" />:
+                                        <span class="badge text-bg-light" t-esc="variant.name" />
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </t>
             </t>
-
-            <t t-call="argocd_website.portal_application_delete_modal">
-                <t t-set="modalId" t-value="'modalDelete'" />
-            </t>
-
 
             <t t-call="argocd_website.portal_application_upgrade_modal" />
         </t>
