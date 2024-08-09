@@ -163,7 +163,13 @@ class Application(models.Model):
                 application.tag_ids.filtered(lambda t: t.is_odoo_module).mapped("key")
             )
 
-    _sql_constraints = [("application_name_unique", "unique(name)", "Already exists")]
+    _sql_constraints = [
+        (
+            "application_name_unique",
+            "unique(application_set_id, name)",
+            "Already exists in this application set",
+        )
+    ]
 
     @api.model
     def find_next_available_name(self, name):
