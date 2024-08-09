@@ -175,7 +175,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="mt16" t-if="app.subscription_id">
+                    <div class="mt16" t-if="app.subscription_line_id">
                         <ul class="list-group mb-2">
                             <li class="list-group-item d-grid">
                                 <div class="row">
