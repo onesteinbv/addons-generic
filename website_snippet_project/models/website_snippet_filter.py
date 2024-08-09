@@ -1,5 +1,9 @@
+import logging
+
 from odoo import api, models
 from odoo.osv import expression
+
+_logger = logging.getLogger(__name__)
 
 
 class WebsiteSnippetFilter(models.Model):
@@ -25,9 +29,17 @@ class WebsiteSnippetFilter(models.Model):
         return dynamic_filter._filter_records_to_values(projects, False)
 
     def _get_projects_for_category(self, website, limit, domain, context):
+        _logger.info(website)
+        _logger.info(limit)
+        _logger.info(domain)
+        _logger.info(context)
         return self._get_all_published_projects(website, limit, domain, context)
 
     def _get_all_published_projects(self, website, limit, domain, context):
+        _logger.info(website)
+        _logger.info(limit)
+        _logger.info(domain)
+        _logger.info(context)
         return (
             self.env["project.project"]
             .search(domain, limit=limit)
