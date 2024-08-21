@@ -6,10 +6,5 @@ class ApplicationTemplate(models.Model):
     _description = "ArgoCD Application Template"
 
     name = fields.Char(required=True)
-    config = fields.Text(
-        default="""helm: |
-  domain: dev.curq.k8s.onestein.eu
-  modules: website{{ application.modules and ',' + application.modules or '' }}
-"""
-    )
+    config = fields.Text()
     active = fields.Boolean(default=True)

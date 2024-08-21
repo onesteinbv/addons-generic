@@ -4,7 +4,7 @@
         <field name="name">Curq Basis</field>
         <field name="config">
 helm: |
-  domain: {{ get_value("domain", format_domain()) }}
+  domain: {{ create_domain(application.name + ".example.com", scope="Curq") }}
   modules: website{{ application.modules and ',' + application.modules or '' }}
 {%- if has_tag('matomo_server') %}
   matomo:
