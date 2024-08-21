@@ -48,5 +48,6 @@ class SaleSubscription(models.Model):
 
         self.cancellation_token = False
         self.cancellation_token_expiration = False
+        self.date_stop = self.recurring_next_date
 
         self.close_subscription(close_reason_id)
