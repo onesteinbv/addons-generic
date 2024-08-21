@@ -4,7 +4,7 @@
         <field name="model">argocd.application.template</field>
         <field name="inherit_id" ref="argocd_deployer.application_template_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='key']" position="after">
+            <xpath expr="//field[@name='name']" position="after">
                 <field name="volume_claim_count" />
             </xpath>
         </field>
