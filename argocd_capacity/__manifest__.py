@@ -12,6 +12,5 @@
         "views/application_view.xml",
         "views/application_tag_view.xml",
         "views/application_template_view.xml",
-        "templates/website.xml",
     ],
 }
