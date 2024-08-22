@@ -32,6 +32,12 @@ class Application(models.Model):
         )
     ]
 
+    def _get_config_render_values(self):
+        res = super()._get_config_render_values()
+        res["is_created_by_reseller"] = self.is_created_by_reseller
+        res["get_attribute"] = self.get_attribute
+        return res
+
     def is_created_by_reseller(self):
         self.ensure_one()
         return self.partner_id.is_reseller or (
