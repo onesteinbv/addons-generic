@@ -16,6 +16,12 @@ class Application(models.Model):
         store=True,
         readonly=False,
     )
+    product_id = fields.Many2one(
+        comodel_name="product.product",
+        compute="_compute_product_id",
+        store=True,
+        readonly=False,
+    )
     subscription_line_id = fields.Many2one(comodel_name="sale.subscription.line")
 
     _sql_constraints = [
@@ -34,7 +40,7 @@ class Application(models.Model):
 
     def get_attribute(self, argocd_identifier):
         self.ensure_one()
-        variant_value = self.subscription_line_id.product_id.product_template_variant_value_ids.filtered(
+        variant_value = self.product_id.product_template_variant_value_ids.filtered(
             lambda kv: kv.attribute_id.argocd_identifier == argocd_identifier
         ).product_attribute_value_id
         return variant_value.argocd_name or variant_value.name
@@ -43,6 +49,11 @@ class Application(models.Model):
     def _compute_subscription_id(self):
         for app in self.filtered(lambda a: a.subscription_line_id):
             app.subscription_id = app.subscription_line_id.sale_subscription_id
+
+    @api.depends("subscription_line_id", "subscription_line_id.product_id")
+    def _compute_product_id(self):
+        for app in self.filtered(lambda a: a.subscription_line_id):
+            app.product_id = app.subscription_line_id.product_id
 
     @api.depends(
         "subscription_id",
