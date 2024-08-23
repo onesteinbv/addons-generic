@@ -16,4 +16,8 @@
         <field name="key">argocd.allow_immediate_deployment</field>
         <field name="value" eval="'False'"/>
     </record>
+    <record id="application_stat_retention_days" model="ir.config_parameter">
+        <field name="key">argocd.application_stat_retention_days</field>
+        <field name="value">90</field>
+    </record>
 </odoo>
