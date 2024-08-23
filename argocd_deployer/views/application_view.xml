@@ -82,10 +82,12 @@
                             <field name="value_ids" />
                             <field name="domain_ids"/>
                         </group>
-                        <group colspan="2" string="YAML Configuration">
-                            <field name="config" widget="ace" />
-                        </group>
-
+                    </group>
+                    <group string="YAML Configuration">
+                        <field name="config" widget="ace" nolabel="1" colspan="2" />
+                    </group>
+                    <group string="Statistics">
+                        <field name="stat_ids" nolabel="1" colspan="2" />
                     </group>
                 </sheet>
                 <div class="oe_chatter">

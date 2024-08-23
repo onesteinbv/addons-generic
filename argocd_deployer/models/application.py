@@ -54,6 +54,11 @@ class Application(models.Model):
     is_application_set_deployed = fields.Boolean(
         string="Is App. Set deployed", related="application_set_id.is_deployed"
     )
+    stat_ids = fields.One2many(
+        comodel_name="argocd.application.stat",
+        inverse_name="application_id",
+        string="Statistics",
+    )
 
     def get_value(self, key, default=""):
         self.ensure_one()
