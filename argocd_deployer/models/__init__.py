@@ -6,3 +6,5 @@ from . import application_tag
 from . import application_value
 from . import application_namespace_prefix
 from . import application_domain
+from . import application_stat_type
+from . import application_stat

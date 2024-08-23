@@ -18,11 +18,17 @@
         "views/application_view.xml",
         "views/application_set_view.xml",
         "views/application_namespace_prefix_view.xml",
+        "views/application_stat_type_view.xml",
+        "views/application_stat_view.xml",
         "templates/application_description.xml",
         "security/ir.model.access.csv",
         "menuitems.xml",
     ],
     "depends": ["queue_job", "mail"],
-    "demo": ["demo/application_template_demo.xml", "demo/application_tag_demo.xml"],
+    "demo": [
+        "demo/application_template_demo.xml",
+        "demo/application_tag_demo.xml",
+        "demo/application_stat_type_demo.xml",
+    ],
     "external_dependencies": {"python": ["git"]},
 }
