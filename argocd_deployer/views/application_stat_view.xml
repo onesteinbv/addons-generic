@@ -8,6 +8,7 @@
                 <field name="date" />
                 <field name="type_id" />
                 <field name="value" />
+                <field name="message" />
             </tree>
         </field>
     </record>
