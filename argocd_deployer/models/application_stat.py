@@ -21,7 +21,7 @@ class ApplicationStat(models.Model):
         required=True,
     )
     message = fields.Char()
-    value = fields.Float()
+    value = fields.Float(digits=(15, 3))
 
     @api.model
     def create_stats(self, application_name, stats):
@@ -60,7 +60,7 @@ class ApplicationStat(models.Model):
                 type_ids[stat_type_key] = stat_type.id
             type_id = type_ids[stat_type_key]
             values = {
-                "application_id": application,
+                "application_id": application.id,
                 "type_id": type_id,
                 "date": stat["date"],
                 "value": float(stat.get("value", "0")),

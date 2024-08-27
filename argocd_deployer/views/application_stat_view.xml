@@ -7,8 +7,8 @@
                 <field name="application_id" invisible="1" />
                 <field name="date" />
                 <field name="type_id" />
-                <field name="value" />
                 <field name="message" />
+                <field name="value" />
             </tree>
         </field>
     </record>
