@@ -22,6 +22,7 @@
         "views/application_stat_type_view.xml",
         "views/application_stat_view.xml",
         "templates/application_description.xml",
+        "security/res_groups.xml",
         "security/ir.model.access.csv",
         "menuitems.xml",
     ],

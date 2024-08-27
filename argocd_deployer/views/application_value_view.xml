@@ -6,6 +6,7 @@
             <tree editable="bottom">
                 <field name="application_id" invisible="1" />
                 <field name="key" />
+                <field name="message" />
                 <field name="value" />
             </tree>
         </field>

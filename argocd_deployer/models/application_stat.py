@@ -32,9 +32,11 @@ class ApplicationStat(models.Model):
             - message: string value
         @return: ids of the created records
         """
-        application = self.env["argocd.application"].search(
-            [("name", "=", application_name)]
-        )
+        application = (
+            self.env["argocd.application"]
+            .sudo()
+            .search([("name", "=", application_name)])
+        )  # sudo so we don't have to give access to argocd.application which can contain sensitive information
         if not application:
             raise MissingError(
                 "Application with name `%s` doesn't exist" % application_name
