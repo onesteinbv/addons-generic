@@ -16,6 +16,7 @@ class ApplicationStat(models.Model):
         comodel_name="argocd.application.stat.type", required=True
     )
     date = fields.Datetime(help="The date when the measurement was done", required=True)
+    message = fields.Char()
     value = fields.Float()
 
     @api.model
@@ -44,7 +45,8 @@ class ApplicationStat(models.Model):
                 "application_id": application,
                 "type_id": stat["type_id"],
                 "date": stat["date"],
-                "value": float(stat["value"]),
+                "value": float(stat.get("value", "0")),
+                "message": stat.get("message"),
             }
             to_create.append(values)
 
