@@ -30,7 +30,7 @@ class ApplicationStat(models.Model):
             - date: date Odoo formatted (YY-MM-dd HH:mm:ss)
             - value: float value
             - message: string value
-        @return: created ids
+        @return: ids of the created records
         """
         application = self.env["argocd.application"].search(
             [("name", "=", application_name)]
