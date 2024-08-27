@@ -15,7 +15,11 @@ class ApplicationStat(models.Model):
     type_id = fields.Many2one(
         comodel_name="argocd.application.stat.type", required=True
     )
-    date = fields.Datetime(help="The date when the measurement was done", required=True)
+    date = fields.Datetime(
+        default=fields.Datetime.now,
+        help="The date when the measurement was done",
+        required=True,
+    )
     message = fields.Char()
     value = fields.Float()
 
