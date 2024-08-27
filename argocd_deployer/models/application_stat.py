@@ -21,6 +21,17 @@ class ApplicationStat(models.Model):
 
     @api.model
     def create_stats(self, application_name, stats):
+        """
+        Create argocd.application.stat easier
+
+        @param application_name: name of the application the stats relate to
+        @param stats: list of stats (dicts):
+            - type: Key of argocd.application.stat.type
+            - date: date Odoo formatted (YY-MM-dd HH:mm:ss)
+            - value: float value
+            - message: string value
+        @return: created ids
+        """
         application = self.env["argocd.application"].search(
             [("name", "=", application_name)]
         )
@@ -40,17 +51,18 @@ class ApplicationStat(models.Model):
                     raise MissingError(
                         "Statistics Type with key `%s` doesn't exist" % stat_type_key
                     )
-                type_ids[stat_type_key] = stat_type
+                type_ids[stat_type_key] = stat_type.id
+            type_id = type_ids[stat_type_key]
             values = {
                 "application_id": application,
-                "type_id": stat["type_id"],
+                "type_id": type_id,
                 "date": stat["date"],
                 "value": float(stat.get("value", "0")),
                 "message": stat.get("message"),
             }
             to_create.append(values)
 
-        self.create(to_create)
+        return self.create(to_create).ids
 
     def _cron_cleanup_old_stats(self):
         retention = int(
