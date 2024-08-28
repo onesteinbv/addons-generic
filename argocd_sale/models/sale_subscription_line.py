@@ -72,9 +72,7 @@ class SubscriptionLine(models.Model):
         if self.application_ids or not self.product_id.application_template_id:
             return
 
-        name = application_sudo.find_next_available_name(
-            self.product_id.application_set_id, self._to_application_name()
-        )
+        name = application_sudo.find_next_available_name(self._to_application_name())
         application = application_sudo.create(
             {
                 "name": name,

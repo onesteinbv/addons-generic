@@ -151,13 +151,13 @@ class Application(models.Model):
     _sql_constraints = [
         (
             "application_name_unique",
-            "unique(application_set_id, name)",
-            "Already exists in this application set",
+            "unique(name)",
+            "Application already exists with this name",
         )
     ]
 
     @api.model
-    def find_next_available_name(self, app_set, name):
+    def find_next_available_name(self, name):
         """
         Find a name which is available based on name (e.g. greg2)
 
@@ -165,13 +165,11 @@ class Application(models.Model):
         @param name: a name
         @return: first available name
         """
-        if not self.search(
-            [("application_set_id", "=", app_set.id), ("name", "=", name)], count=True
-        ):
+        if not self.search([("name", "=", name)], count=True):
             return name
         i = 0
         while self.search(
-            [("application_set_id", "=", app_set.id), ("name", "=", name + str(i))],
+            [("name", "=", name + str(i))],
             count=True,
         ):
             i += 1
