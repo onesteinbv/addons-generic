@@ -1,5 +1,7 @@
 from datetime import timedelta
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import Command, _, fields, models
 
 
@@ -106,3 +108,74 @@ class Subscription(models.Model):
             "type": "ir.actions.act_window",
             "domain": [("id", "in", self.application_ids.ids)],
         }
+
+    def _prepare_account_move_line_stat_product(
+        self, app, stat_product, sequence, date_from, date_to
+    ):
+        self.ensure_one()
+        account = (
+            stat_product.property_account_income_id
+            or stat_product.categ_id.property_account_income_categ_id
+        )
+        quantity = 0
+        stats = app.stat_ids.filtered(
+            lambda l: date_from < l.date.date() < date_to
+        ).mapped("value")
+        if stats:
+            quantity = max(stats)
+        return {
+            "product_id": stat_product.id,
+            "name": "> %s" % stat_product.name,
+            "quantity": quantity,
+            "price_unit": stat_product.list_price,
+            "tax_ids": [Command.set(stat_product.taxes_id.ids)],
+            "product_uom_id": stat_product.uom_id.id,
+            "account_id": account.id,
+            "sequence": sequence,
+        }
+
+    def _prepare_account_move(self, line_ids):
+        # TODO: Only used in draft, invoice, invoice_send make it also work for sale_and_invoice
+        if not self.account_invoice_ids_count:  # First time don't invoice stat products
+            return super()._prepare_account_move(line_ids)
+
+        # TODO: Fix this with a sequence in sale.subscription.line
+        sequence = 0
+        for cmd in line_ids:
+            cmd[2]["sequence"] = sequence
+            sequence += 10
+
+        type_interval = self.template_id.recurring_rule_type
+        interval = int(self.template_id.recurring_interval)
+        recurring_previous_date = self.recurring_next_date - relativedelta(
+            **{type_interval: interval}
+        )
+
+        additional_invoice_line_ids = []
+        for line in self.sale_subscription_line_ids.filtered(
+            lambda l: l.product_id.stat_product_ids and l.application_ids
+        ):
+            corresponding_invoice_line = list(
+                filter(lambda l: l[2]["product_id"] == line.product_id.id, line_ids)
+            )[0][
+                2
+            ]  # TODO: Add field subscription_line_id to account.move.line
+            sequence = corresponding_invoice_line["sequence"] + 1
+            app = line.application_ids
+            for stat_product in line.product_id.stat_product_ids:
+                line_values = self._prepare_account_move_line_stat_product(
+                    app,
+                    stat_product,
+                    sequence,
+                    recurring_previous_date,
+                    self.recurring_next_date,
+                )
+                additional_invoice_line_ids.append(Command.create(line_values))
+        line_ids += additional_invoice_line_ids
+        return super()._prepare_account_move(line_ids)
+
+    def create_invoice(self):
+        # TODO: Only used in draft, invoice, invoice_send make it also work for sale_and_invoice
+        res = super().create_invoice()
+        res.button_update_prices_from_pricelist()
+        return res

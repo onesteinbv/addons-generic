@@ -32,3 +32,12 @@ class ProductTemplate(models.Model):
         column1="product_template_id",
         column2="partner_id",
     )
+
+    application_stat_type_id = fields.Many2one(
+        string="Statistics Type", comodel_name="argocd.application.stat.type"
+    )
+
+    # We use this for now because product.pack doesn't work really for products with variants
+    stat_product_ids = fields.Many2many(
+        comodel_name="product.product", string="Products on Statistics"
+    )

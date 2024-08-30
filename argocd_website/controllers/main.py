@@ -115,6 +115,17 @@ class MainController(Controller):
                         }
                         for variant in line.product_id.product_template_variant_value_ids
                     ],
+                    "stat_products": [
+                        {
+                            "name": stat_product.name,
+                            "uom": stat_product.uom_id.name,
+                            "price": stat_product.list_price,
+                            "price_base_formatted": currency.format(
+                                stat_product.list_price
+                            ),
+                        }
+                        for stat_product in line.product_id.stat_product_ids
+                    ],
                 }
                 for line in sub.sale_subscription_line_ids
             ],

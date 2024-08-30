@@ -19,6 +19,22 @@
                              t-esc="variant_value.price_extra_formatted"
                         />
                     </div>
+                    <t t-if="line.stat_products">
+                        <div class="row">
+                            <div class="col-12 fw-bold small pt-2">
+                                <span class="fa fa-fw fa-caret-right" /> Extra costs
+                            </div>
+                        </div>
+                        <div class="row" t-as="stat_product" t-foreach="line.stat_products">
+                            <div class="col-12 small">
+                                <span class="fa fa-fw" />
+                                <span t-esc="stat_product.name" />:
+                                <span class="badge text-bg-light">
+                                    <t t-esc="price_base_formatted" /> per <t t-esc="stat_product.uom" />
+                                </span>
+                            </div>
+                        </div>
+                    </t>
                 </li>
             </ul>
 
