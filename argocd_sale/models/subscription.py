@@ -122,10 +122,12 @@ class Subscription(models.Model):
             lambda l: date_from < l.date.date() < date_to
         ).mapped("value")
         if stats:
-            quantity = max(stats)
+            quantity = max(
+                stats
+            )  # TODO: Make configurable also what the policy should be if there's no stats found
         return {
             "product_id": stat_product.id,
-            "name": "> %s" % stat_product.name,
+            "name": "> %s" % stat_product.name,  # TODO: Improve layout
             "quantity": quantity,
             "price_unit": stat_product.list_price,
             "tax_ids": [Command.set(stat_product.taxes_id.ids)],
@@ -149,7 +151,7 @@ class Subscription(models.Model):
         interval = int(self.template_id.recurring_interval)
         recurring_previous_date = self.recurring_next_date - relativedelta(
             **{type_interval: interval}
-        )
+        )  # TODO: Add this as a field in sale.subscription instead
 
         additional_invoice_line_ids = []
         for line in self.sale_subscription_line_ids.filtered(
