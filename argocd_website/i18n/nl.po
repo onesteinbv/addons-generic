@@ -1,0 +1,604 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* argocd_website
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-05 08:14+0000\n"
+"PO-Revision-Date: 2024-09-05 08:14+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "12345678"
+msgstr "12345678"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "<b>Perform these steps:</b>"
+msgstr "<b>Voer deze stappen uit:</b>"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid ""
+"<i class=\"fa fa-check spinner-grow-sm ml4\"/>\n"
+"                                        Verify"
+msgstr ""
+"<i class=\"fa fa-check spinner-grow-sm ml4\"/>\n"
+"                                        Verifieer"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid ""
+"<i class=\"fa fa-check spinner-grow-sm mr4\"/>\n"
+"                                            Verify"
+msgstr ""
+"<i class=\"fa fa-check spinner-grow-sm mr4\"/>\n"
+"                                            Verifieer"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_page
+msgid ""
+"<i class=\"fa fa-fw fa-info\"/> Please check your email to confirm the "
+"deletion."
+msgstr ""
+"<i class=\"fa fa-fw fa-info\"/> Controleer uw e-mail om de verwijdering te bevestigen."
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_page
+msgid ""
+"<i class=\"fa fa-fw fa-info\"/> The deletion of this application is pending "
+"this can take a couple of minutes."
+msgstr "<i class=\"fa fa-fw fa-info\"/> De verwijdering van deze applicatie is in behandeling, dit kan enkele minuten duren."
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.actions_dropdown
+msgid "<i class=\"fa fa-globe mr4\"/>Configure Domain Names"
+msgstr "<i class=\"fa fa-globe mr4\"/>Configureer domeinnamen"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "<i class=\"fa fa-pencil mr8\"/>Edit"
+msgstr "<i class=\"fa fa-pencil mr8\"/>Wijzig"
+
+#. module: argocd_website
+#: model:mail.template,body_html:argocd_website.delete_request_mail_template
+msgid ""
+"<p>Dear Customer, </p>\n"
+"            <br>\n"
+"            <p>Are you sure you want to delete application \"<t t-out=\"object.name\"></t>\"? </p>\n"
+"            <br>\n"
+"            <a t-attf-href=\"/my/applications/#{object.id}/confirm-delete?token=#{object.deletion_token}\">Continue</a>\n"
+"        "
+msgstr ""
+"<p>Beste klant, </p>\n"
+"            <br>\n"
+"            <p>Weet u zeker dat u de applicatie \"<t t-out=\"object.name\"></t>\" wilt verwijderen? </p>\n"
+"            <br>\n"
+"            <a t-attf-href=\"/my/applications/#{object.id}/confirm-delete?token=#{object.deletion_token}\">Doorgaan</a>\n"
+
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_page
+msgid "<strong class=\"d-block\">Address: </strong>"
+msgstr "<strong class=\"d-block\">Adres: </strong>"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_page
+msgid "<strong>Chamber of Commerce #:</strong>"
+msgstr "<strong>KvK #:</strong>"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_subscription_page
+msgid "<strong>End Customer:</strong>"
+msgstr "<strong>Eindklant:</strong>"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_page
+msgid "<strong>Health: </strong>"
+msgstr "<strong>Status: </strong>"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.pay
+#: model_terms:ir.ui.view,arch_db:argocd_website.transaction_status
+msgid ""
+"<strong>Welcome!</strong><br/>\n"
+"                We are building your application, this can take 5 to 10 minutes. <br/>\n"
+"                An email will be sent when your application is ready. <br/><br/>\n"
+"                Kind regards, <br/><i>Onestein</i>"
+msgstr ""
+"<strong>Welkom!</strong><br/>\n"
+"                We zijn uw applicatie aan het bouwen, dit kan 5 tot 10 minuten duren. <br/>\n"
+"                U ontvangt een e-mail wanneer uw applicatie klaar is. <br/><br/>\n"
+"                Met vriendelijke groet, <br/><i>Onestein</i>"
+
+
+#. module: argocd_website
+#: model:ir.model.fields,field_description:argocd_website.field_argocd_application__access_warning
+msgid "Access warning"
+msgstr "Toegangswaarschuwing"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "Account"
+msgstr "Account"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "Addition"
+msgstr "Toevoeging"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "Address <span class=\"text-info\">*</span>"
+msgstr "Adres <span class=\"text-info\">*</span>"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_page
+msgid "Application -"
+msgstr "Applicatie -"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_breadcrumbs
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_my_applications
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_my_home
+msgid "Applications"
+msgstr "Applicaties"
+
+#. module: argocd_website
+#: model:ir.model,name:argocd_website.model_argocd_application
+msgid "ArgoCD Application"
+msgstr "ArgoCD Application"
+
+#. module: argocd_website
+#: model:ir.actions.server,name:argocd_website.cron_cleanup_abandoned_subs_ir_actions_server
+#: model:ir.cron,cron_name:argocd_website.cron_cleanup_abandoned_subs
+msgid "ArgoCD Website: Cleanup abandoned subscriptions"
+msgstr "ArgoCD Website: Cleanup abandoned subscriptions"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/models/application.py:0
+#, python-format
+msgid ""
+"CNAME record incorrectly configured expected %(expected_domain)s got "
+"%(result)s"
+msgstr ""
+"CNAME verkeerd ingesteld verwachtte %(expected_domain)s maar kreeg "
+"%(result)s"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "City"
+msgstr "Plaats"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/main.py:0
+#, python-format
+msgid "City is required."
+msgstr "Plaats is verplicht"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_upgrade_modal
+msgid "Close"
+msgstr "Sluit"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "CoC Number <span class=\"text-info\">*</span>"
+msgstr "KvK Nummer <span class=\"text-info\">*</span>"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/main.py:0
+#, python-format
+msgid "CoC number is required."
+msgstr "KvK nummer is verplicht"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/models/website.py:0
+#, python-format
+msgid "Combination is not possible"
+msgstr "Combinatie is niet mogelijk"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_my_applications
+msgid "Company"
+msgstr "Bedrijf"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "Company Name"
+msgstr "Bedrijfsnaam"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "Company Name <span class=\"text-info\">*</span>"
+msgstr "Bedrijfsnaam <span class=\"text-info\">*</span>"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/main.py:0
+#, python-format
+msgid "Company Name is required."
+msgstr "Bedrijfsnaam is verplicht."
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "Company details"
+msgstr "Bedrijfsdetails"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.order_progress_bar
+msgid "Configure"
+msgstr "Configureer"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.actions_dropdown
+msgid "Configure Domain Names"
+msgstr "Configureer domeinnamen"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid ""
+"Configure a <b>CNAME</b> record for your domain pointing to your instances "
+"(e.g."
+msgstr ""
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "Configure domain names for"
+msgstr ""
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "Confirm"
+msgstr "Bevestig"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_subscription_page
+msgid "Contact"
+msgstr "Contact"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/portal.py:0
+#, python-format
+msgid "Creation"
+msgstr ""
+
+#. module: argocd_website
+#: model:ir.model.fields,help:argocd_website.field_argocd_application__access_url
+msgid "Customer Portal URL"
+msgstr "Klantenportaal URL"
+
+#. module: argocd_website
+#: model:mail.template,subject:argocd_website.delete_request_mail_template
+msgid "Deletion Request for '{{ object.name }}'"
+msgstr "Verzoek tot verwijdering voor '{{ object.name }}'"
+
+#. module: argocd_website
+#: model:ir.model.fields,field_description:argocd_website.field_argocd_application__deletion_token
+msgid "Deletion Token"
+msgstr "Verwijderingstoken"
+
+#. module: argocd_website
+#: model:ir.model.fields,field_description:argocd_website.field_argocd_application__deletion_token_expiration
+msgid "Deletion Token Expiration"
+msgstr "Vervaldatum van verwijderingstoken"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "Email Address"
+msgstr "E-mailadres"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "Email Address <span class=\"text-info\">*</span>"
+msgstr "E-mailadres <span class=\"text-info\">*</span>"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/main.py:0
+#, python-format
+msgid "Email Address is required."
+msgstr "E-mailadres is vereist."
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/main.py:0
+#, python-format
+msgid "Email address already in use."
+msgstr "E-mailadres al in gebruik"
+
+#. module: argocd_website
+#. odoo-javascript
+#: code:addons/argocd_website/static/src/xml/website.xml:0
+#, python-format
+msgid "Empty"
+msgstr "Leeg"
+
+#. module: argocd_website
+#. odoo-javascript
+#: code:addons/argocd_website/static/src/xml/website.xml:0
+#, python-format
+msgid "Extra costs"
+msgstr "Extra kosten"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.order
+#: model_terms:ir.ui.view,arch_db:argocd_website.signup
+msgid "Go to payment"
+msgstr "Ga naar betaling"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "I agree to the"
+msgstr "Ik ga akkoord met de"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "Insert your domain names below and verify them"
+msgstr ""
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/main.py:0
+#, python-format
+msgid "Invalid email address."
+msgstr "Ongeldig e-mailadres."
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "It can take a few minutes for the changes to take place"
+msgstr "Het kan enkele minuten duren voordat de wijzigingen zijn doorgevoerd"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "Leave them empty to use the default domain names"
+msgstr ""
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "Looks good!"
+msgstr ""
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_my_applications
+#, python-format
+msgid "Name"
+msgstr "Naam"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "Odoo"
+msgstr "Odoo"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.external_links_dropdown
+msgid "Open #{url[1]}"
+msgstr "Open #{url[1]}"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.external_links_dropdown
+msgid "Open #{urls[0][1]}"
+msgstr "Open #{urls[0][1]}"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.order_progress_bar
+msgid "Payment"
+msgstr "Betaling"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/main.py:0
+#, python-format
+msgid "Please accept the terms of use."
+msgstr "Accepteer de gebruiksvoorwaarden."
+
+#. module: argocd_website
+#: model:ir.model.fields,field_description:argocd_website.field_argocd_application__access_url
+msgid "Portal Access URL"
+msgstr "URL voor portaaltoegang"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/models/website.py:0
+#, python-format
+msgid "Product not available"
+msgstr "Product niet beschikbaar"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "Purchase a domain name"
+msgstr ""
+
+#. module: argocd_website
+#: model:mail.template,name:argocd_website.delete_request_mail_template
+msgid "Request Deletion"
+msgstr "Verzoek om verwijdering"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_my_applications
+msgid "Request new application"
+msgstr "Nieuwe applicatie aanvragen"
+
+#. module: argocd_website
+#: model:ir.model.fields,field_description:argocd_website.field_argocd_application__access_token
+msgid "Security Token"
+msgstr "Beveiligingstoken"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.order_progress_bar
+msgid "Sign up"
+msgstr "Aanmelden"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_my_applications
+msgid "Status"
+msgstr "Status"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "Street"
+msgstr "Straat"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "Street Number"
+msgstr "Huisnummer"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/main.py:0
+#, python-format
+msgid "Street Number is required."
+msgstr "Huisnummer is verplicht"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/main.py:0
+#, python-format
+msgid "Street is required."
+msgstr "Straat is vereist"
+
+#. module: argocd_website
+#: model:ir.model,name:argocd_website.model_sale_subscription
+msgid "Subscription"
+msgstr "Abonnement"
+
+#. module: argocd_website
+#: model:ir.model.fields,field_description:argocd_website.field_sale_subscription__template_id
+msgid "Subscription template"
+msgstr "Abonnementssjabloon"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/models/application.py:0
+#, python-format
+msgid "Tag is not linked to app"
+msgstr "Tag is niet gekoppeld aan app"
+
+#. module: argocd_website
+#. odoo-javascript
+#: code:addons/argocd_website/static/src/xml/website.xml:0
+#, python-format
+msgid "Tax"
+msgstr "BTW"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "This will be used to validate your registration and login."
+msgstr "Dit wordt gebruikt om uw registratie en login te valideren"
+
+#. module: argocd_website
+#. odoo-javascript
+#: code:addons/argocd_website/static/src/xml/website.xml:0
+#, python-format
+msgid "Total"
+msgstr "Totaal"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_upgrade_modal
+msgid "Upgrade application"
+msgstr "Applicatie upgraden"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_upgrade_modal
+msgid ""
+"Upgrading applications is currently not automated,\n"
+"                            please send an email to"
+msgstr ""
+"Het upgraden van applicaties is momenteel niet geautomatiseerd,\n"
+"                            stuur een e-mail naar"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_upgrade_modal
+msgid "We'll contact you when we processed your request."
+msgstr "Wij nemen contact met u op zodra wij uw verzoek hebben verwerkt"
+
+#. module: argocd_website
+#: model:ir.model,name:argocd_website.model_website
+#: model:ir.model.fields,field_description:argocd_website.field_sale_subscription__website_id
+msgid "Website"
+msgstr ""
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid ""
+"You are currently not logged in if you already have an account, please make "
+"sure to"
+msgstr ""
+"U bent momenteel niet ingelogd als u al een account heeft, zorg er dan voor dat u"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_my_applications
+msgid "You have no applications currently."
+msgstr "U heeft momenteel geen applicaties"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.order_details
+msgid "Your Order"
+msgstr "Uw Bestelling"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "Zip"
+msgstr "Postcode"
+
+#. module: argocd_website
+#. odoo-python
+#: code:addons/argocd_website/controllers/main.py:0
+#, python-format
+msgid "Zip is required."
+msgstr "Postcode is verplicht."
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "e.g. #{tag.key}.example.com"
+msgstr "bijv. #{tag.key}.voorbeeld.nl"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "e.g. www.example.com"
+msgstr "bijv. www.voorbeeld.nl"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_domain_names_page
+msgid "for Odoo)"
+msgstr "voor Odoo)"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "login"
+msgstr "login"
+
+#. module: argocd_website
+#. odoo-javascript
+#: code:addons/argocd_website/static/src/xml/website.xml:0
+#, python-format
+msgid "per"
+msgstr ""
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.form
+msgid "terms of use"
+msgstr "gebruiksvoorwaarden"
+
+#. module: argocd_website
+#: model_terms:ir.ui.view,arch_db:argocd_website.portal_application_upgrade_modal
+msgid "with your request."
+msgstr "met uw aanvraag"
