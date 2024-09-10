@@ -1,6 +1,6 @@
 import re
 
-from odoo import _, api
+from odoo import _, api, fields
 from odoo.exceptions import ValidationError
 from odoo.http import Controller, request, route
 
@@ -274,6 +274,7 @@ class MainController(Controller):
                 subscription.user_id = user
 
             if not subscription.invoice_ids:
+                subscription.recurring_next_date = fields.Date.today()
                 subscription.generate_invoice()
             subscription.invoice_ids.ensure_one()
             invoice_id = subscription.invoice_ids.id
