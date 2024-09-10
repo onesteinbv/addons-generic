@@ -23,12 +23,14 @@ class SaleSubscription(models.Model):
                 invoices = self.invoice_ids.filtered(
                     lambda i: i.invoice_date == date_ref
                 )
+                unpaid_invoice = self.env["account.move"]
                 if not invoices:
-                    self.generate_invoice()
-                    unpaid_invoice = self.invoice_ids.filtered(
-                        lambda i: i.invoice_date == date_ref
-                        and i.payment_state == "not_paid"
-                    )
+                    if date_ref == self.recurring_next_date:
+                        self.generate_invoice()
+                        unpaid_invoice = self.invoice_ids.filtered(
+                            lambda i: i.invoice_date == date_ref
+                            and i.payment_state == "not_paid"
+                        )
                 else:
                     unpaid_invoice = invoices.filtered(
                         lambda i: i.payment_state == "not_paid"
