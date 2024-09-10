@@ -29,7 +29,9 @@ class PaymentAcquirerMollie(models.Model):
         methods = super(PaymentAcquirerMollie, self)._mollie_get_supported_methods(
             order, invoice, amount, currency, partner_id
         )
-        if (order and order.group_subscription_lines()) or (invoice and invoice.subscription_id):
+        if (order and order.group_subscription_lines()) or (
+            invoice and invoice.subscription_id
+        ):
             methods = methods.filtered(
                 lambda m: m.method_code in ["creditcard", "ideal"]
             )
