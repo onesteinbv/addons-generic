@@ -26,7 +26,8 @@ class SaleSubscription(models.Model):
         if not invoices and date_ref == self.recurring_next_date:
             self.generate_invoice()
         unpaid_invoice = self.invoice_ids.filtered(
-            lambda i: i.invoice_date == date_ref and i.payment_state == "not_paid"
+            lambda i: i.invoice_date == date_ref
+            and i.payment_state == "not_paid"  # TODO: Do we need to check here on date?
         )
         if not unpaid_invoice:
             return False
@@ -38,10 +39,9 @@ class SaleSubscription(models.Model):
     @api.model
     def terminate_payment_provider_mandate(self):
         # This method terminates the mandate on mollie
+        vals = super().terminate_payment_provider_mandate()
         if self.payment_provider_mandate_id.provider_id.code != "mollie":
-            return super().terminate_payment_provider_mandate()
-        else:
-            vals = super().terminate_payment_provider_mandate()
+            return vals
         mollie = self.env.ref("payment.payment_provider_mollie")
         mollie_client = mollie._api_mollie_get_client()
         customer = mollie_client.customers.get(self.partner_id.mollie_customer_id)
@@ -54,4 +54,4 @@ class SaleSubscription(models.Model):
         self.sudo().message_post(body=msg)
         vals["is_payment_provider_mandate_terminated"] = True
         self.write(vals)
-        return True
+        return vals
