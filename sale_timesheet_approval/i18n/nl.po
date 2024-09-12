@@ -1,0 +1,116 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_timesheet_approval
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-26 12:39+0000\n"
+"PO-Revision-Date: 2024-03-26 12:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_timesheet_approval
+#: model:ir.model,name:sale_timesheet_approval.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Kostenplaatsregel"
+
+#. module: sale_timesheet_approval
+#: model:ir.actions.act_window,name:sale_timesheet_approval.hr_timesheet_invoice_create_values
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_approval.view_hr_timesheet_invoice_create
+msgid "Approve"
+msgstr "Goedkeuren"
+
+#. module: sale_timesheet_approval
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_approval.view_hr_timesheet_invoice_create
+msgid "Approve and Create Invoices"
+msgstr "Facturen goedkeuren en maken"
+
+#. module: sale_timesheet_approval
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_approval.view_hr_timesheet_invoice_create
+msgid "Cancel"
+msgstr "Annuleren"
+
+#. module: sale_timesheet_approval
+#: model:ir.model,name:sale_timesheet_approval.model_hr_timesheet_invoice_create
+msgid "Create invoice from timesheet"
+msgstr "Factuur maken op basis van urenstaat"
+
+#. module: sale_timesheet_approval
+#: model:ir.model.fields,field_description:sale_timesheet_approval.field_hr_timesheet_invoice_create__create_uid
+msgid "Created by"
+msgstr "Gemaakt door"
+
+#. module: sale_timesheet_approval
+#: model:ir.model.fields,field_description:sale_timesheet_approval.field_hr_timesheet_invoice_create__create_date
+msgid "Created on"
+msgstr "Gemaakt op"
+
+#. module: sale_timesheet_approval
+#: model:ir.model.fields,field_description:sale_timesheet_approval.field_hr_timesheet_invoice_create__display_name
+msgid "Display Name"
+msgstr "Weergavenaam"
+
+#. module: sale_timesheet_approval
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_approval.view_hr_timesheet_invoice_create
+msgid ""
+"Do you want to approve (and make invoiceable) the selected timesheet lines?"
+msgstr ""
+"Wilt u de geselecteerde urenstaatregels goedkeuren (en factureerbaar maken)?"
+
+#. module: sale_timesheet_approval
+#: model:ir.model.fields,field_description:sale_timesheet_approval.field_hr_timesheet_invoice_create__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_timesheet_approval
+#: model:ir.model.fields,field_description:sale_timesheet_approval.field_account_analytic_line__is_approved
+msgid "Is Approved"
+msgstr "Is goedgekeurd"
+
+#. module: sale_timesheet_approval
+#: model:ir.model.fields,field_description:sale_timesheet_approval.field_hr_timesheet_invoice_create____last_update
+msgid "Last Modified on"
+msgstr "Laatst gewijzigd op"
+
+#. module: sale_timesheet_approval
+#: model:ir.model.fields,field_description:sale_timesheet_approval.field_hr_timesheet_invoice_create__write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: sale_timesheet_approval
+#: model:ir.model.fields,field_description:sale_timesheet_approval.field_hr_timesheet_invoice_create__write_date
+msgid "Last Updated on"
+msgstr "Laatst geupdate op"
+
+#. module: sale_timesheet_approval
+#: model:ir.model,name:sale_timesheet_approval.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Verkooporderregel"
+
+#. module: sale_timesheet_approval
+#: model:ir.actions.act_window,name:sale_timesheet_approval.timesheet_action_not_approved
+msgid "Timesheets To Be Invoiced"
+msgstr "Te factureren urenstaten"
+
+#. module: sale_timesheet_approval
+#: model:ir.ui.menu,name:sale_timesheet_approval.timesheet_menu_activity_not_approved
+msgid "To Be Invoiced"
+msgstr "Gefactureerd worden"
+
+#. module: sale_timesheet_approval
+#: model:ir.actions.server,name:sale_timesheet_approval.action_unapprove_timesheet_line
+msgid "Unapprove"
+msgstr "Goedkeuren intrekken"
+
+#. module: sale_timesheet_approval
+#. odoo-python
+#: code:addons/sale_timesheet_approval/models/account_analytic_line.py:0
+#, python-format
+msgid "You cannot unapprove a timesheet line already invoiced"
+msgstr "U kunt de goedkeuring van een urenstaatregel die al is gefactureerd, niet intrekken"

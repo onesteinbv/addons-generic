@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="hr_leave_assign_contract_time_off_cron" model="ir.cron">
+        <field name="name">Contract Time Off: Updates non and partially working days for contracted resources</field>
+        <field name="model_id" ref="resource.model_resource_calendar"/>
+        <field name="state">code</field>
+        <field name="code">model._update_contract_time_off()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+    </record>
+</odoo>

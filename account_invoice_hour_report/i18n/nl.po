@@ -1,0 +1,93 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_hour_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-26 12:47+0000\n"
+"PO-Revision-Date: 2024-03-26 12:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_hour_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_hour_report.invoice_hours_report_document
+msgid "<b>Invoice Annex</b>"
+msgstr "<b>Factuurbijlage</b>"
+
+#. module: account_invoice_hour_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_hour_report.invoice_hours_report_document
+msgid "<span><b>Customer Name</b></span>:"
+msgstr "<span><b>Klantnaam</b></span>:"
+
+#. module: account_invoice_hour_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_hour_report.invoice_hours_report_document
+msgid "<span><b>Sale Order</b></span>:"
+msgstr "<span><b>Verkooporder</b></span>:
+"
+
+#. module: account_invoice_hour_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_hour_report.invoice_hours_report_document
+msgid "<span><b>Total:</b></span>"
+msgstr "<span><b>Totaal:</b></span>"
+
+#. module: account_invoice_hour_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_hour_report.invoice_hours_report_document
+msgid "<span>Date</span>"
+msgstr "<span>Datum</span>"
+
+#. module: account_invoice_hour_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_hour_report.invoice_hours_report_document
+msgid "<span>Description</span>"
+msgstr "<span>Beschrijving</span>"
+
+#. module: account_invoice_hour_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_hour_report.invoice_hours_report_document
+msgid "<span>Employee</span>"
+msgstr ""
+
+#. module: account_invoice_hour_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_hour_report.invoice_hours_report_document
+msgid "<span>Project</span>:"
+msgstr "<span>Werknemer</span>"
+
+#. module: account_invoice_hour_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_hour_report.invoice_hours_report_document
+msgid "<span>Time to be Invoiced (Hours)</span>"
+msgstr "<span>Tijd om te factureren (uren)</span>"
+
+#. module: account_invoice_hour_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_hour_report.invoice_hours_report_document
+msgid "<span>Total Hours</span>"
+msgstr "<span>Totaal aantal uren</span>"
+
+#. module: account_invoice_hour_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_hour_report.invoice_hours_report_document
+msgid "<span>Week nr.</span>"
+msgstr "<span>Weeknr.</span>"
+
+#. module: account_invoice_hour_report
+#: model:ir.model,name:account_invoice_hour_report.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_invoice_hour_report
+#: model:ir.model.fields,field_description:account_invoice_hour_report.field_res_partner__print_timesheet_employee
+#: model:ir.model.fields,field_description:account_invoice_hour_report.field_res_users__print_timesheet_employee
+msgid "Print Employee on Timesheet Report"
+msgstr "Werknemer afdrukken op urenstaatrapport"
+
+#. module: account_invoice_hour_report
+#: model:ir.model,name:account_invoice_hour_report.model_sale_order
+msgid "Sales Order"
+msgstr "Verkooporder"
+
+#. module: account_invoice_hour_report
+#: model:ir.actions.report,name:account_invoice_hour_report.report_invoice_hours_report
+msgid "Timesheets"
+msgstr "Uren rapport"

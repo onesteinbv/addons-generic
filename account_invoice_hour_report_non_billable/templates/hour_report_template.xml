@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="invoice_hours_report_document" inherit_id="account_invoice_hour_report.invoice_hours_report_document">
+        <xpath expr="//t[@t-foreach]/t[@t-set='total_to_be_invoiced']" position="replace">
+            <t t-set="total_to_be_invoiced" t-value="total_to_be_invoiced + (time_line.unit_amount if time_line.is_approved and not time_line.is_non_billable else 0.0)"/>
+        </xpath>
+        <xpath expr="//span[hasclass('hours_to_be_invoiced')]" position="attributes">
+            <attribute name="t-esc">'{:.2f}'.format(time_line.unit_amount if time_line.is_approved and not time_line.is_non_billable else 0.0).replace('.', ',')</attribute>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Contract Time Off Partial -->
+        <record id="holiday_status_cto" model="hr.leave.type">
+            <field name="name">Contract Time Off</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_validation_type">no_validation</field>
+            <field name="company_id" eval="False"/> <!-- Explicitely set to False for it to be available to all companies -->
+            <field name="sequence">10</field>
+        </record>
+        <!-- Contract Time Off Partial -->
+        <record id="holiday_status_ctop" model="hr.leave.type">
+            <field name="name">Contract Time Off Partial</field>
+            <field name="requires_allocation">no</field>
+            <field name="leave_validation_type">no_validation</field>
+            <field name="company_id" eval="False"/> <!-- Explicitely set to False for it to be available to all companies -->
+            <field name="sequence">10</field>
+            <field name="request_unit">half_day</field>
+        </record>
+    </data>
+</odoo>
