@@ -45,9 +45,7 @@ class Application(models.Model):
         inverse_name="application_id",
         string="Domains",
     )
-    application_set_id = fields.Many2one(
-        "argocd.application.set",
-    )
+    application_set_id = fields.Many2one("argocd.application.set", required=True)
     is_deployed = fields.Boolean(
         compute="_compute_is_deployed", search="_search_is_deployed"
     )
@@ -177,12 +175,15 @@ class Application(models.Model):
 
     @api.constrains("name")
     def _constrain_name(self):
+        # We actually need to also do this check if `namespace_prefix_id.name` changes, but it never does in practice
+        # The namespace_prefix is not necessarily part of the app name depends on the application.set.template
+        prefix = self.application_set_id.namespace_prefix_id.name
         if not re.match(
-            "^[a-z0-9-]{1,100}$", self.name
+            "^[a-z0-9-]{1,53}$", prefix + self.name
         ):  # lowercase a to z, 0 to 9 and - (dash) are allowed
             raise ValidationError(
                 _(
-                    "Only lowercase letters, numbers and dashes are allowed in the name (max 100 characters)."
+                    "Only lowercase letters, numbers and dashes are allowed in the name (max 53 characters)."
                 )
             )
 
