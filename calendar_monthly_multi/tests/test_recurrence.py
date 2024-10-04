@@ -4,7 +4,7 @@ from odoo.tests.common import TransactionCase
 
 class TestRecurrence(TransactionCase):
     def test_weekend_days(self):
-        base_event = self.env["calendar.event"].create(
+        self.env["calendar.event"].create(
             {
                 "name": "Last weekend day",
                 "start": fields.Datetime.to_datetime("2023-09-01 12:00:00"),
@@ -19,8 +19,10 @@ class TestRecurrence(TransactionCase):
                 "event_tz": "UTC",
             }
         )
+        # You probably wonder why we get the recurrence this way, it's because of this commit https://github.com/odoo/odoo/commit/43a774d68574e72fa4aabad65db42a03fac6e666#diff-6c4c124bfb9e4397bed7221c7534c8f877904775e9db4cf81f72b5430b36ad06R631
+        # I had to change it to this, because the created event is not the base event anymore. The same goes for the other ones
         recurrence = self.env["calendar.recurrence"].search(
-            [("base_event_id", "=", base_event.id)]
+            [], limit=1, order="id desc"
         )
         self.assertEqual(len(recurrence.calendar_event_ids), 10)
 
@@ -45,7 +47,7 @@ class TestRecurrence(TransactionCase):
         )
 
     def test_day(self):
-        base_event = self.env["calendar.event"].create(
+        self.env["calendar.event"].create(
             {
                 "name": "Fourth day",
                 "start_date": fields.Date.to_date("2023-09-01"),
@@ -62,7 +64,7 @@ class TestRecurrence(TransactionCase):
             }
         )
         recurrence = self.env["calendar.recurrence"].search(
-            [("base_event_id", "=", base_event.id)]
+            [], limit=1, order="id desc"
         )
 
         self.assertEqual(len(recurrence.calendar_event_ids), 20)
@@ -75,7 +77,7 @@ class TestRecurrence(TransactionCase):
         )
 
     def test_weekdays(self):
-        base_event = self.env["calendar.event"].create(
+        self.env["calendar.event"].create(
             {
                 "name": "First workday (mo to fr)",
                 "start_date": fields.Date.to_date("2023-09-10"),  # Skip for 2023-09
@@ -93,7 +95,7 @@ class TestRecurrence(TransactionCase):
             }
         )
         recurrence = self.env["calendar.recurrence"].search(
-            [("base_event_id", "=", base_event.id)]
+            [], limit=1, order="id desc"
         )
         self.assertEqual(
             len(recurrence.calendar_event_ids), 12
@@ -109,7 +111,7 @@ class TestRecurrence(TransactionCase):
         )
 
     def test_multi_dates(self):
-        base_event = self.env["calendar.event"].create(
+        self.env["calendar.event"].create(
             {
                 "name": "Multi dates on 5th and 20th (interval 2)",
                 "start_date": fields.Date.to_date("2023-09-10"),
@@ -131,7 +133,7 @@ class TestRecurrence(TransactionCase):
             }
         )
         recurrence = self.env["calendar.recurrence"].search(
-            [("base_event_id", "=", base_event.id)]
+            [], limit=1, order="id desc"
         )
         self.assertEqual(len(recurrence.calendar_event_ids), 24)
         some_recurrence = recurrence.calendar_event_ids.filtered(
@@ -155,7 +157,7 @@ class TestRecurrence(TransactionCase):
     def test_inverse_rrule_multi_date(self):
         day_5 = self.ref("calendar_monthly_multi.day_5")
         day_20 = self.ref("calendar_monthly_multi.day_20")
-        multi_date_event = self.env["calendar.event"].create(
+        self.env["calendar.event"].create(
             {
                 "name": "Multi dates on 5th and 20th (interval 2)",
                 "start_date": fields.Date.to_date("2023-09-10"),
@@ -172,7 +174,7 @@ class TestRecurrence(TransactionCase):
             }
         )
         recurrence = self.env["calendar.recurrence"].search(
-            [("base_event_id", "=", multi_date_event.id)]
+            [], limit=1, order="id desc"
         )
 
         multi_date_test = self.env["calendar.recurrence"].create(
@@ -190,7 +192,7 @@ class TestRecurrence(TransactionCase):
         saturday = self.ref("calendar_monthly_multi.SA")
         sunday = self.ref("calendar_monthly_multi.SU")
 
-        weekend_day_event = self.env["calendar.event"].create(
+        self.env["calendar.event"].create(
             {
                 "name": "Weekend Day Test",
                 "start_date": fields.Date.to_date("2023-09-10"),
@@ -207,7 +209,7 @@ class TestRecurrence(TransactionCase):
             }
         )
         recurrence = self.env["calendar.recurrence"].search(
-            [("base_event_id", "=", weekend_day_event.id)]
+            [], limit=1, order="id desc"
         )
 
         weekend_day_test = self.env["calendar.recurrence"].create(
@@ -219,7 +221,7 @@ class TestRecurrence(TransactionCase):
         self.assertIn(sunday, weekend_day_test.weekday_ids.ids)
         self.assertEqual(weekend_day_test.weekday, "weekend_day")
 
-        all_days_event = self.env["calendar.event"].create(
+        self.env["calendar.event"].create(
             {
                 "name": "Weekday (any day) test",
                 "start_date": fields.Date.to_date("2023-09-10"),
@@ -236,9 +238,8 @@ class TestRecurrence(TransactionCase):
             }
         )
         recurrence = self.env["calendar.recurrence"].search(
-            [("base_event_id", "=", all_days_event.id)]
+            [], limit=1, order="id desc"
         )
-
         all_days_test = self.env["calendar.recurrence"].create(
             {"rrule": recurrence.rrule}
         )
@@ -250,7 +251,7 @@ class TestRecurrence(TransactionCase):
         self.assertIn(wednesday, all_days_test.weekday_ids.ids)
         self.assertEqual(all_days_test.weekday, "day")
 
-        workday_event = self.env["calendar.event"].create(
+        self.env["calendar.event"].create(
             {
                 "name": "Workday test",
                 "start_date": fields.Date.to_date("2023-09-10"),
@@ -267,7 +268,7 @@ class TestRecurrence(TransactionCase):
             }
         )
         recurrence = self.env["calendar.recurrence"].search(
-            [("base_event_id", "=", workday_event.id)]
+            [], limit=1, order="id desc"
         )
 
         workday_test = self.env["calendar.recurrence"].create(
@@ -281,7 +282,7 @@ class TestRecurrence(TransactionCase):
         self.assertNotIn(saturday, workday_test.weekday_ids.ids)
         self.assertEqual(workday_test.weekday, "weekday")
 
-        custom_event = self.env["calendar.event"].create(
+        self.env["calendar.event"].create(
             {
                 "name": "Custom test",
                 "start_date": fields.Date.to_date("2023-09-10"),
@@ -299,7 +300,7 @@ class TestRecurrence(TransactionCase):
             }
         )
         recurrence = self.env["calendar.recurrence"].search(
-            [("base_event_id", "=", custom_event.id)]
+            [], limit=1, order="id desc"
         )
 
         custom_test = self.env["calendar.recurrence"].create(
@@ -313,7 +314,7 @@ class TestRecurrence(TransactionCase):
         self.assertNotIn(sunday, custom_test.weekday_ids.ids)
         self.assertEqual(custom_test.weekday, "custom")
 
-        normal_event = self.env["calendar.event"].create(
+        self.env["calendar.event"].create(
             {
                 "name": "Normal test",
                 "start_date": fields.Date.to_date("2023-09-10"),
@@ -330,7 +331,7 @@ class TestRecurrence(TransactionCase):
             }
         )
         recurrence = self.env["calendar.recurrence"].search(
-            [("base_event_id", "=", normal_event.id)]
+            [], limit=1, order="id desc"
         )
 
         normal_test = self.env["calendar.recurrence"].create(

@@ -30,7 +30,7 @@ class CalendarRecurrence(models.Model):
     )
     day_ids = fields.Many2many(comodel_name="calendar.recurrence.day")
 
-    @api.depends("weekday", "rrule_type", "month_by")
+    @api.depends("weekday", "rrule_type", "month_by", "rrule")
     def _compute_weekday_ids(self):
         for recurrence in self.filtered(
             lambda r: r.weekday != "custom"
@@ -54,7 +54,7 @@ class CalendarRecurrence(models.Model):
                     "calendar_monthly_multi.%s" % RRULE_WEEKDAYS[recurrence.weekday]
                 ).ids
 
-    @api.depends("day_ids")
+    @api.depends("day_ids", "weekday_ids")
     def _compute_rrule(self):
         return super()._compute_rrule()
 
