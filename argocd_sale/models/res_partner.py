@@ -19,9 +19,7 @@ class ResPartner(models.Model):
         column1="partner_id",
         column2="product_template_id",
     )
-    is_reseller = fields.Boolean(
-        compute="_compute_is_reseller", store=True, readonly=False
-    )
+    is_reseller = fields.Boolean()
 
     @api.depends(
         "reselling_product_ids", "parent_id", "parent_id.reselling_product_ids"
@@ -34,12 +32,6 @@ class ResPartner(models.Model):
                     partner.parent_id.reselling_product_ids
                 )  # Notice no recursion
             partner.allowed_reselling_products_ids = allowed_reselling_products_ids
-
-    @api.depends("allowed_reselling_products_ids")
-    def _compute_is_reseller(self):
-        # TODO: Refactor: Remove this compute, and make a domain on product.product.reseller_partner_ids to filter resellers
-        for partner in self:
-            partner.is_reseller = bool(partner.allowed_reselling_products_ids)
 
     def to_valid_subdomain(self):
         self.ensure_one()
