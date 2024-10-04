@@ -13,6 +13,9 @@ class SubscriptionLine(models.Model):
     )
 
     def _to_application_name(self):
+        """
+        @return: a unique yet human-readable name to use as application name
+        """
         self.ensure_one()
         replacements = {" ": "-", ".": "", "&": "-"}
         # It's not possible to have more than one application linked to a
@@ -20,11 +23,23 @@ class SubscriptionLine(models.Model):
         # Let's assume that here.
         product = self.product_id
         partner = self.sale_subscription_id.partner_id.commercial_partner_id
-        name = "-".join([partner.display_name, product.default_code or product.name])
+        # Add id to the end to easily ensure uniqueness
+        name = "-".join(
+            [partner.display_name, product.default_code or product.name, str(self.id)]
+        )
         name = name.strip().lower()
         for replace in replacements:
             name = name.replace(replace, replacements[replace])
-        return "".join(c for c in name if c.isalnum() or c == "-")
+        app_name = "".join(c for c in name if c.isalnum() or c == "-")
+        while "--" in app_name:  # Never 2 dashes after each other
+            app_name = app_name.replace("--", "-")
+        # FIXME: The namespace_prefix is not necessarily part of the app name depends on the application.set.template
+        prefix = self.product_id.application_set_id.namespace_prefix_id.name
+        full_app_name = prefix + app_name
+        while len(full_app_name) > 53 or app_name[0] == "-":
+            app_name = app_name[1:]
+            full_app_name = prefix + app_name
+        return app_name
 
     def write(self, vals):
         to_redeploy = self.env["argocd.application"]
@@ -72,7 +87,7 @@ class SubscriptionLine(models.Model):
         if self.application_ids or not self.product_id.application_template_id:
             return
 
-        name = application_sudo.find_next_available_name(self._to_application_name())
+        name = self._to_application_name()
         application = application_sudo.create(
             {
                 "name": name,

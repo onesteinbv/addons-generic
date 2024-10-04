@@ -154,29 +154,10 @@ class Application(models.Model):
         )
     ]
 
-    @api.model
-    def find_next_available_name(self, name):
-        """
-        Find a name which is available based on name (e.g. greg2)
-
-        @param app_set: application set
-        @param name: a name
-        @return: first available name
-        """
-        if not self.search([("name", "=", name)], count=True):
-            return name
-        i = 0
-        while self.search(
-            [("name", "=", name + str(i))],
-            count=True,
-        ):
-            i += 1
-        return name + str(i)
-
     @api.constrains("name")
     def _constrain_name(self):
         # We actually need to also do this check if `namespace_prefix_id.name` changes, but it never does in practice
-        # The namespace_prefix is not necessarily part of the app name depends on the application.set.template
+        # FIXME: The namespace_prefix is not necessarily part of the app name depends on the application.set.template
         prefix = self.application_set_id.namespace_prefix_id.name
         if not re.match(
             "^[a-z0-9-]{1,53}$", prefix + self.name
