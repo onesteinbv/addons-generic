@@ -9,4 +9,14 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='type_company']" position="after">
+                <filter string="Resellers" name="resellers" domain="[('is_reseller', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>
