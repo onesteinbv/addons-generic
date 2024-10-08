@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="categ1" model="hr.job.label.category">
+
+        <field name="name">Category 1</field>
+        <field name="color">1</field>
+        <field name="sequence">1</field>
+    </record>
+    <record id="categ2" model="hr.job.label.category">
+        <field name="name">Category 2</field>
+        <field name="color">2</field>
+        <field name="sequence">2</field>
+    </record>
+    <record id="categ3" model="hr.job.label.category">
+        <field name="name">Category 3</field>
+        <field name="color">3</field>
+        <field name="sequence">3</field>
+    </record>
+    <record id="label1_cat1" model="hr.job.label">
+        <field name="category_id" ref="hr_recruitment_label.categ1" />
+        <field name="name">Label 1</field>
+        <field name="sequence">1</field>
+    </record>
+    <record id="label2_cat1" model="hr.job.label">
+        <field name="category_id" ref="hr_recruitment_label.categ1" />
+        <field name="name">Label 2</field>
+        <field name="sequence">2</field>
+    </record>
+    <record id="label3_cat1" model="hr.job.label">
+        <field name="category_id" ref="hr_recruitment_label.categ1" />
+        <field name="name">Label 3</field>
+        <field name="sequence">3</field>
+    </record>
+    <record id="label1_cat2" model="hr.job.label">
+        <field name="category_id" ref="hr_recruitment_label.categ2" />
+        <field name="name">Option 1</field>
+        <field name="sequence">4</field>
+    </record>
+    <record id="label2_cat2" model="hr.job.label">
+        <field name="category_id" ref="hr_recruitment_label.categ2" />
+        <field name="name">Option 2</field>
+        <field name="sequence">5</field>
+    </record>
+    <record id="label1_cat3" model="hr.job.label">
+        <field name="category_id" ref="hr_recruitment_label.categ3" />
+        <field name="name">Value 1</field>
+        <field name="sequence">6</field>
+    </record>
+    <record id="label2_cat3" model="hr.job.label">
+        <field name="category_id" ref="hr_recruitment_label.categ3" />
+        <field name="name">Value 2</field>
+        <field name="sequence">7</field>
+    </record>
+
+    <!--Manage the job_id to get in hr.applicant-->
+    <record id="hr.job_developer" model="hr.job">
+        <field name="label_ids" eval="[(6, 0, [ref('label1_cat1'),ref('label1_cat2'),ref('label1_cat3')])]" />
+    </record>
+    <record id="hr.job_ceo" model="hr.job">
+        <field name="label_ids" eval="[(6, 0, [ref('label2_cat1'),ref('label1_cat2'),ref('label2_cat3')])]" />
+    </record>
+    <record id="hr.job_cto" model="hr.job">
+        <field name="label_ids" eval="[(6, 0, [ref('label3_cat1'),ref('label1_cat2'),ref('label1_cat3')])]" />
+    </record>
+    <record id="hr.job_consultant" model="hr.job">
+        <field name="label_ids" eval="[(6, 0, [ref('label1_cat1'),ref('label2_cat2'),ref('label2_cat3')])]" />
+    </record>
+    <record id="hr.job_hrm" model="hr.job">
+        <field name="label_ids" eval="[(6, 0, [ref('label2_cat1'),ref('label2_cat2'),ref('label1_cat3')])]" />
+    </record>
+    <record id="hr.job_marketing" model="hr.job">
+        <field name="label_ids" eval="[(6, 0, [ref('label3_cat1'),ref('label2_cat2'),ref('label2_cat3')])]" />
+    </record>
+    <record id="hr.job_trainee" model="hr.job">
+        <field name="label_ids" eval="[(6, 0, [ref('label2_cat1'),ref('label2_cat2'),ref('label1_cat3')])]" />
+    </record>
+</odoo>
