@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <menuitem
+        id="membership_group_top_menu"
+        name="Groups"
+        parent="membership.menu_association"
+        sequence="20"
+    />
+
+    <menuitem
+        id="membership_group_info_menu"
+        name="Membership Groups"
+        action="membership_group_action"
+        parent="membership_group.membership_group_top_menu"
+        sequence="1"
+    />
+
+    <menuitem
+        id="membership_group_membership_menu"
+        name="Membership Group Members"
+        action="action_membership_group_member"
+        parent="membership_group.membership_group_top_menu"
+        sequence="2"
+    />
+
+</odoo>

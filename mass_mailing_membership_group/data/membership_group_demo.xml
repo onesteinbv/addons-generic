@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="membership_group.demo_membership_group_1" model="membership.group">
+            <field name="mailing_list_id" ref="demo_mailing_list_group_1" />
+        </record>
+
+        <record id="membership_group.demo_membership_group_2" model="membership.group">
+            <field name="mailing_list_id" ref="demo_mailing_list_group_2" />
+        </record>
+
+        <record id="membership_group.demo_membership_group_3" model="membership.group">
+            <field name="mailing_list_id" ref="demo_mailing_list_group_3" />
+        </record>
+
+        <record id="membership_group.demo_membership_group_4" model="membership.group">
+            <field name="mailing_list_id" ref="demo_mailing_list_group_4" />
+        </record>
+
+    </data>
+</odoo>
