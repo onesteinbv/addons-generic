@@ -1,4 +1,7 @@
+import base64
 import re
+
+from werkzeug.exceptions import NotFound
 
 from odoo import _, fields, http
 from odoo.exceptions import ValidationError
@@ -35,6 +38,37 @@ class MembershipRegistrationController(http.Controller):
 
         return email, email_valid, error_message
 
+    def _validate_membership_cv(self, cv):
+        cv_valid = True
+        error_message = ""
+        cv_file = cv
+        if cv:
+            if (
+                not request.website.membership_registration_cv_file_formats_supported
+                == "*"
+            ):
+                for (
+                    file_format
+                ) in request.website.membership_registration_cv_file_formats_supported.split(
+                    ","
+                ):
+                    if not cv.filename.endswith(file_format):
+                        cv_valid = cv_file = False
+                        error_message = _(
+                            "Only %s files are accepted.",
+                            request.website.membership_registration_cv_file_formats_supported,
+                        )
+                        break
+            if cv_valid:
+                cv_file = cv.stream.read()
+                size = cv.stream.tell()
+                if size > (
+                    request.website.membership_registration_max_cv_file_size * 1048576
+                ):
+                    cv_valid = cv_file = False
+                    error_message = _("File is too big.")
+        return cv_file, cv_valid, error_message
+
     def _validate_membership_phone(self, phone):
         phone_valid = True if (not phone or re.match(r"^\+?[\d]+$", phone)) else False
         error_message = ""
@@ -52,10 +86,13 @@ class MembershipRegistrationController(http.Controller):
         return name, name_valid, error_message
 
     def _validate_membership_nickname(self, nickname):
-        error_message = ""
-        nickname_valid = nickname and all(c.isalnum() or c.isspace() for c in nickname)
-        if not nickname_valid:
-            error_message = _("Nickname is empty or invalid.")
+        error_message, nickname_valid = "", True
+        if nickname:
+            nickname_valid = nickname and all(
+                c.isalnum() or c.isspace() for c in nickname
+            )
+            if not nickname_valid:
+                error_message = _("Nickname is invalid.")
         return nickname, nickname_valid, error_message
 
     def _validate_membership_product(self, product_id):
@@ -158,12 +195,15 @@ class MembershipRegistrationController(http.Controller):
             error_list.append(error_data["member_country_id"])
         if not validation_data["member_state_id"]:
             error_list.append(error_data["member_state_id"])
+        if not validation_data["member_cv"]:
+            error_list.append(error_data["member_cv"])
         return error_list
 
     def _get_partner_and_validation_data(self, post):
         partner_data = {}
         validation_data = {}
         error_data = {}
+        partner_data["website_description"] = post.get("website_description", "")
         (
             partner_data["member_email"],
             validation_data["member_email"],
@@ -184,6 +224,11 @@ class MembershipRegistrationController(http.Controller):
             validation_data["member_phone"],
             error_data["member_phone"],
         ) = self._validate_membership_phone(post["member_phone"])
+        (
+            partner_data["member_cv"],
+            validation_data["member_cv"],
+            error_data["member_cv"],
+        ) = self._validate_membership_cv(post.get("member_cv", False))
         (
             partner_data["application_date"],
             validation_data["application_date"],
@@ -274,6 +319,7 @@ class MembershipRegistrationController(http.Controller):
             "website_id": request.website.id,
             "company_id": request.env.company.id,
             "membership_origin": "website_form",
+            "website_description": partner_data["website_description"],
         }
 
     def _set_partner_membership_section(self, partner, partner_data):
@@ -376,48 +422,10 @@ class MembershipRegistrationController(http.Controller):
                 if "section_%s_collaborate" % c.id in old_data["section_data"]:
                     sections_collaborate_checked.update({c.id: True})
             old_data.pop("section_data")
-
-        if request.website.membership_registration_page_background_type == "color":
-            background_style = (
-                "background-color: %s !important;"
-                % request.website.membership_registration_page_background_color
-            )
-        elif (
-            request.website.membership_registration_page_background_type
-            == "gradient_radial"
-        ):
-            background_style = (
-                "background-image: radial-gradient(circle farthest-side at 50%% 50%%, %s 0%%, %s 100%%) !important"
-                % (
-                    request.website.membership_registration_page_background_gradient_start,
-                    request.website.membership_registration_page_background_gradient_end,
-                )
-            )
-        elif (
-            request.website.membership_registration_page_background_type
-            == "gradient_linear"
-        ):
-            background_style = (
-                "background-image: linear-gradient(135deg, %s 0%%, %s 100%%) !important"
-                % (
-                    request.website.membership_registration_page_background_gradient_start,
-                    request.website.membership_registration_page_background_gradient_end,
-                )
-            )
-        elif request.website.membership_registration_page_background_type == "image":
-            background_style = (
-                "background-image: url(data:image/jpg;base64,%s)"
-                % request.website.membership_registration_page_background_image.decode(
-                    "utf-8"
-                )
-            )
-        else:
-            background_style = ""
         section_style = request.website.membership_registration_page_section_style
         if not errors:
             errors = {}
         res = {
-            "background_style": background_style,
             "is_logged": is_logged,
             "member_name": "",
             "member_nickname": "",
@@ -430,6 +438,7 @@ class MembershipRegistrationController(http.Controller):
             "member_city": "",
             "member_country_id": "",
             "member_state_id": "",
+            "website_description": "",
             "country_id": request.env["res.country"],
             "state_id": request.env["res.country.state"],
             "member_publish": False,
@@ -553,7 +562,16 @@ class MembershipRegistrationController(http.Controller):
             else:
                 partner.write(partner_vals)
             self._set_partner_membership_section(partner, partner_data)
-
+            if partner_data.get("member_cv"):
+                request.env["ir.attachment"].sudo().create(
+                    {
+                        "name": post["member_cv"].filename,
+                        "res_model": "res.partner",
+                        "res_id": partner.id,
+                        "datas": base64.b64encode(partner_data.get("member_cv")),
+                        "mimetype": "application/pdf",
+                    }
+                )
             sale_order = partner.create_membership_sale_order(
                 product, product.list_price
             )
@@ -653,3 +671,38 @@ class MembershipRegistrationController(http.Controller):
         return request.render(
             "website_membership_registration.membership_registration_verify_success_page"
         )
+
+    @http.route(["/membership-registration/config/website"], type="json", auth="user")
+    def _change_membership_registration_website_config(self, **options):
+        if not request.env.user.has_group("website.group_website_restricted_editor"):
+            raise NotFound()
+
+        current_website = request.env["website"].get_current_website()
+        # Restrict options we can write to.
+        writable_fields = {
+            "membership_registration_page_section_style",
+            "membership_registration_max_cv_file_size",
+            "membership_registration_cv_file_formats_supported",
+        }
+        # Default section layout to list.
+        if (
+            "membership_registration_page_section_style" in options
+            and not options["membership_registration_page_section_style"]
+        ):
+            options["membership_registration_page_section_style"] = "list"
+        # Default max cv file size to 3.
+        if (
+            "membership_registration_max_cv_file_size" in options
+            and not options["membership_registration_max_cv_file_size"]
+        ):
+            options["membership_registration_max_cv_file_size"] = 3
+        # Default file format supported to '.pdf'.
+        if (
+            "membership_registration_cv_file_formats_supported" in options
+            and not options["membership_registration_cv_file_formats_supported"]
+        ):
+            options["membership_registration_cv_file_formats_supported"] = ".pdf"
+
+        write_vals = {k: v for k, v in options.items() if k in writable_fields}
+        if write_vals:
+            current_website.write(write_vals)

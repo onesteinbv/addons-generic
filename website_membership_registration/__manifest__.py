@@ -24,6 +24,7 @@
     "data": [
         "data/ir_cron_data.xml",
         "data/mail_template_data.xml",
+        "views/snippets/snippets.xml",
         "views/hr_applicant_view.xml",
         "views/hr_employee_view.xml",
         "views/membership_section_view.xml",
@@ -36,6 +37,9 @@
         "web.assets_frontend": [
             "website_membership_registration/static/src/js/website_membership_registration.js",
             "website_membership_registration/static/src/scss/website_membership_registration.scss",
+        ],
+        "website.assets_wysiwyg": [
+            "website_membership_registration/static/src/js/website_membership_registration.editor.js",
         ],
     },
     "demo": [

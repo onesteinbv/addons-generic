@@ -13,6 +13,11 @@
             <xpath expr="//field[@name='free_member']" position="after">
                 <field name="membership_application_date" attrs="{'invisible': [('free_member','=',False)], 'required': [('free_member','=',True)]}"/>
             </xpath>
+            <xpath expr="//field[@name='member_lines']" position="before">
+                <group name="website_description">
+                    <field name="website_description" string="Bio"/>
+                </group>
+            </xpath>
         </field>
     </record>
 

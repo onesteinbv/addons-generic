@@ -143,7 +143,11 @@ class ResPartner(models.Model):
                     ("email_verification_token", "!=", False),
                 ]
             )
-            partners.unlink()
+            partners_to_unlink = partners
+            for partner in partners:
+                if partner.invoice_ids:
+                    partners_to_unlink -= partner
+            partners_to_unlink.unlink()
 
     @api.model
     def _generate_email_verification_token(self, partner_id, email):

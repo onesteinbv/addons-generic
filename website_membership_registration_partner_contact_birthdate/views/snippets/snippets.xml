@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="snippet_options" inherit_id="website_membership_registration.snippet_options" name="membership registration snippet options">
+        <xpath expr="//div[@data-js='WebsiteMembershipRegistrationPage']" position="inside">
+                <we-checkbox string="Github Login"
+                         data-customize-website-views="website_membership_registration_partner_cde.github_login"
+                         data-no-preview="true"
+                         data-reload="/"/>
+                <we-checkbox string="Gitlab Username"
+                         data-customize-website-views="website_membership_registration_partner_cde.gitlab_username"
+                         data-no-preview="true"
+                         data-reload="/"/>
+                <we-checkbox string="Gitlab Email"
+                         data-customize-website-views="website_membership_registration_partner_cde.gitlab_email"
+                         data-no-preview="true"
+                         data-reload="/"/>
+        </xpath>
+    </template>
+</odoo>

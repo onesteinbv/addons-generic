@@ -22,34 +22,17 @@ class ResConfigSetting(models.TransientModel):
         readonly=False,
     )
 
-    membership_registration_page_background_type = fields.Selection(
-        related="website_id.membership_registration_page_background_type",
-        readonly=False,
-        string="Background Type",
-    )
-
-    membership_registration_page_background_color = fields.Char(
-        related="website_id.membership_registration_page_background_color",
-        readonly=False,
-        string="Color",
-    )
-    membership_registration_page_background_gradient_start = fields.Char(
-        related="website_id.membership_registration_page_background_gradient_start",
-        readonly=False,
-        string="Gradient Color Start",
-    )
-    membership_registration_page_background_gradient_end = fields.Char(
-        related="website_id.membership_registration_page_background_gradient_end",
-        readonly=False,
-        string="Gradient Color End",
-    )
-
-    membership_registration_page_background_image = fields.Binary(
-        related="website_id.membership_registration_page_background_image",
-        readonly=False,
-    )
-
     membership_registration_page_section_style = fields.Selection(
         related="website_id.membership_registration_page_section_style",
+        readonly=False,
+    )
+
+    membership_registration_max_cv_file_size = fields.Integer(
+        related="website_id.membership_registration_max_cv_file_size",
+        readonly=False,
+    )
+
+    membership_registration_cv_file_formats_supported = fields.Char(
+        related="website_id.membership_registration_cv_file_formats_supported",
         readonly=False,
     )

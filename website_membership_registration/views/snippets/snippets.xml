@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="snippet_options" inherit_id="website.snippet_options" name="membership registration snippet options">
+        <xpath expr="." position="inside">
+            <div data-js="WebsiteMembershipRegistrationPage" data-page-options="true" groups="website.group_website_designer" data-selector="main:has(.oe_website_membership_registration)" data-no-check="true"
+            string="Membership Registration" data-target=".o_mark_required">
+                <we-select string="Section Layout" data-no-preview="true" data-reload="/">
+                    <we-button data-set-section-style="list">List</we-button>
+                    <we-button data-set-section-style="grid">Grid</we-button>
+                </we-select>
+                <we-checkbox string="Bio"
+                         data-customize-website-views="website_membership_registration.bio"
+                         data-no-preview="true"
+                         data-reload="/"/>
+                <we-checkbox string="CV"
+                         data-customize-website-views="website_membership_registration.cv"
+                         data-no-preview="true"
+                         data-reload="/"/>
+                <we-row string="Max File Size" class="o_we_sublevel_1">
+                    <we-input data-set-max-cv-file-size="" data-name="cv_options" data-no-preview="true" data-reload="/" data-step="1"/>
+                    <span class="mx-2">MB</span>
+                </we-row>
+                <we-input string="File Formats" class="o_we_sublevel_1 o_we_large" data-set-file-formats="" data-name="cv_options" data-no-preview="true" data-reload="/" placeholder=".pdf,.txt" title="Provide comma separated lists of file formats supported. Use '*' for allowing all formats" />
+                <we-row class="o_we_sublevel_1">
+                    <span class="mx-2">Provide comma separated lists of file formats supported. Use '*' for allowing all formats</span>
+                </we-row>
+            </div>
+        </xpath>
+    </template>
+</odoo>
