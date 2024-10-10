@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="inherit_id" ref="membership_group.view_partner_form" />
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='membership_group_member_ids']//field[@name='group_id']" position="after">
+                <field name="on_mailing_list" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

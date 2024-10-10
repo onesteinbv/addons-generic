@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="membership_group_member_view_tree" model="ir.ui.view">
+        <field name="model">membership.group.member</field>
+        <field name="inherit_id" ref="membership_group.membership_group_member_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='group_id']" position="after">
+                <field name="on_mailing_list" />
+            </xpath>
+        </field>
+    </record>
+
+     <record id="membership_group_member_view_search" model="ir.ui.view">
+        <field name="model">membership.group.member</field>
+         <field name="inherit_id" ref="membership_group.membership_group_member_view_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='group_id']" position="after">
+                <separator />
+                <filter string="On Mailing List" name="on_mailing_list" domain="[('on_mailing_list','=', True)]" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

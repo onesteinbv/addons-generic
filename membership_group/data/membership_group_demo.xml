@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+        <record id="demo_membership_group_1" model="membership.group">
+            <field name="name">Executive Board</field>
+        </record>
+
+        <record id="demo_membership_group_2" model="membership.group">
+            <field name="name">Marketing Team</field>
+        </record>
+
+        <record id="demo_membership_group_3" model="membership.group">
+            <field name="name">Finance Committee</field>
+        </record>
+
+        <record id="demo_membership_group_4" model="membership.group">
+            <field name="name">Youth Club</field>
+        </record>
+
+</odoo>

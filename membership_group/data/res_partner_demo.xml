@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+        <record id="demo_member_1" model="res.partner">
+            <field name="name">John Doe</field>
+            <field name="free_member" eval="True" />
+            <field name="membership_group_member_ids" eval="[
+                    (5, 0),
+                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_1')}),
+                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_2')}),
+                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_3')})
+                ]"
+            />
+        </record>
+
+        <record id="demo_member_2" model="res.partner">
+            <field name="name">Jane Smith</field>
+            <field name="free_member" eval="True" />
+            <field name="membership_group_member_ids" eval="[
+                    (5, 0),
+                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_1')}),
+                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_4')})
+                ]"
+            />
+        </record>
+
+        <record id="demo_member_3" model="res.partner">
+            <field name="name">Alice Johnson</field>
+            <field name="free_member" eval="True" />
+            <field name="membership_group_member_ids" eval="[
+                    (5, 0),
+                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_2')}),
+                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_3')})
+                ]"
+            />
+        </record>
+
+</odoo>
