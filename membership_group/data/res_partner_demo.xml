@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data noupdate="1">
+<odoo noupdate="1">
 
         <record id="demo_member_1" model="res.partner">
             <field name="name">John Doe</field>
@@ -36,5 +35,4 @@
             />
         </record>
 
-    </data>
 </odoo>

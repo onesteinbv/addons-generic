@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data noupdate="1">
+<odoo noupdate="1">
 
         <record id="membership_group.demo_member_1" model="res.partner">
             <field name="membership_group_member_ids" eval="[
@@ -30,5 +29,4 @@
             />
         </record>
 
-    </data>
 </odoo>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data noupdate="1">
+<odoo noupdate="1">
 
         <record id="mass_mail_contact_1" model="mailing.contact">
             <field name="name">John Doe</field>
@@ -23,5 +22,4 @@
             <field name="list_ids" eval="[(6, 0, [ref('demo_mailing_list_group_3')])]"/>
         </record>
 
-    </data>
 </odoo>
