@@ -10,9 +10,9 @@ class MembershipSection(models.Model):
         "membership.section.membership", "section_id"
     )
     partner_ids = fields.Many2many(
-        "res.partner", string="Contacts", compute="_compute_partner_ids"
+        "res.partner", string="Contacts", compute="_compute_partner_ids", compute_sudo=True,
     )
-    partner_ids_count = fields.Integer("# of Members", compute="_compute_partner_ids")
+    partner_ids_count = fields.Integer("# of Members", compute="_compute_partner_ids", compute_sudo=True)
 
     @api.depends("section_membership_ids", "section_membership_ids.partner_id")
     def _compute_partner_ids(self):
