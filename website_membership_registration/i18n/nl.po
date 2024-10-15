@@ -455,8 +455,8 @@ msgstr "Bijnaam"
 #. odoo-python
 #: code:addons/website_membership_registration/controllers/main.py:0
 #, python-format
-msgid "Nickname is empty or invalid."
-msgstr "Bijnaam is leeg of ongeldig."
+msgid "Nickname is invalid."
+msgstr "Bijnaam is ongeldig."
 
 #. module: website_membership_registration
 #. odoo-python

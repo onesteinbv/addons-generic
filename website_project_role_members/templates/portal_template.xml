@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="portal_my_details_fields" inherit_id="portal.portal_my_details_fields">
+        <xpath expr="//input[@name='email']/.." position="after">
+            <div t-attf-class="mb-3 #{error.get('website_description') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="name">Description</label>
+                <textarea rows="2" name="website_description"
+                          t-attf-class="form-control #{error.get('website_description') and 'is-invalid' or ''}"
+                          t-att-value="partner.website_description"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
