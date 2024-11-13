@@ -5,10 +5,10 @@
         <record id="hr_applicant_demo_member_2" model="hr.applicant">
             <field name="name">Aspiring Member</field>
             <field name="job_id" ref="membership_hr.job_member"/>
-            <field name="department_id" ref="membership_hr.demo_hr_department_section_4"/>
+            <field name="department_id" ref="membership_hr.demo_hr_department_group_4"/>
             <field name="user_id" ref="base.user_demo"/>
             <field name="priority">1</field>
-            <field name="partner_id" ref="membership_section.demo_member_2" />
+            <field name="partner_id" ref="membership_group.demo_member_2" />
             <field name="partner_name">Jane Smith</field>
             <field name="stage_id" ref="hr_recruitment.stage_job1"/>
             <field name="membership_applicant" eval="True" />

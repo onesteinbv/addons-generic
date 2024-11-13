@@ -4,10 +4,23 @@
     <record id="membership_group_member_view_tree" model="ir.ui.view">
         <field name="model">membership.group.member</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree editable="bottom">
                 <field name="partner_id" />
                 <field name="group_id" />
+                <field name="type" />
+                <field name="wants_to_collaborate" />
             </tree>
+        </field>
+    </record>
+
+    <record id="membership_group_membership_view_pivot" model="ir.ui.view">
+        <field name="model">membership.group.member</field>
+        <field name="arch" type="xml">
+            <pivot string="Membership Group Members" disable_linking="True">
+                <field name="partner_id" type="row"/>
+                <field name="group_id" type="row"/>
+                <field name="type" type="col"/>
+            </pivot>
         </field>
     </record>
 
@@ -17,9 +30,11 @@
             <search>
                 <field name="partner_id" />
                 <field name="group_id" />
+                <field name="type" />
                 <group expand="0" name="claims" string="Group By">
                     <filter string="Partner" name="partner_id" domain="[]" help="Partner" context="{'group_by':'partner_id'}" />
                     <filter string="Group" name="group_id" domain="[]" help="Group" context="{'group_by':'group_id'}" />
+                    <filter string="Type" name="type" domain="[]" help="Group" context="{'group_by':'type'}" />
                 </group>
             </search>
         </field>
@@ -28,6 +43,6 @@
     <record id="action_membership_group_member" model="ir.actions.act_window">
         <field name="name">Membership Group Members</field>
         <field name="res_model">membership.group.member</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,pivot</field>
     </record>
 </odoo>

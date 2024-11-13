@@ -21,11 +21,15 @@
                 </button>
             </xpath>
             <xpath expr="//field[@name='member_lines']" position="after">
-                <field name="membership_group_member_ids" nolabel="1" colspan="4">
-                    <tree editable="top">
-                        <field name="group_id" />
-                    </tree>
-                </field>
+                <group>
+                    <field name="membership_group_member_ids" string="Groups" colspan="4">
+                        <tree editable="bottom">
+                            <field name="group_id"/>
+                            <field name="type" />
+                            <field name="wants_to_collaborate" />
+                        </tree>
+                    </field>
+                </group>
             </xpath>
         </field>
     </record>

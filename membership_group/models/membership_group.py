@@ -6,22 +6,38 @@ class MembershipGroup(models.Model):
     _description = "Membership Group"
     _parent_store = True
     _parent_name = "parent_id"
+    _rec_name = "complete_name"
+    _order = "complete_name"
 
     name = fields.Char()
+    complete_name = fields.Char(
+        compute="_compute_complete_name", recursive=True, store=True
+    )
     membership_group_member_ids = fields.One2many("membership.group.member", "group_id")
     parent_id = fields.Many2one(
-        comodel_name="membership.group", string="Parent Membership Group", index=True
+        comodel_name="membership.group", string="Parent", index=True
     )
     child_ids = fields.One2many(
         comodel_name="membership.group",
         inverse_name="parent_id",
-        string="Sub Membership Groups",
+        string="Subgroups",
     )
     parent_path = fields.Char(index=True, unaccent=False)
     partner_ids = fields.Many2many(
         "res.partner", string="Contacts", compute="_compute_partner_ids"
     )
     partner_ids_count = fields.Integer("# of Members", compute="_compute_partner_ids")
+
+    @api.depends("name", "parent_id.complete_name")
+    def _compute_complete_name(self):
+        for group in self:
+            if group.parent_id:
+                group.complete_name = "%s / %s" % (
+                    group.parent_id.complete_name,
+                    group.name,
+                )
+            else:
+                group.complete_name = group.name
 
     @api.depends(
         "membership_group_member_ids", "membership_group_member_ids.partner_id"

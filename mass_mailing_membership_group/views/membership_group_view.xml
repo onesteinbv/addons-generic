@@ -5,7 +5,7 @@
         <field name="model">membership.group</field>
         <field name="inherit_id" ref="membership_group.membership_group_view_tree" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after">
+            <xpath expr="//field[@name='complete_name']" position="after">
                 <field name="mailing_list_id" />
             </xpath>
         </field>

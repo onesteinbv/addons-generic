@@ -10,13 +10,13 @@
     "website": "https://www.onestein.nl",
     "depends": [
         "membership",
-        "membership_section",
+        "membership_group",
         "hr",
     ],
     "data": [
         "views/hr_employee_view.xml",
         "views/hr_department.xml",
-        "views/membership_section.xml",
+        "views/membership_group.xml",
     ],
     "demo": [
         "data/hr_department_demo.xml",

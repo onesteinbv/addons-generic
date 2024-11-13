@@ -25,25 +25,22 @@ class ResPartner(models.Model):
     )
 
     membership_application_date = fields.Date()
-    membership_origin = fields.Selection(
-        selection_add=[("website_form", "Website Form")]
-    )
 
     applicant_ids = fields.One2many("hr.applicant", "partner_id")
 
-    follower_sections_count = fields.Integer(
-        string="Following # Sections",
-        compute="_compute_section_ids",
+    follower_membership_groups_count = fields.Integer(
+        string="Following # Membership Groups",
+        compute="_compute_membership_group_ids",
         store=True,
     )
-    applicant_sections_count = fields.Integer(
-        string="Applicant to # Sections",
-        compute="_compute_section_ids",
+    applicant_membership_groups_count = fields.Integer(
+        string="Applicant to # Membership Groups",
+        compute="_compute_membership_group_ids",
         store=True,
     )
-    collaborator_sections_count = fields.Integer(
-        string="Collaborating to # Sections",
-        compute="_compute_section_ids",
+    collaborator_membership_groups_count = fields.Integer(
+        string="Collaborating to # Membership Group",
+        compute="_compute_membership_group_ids",
         store=True,
     )
 
@@ -70,30 +67,28 @@ class ResPartner(models.Model):
                 super(ResPartner, partner)._compute_display_name()
 
     @api.depends(
-        "section_membership_ids",
-        "section_membership_ids.section_id",
-        "section_membership_ids.on_mailing_list",
-        "section_membership_ids.wants_to_collaborate",
-        "employee_ids",
-        "applicant_ids",
+        "membership_group_member_ids",
+        "membership_group_member_ids.group_id",
+        "membership_group_member_ids.type",
     )
-    def _compute_section_ids(self):
-        res = super(ResPartner, self)._compute_section_ids()
+    def _compute_membership_group_ids(self):
+        res = super(ResPartner, self)._compute_membership_group_ids()
         for partner in self:
-            partner.follower_sections_count = len(
-                partner.section_membership_ids.filtered(
-                    lambda x: x.on_mailing_list
-                ).mapped("section_id")
+            partner.follower_membership_groups_count = len(
+                partner.membership_group_member_ids.filtered(
+                    lambda x: x.type
+                    in ("follower", "applicant_follower", "collaborator_follower")
+                ).mapped("group_id")
             )
-            partner.applicant_sections_count = len(
-                partner.section_membership_ids.filtered(
-                    lambda x: x.type == "applicant"
-                ).mapped("section_id")
+            partner.applicant_membership_groups_count = len(
+                partner.membership_group_member_ids.filtered(
+                    lambda x: x.type in ("applicant", "applicant_follower")
+                ).mapped("group_id")
             )
-            partner.collaborator_sections_count = len(
-                partner.section_membership_ids.filtered(
-                    lambda x: x.type == "collaborator"
-                ).mapped("section_id")
+            partner.collaborator_membership_groups_count = len(
+                partner.membership_group_member_ids.filtered(
+                    lambda x: x.type in ("collaborator", "collaborator_follower")
+                ).mapped("group_id")
             )
         return res
 
@@ -143,7 +138,11 @@ class ResPartner(models.Model):
                     ("email_verification_token", "!=", False),
                 ]
             )
-            partners.unlink()
+            partners_to_unlink = partners
+            for partner in partners:
+                if partner.invoice_ids:
+                    partners_to_unlink -= partner
+            partners_to_unlink.unlink()
 
     @api.model
     def _generate_email_verification_token(self, partner_id, email):
@@ -197,7 +196,7 @@ class ResPartner(models.Model):
     def create_member_applicant(self):
         self.ensure_one()
         if (
-            self.section_membership_ids.filtered(lambda x: x.wants_to_collaborate)
+            self.membership_group_member_ids.filtered(lambda x: x.wants_to_collaborate)
             and self.website_id.membership_job_id
         ):
             self.env["hr.applicant"].create(

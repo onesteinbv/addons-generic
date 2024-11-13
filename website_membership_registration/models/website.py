@@ -7,39 +7,25 @@ from odoo import fields, models
 class Website(models.Model):
     _inherit = "website"
 
-    allow_membership_registration = fields.Boolean(default=False)
+    allow_membership_registration = fields.Boolean(default=True)
 
     cleanup_unverified_members_days = fields.Integer(
         string="Cleanup unverified members after (days)", default=7
     )
 
-    membership_registration_page_background_type = fields.Selection(
-        [
-            ("color", "Color"),
-            ("gradient_linear", "Linear-Gradient"),
-            ("gradient_radial", "Radial-Gradient"),
-            ("image", "Image"),
-        ],
-        string="Background Type",
-    )
-
-    membership_registration_page_background_color = fields.Char(string="Color")
-    membership_registration_page_background_gradient_start = fields.Char(
-        string="Gradient Color Start"
-    )
-    membership_registration_page_background_gradient_end = fields.Char(
-        string="Gradient Color End"
-    )
-
-    membership_registration_page_background_image = fields.Binary()
-
     membership_job_id = fields.Many2one("hr.job")
 
-    membership_registration_page_section_style = fields.Selection(
+    membership_registration_page_membership_group_style = fields.Selection(
         [
             ("list", "List View"),
             ("grid", "Grid View"),
         ],
-        string="Section View",
+        string="Membership Group View",
         default="list",
     )
+
+    allow_adding_bio_for_membership_registration = fields.Boolean(default=False)
+
+    membership_registration_max_cv_file_size = fields.Integer(default=3)
+
+    membership_registration_cv_file_formats_supported = fields.Char(default=".pdf")

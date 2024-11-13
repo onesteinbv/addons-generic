@@ -10,18 +10,24 @@
 
     <menuitem
         id="membership_group_info_menu"
-        name="Membership Groups"
+        name="All"
         action="membership_group_action"
         parent="membership_group.membership_group_top_menu"
         sequence="1"
     />
 
     <menuitem
+        id="membership_group_reporting_menu"
+        name="Reporting"
+        parent="membership_group.membership_group_top_menu"
+        sequence="2"
+    />
+
+    <menuitem
         id="membership_group_membership_menu"
         name="Membership Group Members"
         action="action_membership_group_member"
-        parent="membership_group.membership_group_top_menu"
-        sequence="2"
+        parent="membership_group.membership_group_reporting_menu"
     />
 
 </odoo>

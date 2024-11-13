@@ -1,3 +1,4 @@
+# Copyright 2024 Onestein (<http://www.onestein.eu>)
 from datetime import timedelta
 
 from odoo import api, fields, models
@@ -17,6 +18,8 @@ class SaleOrderLine(models.Model):
         date_from, date_to = self.env["account.move.line"]._get_membership_interval(
             product, date_order
         )
+        if not date_from:
+            return {"quantity": 1.0}
         if date_order < date_from:
             date_order = date_from
         if date_order > date_to:
@@ -28,7 +31,6 @@ class SaleOrderLine(models.Model):
                 "quantity": round(
                     float(real_duration.days) / theoretical_duration.days, 2
                 ),
-                "date_from": date_order,
             }
 
     @api.model_create_multi
