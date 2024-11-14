@@ -15,5 +15,5 @@
     "data": [
         "views/membership_product_view.xml",
     ],
-    "auto_install": True,
+    "installable": False,
 }
