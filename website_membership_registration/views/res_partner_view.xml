@@ -13,6 +13,11 @@
             <xpath expr="//field[@name='free_member']" position="after">
                 <field name="membership_application_date" attrs="{'invisible': [('free_member','=',False)], 'required': [('free_member','=',True)]}"/>
             </xpath>
+            <xpath expr="//field[@name='member_lines']" position="before">
+                <group name="website_description">
+                    <field name="website_description" string="Bio"/>
+                </group>
+            </xpath>
         </field>
     </record>
 
@@ -25,17 +30,6 @@
             </xpath>
             <xpath expr="//field[@name='name']" position="after">
                 <field name="display_name" />
-            </xpath>
-        </field>
-    </record>
-
-    <record id="membership_section_view_partner_form" model="ir.ui.view">
-        <field name="inherit_id" ref="membership_section.view_partner_form" />
-        <field name="model">res.partner</field>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='section_membership_ids']//field[@name='on_mailing_list']" position="before">
-                <field name="type" />
-                <field name="wants_to_collaborate" />
             </xpath>
         </field>
     </record>

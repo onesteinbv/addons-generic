@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Template of page my/account -->
+    <template id="portal_my_details_fields" inherit_id="portal.portal_my_details_fields">
+        <xpath expr="//input[@name='name']/.." position="after">
+            <div t-attf-class="mb-3 #{error.get('telegram') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="name">Telegram Username</label>
+                <input type="text" name="telegram" t-attf-class="form-control #{error.get('telegram') and 'is-invalid' or ''}" t-att-value="partner.telegram" />
+            </div>
+        </xpath>
+    </template>
+
+    <template id="telegram" inherit_id="website_membership_registration.membership_registration_form" active="False" name="Telegram on membership registration" priority="30">
+        <xpath expr="//div[@id='personal_data']" position="inside">
+            <div class="mb-3 col-12" data-type="char" data-name="Field">
+                <div class="row s_col_no_resize s_col_no_bgcolor" id="div_telegram">
+                    <label class="col-form-label col-sm-auto" style="width: 200px" for="member_telegram">
+                        <span>Telegram Username</span>
+                    </label>
+                    <div class="col-sm">
+                        <input class="form-control" type="text" name="member_telegram" t-att-value="member_telegram"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+
+</odoo>

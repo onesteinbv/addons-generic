@@ -5,7 +5,7 @@
         <field name="model">hr.applicant</field>
         <field name="inherit_id" ref="membership_hr_recruitment.hr_applicant_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='section_membership_ids']/tree/field[@name='section_id']" position="after">
+            <xpath expr="//field[@name='membership_group_member_ids']/tree/field[@name='group_id']" position="after">
                 <field name="type"/>
                 <field name="wants_to_collaborate" />
             </xpath>

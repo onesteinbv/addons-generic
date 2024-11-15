@@ -5,8 +5,8 @@ class HRApplicant(models.Model):
     _inherit = "hr.applicant"
 
     membership_applicant = fields.Boolean()
-    section_membership_ids = fields.One2many(
-        related="partner_id.section_membership_ids"
+    membership_group_member_ids = fields.One2many(
+        related="partner_id.membership_group_member_ids"
     )
 
     def create_employee_from_applicant(self):

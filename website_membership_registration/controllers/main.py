@@ -1,4 +1,7 @@
+import base64
 import re
+
+from werkzeug.exceptions import NotFound
 
 from odoo import _, fields, http
 from odoo.exceptions import ValidationError
@@ -35,6 +38,37 @@ class MembershipRegistrationController(http.Controller):
 
         return email, email_valid, error_message
 
+    def _validate_membership_cv(self, cv):
+        cv_valid = True
+        error_message = ""
+        cv_file = cv
+        if cv:
+            if (
+                not request.website.membership_registration_cv_file_formats_supported
+                == "*"
+            ):
+                for (
+                    file_format
+                ) in request.website.membership_registration_cv_file_formats_supported.split(
+                    ","
+                ):
+                    if not cv.filename.endswith(file_format):
+                        cv_valid = cv_file = False
+                        error_message = _(
+                            "Only %s files are accepted.",
+                            request.website.membership_registration_cv_file_formats_supported,
+                        )
+                        break
+            if cv_valid:
+                cv_file = cv.stream.read()
+                size = cv.stream.tell()
+                if size > (
+                    request.website.membership_registration_max_cv_file_size * 1048576
+                ):
+                    cv_valid = cv_file = False
+                    error_message = _("File is too big.")
+        return cv_file, cv_valid, error_message
+
     def _validate_membership_phone(self, phone):
         phone_valid = True if (not phone or re.match(r"^\+?[\d]+$", phone)) else False
         error_message = ""
@@ -52,10 +86,13 @@ class MembershipRegistrationController(http.Controller):
         return name, name_valid, error_message
 
     def _validate_membership_nickname(self, nickname):
-        error_message = ""
-        nickname_valid = nickname and all(c.isalnum() or c.isspace() for c in nickname)
-        if not nickname_valid:
-            error_message = _("Nickname is empty or invalid.")
+        error_message, nickname_valid = "", True
+        if nickname:
+            nickname_valid = nickname and all(
+                c.isalnum() or c.isspace() for c in nickname
+            )
+            if not nickname_valid:
+                error_message = _("Nickname is invalid.")
         return nickname, nickname_valid, error_message
 
     def _validate_membership_product(self, product_id):
@@ -115,8 +152,8 @@ class MembershipRegistrationController(http.Controller):
 
         return res
 
-    def _validate_membership_sections(self, section_list):
-        return section_list, True, ""
+    def _validate_membership_groups(self, membership_group_list):
+        return membership_group_list, True, ""
 
     def _get_errors_dict(self, validation_data):
         error_dict = {}
@@ -158,12 +195,15 @@ class MembershipRegistrationController(http.Controller):
             error_list.append(error_data["member_country_id"])
         if not validation_data["member_state_id"]:
             error_list.append(error_data["member_state_id"])
+        if not validation_data["member_cv"]:
+            error_list.append(error_data["member_cv"])
         return error_list
 
     def _get_partner_and_validation_data(self, post):
         partner_data = {}
         validation_data = {}
         error_data = {}
+        partner_data["website_description"] = post.get("website_description", "")
         (
             partner_data["member_email"],
             validation_data["member_email"],
@@ -184,6 +224,11 @@ class MembershipRegistrationController(http.Controller):
             validation_data["member_phone"],
             error_data["member_phone"],
         ) = self._validate_membership_phone(post["member_phone"])
+        (
+            partner_data["member_cv"],
+            validation_data["member_cv"],
+            error_data["member_cv"],
+        ) = self._validate_membership_cv(post.get("member_cv", False))
         (
             partner_data["application_date"],
             validation_data["application_date"],
@@ -233,29 +278,36 @@ class MembershipRegistrationController(http.Controller):
             error_data["member_state_id"],
         ) = address_data["member_state_id"]
 
-        section_ids = request.env["membership.section"].search(
+        membership_group_ids = request.env["membership.group"].search(
             [("is_published", "=", True)]
         )
-        section_list = {}
-        for section in section_ids:
-            if "section_%s_follow" % section.id in post:
-                section_list["section_%s_follow" % section.id] = (
-                    post["section_%s_follow" % section.id] == "on" or False
+        membership_group_list = {}
+        for membership_group in membership_group_ids:
+            if "membership_group_%s_follow" % membership_group.id in post:
+                membership_group_list[
+                    "membership_group_%s_follow" % membership_group.id
+                ] = (
+                    post["membership_group_%s_follow" % membership_group.id] == "on"
+                    or False
                 )
-            if "section_%s_collaborate" % section.id in post:
-                section_list["section_%s_collaborate" % section.id] = (
-                    post["section_%s_collaborate" % section.id] == "on" or False
+            if "membership_group_%s_collaborate" % membership_group.id in post:
+                membership_group_list[
+                    "membership_group_%s_collaborate" % membership_group.id
+                ] = (
+                    post["membership_group_%s_collaborate" % membership_group.id]
+                    == "on"
+                    or False
                 )
         (
-            partner_data["section_data"],
-            validation_data["section_data"],
-            error_data["section_data"],
-        ) = self._validate_membership_sections(section_list)
+            partner_data["membership_group_data"],
+            validation_data["membership_group_data"],
+            error_data["membership_group_data"],
+        ) = self._validate_membership_groups(membership_group_list)
 
         return partner_data, validation_data, error_data
 
     def _get_new_member_vals_dict(self, partner_data):
-        return {
+        vals = {
             "name": partner_data["member_name"],
             "nickname": partner_data["member_nickname"],
             "street": partner_data["member_street"],
@@ -273,22 +325,30 @@ class MembershipRegistrationController(http.Controller):
             "is_published": partner_data["member_publish"],
             "website_id": request.website.id,
             "company_id": request.env.company.id,
-            "membership_origin": "website_form",
+            "website_description": partner_data["website_description"],
         }
+        partner_category = request.env.ref(
+            "website_membership_registration.res_partner_category_website_form", False
+        )
+        if partner_category:
+            vals["category_id"] = [(4, partner_category.id)]
+        return vals
 
-    def _set_partner_membership_section(self, partner, partner_data):
-        sections = request.env["membership.section"].search(
+    def _set_partner_membership_group(self, partner, partner_data):
+        membership_groups = request.env["membership.group"].search(
             [("is_published", "=", True)]
         )
-        section_data = self._get_section_data(sections, partner_data["section_data"])
-        section_membership_data_list = self._get_section_membership_data_list(
-            section_data, partner_data
+        membership_group_data = self._get_membership_group_data(
+            membership_groups, partner_data["membership_group_data"]
+        )
+        membership_group_member_data_list = self._get_membership_group_member_data_list(
+            membership_group_data, partner_data
         )
         partner.write(
             {
-                "section_membership_ids": [
-                    (0, 0, section_membership_data)
-                    for section_membership_data in section_membership_data_list
+                "membership_group_member_ids": [
+                    (0, 0, membership_group_data)
+                    for membership_group_data in membership_group_member_data_list
                 ]
             }
         )
@@ -309,37 +369,46 @@ class MembershipRegistrationController(http.Controller):
             ],
         }
 
-    def _get_section_data(self, sections, data):
-        follow_sections = sections.filtered(
-            lambda c: "section_%s_follow" % c.id in data
-            and data["section_%s_follow" % c.id]
+    def _get_membership_group_data(self, membership_groups, data):
+        follow_membership_groups = membership_groups.filtered(
+            lambda c: "membership_group_%s_follow" % c.id in data
+            and data["membership_group_%s_follow" % c.id]
         )
-        contribute_sections = sections.filtered(
-            lambda c: "section_%s_collaborate" % c.id in data
-            and data["section_%s_collaborate" % c.id]
+        contribute_membership_groups = membership_groups.filtered(
+            lambda c: "membership_group_%s_collaborate" % c.id in data
+            and data["membership_group_%s_collaborate" % c.id]
         )
-        return {"follow": follow_sections, "collaborate": contribute_sections}
+        return {
+            "follow": follow_membership_groups,
+            "collaborate": contribute_membership_groups,
+        }
 
-    def _get_section_membership_data_list(self, section_data, partner_data):
-        sections = self._get_all_sections(section_data)
+    def _get_membership_group_member_data_list(
+        self, membership_group_data, partner_data
+    ):
+        membership_groups = self._get_all_membership_groups(membership_group_data)
         res = []
-        for section in sections:
+        for membership_group in membership_groups:
             res.append(
-                self._get_section_membership_data_dict(
-                    section, section_data, partner_data
+                self._get_membership_group_member_data_dict(
+                    membership_group, membership_group_data, partner_data
                 )
             )
         return res
 
-    def _get_all_sections(self, section_data):
-        return section_data["follow"] | section_data["collaborate"]
+    def _get_all_membership_groups(self, membership_group_data):
+        return membership_group_data["follow"] | membership_group_data["collaborate"]
 
-    def _get_section_membership_data_dict(self, section, section_data, partner_data):
+    def _get_membership_group_member_data_dict(
+        self, membership_group, membership_group_data, partner_data
+    ):
         return {
-            "start_date": partner_data["application_date"],
-            "section_id": section.id,
-            "on_mailing_list": section in section_data["follow"] and True or False,
-            "wants_to_collaborate": section in section_data["collaborate"]
+            "group_id": membership_group.id,
+            "on_mailing_list": membership_group in membership_group_data["follow"]
+            and True
+            or False,
+            "wants_to_collaborate": membership_group
+            in membership_group_data["collaborate"]
             and True
             or False,
         }
@@ -359,77 +428,48 @@ class MembershipRegistrationController(http.Controller):
             )
         )
 
-        sections = request.env["membership.section"].search(
+        membership_groups = request.env["membership.group"].search(
             [("is_published", "=", True)]
         )
-        sections_follow_checked = {}
-        sections_collaborate_checked = {}
-        for c in sections:
-            sections_follow_checked.update({c.id: False})
-            sections_collaborate_checked.update({c.id: False})
+        membership_groups_follow_checked = {}
+        membership_groups_collaborate_checked = {}
+        for c in membership_groups:
+            membership_groups_follow_checked.update({c.id: False})
+            membership_groups_collaborate_checked.update({c.id: False})
         if not old_data:
             old_data = {}
-        if "section_data" in old_data:
-            for c in sections:
-                if "section_%s_follow" % c.id in old_data["section_data"]:
-                    sections_follow_checked.update({c.id: True})
-                if "section_%s_collaborate" % c.id in old_data["section_data"]:
-                    sections_collaborate_checked.update({c.id: True})
-            old_data.pop("section_data")
-
-        if request.website.membership_registration_page_background_type == "color":
-            background_style = (
-                "background-color: %s !important;"
-                % request.website.membership_registration_page_background_color
-            )
-        elif (
-            request.website.membership_registration_page_background_type
-            == "gradient_radial"
-        ):
-            background_style = (
-                "background-image: radial-gradient(circle farthest-side at 50%% 50%%, %s 0%%, %s 100%%) !important"
-                % (
-                    request.website.membership_registration_page_background_gradient_start,
-                    request.website.membership_registration_page_background_gradient_end,
-                )
-            )
-        elif (
-            request.website.membership_registration_page_background_type
-            == "gradient_linear"
-        ):
-            background_style = (
-                "background-image: linear-gradient(135deg, %s 0%%, %s 100%%) !important"
-                % (
-                    request.website.membership_registration_page_background_gradient_start,
-                    request.website.membership_registration_page_background_gradient_end,
-                )
-            )
-        elif request.website.membership_registration_page_background_type == "image":
-            background_style = (
-                "background-image: url(data:image/jpg;base64,%s)"
-                % request.website.membership_registration_page_background_image.decode(
-                    "utf-8"
-                )
-            )
-        else:
-            background_style = ""
-        section_style = request.website.membership_registration_page_section_style
+        if "membership_group_data" in old_data:
+            for c in membership_groups:
+                if (
+                    "membership_group_%s_follow" % c.id
+                    in old_data["membership_group_data"]
+                ):
+                    membership_groups_follow_checked.update({c.id: True})
+                if (
+                    "membership_group_%s_collaborate" % c.id
+                    in old_data["membership_group_data"]
+                ):
+                    membership_groups_collaborate_checked.update({c.id: True})
+            old_data.pop("membership_group_data")
+        membership_group_style = (
+            request.website.membership_registration_page_membership_group_style
+        )
         if not errors:
             errors = {}
         res = {
-            "background_style": background_style,
             "is_logged": is_logged,
             "member_name": "",
             "member_nickname": "",
             "member_email": "",
             "member_phone": "",
-            "section_style": section_style,
+            "membership_group_style": membership_group_style,
             "member_street": "",
             "member_street2": "",
             "member_zip": "",
             "member_city": "",
             "member_country_id": "",
             "member_state_id": "",
+            "website_description": "",
             "country_id": request.env["res.country"],
             "state_id": request.env["res.country.state"],
             "member_publish": False,
@@ -442,11 +482,11 @@ class MembershipRegistrationController(http.Controller):
                 or False
             )
             or False,
-            "sections": sections,
+            "membership_groups": membership_groups,
             "countries": request.env["res.country"].sudo().search([]),
             "country_states": request.env["res.country.state"],
-            "sections_follow_checked": sections_follow_checked,
-            "sections_collaborate_checked": sections_collaborate_checked,
+            "membership_groups_follow_checked": membership_groups_follow_checked,
+            "membership_groups_collaborate_checked": membership_groups_collaborate_checked,
             "error_message": error_message,
             "error": errors,
         }
@@ -552,8 +592,17 @@ class MembershipRegistrationController(http.Controller):
                 partner = request.env["res.partner"].sudo().create(partner_vals)
             else:
                 partner.write(partner_vals)
-            self._set_partner_membership_section(partner, partner_data)
-
+            self._set_partner_membership_group(partner, partner_data)
+            if partner_data.get("member_cv"):
+                request.env["ir.attachment"].sudo().create(
+                    {
+                        "name": post["member_cv"].filename,
+                        "res_model": "res.partner",
+                        "res_id": partner.id,
+                        "datas": base64.b64encode(partner_data.get("member_cv")),
+                        "mimetype": "application/pdf",
+                    }
+                )
             sale_order = partner.create_membership_sale_order(
                 product, product.list_price
             )
@@ -653,3 +702,38 @@ class MembershipRegistrationController(http.Controller):
         return request.render(
             "website_membership_registration.membership_registration_verify_success_page"
         )
+
+    @http.route(["/membership-registration/config/website"], type="json", auth="user")
+    def _change_membership_registration_website_config(self, **options):
+        if not request.env.user.has_group("website.group_website_restricted_editor"):
+            raise NotFound()
+
+        current_website = request.env["website"].get_current_website()
+        # Restrict options we can write to.
+        writable_fields = {
+            "membership_registration_page_membership_group_style",
+            "membership_registration_max_cv_file_size",
+            "membership_registration_cv_file_formats_supported",
+        }
+        # Default membership_group layout to list.
+        if (
+            "membership_registration_page_membership_group_style" in options
+            and not options["membership_registration_page_membership_group_style"]
+        ):
+            options["membership_registration_page_membership_group_style"] = "list"
+        # Default max cv file size to 3.
+        if (
+            "membership_registration_max_cv_file_size" in options
+            and not options["membership_registration_max_cv_file_size"]
+        ):
+            options["membership_registration_max_cv_file_size"] = 3
+        # Default file format supported to '.pdf'.
+        if (
+            "membership_registration_cv_file_formats_supported" in options
+            and not options["membership_registration_cv_file_formats_supported"]
+        ):
+            options["membership_registration_cv_file_formats_supported"] = ".pdf"
+
+        write_vals = {k: v for k, v in options.items() if k in writable_fields}
+        if write_vals:
+            current_website.write(write_vals)

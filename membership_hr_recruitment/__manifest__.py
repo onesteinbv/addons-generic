@@ -10,11 +10,12 @@
     "website": "https://www.onestein.nl",
     "depends": [
         "membership_hr",
-        "membership_section",
+        "membership_group",
         "hr_recruitment",
     ],
     "data": [
         "views/hr_applicant_view.xml",
+        "menuitems.xml",
     ],
     "demo": [
         "data/hr_applicant_demo.xml",

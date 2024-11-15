@@ -2,17 +2,17 @@
 <odoo>
 
     <template id="membership_registration_form" name="Membership Registration Form">
-        <section class="s_cover parallax s_parallax_is_fixed oe_structure o_editable o_colored_level oe_img_bg o_bg_img_center" t-att-style="background_style" data-name="Membership Registration Form">
-            <div class="container pt32 pb32 oe_website_membership_registration">
+        <section class="s_cover parallax s_parallax_is_fixed oe_structure o_editable o_colored_level oe_img_bg o_bg_img_center" data-name="Membership Registration Page">
+            <div class="container pt32 pb32">
                 <div class="row">
                     <div class="col-md-12 pb32">
                         <h4 class="text-center">Yes we also need you!</h4>
                         <p class="text-center">
                             Please, fill the following form to finalize your registration.
                         </p>
-                        <section data-name="Membership Registration Form" data-anchor="true">
+                        <section class="o_not_editable oe_website_membership_registration" data-name="Registration Form" data-anchor="true">
                             <div class="container">
-                                <form action="/apply-for-membership/" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*">
+                                <form action="/apply-for-membership/" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" t-att-data-membership_group-style="website.membership_registration_page_membership_group_style" t-att-data-max-cv-file-size="website.membership_registration_max_cv_file_size" t-att-data-cv-file-formats="website.membership_registration_cv_file_formats_supported">
                                     <div class="row">
                                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
                                         <input type="hidden" name="is_logged" t-att-value="is_logged" />
@@ -46,10 +46,9 @@
                                                 <div class="row s_col_no_resize s_col_no_bgcolor" id="div_nickname">
                                                     <label class="col-form-label col-sm-auto" style="width: 200px" for="member_nickname">
                                                         <span>Nickname</span>
-                                                        <span class="s_website_form_mark"> *</span>
                                                     </label>
                                                     <div class="col-sm">
-                                                        <input class="form-control" type="text" name="member_nickname" t-att-value="member_nickname" required="" />
+                                                        <input class="form-control" type="text" name="member_nickname" t-att-value="member_nickname" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -79,32 +78,32 @@
                                             </div>
                                         </div>
 
-                                        <t t-if="sections">
-                                            <t t-if="not section_style or section_style == 'list'">
+                                        <t t-if="membership_groups">
+                                            <t t-if="not membership_group_style or membership_group_style == 'list'">
                                                 <div class="row col-12"
                                                      style="padding: 0px; padding-bottom: 20px; padding-left: 20px"
-                                                     id="section_data">
+                                                     id="membership_group_data">
                                                     <table style="width:100%">
                                                         <tr>
                                                             <td colspan="4">
                                                             </td>
-                                                            <td colspan="1">Follow
+                                                            <td colspan="1">Follow<i class="fa fa-question-circle-o" title="Allows to follow membership group"/>
                                                             </td>
-                                                            <td colspan="1">Contribute
+                                                            <td colspan="1">Contribute<i class="fa fa-question-circle-o" title="Allows to contribute to membership group"/>
                                                             </td>
                                                         </tr>
-                                                        <tr t-foreach="sections" t-as="section">
+                                                        <tr t-foreach="membership_groups" t-as="membership_group">
                                                             <td colspan="4">
-                                                                <a t-attf-target="#{section.website_url and '_blank' or ''}"
-                                                                   t-attf-href="#{section.website_url or '#'}"
-                                                                   t-attr-alt="#{section.name}"
-                                                                   t-attr-title="#{section.name}">
-                                                                    <img t-attf-src="/web/image/membership.section/#{section.id}/icon"
+                                                                <a t-attf-target="#{membership_group.website_url and '_blank' or ''}"
+                                                                   t-attf-href="#{membership_group.website_url or '#'}"
+                                                                   t-attf-alt="#{membership_group.name}"
+                                                                   t-attf-title="#{membership_group.name}">
+                                                                    <img t-attf-src="/web/image/membership.group/#{membership_group.id}/icon"
                                                                          style="object-fit: cover; height: 25px; width: 25px;"/>
                                                                 </a>
                                                                 <label class="form-check-label s_website_form_check_label"
-                                                                       t-attf-for="section_#{section.id}_follow">
-                                                                    <t t-esc="section.display_name"/>
+                                                                       t-attf-for="membership_group_#{membership_group.id}_follow">
+                                                                    <t t-esc="membership_group.display_name"/>
                                                                 </label>
                                                             </td>
                                                             <td colspan="1">
@@ -113,9 +112,9 @@
                                                                         <input type="checkbox"
                                                                                class="s_website_form_input form-check-input"
                                                                                style="margin-top:0.3rem;margin-left:-0.5rem"
-                                                                               t-attf-id="section_#{section.id}_follow"
-                                                                               t-attf-name="section_#{section.id}_follow"
-                                                                               t-att-checked="'checked' if sections_follow_checked[section.id] else None"/>
+                                                                               t-attf-id="membership_group_#{membership_group.id}_follow"
+                                                                               t-attf-name="membership_group_#{membership_group.id}_follow"
+                                                                               t-att-checked="'checked' if membership_groups_follow_checked[membership_group.id] else None"/>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -125,9 +124,9 @@
                                                                         <input type="checkbox"
                                                                                class="s_website_form_input form-check-input"
                                                                                style="margin-top:0.3rem;margin-left:0.5rem"
-                                                                               t-attf-id="section_#{section.id}_collaborate"
-                                                                               t-attf-name="section_#{section.id}_collaborate"
-                                                                               t-att-checked="'checked' if sections_collaborate_checked[section.id] else None"/>
+                                                                               t-attf-id="membership_group_#{membership_group.id}_collaborate"
+                                                                               t-attf-name="membership_group_#{membership_group.id}_collaborate"
+                                                                               t-att-checked="'checked' if membership_groups_collaborate_checked[membership_group.id] else None"/>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -137,51 +136,51 @@
                                             </t>
                                             <t t-else="">
                                                 <div class="row col-12" style="padding: 0px; padding-bottom: 20px;"
-                                                     id="section_data">
+                                                     id="membership_group_data">
                                                     <div class="mb-3 s_website_form_field col-12">
                                                         <div class="row s_col_no_resize s_col_no_bgcolor s_website_form_multiple"
                                                              data-display="vertical">
-                                                            <t t-foreach="sections" t-as="section">
+                                                            <t t-foreach="membership_groups" t-as="membership_group">
                                                                 <div class="form-group col-12 col-sm-6 col-md-4 col-lg-4"
                                                                      style="margin-bottom: 1rem">
                                                                     <div class="row">
-                                                                        <a t-attf-target="#{section.website_url and '_blank' or ''}"
-                                                                           t-attf-href="#{section.website_url or '#'}"
-                                                                           t-attr-alt="#{section.name}"
-                                                                           t-attr-title="#{section.name}" class="col-6">
-                                                                            <img t-attf-src="/web/image/membership.section/#{section.id}/icon"
+                                                                        <a t-attf-target="#{membership_group.website_url and '_blank' or ''}"
+                                                                           t-attf-href="#{membership_group.website_url or '#'}"
+                                                                           t-attf-alt="#{membership_group.name}"
+                                                                           t-attf-title="#{membership_group.name}" class="col-6">
+                                                                            <img t-attf-src="/web/image/membership.group/#{membership_group.id}/icon"
                                                                                  style="width: 160px;height:160px"/>
                                                                         </a>
                                                                         <div class="form-check col-6">
-                                                                            <a t-attf-target="#{section.website_url and '_blank' or ''}"
-                                                                               t-attf-href="#{section.website_url or '#'}"
-                                                                               t-attr-alt="#{section.name}"
-                                                                               t-attr-title="#{section.name}">
+                                                                            <a t-attf-target="#{membership_group.website_url and '_blank' or ''}"
+                                                                               t-attf-href="#{membership_group.website_url or '#'}"
+                                                                               t-attf-alt="#{membership_group.name}"
+                                                                               t-attf-title="#{membership_group.name}">
                                                                                 <h6 style="margin-left:-1.25rem">
-                                                                                    <t t-esc="section.display_name"/>
+                                                                                    <t t-esc="membership_group.display_name"/>
                                                                                 </h6>
                                                                             </a>
                                                                             <br/>
                                                                             <div class="mb-0">
                                                                                 <input type="checkbox"
                                                                                        class="s_website_form_input form-check-input"
-                                                                                       t-attf-id="section_#{section.id}_follow"
-                                                                                       t-attf-name="section_#{section.id}_follow"
-                                                                                       t-att-checked="'checked' if sections_follow_checked[section.id] else None"/>
+                                                                                       t-attf-id="membership_group_#{membership_group.id}_follow"
+                                                                                       t-attf-name="membership_group_#{membership_group.id}_follow"
+                                                                                       t-att-checked="'checked' if membership_groups_follow_checked[membership_group.id] else None"/>
                                                                                 <label class="form-check-label s_website_form_check_label"
-                                                                                       t-attf-for="section_#{section.id}_follow">
-                                                                                    Follow
+                                                                                       t-attf-for="membership_group_#{membership_group.id}_follow">
+                                                                                    Follow<i class="fa fa-question-circle-o" title="Allows to follow this membership group"/>
                                                                                 </label>
                                                                             </div>
                                                                             <div class="mb-0">
                                                                                 <input type="checkbox"
                                                                                        class="s_website_form_input form-check-input"
-                                                                                       t-attf-id="section_#{section.id}_collaborate"
-                                                                                       t-attf-name="section_#{section.id}_collaborate"
-                                                                                       t-att-checked="'checked' if sections_collaborate_checked[section.id] else None"/>
+                                                                                       t-attf-id="membership_group_#{membership_group.id}_collaborate"
+                                                                                       t-attf-name="membership_group_#{membership_group.id}_collaborate"
+                                                                                       t-att-checked="'checked' if membership_groups_collaborate_checked[membership_group.id] else None"/>
                                                                                 <label class="form-check-label s_website_form_check_label"
-                                                                                       t-attf-for="section_#{section.id}_collaborate">
-                                                                                    Collaborate
+                                                                                       t-attf-for="membership_group_#{membership_group.id}_collaborate">
+                                                                                    Collaborate<i class="fa fa-question-circle-o" title="Allows to contribute to this membership group"/>
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -201,7 +200,7 @@
                                                         <div data-type="boolean" data-name="Field">
                                                             <div class="row" id="div_publish">
                                                                 <label class="col-form-label col-6" style="width: 200px" for="member_publish">
-                                                                    <span>Publish me as a member</span>
+                                                                    <span>Publish me as a member<i class="fa fa-question-circle-o" title="Shows you on the project page"/></span>
                                                                 </label>
                                                                 <div class="col-sm">
                                                                     <input style="margin-top:13px;height:13px;box-shadow: none;" type="checkbox" name="member_publish" t-att-checked="'checked' if member_publish else None"/>
@@ -483,14 +482,53 @@
                                         <span>Publish me</span>
                                     </label>
                                     <div class="col-sm">
-                                        <div class="form-check">
-                                            <input class="form-control" style="margin-top:13px;height:13px;box-shadow: none;" type="checkbox" name="website_published" t-att-checked="'checked' if partner.website_published else None"/>
-                                        </div>
+                                        <input style="margin-top:13px;height:13px;box-shadow: none;" type="checkbox" name="website_published" t-att-checked="'checked' if partner.website_published else None"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="bio" inherit_id="website_membership_registration.membership_registration_form" active="False" name="Bio on membership registration" priority="17">
+        <xpath expr="//div[@id='personal_data']" position="inside">
+            <div class="mb-3 col-12" data-type="text" data-name="Field">
+                <div class="row s_col_no_resize s_col_no_bgcolor" id="div_bio">
+                    <label class="col-form-label col-sm-auto" style="width: 200px" for="website_description">
+                        <span>Bio</span>
+                    </label>
+                    <div class="col-sm">
+                        <textarea rows="2" class="form-control" name="website_description" placeholder="Your bio..."
+                                  t-att-value="website_description"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="cv" inherit_id="website_membership_registration.membership_registration_form" active="False"
+              name="CV on membership registration" priority="18">
+        <xpath expr="//div[@id='personal_data']" position="inside">
+            <div class="mb-3 col-12" data-type="text" data-name="Field">
+                <div class="row s_col_no_resize s_col_no_bgcolor" id="div_cv">
+                    <label class="col-form-label col-sm-auto" style="width: 200px">
+                        <span>CV/Resume</span>
+                    </label>
+                    <div class="col-sm">
+                        <input type="file" name="member_cv" class="form-control s_website_form_input" id="file_cv"
+                               t-att-accept="website.membership_registration_cv_file_formats_supported"/>
+                    </div>
+                    <small class="form-text text-muted">
+                        <t t-if="website.membership_registration_cv_file_formats_supported =='*'">
+                                All
+                        </t>
+                        <t t-else="">
+                            Only <span t-out="website.membership_registration_cv_file_formats_supported"/>
+                        </t>
+                         files are accepted (max. <span t-out="website.membership_registration_max_cv_file_size"/> MB).</small>
                 </div>
             </div>
         </xpath>

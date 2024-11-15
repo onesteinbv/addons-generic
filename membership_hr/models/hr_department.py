@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 
-class HRDepartment(models.AbstractModel):
+class HRDepartment(models.Model):
     _inherit = "hr.department"
 
-    section_id = fields.Many2one("membership.section")
+    membership_group_id = fields.Many2one("membership.group")

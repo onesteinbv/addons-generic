@@ -10,10 +10,9 @@
             </xpath>
             <xpath expr="//page[last()]" position="after">
                 <page string="Membership" attrs="{'invisible': [('membership_applicant','=',False)]}">
-                    <field name="section_membership_ids" string="Sections" nolabel="1" colspan="4">
+                    <field name="membership_group_member_ids" string="Membership Groups" nolabel="1" colspan="4">
                         <tree editable="top">
-                            <field name="section_id"/>
-                            <field name="start_date"/>
+                            <field name="group_id"/>
                         </tree>
                     </field>
                 </page>

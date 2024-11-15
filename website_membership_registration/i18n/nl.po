@@ -16,17 +16,17 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: website_membership_registration
-#: model:ir.model.fields,field_description:website_membership_registration.field_membership_section__applicant_partner_count
+#: model:ir.model.fields,field_description:website_membership_registration.field_membership_group__applicant_partner_count
 msgid "# of Applicant Members"
 msgstr "# Aanvragende Leden"
 
 #. module: website_membership_registration
-#: model:ir.model.fields,field_description:website_membership_registration.field_membership_section__collaborator_partner_count
+#: model:ir.model.fields,field_description:website_membership_registration.field_membership_group__collaborator_partner_count
 msgid "# of Collaborating Members"
 msgstr "# Samenwerkende Leden"
 
 #. module: website_membership_registration
-#: model:ir.model.fields,field_description:website_membership_registration.field_membership_section__follower_partner_count
+#: model:ir.model.fields,field_description:website_membership_registration.field_membership_group__follower_partner_count
 msgid "# of Following Members"
 msgstr "# Volgende Leden"
 
@@ -220,20 +220,20 @@ msgstr "Er bestaat al een andere gebruiker met e-mailadres %s"
 #. module: website_membership_registration
 #: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__applicant_ids
 #: model:ir.model.fields,field_description:website_membership_registration.field_res_users__applicant_ids
-#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_section_membership__type__applicant
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_group_member__type__applicant
 msgid "Applicant"
 msgstr "Aanvrager"
 
 #. module: website_membership_registration
-#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_section_membership__type__applicant_follower
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_group_member__type__applicant_follower
 msgid "Applicant / Follower"
 msgstr "Aanvrager / Volger"
 
 #. module: website_membership_registration
-#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__applicant_sections_count
-#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__applicant_sections_count
-msgid "Applicant to # Sections"
-msgstr "Aanvrager naar # Secties"
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__applicant_membership_groups_count
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__applicant_membership_groups_count
+msgid "Applicant to # Membership Groups"
+msgstr "Aanvrager naar # Lidmaatschapsgroepen"
 
 #. module: website_membership_registration
 #: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_registration_page_background_type
@@ -260,18 +260,18 @@ msgid "Collaborate"
 msgstr "Samenwerken"
 
 #. module: website_membership_registration
-#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__collaborator_sections_count
-#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__collaborator_sections_count
-msgid "Collaborating to # Sections"
-msgstr "Samenwerken aan # Secties"
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__collaborator_membership_groups_count
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__collaborator_membership_groups_count
+msgid "Collaborating to # Membership Groups"
+msgstr "Samenwerken aan # Lidmaatschapsgroepen"
 
 #. module: website_membership_registration
-#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_section_membership__type__collaborator
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_group_member__type__collaborator
 msgid "Collaborator"
 msgstr "Samenwerker"
 
 #. module: website_membership_registration
-#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_section_membership__type__collaborator_follower
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_group_member__type__collaborator_follower
 msgid "Collaborator / Follower"
 msgstr "Samenwerker / Volger"
 
@@ -339,15 +339,15 @@ msgid "Follow"
 msgstr "Volgen"
 
 #. module: website_membership_registration
-#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_section_membership__type__follower
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__membership_group_member__type__follower
 msgid "Follower"
 msgstr "Volger"
 
 #. module: website_membership_registration
-#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__follower_sections_count
-#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__follower_sections_count
-msgid "Following # Sections"
-msgstr "# Secties volgen"
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__follower_membership_groups_count
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__follower_membership_groups_count
+msgid "Following # Membership Groups"
+msgstr "# Lidmaatschapsgroepen volgen"
 
 #. module: website_membership_registration
 #: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_registration_page_background_gradient_end
@@ -362,7 +362,7 @@ msgid "Gradient Color Start"
 msgstr "Kleurverloop start"
 
 #. module: website_membership_registration
-#: model:ir.model.fields.selection,name:website_membership_registration.selection__website__membership_registration_page_section_style__grid
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__website__membership_registration_page_membership_group_style__grid
 msgid "Grid View"
 msgstr "Roosterweergave"
 
@@ -387,7 +387,7 @@ msgid "Linear-Gradient"
 msgstr "Lineair-verloop"
 
 #. module: website_membership_registration
-#: model:ir.model.fields.selection,name:website_membership_registration.selection__website__membership_registration_page_section_style__list
+#: model:ir.model.fields.selection,name:website_membership_registration.selection__website__membership_registration_page_membership_group_style__list
 msgid "List View"
 msgstr "Lijstweergave"
 
@@ -415,21 +415,15 @@ msgid "Membership Job"
 msgstr "Lidmaatschap Functie"
 
 #. module: website_membership_registration
-#: model:ir.model.fields,field_description:website_membership_registration.field_res_partner__membership_origin
-#: model:ir.model.fields,field_description:website_membership_registration.field_res_users__membership_origin
-msgid "Membership Origin"
-msgstr ""
-
-#. module: website_membership_registration
 #: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_registration_page_background_image
 #: model:ir.model.fields,field_description:website_membership_registration.field_website__membership_registration_page_background_image
 msgid "Membership Registration Page Background Image"
 msgstr "Lidmaatschap Oorsprong"
 
 #. module: website_membership_registration
-#: model:ir.model,name:website_membership_registration.model_membership_section
-msgid "Membership Section"
-msgstr "Lidmaatschap Sectie"
+#: model:ir.model,name:website_membership_registration.model_membership_group
+msgid "Membership group"
+msgstr "Lidmaatschapsgroep"
 
 #. module: website_membership_registration
 #: model:ir.actions.server,name:website_membership_registration.cleanup_unverified_members_cron_ir_actions_server
@@ -455,8 +449,8 @@ msgstr "Bijnaam"
 #. odoo-python
 #: code:addons/website_membership_registration/controllers/main.py:0
 #, python-format
-msgid "Nickname is empty or invalid."
-msgstr "Bijnaam is leeg of ongeldig."
+msgid "Nickname is invalid."
+msgstr "Bijnaam is ongeldig."
 
 #. module: website_membership_registration
 #. odoo-python
@@ -509,15 +503,15 @@ msgid "Radial-Gradient"
 msgstr "Radiaal-verloop"
 
 #. module: website_membership_registration
-#: model:ir.model,name:website_membership_registration.model_membership_section_membership
-msgid "Section Membership"
-msgstr "Lidmaatschap van de sectie"
+#: model:ir.model,name:website_membership_registration.model_membership_group_member
+msgid "Membership Group Member"
+msgstr "Lidmaatschap Groepslid"
 
 #. module: website_membership_registration
-#: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_registration_page_section_style
-#: model:ir.model.fields,field_description:website_membership_registration.field_website__membership_registration_page_section_style
-msgid "Section View"
-msgstr "Sectieweergave"
+#: model:ir.model.fields,field_description:website_membership_registration.field_res_config_settings__membership_registration_page_membership_group_style
+#: model:ir.model.fields,field_description:website_membership_registration.field_website__membership_registration_page_membership_group_style
+msgid "Membership Group View"
+msgstr "Lidmaatschapsgroep weergave"
 
 #. module: website_membership_registration
 #: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
@@ -551,7 +545,7 @@ msgid "The selected membership level is not a valid product"
 msgstr "Het geselecteerde lidmaatschapsniveau is geen geldig product"
 
 #. module: website_membership_registration
-#: model:ir.model.fields,field_description:website_membership_registration.field_membership_section_membership__type
+#: model:ir.model.fields,field_description:website_membership_registration.field_membership_group_member__type
 msgid "Type"
 msgstr "Type"
 
@@ -589,7 +583,7 @@ msgid "Visible On Membership Registration Page"
 msgstr "Zichtbaar op lidmaatschapsregistratiepagina"
 
 #. module: website_membership_registration
-#: model:ir.model.fields,field_description:website_membership_registration.field_membership_section_membership__wants_to_collaborate
+#: model:ir.model.fields,field_description:website_membership_registration.field_membership_group_member__wants_to_collaborate
 msgid "Wants To Collaborate"
 msgstr "Wil samenwerken"
 
@@ -602,11 +596,6 @@ msgstr "We hebben je e-mailadres nodig om je registratie te verifiëren."
 #: model:ir.model,name:website_membership_registration.model_website
 msgid "Website"
 msgstr "Website
-
-#. module: website_membership_registration
-#: model:ir.model.fields.selection,name:website_membership_registration.selection__res_partner__membership_origin__website_form
-msgid "Website Form"
-msgstr "Website formulier"
 
 #. module: website_membership_registration
 #: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form

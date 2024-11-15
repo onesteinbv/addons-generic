@@ -1,9 +1,9 @@
 from odoo import fields, models
 
 
-class HREmployee(models.AbstractModel):
+class HREmployee(models.Model):
     _inherit = "hr.employee"
 
-    section_membership_ids = fields.One2many(
-        related="user_partner_id.section_membership_ids"
+    membership_group_member_ids = fields.One2many(
+        related="user_partner_id.membership_group_member_ids"
     )

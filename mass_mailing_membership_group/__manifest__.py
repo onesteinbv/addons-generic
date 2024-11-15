@@ -25,4 +25,5 @@
         "data/mailing_contact_demo.xml",
         "data/res_partner_demo.xml",
     ],
+    "auto_install": True,
 }
