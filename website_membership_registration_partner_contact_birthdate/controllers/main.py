@@ -34,7 +34,7 @@ class MembershipRegistrationControllerBirthDate(MembershipRegistrationController
             partner_data["member_birthdate_date"],
             validation_data["member_birthdate_date"],
             error_data["member_birthdate_date"],
-        ) = self._validate_membership_birthdate(post["member_birthdate_date"])
+        ) = self._validate_membership_birthdate(post.get("member_birthdate_date", ""))
         return partner_data, validation_data, error_data
 
     def _get_new_member_vals_dict(self, partner_data):
