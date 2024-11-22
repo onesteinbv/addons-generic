@@ -55,6 +55,9 @@ class ApplicationDomain(models.Model):
                 search_domain = [("name", "=", domain_name)]
                 if scope_unique:
                     search_domain += [("scope", "=", scope)]
+                else:
+                    search_domain += [("scope_unique", "=", False)]
+
                 already_exists = self.search(search_domain, count=True)
                 if not already_exists:
                     best_available = domain_name
