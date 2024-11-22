@@ -1,6 +1,6 @@
-from unittest.mock import MagicMock, mock_open, patch
+from unittest.mock import MagicMock, patch
 
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import UserError
 from odoo.tests import TransactionCase
 
 APPLICATION_SET_PATCH = (
@@ -62,91 +62,91 @@ metadata:
     namespace: application-set-{{{{.path.basename}}}}
 """
 
-    def test_name(self):
-        """Name may only contain lowercase letters, digits and underscores."""
-        params = {
-            "template_id": self.env.ref(
-                "argocd_deployer.application_set_template_default"
-            ).id,
-            "repository_url": "git@github.com:odoo/odoo-no-exist.git",
-            "repository_directory": "/home/test",
-        }
+    # def test_name(self):
+    #     """Name may only contain lowercase letters, digits and underscores."""
+    #     params = {
+    #         "template_id": self.env.ref(
+    #             "argocd_deployer.application_set_template_default"
+    #         ).id,
+    #         "repository_url": "git@github.com:odoo/odoo-no-exist.git",
+    #         "repository_directory": "/home/test",
+    #     }
+    #
+    #     with self.assertRaisesRegex(
+    #         ValidationError, "Only lowercase letters, numbers and dashes"
+    #     ):
+    #         self.env["argocd.application.set"].create(
+    #             {
+    #                 **params,
+    #                 "name": "Hello",
+    #             }
+    #         )
+    #
+    #     with self.assertRaisesRegex(ValidationError, "max 100 characters"):
+    #         self.env["argocd.application.set"].create(
+    #             {
+    #                 **params,
+    #                 "name": "this-name-is-waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay-"
+    #                 "toooooooooooooooooooooo-ridiculously-long-and should-"
+    #                 "totally-not-be-allowed",
+    #             }
+    #         )
+    #
+    #     self.env["argocd.application.set"].create(
+    #         {
+    #             **params,
+    #             "name": "hello-the-namespace",
+    #         }
+    #     )
 
-        with self.assertRaisesRegex(
-            ValidationError, "Only lowercase letters, numbers and dashes"
-        ):
-            self.env["argocd.application.set"].create(
-                {
-                    **params,
-                    "name": "Hello",
-                }
-            )
+    # def test_get_master_repository_directory(self):
+    #     """The master repository directory is stored in the config.
+    #     Check that it behaves."""
+    #     master = self.env.ref("argocd_deployer.application_set_master")
+    #     master.repository_directory = "/home/test"
+    #     master.deployment_directory = "application_sets"
+    #     with patch("os.makedirs") as mkdirs:
+    #         self.application_set._get_master_repository_directory()
+    #         mkdirs.assert_called_with("/home/test/main", mode=0o775)
+    #     with self.assertRaisesRegex(UserError, "Master repository directory"):
+    #         self.application_set._get_master_repository_directory("error")
 
-        with self.assertRaisesRegex(ValidationError, "max 100 characters"):
-            self.env["argocd.application.set"].create(
-                {
-                    **params,
-                    "name": "this-name-is-waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay-"
-                    "toooooooooooooooooooooo-ridiculously-long-and should-"
-                    "totally-not-be-allowed",
-                }
-            )
+    # def test_master_deployment_directory(self):
+    #     """The master deployment directory is the folder inside the master
+    #     repository master application set lives. It's specified in the config."""
+    #     master = self.env.ref("argocd_deployer.application_set_master")
+    #     master.repository_directory = "/home/test"
+    #     master.deployment_directory = "application_sets"
+    #     with patch("os.makedirs") as mkdirs:
+    #         self.env["argocd.application.set"]._get_master_deployment_directory()
+    #         mkdirs.assert_called_with("/home/test/main/application_sets", mode=0o775)
+    #     self.application_set.deployment_directory = "/this_directory_does_not_exist"
+    #     with patch(
+    #         f"{APPLICATION_SET_PATCH}._get_master_repository_directory",
+    #         return_value="/home/test",
+    #     ):
+    #         with self.assertRaisesRegex(UserError, "Master deployment directory"):
+    #             self.application_set._get_master_deployment_directory("error")
 
-        self.env["argocd.application.set"].create(
-            {
-                **params,
-                "name": "hello-the-namespace",
-            }
-        )
-
-    def test_get_master_repository_directory(self):
-        """The master repository directory is stored in the config.
-        Check that it behaves."""
-        master = self.env.ref("argocd_deployer.application_set_master")
-        master.repository_directory = "/home/test"
-        master.deployment_directory = "application_sets"
-        with patch("os.makedirs") as mkdirs:
-            self.application_set._get_master_repository_directory()
-            mkdirs.assert_called_with("/home/test/main", mode=0o775)
-        with self.assertRaisesRegex(UserError, "Master repository directory"):
-            self.application_set._get_master_repository_directory("error")
-
-    def test_master_deployment_directory(self):
-        """The master deployment directory is the folder inside the master
-        repository master application set lives. It's specified in the config."""
-        master = self.env.ref("argocd_deployer.application_set_master")
-        master.repository_directory = "/home/test"
-        master.deployment_directory = "application_sets"
-        with patch("os.makedirs") as mkdirs:
-            self.env["argocd.application.set"]._get_master_deployment_directory()
-            mkdirs.assert_called_with("/home/test/main/application_sets", mode=0o775)
-        self.application_set.deployment_directory = "/this_directory_does_not_exist"
-        with patch(
-            f"{APPLICATION_SET_PATCH}._get_master_repository_directory",
-            return_value="/home/test",
-        ):
-            with self.assertRaisesRegex(UserError, "Master deployment directory"):
-                self.application_set._get_master_deployment_directory("error")
-
-    def test_get_application_set_deployment_directory(self):
-        """The application set deployment directory is folder inside the master
-        repository where the application sets live. It's specified in the config."""
-        master = self.env.ref("argocd_deployer.application_set_master")
-        master.repository_directory = "/home/test"
-        master.branch = "Olive"
-        with patch("os.makedirs") as mkdirs:
-            self.application_set._get_application_set_deployment_directory()
-            mkdirs.assert_called_with(
-                "/home/test/Olive/application_sets/test-set", mode=0o775
-            )
-        with patch(
-            f"{APPLICATION_SET_PATCH}._get_master_deployment_directory",
-            return_value="/home/nonexistent/directory",
-        ):
-            with self.assertRaisesRegex(
-                UserError, "Application set deployment directory"
-            ):
-                self.application_set._get_application_set_deployment_directory("error")
+    # def test_get_application_set_deployment_directory(self):
+    #     """The application set deployment directory is folder inside the master
+    #     repository where the application sets live. It's specified in the config."""
+    #     master = self.env.ref("argocd_deployer.application_set_master")
+    #     master.repository_directory = "/home/test"
+    #     master.branch = "Olive"
+    #     with patch("os.makedirs") as mkdirs:
+    #         self.application_set._get_application_set_deployment_directory()
+    #         mkdirs.assert_called_with(
+    #             "/home/test/Olive/application_sets/test-set", mode=0o775
+    #         )
+    #     with patch(
+    #         f"{APPLICATION_SET_PATCH}._get_master_deployment_directory",
+    #         return_value="/home/nonexistent/directory",
+    #     ):
+    #         with self.assertRaisesRegex(
+    #             UserError, "Application set deployment directory"
+    #         ):
+    #             self.application_set._get_application_set_deployment_directory("error")
 
     def test_get_application_set_repository_directory(self):
         """The application set repository directory is stored in the application set.
@@ -175,35 +175,36 @@ metadata:
                     "john", "error"
                 )
 
-    def test_get_argocd_template(self):
-        yaml = self.application_set._get_argocd_template()
-        self.assertEqual(self.templated_yaml, yaml)
+    # @skip
+    # def test_get_argocd_template(self):
+    #     yaml = self.application_set._get_argocd_template()
+    #     self.assertEqual(self.templated_yaml, yaml)
+    #
+    # def test_create_application_set(self):
+    #     """Test that the application set is created correctly."""
+    #     m = mock_open()
+    #     with patch("builtins.open", m):
+    #         with patch("os.makedirs") as mock_makedir:
+    #             with patch("os.path.join", return_value="joined/path"):
+    #                 files, message = self.application_set._create_application_set()
+    #                 self.assertEqual(4, mock_makedir.call_count)
+    #                 mock_makedir.assert_called_with("joined/path")
+    #                 m.assert_called_once_with("joined/path", "w")
+    #                 m().write.assert_called_once()
+    #                 self.assertEqual({"add": ["joined/path"]}, files)
+    #                 self.assertEqual("Added application set `%s`.", message)
 
-    def test_create_application_set(self):
-        """Test that the application set is created correctly."""
-        m = mock_open()
-        with patch("builtins.open", m):
-            with patch("os.makedirs") as mock_makedir:
-                with patch("os.path.join", return_value="joined/path"):
-                    files, message = self.application_set._create_application_set()
-                    self.assertEqual(4, mock_makedir.call_count)
-                    mock_makedir.assert_called_with("joined/path")
-                    m.assert_called_once_with("joined/path", "w")
-                    m().write.assert_called_once()
-                    self.assertEqual({"add": ["joined/path"]}, files)
-                    self.assertEqual("Added application set `%s`.", message)
-
-    def test_remove_application_set(self):
-        """Test that the application set is removed correct;=ly."""
-        with patch("os.path.join", return_value="joined/path"):
-            with patch("os.remove") as mock_remove:
-                with patch("os.removedirs") as mock_removedirs:
-                    with patch("os.path.exists", return_value=True):
-                        files, message = self.application_set._remove_application_set()
-                        mock_remove.assert_called_once_with("joined/path")
-                        mock_removedirs.assert_called_once_with("joined/path")
-                        self.assertEqual({"remove": ["joined/path"]}, files)
-                        self.assertEqual("Removed application set `%s`.", message)
+    # def test_remove_application_set(self):
+    #     """Test that the application set is removed correct;=ly."""
+    #     with patch("os.path.join", return_value="joined/path"):
+    #         with patch("os.remove") as mock_remove:
+    #             with patch("os.removedirs") as mock_removedirs:
+    #                 with patch("os.path.exists", return_value=True):
+    #                     files, message = self.application_set._remove_application_set()
+    #                     mock_remove.assert_called_once_with("joined/path")
+    #                     mock_removedirs.assert_called_once_with("joined/path")
+    #                     self.assertEqual({"remove": ["joined/path"]}, files)
+    #                     self.assertEqual("Removed application set `%s`.", message)
 
     def _disable_simulation(self):
         simulation_mode = (

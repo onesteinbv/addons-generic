@@ -11,7 +11,7 @@ class ApplicationNamespacePrefix(models.Model):
     name = fields.Char(required=True)
 
     _sql_constraints = [
-        ("application_namespace_name_prefix_unique", "unique(name)", "Already exists"),
+        ("name_prefix_unique", "unique(name)", "Already exists"),
         (
             "app_namespace_prefix_unique",
             "unique(name)",

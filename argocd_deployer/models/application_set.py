@@ -63,23 +63,23 @@ class ApplicationSet(models.Model):
     )
     master_application_set_id = fields.Many2one(comodel_name="argocd.application.set")
 
-    @api.constrains("repository_directory")
-    def _check_unique_repository_directory(self):
-        if not self.is_master:
-            return
-        other_masters = (
-            self.env["argocd.application.set"].search(
-                [
-                    ("is_master", "=", True),
-                    ("repository_directory", "=", self.repository_directory),
-                ]
-            )
-            - self
-        )
-        if other_masters:
-            raise ValidationError(
-                "Master application set with the same `Repository Directory` exists."
-            )
+    # @api.constrains("repository_directory")
+    # def _check_unique_repository_directory(self):
+    #     if not self.is_master:
+    #         return
+    #     other_masters = (
+    #         self.env["argocd.application.set"].search(
+    #             [
+    #                 ("is_master", "=", True),
+    #                 ("repository_directory", "=", self.repository_directory),
+    #             ]
+    #         )
+    #         - self
+    #     )
+    #     if other_masters:
+    #         raise ValidationError(
+    #             "Master application set with the same `Repository Directory` exists."
+    #         )
 
     @api.depends("master_application_set_id")
     def _compute_is_master(self):

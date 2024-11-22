@@ -67,11 +67,18 @@ class Application(models.Model):
         self.ensure_one()
         return bool(self.tag_ids.filtered(lambda t: t.key == key))
 
-    def create_domain(self, preferred, *alternatives, scope="global"):
+    def create_domain(
+        self, preferred, *alternatives, scope="global", scope_unique=False, url=True
+    ):
         """Shortcut"""
         self.ensure_one()
         return self.env["argocd.application.domain"].create_domain(
-            self, preferred, *alternatives, scope=scope
+            self,
+            preferred,
+            *alternatives,
+            scope=scope,
+            scope_unique=scope_unique,
+            url=url
         )
 
     @api.depends("config")
@@ -130,7 +137,7 @@ class Application(models.Model):
     def get_urls(self):
         self.ensure_one()
         urls = []
-        for scope in self.domain_ids.mapped("scope"):
+        for scope in self.domain_ids.filtered(lambda l: l.url).mapped("scope"):
             prioritized_domain = self.domain_ids.filtered(
                 lambda d: d.scope == scope
             ).sorted("sequence")[0]

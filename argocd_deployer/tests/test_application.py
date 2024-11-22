@@ -9,9 +9,13 @@ class TestApplication(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.application_set_id = cls.env.ref(
+            "argocd_deployer.application_set_default"
+        ).id
         cls.app = cls.env["argocd.application"].create(
             {
                 "name": "myapp",
+                "application_set_id": cls.application_set_id,
                 "template_id": cls.env.ref(
                     "argocd_deployer.demo_curq_basis_application_template"
                 ).id,
@@ -105,6 +109,7 @@ class TestApplication(TransactionCase):
         app2 = self.env["argocd.application"].create(
             {
                 "name": "myapp2",
+                "application_set_id": self.application_set_id,
                 "template_id": self.env.ref(
                     "argocd_deployer.demo_curq_basis_application_template"
                 ).id,

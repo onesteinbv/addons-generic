@@ -1,4 +1,5 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class ApplicationDomain(models.Model):
@@ -7,20 +8,36 @@ class ApplicationDomain(models.Model):
     _order = "sequence"
 
     application_id = fields.Many2one(comodel_name="argocd.application", required=True)
-    scope = fields.Char(default="Application")
+    scope = fields.Char(default="Application", required=True)
     sequence = fields.Integer(default=10)
     name = fields.Char(required=True)
+    scope_unique = fields.Boolean(
+        help="Whether the domain is unique within it's scope (true) or globally (false)"
+    )
+    url = fields.Boolean(
+        default=True, help="Whether to display this domain as a link to the user"
+    )
 
-    _sql_constraints = [
-        (
-            "application_domain_name_unique",
-            "unique(name)",
-            "Domain is already in use",
-        )
-    ]
+    @api.constrains("name", "scope", "scope_unique")
+    def _constrain_name(self):
+        domain = [("id", "!=", self.id), ("name", "=", self.name)]
+        if self.scope_unique:
+            domain += [("scope", "=", self.scope)]
+        else:
+            domain += [("scope_unique", "=", False)]
+        if self.search(domain, count=True):
+            raise ValidationError(_("Domain is already in use"))
 
     @api.model
-    def create_domain(self, application, preferred, *alternatives, scope="Application"):
+    def create_domain(
+        self,
+        application,
+        preferred,
+        *alternatives,
+        scope="Application",
+        scope_unique=False,
+        url=True
+    ):
         existing = application.domain_ids.filtered(lambda d: d.scope == scope).sorted(
             "sequence"
         )
@@ -35,12 +52,21 @@ class ApplicationDomain(models.Model):
                 domain_name = domain
                 if i:
                     domain_name += i_as_str
-                already_exists = self.search([("name", "=", domain_name)], count=True)
+                search_domain = [("name", "=", domain_name)]
+                if scope_unique:
+                    search_domain += [("scope", "=", scope)]
+                already_exists = self.search(search_domain, count=True)
                 if not already_exists:
                     best_available = domain_name
                     break
             i += 1
         self.create(
-            {"application_id": application.id, "name": best_available, "scope": scope}
+            {
+                "application_id": application.id,
+                "name": best_available,
+                "scope": scope,
+                "scope_unique": scope_unique,
+                "url": url,
+            }
         )
         return best_available
