@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2024 Onestein
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record model="ir.ui.view" id="view_currency_form">
+        <field name="name">res.currency.form</field>
+        <field name="model">res.currency</field>
+        <field name="inherit_id" ref="base.view_currency_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Rate Provider Mappings" name="rate_provider_mappings">
+                    <field name="res_currency_rate_provider_mapping_ids" widget="one2many">
+                        <tree editable="top" limit="25">
+                            <field name="provider_id"/>
+                            <field name="provider_reference"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+
+        </field>
+    </record>
+</odoo>

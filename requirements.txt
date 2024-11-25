@@ -29,3 +29,4 @@ xlrd
 python-slugify
 vcrpy
 dnspython==2.6.1
+pycgapi
