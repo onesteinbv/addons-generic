@@ -23,7 +23,11 @@ class TestResCurrencyRateProviderCoinGecko(common.TransactionCase):
         cls.today = fields.Date.today()
         cls.eur_currency = cls.env.ref("base.EUR")
         cls.company = cls.Company.create(
-            {"name": "Test company", "currency_id": cls.eur_currency.id}
+            {
+                "name": "Test company",
+                "currency_id": cls.eur_currency.id,
+                "currency_rates_autoupdate": True,
+            }
         )
         cls.lnk_currency = cls.Currency.create({"name": "LINK", "symbol": "LNK"})
         cls.coingecko_provider = cls.CurrencyRateProvider.search(
