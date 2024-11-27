@@ -15,6 +15,7 @@ class ResCurrencyRateProviderMapping(models.Model):
         string="Provider",
         comodel_name="res.currency.rate.provider",
         ondelete="restrict",
+        required=True,
     )
     provider_reference = fields.Char(
         required=True,
