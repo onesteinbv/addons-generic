@@ -4,7 +4,7 @@ import re
 import jinja2
 from git import Repo
 
-from odoo import _, api, fields, models
+from odoo import Command, _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools.safe_eval import safe_eval
 
@@ -61,7 +61,10 @@ class Application(models.Model):
     def get_value(self, key, default=""):
         self.ensure_one()
         kv_pair = self.value_ids.filtered(lambda v: v.key == key)
-        return kv_pair and kv_pair.value or default
+        if kv_pair:
+            return kv_pair.value
+        self.value_ids = [Command.create({"key": key, "value": default})]
+        return default
 
     def has_tag(self, key):
         self.ensure_one()
