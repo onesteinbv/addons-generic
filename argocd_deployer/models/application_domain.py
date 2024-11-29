@@ -47,11 +47,12 @@ class ApplicationDomain(models.Model):
         i = 0
         best_available = False
         while not best_available:
-            i_as_str = str(i)
             for domain in domains:
                 domain_name = domain
                 if i:
-                    domain_name += i_as_str
+                    domain_levels = domain_name.split(".")
+                    domain_levels[0] += str(i)
+                    domain_name = ".".join(domain_levels)
                 search_domain = [("name", "=", domain_name)]
                 if scope_unique:
                     search_domain += [("scope", "=", scope)]

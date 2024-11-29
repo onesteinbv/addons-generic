@@ -151,3 +151,29 @@ class TestApplicationDomain(TransactionCase):
             "myapp",
             "Scope unique domain should still be available in different scope",
         )
+
+    def test_subdomain(self):
+        argocd_application_domain = self.env["argocd.application.domain"]
+        domain = argocd_application_domain.create_domain(
+            self.app_2, "myapp.saas.com", scope="website"
+        )
+        self.assertEqual(domain, "myapp.saas.com")
+        domain = argocd_application_domain.create_domain(
+            self.app_1, "myapp.saas.com", scope="website"
+        )
+        self.assertEqual(domain, "myapp1.saas.com", "it should change the subdomain")
+
+        domain = argocd_application_domain.create_domain(
+            self.app_1, "myapp.saas.com", scope="matomo"
+        )
+        self.assertEqual(domain, "myapp2.saas.com", "it should change the subdomain")
+
+        domain = argocd_application_domain.create_domain(
+            self.app_1, "nosub", scope="haystack"
+        )
+        self.assertEqual(domain, "nosub")
+
+        domain = argocd_application_domain.create_domain(
+            self.app_2, "nosub", scope="haystack"
+        )
+        self.assertEqual(domain, "nosub1")
