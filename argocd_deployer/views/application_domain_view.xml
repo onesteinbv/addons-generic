@@ -7,6 +7,7 @@
                 <field name="sequence" widget="handle" />
                 <field name="scope" />
                 <field name="name" />
+                <field name="scope_unique" readonly="1" />
             </tree>
         </field>
     </record>
