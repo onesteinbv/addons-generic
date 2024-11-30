@@ -33,6 +33,7 @@ class TestResCurrencyRateProviderCoinGecko(common.TransactionCase):
         cls.coingecko_provider = cls.CurrencyRateProvider.search(
             [("service", "=", "CoinGecko")], limit=1
         )
+        cls.coingecko_provider.company_id = cls.company.id
         cls.coingecko_provider_mapping = cls.CurrencyRateProviderMapping.create(
             {
                 "currency_id": cls.lnk_currency.id,
