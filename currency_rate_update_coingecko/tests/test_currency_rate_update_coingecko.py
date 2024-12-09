@@ -37,7 +37,7 @@ class TestResCurrencyRateProviderCoinGecko(common.TransactionCase):
         cls.coingecko_provider_mapping = cls.CurrencyRateProviderMapping.create(
             {
                 "currency_id": cls.lnk_currency.id,
-                "provider_id": cls.coingecko_provider.id,
+                "provider_service": "CoinGecko",
                 "provider_reference": "chainlink",
             }
         )
