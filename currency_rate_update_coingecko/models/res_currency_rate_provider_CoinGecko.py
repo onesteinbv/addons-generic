@@ -25,7 +25,7 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
         # List of cryptocurrencies based on configured provider mappings
         supported_currencies = (
             self.env["res.currency.rate.provider.mapping"]
-            .search([("provider_id", "=", self.id)])
+            .search([("provider_service", "=", self.service)])
             .mapped("currency_id.name")
         )
         return supported_currencies
@@ -34,56 +34,9 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
         self.ensure_one()
         if self.service != "CoinGecko":
             return super()._obtain_rates(base_currency, currencies, date_from, date_to)
-        if date_from < date.today():
-            return self._get_historical_rate_from_coingecko(
-                date_from, date_to, base_currency
+        return self._get_historical_rate_from_coingecko(
+            date_from, date_to, base_currency
             )
-        else:
-            return self._get_latest_rate_from_coingecko(base_currency)
-
-    def _get_latest_rate_from_coingecko(self, base_currency):
-        """Get all the exchange rates for today"""
-        api = CoinGeckoAPI()
-        today = date.today()
-        data = {today: {}}
-        for (
-            currency
-        ) in self.currency_ids.res_currency_rate_provider_mapping_ids.filtered(
-            lambda l: l.provider_id == self
-        ):
-            try:
-                coin_data = api.coin_historical_on_date(
-                    currency.provider_reference, today.strftime("%m-%d-%Y")
-                )
-            except Exception as e:
-                _logger.warning(
-                    'Currency Rate Provider "%(name)s" failed to obtain for %(currency)s currency'
-                    % {
-                        "name": self.name,
-                        "currency": currency.currency_id.name,
-                    },
-                    exc_info=True,
-                )
-                self.message_post(
-                    subject=_("Currency Rate Provider Failure"),
-                    body=_(
-                        'Currency Rate Provider "%(name)s" failed to obtain data(check the rate provider mapping on the currency) :\n%(error)s'
-                    )
-                    % {
-                        "name": self.name,
-                        "currency": currency.currency_id.name,
-                        "error": str(e) if e else _("N/A"),
-                    },
-                )
-                continue
-            rate = (
-                coin_data.get("market_data")
-                .get("current_price")
-                .get(base_currency.lower(), 0)
-            )
-            if rate:
-                data[today].update({currency.currency_id.name: 1 / rate})
-        return data
 
     def _get_historical_rate_from_coingecko(self, date_from, date_to, base_currency):
         """Get all the exchange rates from 'date_from' to 'date_to'"""
@@ -95,7 +48,7 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
             for (
                 currency
             ) in self.currency_ids.res_currency_rate_provider_mapping_ids.filtered(
-                lambda l: l.provider_id == self
+                lambda l: l.provider_service == self.service
             ):
                 try:
                     coin_data = api.coin_historical_on_date(

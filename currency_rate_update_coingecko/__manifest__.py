@@ -12,6 +12,6 @@
     "installable": True,
     "application": False,
     "depends": ["currency_rate_update_mapping", "crypto_currency"],
-    "data": ["data/res_currency_rate_provider.xml"],
+    "data": [],
     "external_dependencies": {"python": ["pycgapi"]},
 }

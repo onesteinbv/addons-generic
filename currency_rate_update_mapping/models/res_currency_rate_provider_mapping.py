@@ -11,13 +11,20 @@ class ResCurrencyRateProviderMapping(models.Model):
         string="Currency",
         comodel_name="res.currency",
     )
-    provider_id = fields.Many2one(
+    provider_service = fields.Selection(
+        selection=lambda r: r.env["res.currency.rate.provider"]._fields["service"].selection,
         string="Provider",
-        comodel_name="res.currency.rate.provider",
-        ondelete="restrict",
         required=True,
     )
     provider_reference = fields.Char(
         required=True,
         help="Defines the reference to be used when fetching rates from the provider",
     )
+
+    _sql_constraints = [
+        (
+            "provider_service_currency_id_uniq",
+            "UNIQUE(provider_service, currency_id)",
+            "This provider has already been setup for this currency.",
+        ),
+    ]
