@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_timesheet_line_tree" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='unit_amount']" position="after">
+                <field name="week_number" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_timesheet_line_search" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="/search" position="inside">
+                <group string="Group By" name="groupby">
+                    <filter name="groupby_project_manager" string="Project Manager" context="{'group_by': 'project_user_id'}"/>
+                    <filter name="groupby_week_number" string="Week" context="{'group_by': 'week_number'}"/>
+                    <filter name="groupby_day" string="Day" context="{'group_by': 'date:day'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
