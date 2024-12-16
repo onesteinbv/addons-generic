@@ -30,10 +30,6 @@ class TestResCurrencyRateProviderCoinGecko(common.TransactionCase):
             }
         )
         cls.lnk_currency = cls.Currency.create({"name": "LINK", "symbol": "LNK"})
-        cls.coingecko_provider = cls.CurrencyRateProvider.search(
-            [("service", "=", "CoinGecko")], limit=1
-        )
-        cls.coingecko_provider.company_id = cls.company.id
         cls.coingecko_provider_mapping = cls.CurrencyRateProviderMapping.create(
             {
                 "currency_id": cls.lnk_currency.id,
@@ -41,8 +37,10 @@ class TestResCurrencyRateProviderCoinGecko(common.TransactionCase):
                 "provider_reference": "chainlink",
             }
         )
-        cls.coingecko_provider.write(
+        cls.coingecko_provider = cls.CurrencyRateProvider.create(
             {
+                "service": "CoinGecko",
+                "company_id": cls.company.id,
                 "currency_ids": [
                     (4, cls.lnk_currency.id),
                 ],

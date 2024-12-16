@@ -11,8 +11,8 @@ class AccountMoveLine(models.Model):
     def _compute_account_id(self):
         res = super()._compute_account_id()
         for line in self.filtered(
-            lambda l: l.display_type not in ("line_section", "line_note")
-            and l.move_id.is_invoice()
+            lambda ml: ml.display_type not in ("line_section", "line_note")
+            and ml.move_id.is_invoice()
         ):
             partner = line.move_id.partner_id
             if partner and partner.partner_default_account_id:

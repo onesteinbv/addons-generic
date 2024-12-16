@@ -1,7 +1,7 @@
 # Copyright 2024 Onestein
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 import logging
-from datetime import date, timedelta
+from datetime import timedelta
 
 from pycgapi import CoinGeckoAPI
 
@@ -36,7 +36,7 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
             return super()._obtain_rates(base_currency, currencies, date_from, date_to)
         return self._get_historical_rate_from_coingecko(
             date_from, date_to, base_currency
-            )
+        )
 
     def _get_historical_rate_from_coingecko(self, date_from, date_to, base_currency):
         """Get all the exchange rates from 'date_from' to 'date_to'"""
@@ -48,7 +48,7 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
             for (
                 currency
             ) in self.currency_ids.res_currency_rate_provider_mapping_ids.filtered(
-                lambda l: l.provider_service == self.service
+                lambda rpm: rpm.provider_service == self.service
             ):
                 try:
                     coin_data = api.coin_historical_on_date(

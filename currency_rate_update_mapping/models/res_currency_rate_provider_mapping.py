@@ -12,7 +12,9 @@ class ResCurrencyRateProviderMapping(models.Model):
         comodel_name="res.currency",
     )
     provider_service = fields.Selection(
-        selection=lambda r: r.env["res.currency.rate.provider"]._fields["service"].selection,
+        selection=lambda r: r.env["res.currency.rate.provider"]
+        ._fields["service"]
+        .selection,
         string="Provider",
         required=True,
     )

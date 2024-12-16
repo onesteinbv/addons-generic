@@ -1,8 +1,8 @@
 # Installation
 
-```
+``````````````````````````
 pip3 install python-gitlab
-```
+``````````````````````````
 
 # Configure
 
