@@ -104,7 +104,7 @@ class MolliePayment(models.Model):
                     payment_objs = self.sudo()._get_payment_obj(payment["id"])
                     if payment_objs:
                         payment_obj = payment_objs.filtered(
-                            lambda l: l.status
+                            lambda po: po.status
                             not in ["paid", "expired", "canceled", "failed"]
                         )
                         if payment_obj and payment_obj.status != payment["status"]:

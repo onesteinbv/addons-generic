@@ -17,7 +17,7 @@ class TestL10nNlRgsMisReports(HttpCase):
 
     def test_02_rgs_profit_loss(self):
         """"""
-        report = "l10n_nl_rgs_mis_report.mis_report_l10n_nl_rgs_profit_loss"
+        report = "l10n_nl_rgs_mis_report.mis_report_l10n_nl_rgs_pl"
         instance = self.env["mis.report.instance"].create(
             {
                 "name": "Profit Loss",

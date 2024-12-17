@@ -39,7 +39,7 @@ class Project(models.Model):
     def get_last_membership_activity_date_by_type(self, type_id_or_xml_id):
         self.ensure_one()
         activity_type_id = type_id_or_xml_id
-        if type(type_id_or_xml_id) == str:
+        if isinstance(type_id_or_xml_id, str):
             activity_type_id = self.env.ref(type_id_or_xml_id).id
         matching_activities = self.membership_activity_ids.filtered(
             lambda a: a.type_id.id == activity_type_id
