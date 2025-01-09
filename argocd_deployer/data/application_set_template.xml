@@ -50,8 +50,8 @@ spec:
   - git:
       repoURL: {{.application_set.repository_url}}
       revision: {{.application_set.branch}}
-      files:
-      - path: {{.application_set.deployment_directory}}/**/config.yaml
+      directories:
+      - path: {{.application_set.deployment_directory}}/*
   template:
     metadata:
       name: "{{.application_set.namespace_prefix}}{{ .path.basename }}"
@@ -64,8 +64,8 @@ spec:
         targetRevision: {{.application_set.branch}}
         path: app
         helm:
-          values: |
-            {{ .helm }}
+          valueFiles:
+            - "../{{.application_set.deployment_directory}}/{{ .path.basename }}/config.yaml"
       destination:
         name: in-cluster
         namespace: "{{.application_set.namespace_prefix}}{{ .path.basename }}"
