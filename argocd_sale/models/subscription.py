@@ -89,9 +89,15 @@ class Subscription(models.Model):
         return res
 
     def close_subscription(self, close_reason_id=False):
-        if not self.env.context.get(
-            "no_destroy_app", False
-        ):  # This is fine since portal users don't have write access on sale.subscription and the super writes the record
+        destroy_app = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("argocd_sale.destroy_app_on_subscription_close", "False")
+            == "True"
+        )
+
+        if not self.env.context.get("no_destroy_app", False) and destroy_app:
+            # This is fine since portal users don't have write access on sale.subscription and the super writes the record
             # Destroy app
             self.ensure_one()
             delta = self.recurring_next_date - fields.Date.today()
