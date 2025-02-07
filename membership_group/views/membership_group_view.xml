@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
     <record id="membership_group_view_tree" model="ir.ui.view">
@@ -48,22 +48,35 @@
                         </group>
                     </group>
                     <group name="form_body" />
-
                     <notebook>
                         <page string="Membership" name="membership">
                             <field name="membership_group_member_ids">
                                 <tree editable="top">
+                                    <field name="active" invisible="1" />
                                     <field
                                         name="partner_id"
                                         domain="[('membership_state', 'in', ['invoiced', 'paid', 'free'])]"
                                     />
+                                    <field name="date_from" optional="show" />
+                                    <field name="date_to" optional="show" />
+                                    <field name="date_end" optional="show" />
                                     <field name="type" />
                                     <field name="wants_to_collaborate" />
+                                    <button type="object" name="action_revoke_membership" string="Revoke"
+                                        icon="fa-trash" attrs="{'invisible': [('active','=', False)]}" />
                                 </tree>
                             </field>
                         </page>
                         <page string="Subgroups">
-                            <field name="child_ids"/>
+                            <field name="child_ids" />
+                        </page>
+                        <page string="Configuration">
+                            <group>
+                                <field name="termination_cycle" widget="boolean_toggle" />
+                                <field name="next_termination_date"
+                                    attrs="{'required': [('termination_cycle','=', True)], 'invisible': [('termination_cycle', '=', False)]}" />
+                                <field name="voting_group" widget="boolean_toggle" />
+                            </group>
                         </page>
                     </notebook>
                 </sheet>
@@ -76,6 +89,7 @@
         <field name="arch" type="xml">
             <search string="Membership Groups">
                 <field name="name" />
+                <filter name="filter_voting_group" string="Voting Group" domain="[('voting_group', '=', True)]" />
             </search>
         </field>
     </record>

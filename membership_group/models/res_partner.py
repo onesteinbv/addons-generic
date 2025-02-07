@@ -14,7 +14,14 @@ class ResPartner(models.Model):
         store=True,
     )
     membership_group_ids_count = fields.Integer(
-        string="# of Groups", compute="_compute_membership_group_ids", store=True
+        string="# of Groups",
+        compute="_compute_membership_group_ids",
+        store=True,
+    )
+    member_can_vote = fields.Boolean(
+        compute="_compute_member_can_vote",
+        store=True,
+        string="Can Vote",
     )
 
     @api.depends("membership_group_member_ids", "membership_group_member_ids.group_id")
@@ -24,6 +31,13 @@ class ResPartner(models.Model):
                 "group_id"
             )
             partner.membership_group_ids_count = len(partner.membership_group_ids)
+
+    @api.depends("membership_group_ids", "membership_group_ids.voting_group")
+    def _compute_member_can_vote(self):
+        for partner in self:
+            partner.member_can_vote = bool(
+                partner.membership_group_ids.filtered("voting_group")
+            )
 
     def action_open_membership_group_view(self):
         action_name = "membership_group.membership_group_action"

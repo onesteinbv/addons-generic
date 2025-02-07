@@ -3,7 +3,7 @@
 {
     "name": "Membership Group",
     "category": "Membership",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "author": "Onestein, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://www.onestein.nl",
@@ -12,12 +12,19 @@
         "membership",
     ],
     "data": [
+        "data/ir_cron_data.xml",
         "security/ir.model.access.csv",
         "views/membership_group_member_view.xml",
         "views/membership_group_view.xml",
         "views/res_partner_view.xml",
+        "wizard/membership_vote_history_view.xml",
         "menuitems.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "membership_group/static/src/views/**/*",
+        ],
+    },
     "demo": [
         "data/membership_group_demo.xml",
         "data/res_partner_demo.xml",

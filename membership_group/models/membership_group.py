@@ -1,4 +1,5 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class MembershipGroup(models.Model):
@@ -28,24 +29,45 @@ class MembershipGroup(models.Model):
     )
     partner_ids_count = fields.Integer("# of Members", compute="_compute_partner_ids")
 
+    termination_cycle = fields.Boolean(
+        help="""
+            Members from a group with a termination cycle will be
+            removed from the group on the termination date",
+            """,
+    )
+    next_termination_date = fields.Date(
+        help="Next termination date for members of this group",
+    )
+    voting_group = fields.Boolean(copy=False)
+
+    @api.constrains("voting_group")
+    def _check_voting_group(self):
+        """Only allow one voting group"""
+        if voting_groups := self.search([("voting_group", "=", True)]):
+            if not voting_groups or len(voting_groups) == 1:
+                return
+            raise ValidationError(_("Only one voting group is allowed"))
+
     @api.depends("name", "parent_id.complete_name")
     def _compute_complete_name(self):
         for group in self:
             if group.parent_id:
-                group.complete_name = "%s / %s" % (
-                    group.parent_id.complete_name,
-                    group.name,
-                )
+                group.complete_name = f"{group.parent_id.complete_name} / {group.name}"
             else:
                 group.complete_name = group.name
 
     @api.depends(
-        "membership_group_member_ids", "membership_group_member_ids.partner_id"
+        "membership_group_member_ids",
+        "membership_group_member_ids.partner_id",
     )
     def _compute_partner_ids(self):
         for group in self:
             group.partner_ids = group.membership_group_member_ids.mapped("partner_id")
             group.partner_ids_count = len(group.partner_ids)
+
+    def _has_termination_cycle(self):
+        self.ensure_one()
+        return bool(self.termination_cycle and self.next_termination_date)
 
     def action_open_partner_view(self):
         action_name = "membership.action_membership_members"

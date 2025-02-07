@@ -1,14 +1,34 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
     <record id="membership_group_member_view_tree" model="ir.ui.view">
         <field name="model">membership.group.member</field>
         <field name="arch" type="xml">
             <tree editable="bottom">
+                <field name="active" invisible="1" />
                 <field name="partner_id" />
                 <field name="group_id" />
+                <field name="date_from" optional="show" />
+                <field name="date_to" optional="show" />
+                <field name="date_end" optional="show" />
+                <field name="type" optional="show" />
+                <field name="wants_to_collaborate" optional="hide" />
+                <button type="object" name="action_revoke_membership" string="Revoke"
+                    icon="fa-trash" attrs="{'invisible': [('active','=', False)]}" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_membership_group_member_tree_voting" model="ir.ui.view">
+        <field name="name">membership.group.member.tree.voting</field>
+        <field name="model">membership.group.member</field>
+        <field name="arch" type="xml">
+            <tree import="0" js_class="membership_report_list">
+                <field name="partner_id" />
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="date_end" />
                 <field name="type" />
-                <field name="wants_to_collaborate" />
             </tree>
         </field>
     </record>
@@ -17,32 +37,65 @@
         <field name="model">membership.group.member</field>
         <field name="arch" type="xml">
             <pivot string="Membership Group Members" disable_linking="True">
-                <field name="partner_id" type="row"/>
-                <field name="group_id" type="row"/>
-                <field name="type" type="col"/>
+                <field name="partner_id" type="row" />
+                <field name="group_id" type="row" />
+                <field name="type" type="col" />
             </pivot>
         </field>
     </record>
 
-     <record id="membership_group_member_view_search" model="ir.ui.view">
+    <record id="membership_group_member_view_search" model="ir.ui.view">
         <field name="model">membership.group.member</field>
         <field name="arch" type="xml">
             <search>
                 <field name="partner_id" />
                 <field name="group_id" />
                 <field name="type" />
+                <filter name="show_collaborators" string="Want to Collaborate"
+                    domain="[('wants_to_collaborate', '=', True)]" />
+                <separator />
                 <group expand="0" name="claims" string="Group By">
-                    <filter string="Partner" name="partner_id" domain="[]" help="Partner" context="{'group_by':'partner_id'}" />
-                    <filter string="Group" name="group_id" domain="[]" help="Group" context="{'group_by':'group_id'}" />
-                    <filter string="Type" name="type" domain="[]" help="Group" context="{'group_by':'type'}" />
+                    <filter string="Partner" name="groupby_partner_id" domain="[]" help="Partner"
+                        context="{'group_by':'partner_id'}" />
+                    <filter string="Group" name="groupby_group_id" domain="[]" help="Group"
+                        context="{'group_by':'group_id'}" />
+                    <filter string="Type" name="groupby_type" domain="[]" help="Group"
+                        context="{'group_by':'type'}" />
                 </group>
             </search>
         </field>
     </record>
 
     <record id="action_membership_group_member" model="ir.actions.act_window">
-        <field name="name">Membership Group Members</field>
+        <field name="name">Current Members</field>
         <field name="res_model">membership.group.member</field>
         <field name="view_mode">tree,pivot</field>
     </record>
+
+    <record id="action_membership_group_future_member" model="ir.actions.act_window">
+        <field name="name">Future Members</field>
+        <field name="res_model">membership.group.member</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="context">{'active_test': False, 'create': False, 'edit': False}</field>
+        <field name="domain">[('active', '=', False), ('date_from', '&gt;',
+            context_today().strftime('%Y-%m-%d'))]</field>
+    </record>
+
+    <record id="action_membership_group_past_member" model="ir.actions.act_window">
+        <field name="name">Past Members</field>
+        <field name="res_model">membership.group.member</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="context">{'active_test': False, 'create': False, 'edit': False}</field>
+        <field name="domain">[('active', '=', False), ('date_end', '!=', False)]</field>
+    </record>
+
+    <record id="action_membership_group_voting_member" model="ir.actions.act_window">
+        <field name="name">Voting Members</field>
+        <field name="res_model">membership.group.member</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_membership_group_member_tree_voting" />
+        <field name="domain">[('vote_right', '=', True)]</field>
+        <field name="context">{'create': False, 'edit': False}</field>
+    </record>
+
 </odoo>

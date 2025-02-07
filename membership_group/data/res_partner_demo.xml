@@ -30,7 +30,39 @@
             <field name="membership_group_member_ids" eval="[
                     (5, 0),
                     (0, 0, {'group_id': ref('membership_group.demo_membership_group_2')}),
-                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_3')})
+                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_3')}),
+                    (0, 0, {'group_id': ref('membership_group.demo_membership_vote_group')})
+                ]"
+            />
+        </record>
+
+        <record id="demo_member_4" model="res.partner">
+            <field name="name">Jon Jones</field>
+            <field name="free_member" eval="True" />
+            <field name="membership_group_member_ids" eval="[
+                    (5, 0),
+                    (0, 0, {
+                               'date_from':'2024-07-01',
+                               'group_id': ref('membership_group.demo_membership_vote_group'),
+                           }
+                    ),
+                ]"
+            />
+        </record>
+
+        <record id="demo_member_5" model="res.partner">
+            <field name="name">Johnny Rambo</field>
+            <field name="free_member" eval="True" />
+            <field name="membership_group_member_ids" eval="[
+                    (5, 0),
+                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_2')}),
+                    (0, 0, {
+                               'active': False,
+                               'date_from':'2024-05-01',
+                               'date_end': '2025-03-31',
+                               'group_id': ref('membership_group.demo_membership_vote_group'),
+                           }
+                    ),
                 ]"
             />
         </record>
