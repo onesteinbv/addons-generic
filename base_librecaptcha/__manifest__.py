@@ -4,10 +4,14 @@
     "author": "Onestein",
     "website": "https://www.onestein.nl",
     "category": "Tools",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "license": "AGPL-3",
     "depends": ["base", "portal"],
     "external_dependencies": {"python": ["requests"]},
-    "data": ["data/ir_config_parameters_data.xml", "templates/captcha.xml"],
+    "data": [
+        "templates/captcha.xml",
+        "templates/auth_signup_login_templates.xml",
+        "views/res_config_settings_views.xml",
+    ],
     "assets": {"web.assets_frontend": ["base_librecaptcha/static/src/js/captcha.js"]},
 }
