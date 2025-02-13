@@ -1,0 +1,17 @@
+<odoo>
+    <record id="helpdesk_ticket_view_search" model="ir.ui.view">
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.helpdesk_ticket_view_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='high_priority']" position="replace">
+                <separator />
+                <filter string="Priority Not Set" name="no_priority" domain="[('priority', '=', 0)]"/>
+                <filter string="Low Priority" name="low_priority" domain="[('priority', '=', 1)]"/>
+                <filter string="Medium Priority" name="medium_priority" domain="[('priority', '=', 2)]"/>
+                <filter string="High Priority" name="high_priority" domain="[('priority', '=', 3)]"/>
+                <filter string="Critical Priority" name="critical_priority" domain="[('priority', '=', 4)]"/>
+                <filter string="Blocker Priority" name="blocker_priority" domain="[('priority', '=', 5)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
