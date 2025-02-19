@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "category": "After-Sales",
     "author": "Onestein BV",
-    "website": "https://www.onestein.eu",
+    "website": "https://www.onestein.nl",
     "depends": ["helpdesk_mgmt"],
     "data": [
         "security/mail_security.xml",
