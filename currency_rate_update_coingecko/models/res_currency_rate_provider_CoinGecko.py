@@ -46,7 +46,7 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
         while current_date <= date_to:
             content[current_date] = {}
             for (
-                    currency
+                currency
             ) in self.currency_ids.res_currency_rate_provider_mapping_ids.filtered(
                 lambda rpm: rpm.provider_service == self.service
             ):
@@ -68,11 +68,11 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
                         body=_(
                             'Currency Rate Provider "%(name)s" failed to obtain data(check the rate provider mapping on the currency) :\n%(error)s'
                         )
-                             % {
-                                 "name": self.name,
-                                 "currency": currency.currency_id.name,
-                                 "error": str(e) if e else _("N/A"),
-                             },
+                        % {
+                            "name": self.name,
+                            "currency": currency.currency_id.name,
+                            "error": str(e) if e else _("N/A"),
+                        },
                     )
                     continue
                 if coin_data:
@@ -82,6 +82,8 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
                         .get(base_currency.lower(), 0)
                     )
                     if rate:
-                        content[current_date].update({currency.currency_id.name: 1 / rate})
+                        content[current_date].update(
+                            {currency.currency_id.name: 1 / rate}
+                        )
             current_date += timedelta(days=1)
         return content

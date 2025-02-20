@@ -1,0 +1,967 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="account_tag_skr49_001" model="account.account.tag">
+    <field name="name">Ideeller Bereich</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_002" model="account.account.tag">
+    <field name="name">Vermögensverwaltung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_003" model="account.account.tag">
+    <field name="name">Zweckbetriebe Sport 1</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_004" model="account.account.tag">
+    <field name="name">Zweckbetriebe Sport 2</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_005" model="account.account.tag">
+    <field name="name">Sonstige Zweckbetriebe 1 (UST-Pflichtig)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_006" model="account.account.tag">
+    <field name="name">Sonstige Zweckbetriebe 2 (UST-Frei)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_007" model="account.account.tag">
+    <field name="name">Geschäftsbetriebe Sport (UST-Pflichtig)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_008" model="account.account.tag">
+    <field name="name">Geschäftsbetriebe Nebentätigkeiten Sport</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_009" model="account.account.tag">
+    <field name="name">Sonstige Geschäftsbetriebe 1</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_010" model="account.account.tag">
+    <field name="name">Sonstige Geschäftsbetriebe 2</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_011" model="account.account.tag">
+    <field name="name">Ertragsteuerpflichtig gewordene Zweckbetriebe</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_012" model="account.account.tag">
+    <field name="name">Immaterielle Vermögensgegenstände</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_013" model="account.account.tag">
+    <field name="name">Sachanlagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_014" model="account.account.tag">
+    <field name="name">Andere Anlagen, Betriebs- und Geschäftsausstattung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_015" model="account.account.tag">
+    <field name="name">Finanzanlagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_016" model="account.account.tag">
+    <field name="name">Vorräte</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_017" model="account.account.tag">
+    <field name="name">Forderungen, sonstige Vermögensgegenstände</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_018" model="account.account.tag">
+    <field name="name">Wertpapiere</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_019" model="account.account.tag">
+    <field name="name">Liquide Mittel</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_020" model="account.account.tag">
+    <field name="name">Gewinnrücklagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_021" model="account.account.tag">
+    <field name="name">Ergebnisvorträge</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_022" model="account.account.tag">
+    <field name="name">Stiftungskapital (nur Stiftungen)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_023" model="account.account.tag">
+    <field name="name">Umschichtungsergebnisse</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_024" model="account.account.tag">
+    <field name="name">Ergebnisrücklagen (nur Stiftungen)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_025" model="account.account.tag">
+    <field name="name">Gezeichnetes Kapital</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_026" model="account.account.tag">
+    <field name="name">Kapitalrücklage (GmbH und Stiftung)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_027" model="account.account.tag">
+    <field name="name">Gewinnrücklagen (nur GmbH)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_028" model="account.account.tag">
+    <field name="name">Jahresüberschuss/-fehlbetrag</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_029" model="account.account.tag">
+    <field name="name">Sonderposten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_030" model="account.account.tag">
+    <field name="name">Rückstellungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_031" model="account.account.tag">
+    <field name="name">Förderungsverpflichtungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_032" model="account.account.tag">
+    <field name="name">Verbindlichkeiten aus Lieferungen und Leistungen oder sonstige Vermögensgegenstände</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_033" model="account.account.tag">
+    <field name="name">Nicht anzusetzende Ausgaben</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_034" model="account.account.tag">
+    <field name="name">Ideeller Bereich</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_035" model="account.account.tag">
+    <field name="name">Vermögensverwaltung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_036" model="account.account.tag">
+    <field name="name">Zweckbetriebe Sport</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_037" model="account.account.tag">
+    <field name="name">Sonstige Zweckbetriebe</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_038" model="account.account.tag">
+    <field name="name">Geschäftsbetriebe Sport</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_039" model="account.account.tag">
+    <field name="name">Sonstige wirtschaftliche Geschäftsbetriebe</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_040" model="account.account.tag">
+    <field name="name">Für alle gemeinnützigen Körperschaften</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_041" model="account.account.tag">
+    <field name="name">Zusätzlich für GmbHs und Stiftungen:</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_042" model="account.account.tag">
+    <field name="name">Zusätzlich für Stiftungen:</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_043" model="account.account.tag">
+    <field name="name">Zusätzlich für gemeinnützige GmbHs:</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_044" model="account.account.tag">
+    <field name="name">Zusätzlich für Vereine:</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_045" model="account.account.tag">
+    <field name="name">Einnahmen GV</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_046" model="account.account.tag">
+    <field name="name">Einnahmen NGV</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_047" model="account.account.tag">
+    <field name="name">Ausgaben / Werbungskosten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_048" model="account.account.tag">
+    <field name="name">Personalaufwand</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_049" model="account.account.tag">
+    <field name="name">Umsatzerlöse</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_050" model="account.account.tag">
+    <field name="name">Sonstige betriebliche Erträge</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_051" model="account.account.tag">
+    <field name="name">Materialaufwand</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_052" model="account.account.tag">
+    <field name="name">Abschreibungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_053" model="account.account.tag">
+    <field name="name">Sonstige betriebliche Aufwendungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_054" model="account.account.tag">
+    <field name="name">Statistische Konten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_055" model="account.account.tag">
+    <field name="name">Statistische Konten für die Kapitalflussrechnung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_056" model="account.account.tag">
+    <field name="name">Statistische Konten für in der Bilanz Auszuweisende Haftungsverhältnisse</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_057" model="account.account.tag">
+    <field name="name">Statistische Konten für die im Anhang anzugebenden sonstigen finaziellen Verpflichtungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_058" model="account.account.tag">
+    <field name="name">Unterscheidsbetrag aus der Abzinsung von Altersversorgungsverpflichtungen nach ⌡ 253 Abs. 6 HGB</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_059" model="account.account.tag">
+    <field name="name">Statistische Konten für Gewinnzuschlag</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_060" model="account.account.tag">
+    <field name="name">Statistische Werte für Anlage EÜR</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_061" model="account.account.tag">
+    <field name="name">Statistische Werte für BWA</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_062" model="account.account.tag">
+    <field name="name">Ergebnisvorträge des laufenden jahres</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_063" model="account.account.tag">
+    <field name="name">Statistische Konten für den außerhalb der Bilanz zu berücksichtigenden Investitionsabzugsbetrag nach ⌡ 7g EStG</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_064" model="account.account.tag">
+    <field name="name">Statistische Konten für außergewöhnliche und aperiodische Geschäftsvorfälle für Anhangsangabe nach ⌡ 285 Nr. 31 und Nr. 32 HGB</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_065" model="account.account.tag">
+    <field name="name">Entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_066" model="account.account.tag">
+    <field name="name">Geschäfts- oder Firmenwert</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_067" model="account.account.tag">
+    <field name="name">Geleistete Anzahlungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_068" model="account.account.tag">
+    <field name="name">Grundstücke, Grundstücksgleiche Rechte und Bauten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_069" model="account.account.tag">
+    <field name="name">Gebäude</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_070" model="account.account.tag">
+    <field name="name">Technische Anlagen und Maschinen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_071" model="account.account.tag">
+    <field name="name">Fahrzeuge, Transportmittel</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_072" model="account.account.tag">
+    <field name="name">Vereinsausstattung/Sonstige Anlagen und Ausstattung (Stiftung/GmbH)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_073" model="account.account.tag">
+    <field name="name">Sonstige Anlagen und Ausstattung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_074" model="account.account.tag">
+    <field name="name">Geleistete Anzahlungen, Anlagen im Bau</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_075" model="account.account.tag">
+    <field name="name">Anteile an verbundenen Unternehmen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_076" model="account.account.tag">
+    <field name="name">Ausleihungen an verbundene Unternehmen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_077" model="account.account.tag">
+    <field name="name">Beteiligungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_078" model="account.account.tag">
+    <field name="name">Ausleihungen an Unternehmen, mit denen ein Beteiligungsverhältnis besteht</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_079" model="account.account.tag">
+    <field name="name">Wertpapiere des Anlagevermögens</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_080" model="account.account.tag">
+    <field name="name">Sonstige Ausleihungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_081" model="account.account.tag">
+    <field name="name">Roh-, Hilfs- und Betriebsstoffe</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_082" model="account.account.tag">
+    <field name="name">Unfertige Erzeugnisse, Leistungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_083" model="account.account.tag">
+    <field name="name">Fertige Erzeugnisse, Waren</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_084" model="account.account.tag">
+    <field name="name">Erhaltene Anzahlungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_085" model="account.account.tag">
+    <field name="name">Eingeforderte, noch ausstehende Kapitaleinlagen (gGmbH/Stiftung)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_086" model="account.account.tag">
+    <field name="name">Eingeforderte Nachschüsse (gGmbH)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_087" model="account.account.tag">
+    <field name="name">Forderungen aus Lieferungen und Leistungen oder sonstige Verbindlichkeiten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_088" model="account.account.tag">
+    <field name="name">Forderungen aus Lieferungen und Leistungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_089" model="account.account.tag">
+    <field name="name">Forderungen gegen verbundene Unternehmen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_090" model="account.account.tag">
+    <field name="name">Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_091" model="account.account.tag">
+    <field name="name">Forderungen gegen verbundene Unternehmen oder Verbindlichkeiten gegenüber verbundenen Unternehmen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_092" model="account.account.tag">
+    <field name="name">Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht oder Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_093" model="account.account.tag">
+    <field name="name">Sonstige Vermögensgegenstände</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_094" model="account.account.tag">
+    <field name="name">Sonstige Vermögensgegenstände oder sonstige Verbindlichkeiten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_095" model="account.account.tag">
+    <field name="name">Sonstige Verbindlichkeiten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_096" model="account.account.tag">
+    <field name="name">Saldo USt-Konten (nur Überschussrechner)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_097" model="account.account.tag">
+    <field name="name">Sonstige Vermögensgegenstände oder sonstige Verbindlichkeiten (Überschussrechner - keine Zuordnung)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_098" model="account.account.tag">
+    <field name="name">Sonstige Vermögensgegenstände (Überschussrechner - keine Zuordnung)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_099" model="account.account.tag">
+    <field name="name">Sonstige Vermögensgegenstände oder sonstige Verbindlichkeiten (Saldo USt-Konten - Überschussrechner)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_100" model="account.account.tag">
+    <field name="name">Sonstige Vermögensgegenstände oder sonstige Verbindlichkeiten (Saldo USt-Konten -Überschussrechner)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_101" model="account.account.tag">
+    <field name="name">Sonstige Wertpapiere</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_102" model="account.account.tag">
+    <field name="name">Kasse, Bank</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_103" model="account.account.tag">
+    <field name="name">Kasse, Bank oder Verbindlichkeiten gegenüber Kreditinstituten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_104" model="account.account.tag">
+    <field name="name">Rechnungsabgrenzungsposten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_105" model="account.account.tag">
+    <field name="name">Gebundene Rücklagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_106" model="account.account.tag">
+    <field name="name">Freie Rücklagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_107" model="account.account.tag">
+    <field name="name">Sonstige Rücklagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_108" model="account.account.tag">
+    <field name="name">Ergebnisvortrag allgemein</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_109" model="account.account.tag">
+    <field name="name">Vortrag ideeller Bereich</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_110" model="account.account.tag">
+    <field name="name">Vortrag Vermögensverwaltung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_111" model="account.account.tag">
+    <field name="name">Vortrag Zweckbetriebe Sport</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_112" model="account.account.tag">
+    <field name="name">Vortrag sonstige Zweckbetriebe</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_113" model="account.account.tag">
+    <field name="name">Vortrag Geschäftsbetriebe Sport</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_114" model="account.account.tag">
+    <field name="name">Vortrag sonstige Geschäftsbetriebe</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_115" model="account.account.tag">
+    <field name="name">Nutzungsgebundenes Kapital</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_116" model="account.account.tag">
+    <field name="name">Errichtungskapital</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_117" model="account.account.tag">
+    <field name="name">Zustiftungskapital</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_118" model="account.account.tag">
+    <field name="name">Zuführung aus Ergebnisrücklagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_119" model="account.account.tag">
+    <field name="name">Ergebnisse Vermögensumschichtung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_120" model="account.account.tag">
+    <field name="name">Kapitalerhaltungsrücklage</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_121" model="account.account.tag">
+    <field name="name">Ansparrücklage</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_122" model="account.account.tag">
+    <field name="name">Sonstige Ergebnisrücklagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_123" model="account.account.tag">
+    <field name="name">Ergebnisvortrag</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_124" model="account.account.tag">
+    <field name="name">Gezeichnetes Kapital (nur GmbH)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_125" model="account.account.tag">
+    <field name="name">Nicht eingeforderte ausstehende Einlagen (GmbH und Stiftung)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_126" model="account.account.tag">
+    <field name="name">Kapitalrücklage</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_127" model="account.account.tag">
+    <field name="name">Gesetzliche Rücklage</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_128" model="account.account.tag">
+    <field name="name">Satzungsmäßige Rücklagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_129" model="account.account.tag">
+    <field name="name">Andere Gewinnrücklagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_130" model="account.account.tag">
+    <field name="name">Gewinn-/Verlustvortrag</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_131" model="account.account.tag">
+    <field name="name">Vereinskapital/Sonstige nicht zeitnah zu verwendende Mittel (Stiftung/GmbH)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_132" model="account.account.tag">
+    <field name="name">Sonderposten mit Rücklageanteil</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_133" model="account.account.tag">
+    <field name="name">Längerfristig gebundene Spenden</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_134" model="account.account.tag">
+    <field name="name">Noch nicht satzungsgemäß verwendete Spenden</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_135" model="account.account.tag">
+    <field name="name">Pensionsrückstellungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_136" model="account.account.tag">
+    <field name="name">Steuerrückstellungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_137" model="account.account.tag">
+    <field name="name">Sonstige Rückstellungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_138" model="account.account.tag">
+    <field name="name">Bewilligungen (nur Stiftungen)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_139" model="account.account.tag">
+    <field name="name">Rückgängig gemachte Bewilligungen (nur Stiftungen)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_140" model="account.account.tag">
+    <field name="name">Anleihen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_141" model="account.account.tag">
+    <field name="name">Erhaltene Anzahlungen auf Bestellungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_142" model="account.account.tag">
+    <field name="name">Verbindlichkeiten aus Lieferungen und Leistungen gegenüber Gesellschaftern</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_143" model="account.account.tag">
+    <field name="name">Verbindlichkeiten aus Lieferungen und Leistungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_144" model="account.account.tag">
+    <field name="name">Verbindlichkeiten Investitionen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_145" model="account.account.tag">
+    <field name="name">Verbindlichkeiten aus Lieferungen und Leistungen ohne Kontokorrent </field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_146" model="account.account.tag">
+    <field name="name">Verbindlichkeiten aus Wechseln</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_147" model="account.account.tag">
+    <field name="name">Verbindlichkeiten gegenüber verbundenen Unternehmen oder Forderungen gegen verbundene Unternehmen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_148" model="account.account.tag">
+    <field name="name">Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht oder Forderungen gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_149" model="account.account.tag">
+    <field name="name">Verbindlichkeiten für satzungsgemäße Leistungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_150" model="account.account.tag">
+    <field name="name">Verbindlichkeiten aus erteilten Zusagen (nur Stiftungen)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_151" model="account.account.tag">
+    <field name="name">Verbindlichkeiten aus nicht zweckentsprechend verwendeten Mitteln</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_152" model="account.account.tag">
+    <field name="name">Verbindlichkeiten aus bedingt rückzahlungspflichtigen Spenden</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_153" model="account.account.tag">
+    <field name="name">Verbindlichkeiten gegenüber Kreditinstituten oder Kasse, Bank</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_154" model="account.account.tag">
+    <field name="name">Verbindlichkeiten gegenüber Kreditinstituten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_155" model="account.account.tag">
+    <field name="name">Sonstige Verbindlichkeiten oder sonstige Vermögensgegenstände</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_156" model="account.account.tag">
+    <field name="name">Sonstige Verbindlichkeiten oder sonstige Vermögensgegenstände (Saldo USt-Konten - Überschussrechner)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_157" model="account.account.tag">
+    <field name="name">Sonstige Verbindlichkeiten (Saldo USt-Konten - Überschussrechner)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_158" model="account.account.tag">
+    <field name="name">Steuerrückstellungen oder sonstige Vermögensgegenstände (Überschussrechner - keine Zuordnung)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_159" model="account.account.tag">
+    <field name="name">Sonstige Verbindlichkeiten (Überschussrechner - keine Zuordnung)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_160" model="account.account.tag">
+    <field name="name">Sonstige Verbindlichkeiten oder sonstige Vermögensgegenstände (Überschussrechner - keine Zuordnung)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_161" model="account.account.tag">
+    <field name="name">Sonstige nicht steuerbare Einnahmen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_162" model="account.account.tag">
+    <field name="name">Mitgliedsbeiträge</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_163" model="account.account.tag">
+    <field name="name">Aufnahmegebühren</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_164" model="account.account.tag">
+    <field name="name">Zuschüsse</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_165" model="account.account.tag">
+    <field name="name">Abschreibungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_166" model="account.account.tag">
+    <field name="name">Übrige Ausgaben</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_167" model="account.account.tag">
+    <field name="name">Personalkosten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_168" model="account.account.tag">
+    <field name="name">Reisekosten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_169" model="account.account.tag">
+    <field name="name">Raumkosten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_170" model="account.account.tag">
+    <field name="name">Sonstige steuerneutrale Einnahmen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_171" model="account.account.tag">
+    <field name="name">Schenkungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_172" model="account.account.tag">
+    <field name="name">Erbschaften/Vermächtnisse</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_173" model="account.account.tag">
+    <field name="name">Spenden</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_174" model="account.account.tag">
+    <field name="name">Sonstige nicht abziehbare Ausgaben</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_175" model="account.account.tag">
+    <field name="name">Gezahlte/hingegebene Spenden</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_176" model="account.account.tag">
+    <field name="name">Steuerneutrale Einnahmen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_177" model="account.account.tag">
+    <field name="name">Nicht abziehbare Ausgaben</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_178" model="account.account.tag">
+    <field name="name">Ergebnisverwendung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_179" model="account.account.tag">
+    <field name="name">Sonstige ertragsteuerfreie Einnahmen gemeinnütziger Vereine (gV)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_180" model="account.account.tag">
+    <field name="name">Miet- und Pachterträge (gV)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_181" model="account.account.tag">
+    <field name="name">Zins- und Kurserträge (gV)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_182" model="account.account.tag">
+    <field name="name">Erträge Werbung (gV)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_183" model="account.account.tag">
+    <field name="name">Sonstige ertragsteuerpflichtige Einnahmen nicht gemeinnütziger Vereine (ngV)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_184" model="account.account.tag">
+    <field name="name">Miet- und Pachterträge (ngV)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_185" model="account.account.tag">
+    <field name="name">Zins- und Kurserträge (ngV)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_186" model="account.account.tag">
+    <field name="name">Sonstige Ausgaben</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_187" model="account.account.tag">
+    <field name="name">Löhne und Gehälter</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_188" model="account.account.tag">
+    <field name="name">Soziale Abgaben</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_189" model="account.account.tag">
+    <field name="name">aus Eintrittsgeldern</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_190" model="account.account.tag">
+    <field name="name">aus Sportreisen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_191" model="account.account.tag">
+    <field name="name">aus sonstigen sportlichen Veranstaltungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_192" model="account.account.tag">
+    <field name="name">aus Leistungen an Mitglieder</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_193" model="account.account.tag">
+    <field name="name">aus veranstaltungsgebundenen Zuschüssen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_194" model="account.account.tag">
+    <field name="name">aus Sonstigem</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_195" model="account.account.tag">
+    <field name="name">Umsatzerlöse aus Sonstigem</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_196" model="account.account.tag">
+    <field name="name">Sonstige betriebliche Erträge</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_197" model="account.account.tag">
+    <field name="name">Aufwendungen für RHB/bezogene Waren</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_198" model="account.account.tag">
+    <field name="name">Aufwendungen für bezogene Leistungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_199" model="account.account.tag">
+    <field name="name">Immaterielle Vermögensgegenstände und Sachanlagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_200" model="account.account.tag">
+    <field name="name">Sonstige Kosten Zweckbetrieb Sport</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_201" model="account.account.tag">
+    <field name="name">Umlaufvermögen, unüblich hoch</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_202" model="account.account.tag">
+    <field name="name">Entschädigungen, Sportveranstaltungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_203" model="account.account.tag">
+    <field name="name">Kosten der Sportanlagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_204" model="account.account.tag">
+    <field name="name">Allgemeine Kosten des Sportbetriebs</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_205" model="account.account.tag">
+    <field name="name">Betriebskosten Fahrzeuge, Transportmittel</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_206" model="account.account.tag">
+    <field name="name">Betriebskosten Ausstattung, Sportgeräte</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_207" model="account.account.tag">
+    <field name="name">aus Sportunterricht (⌡ 4 Nr. 22a UStG)</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_208" model="account.account.tag">
+    <field name="name">aus Teilnehmergebühren</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_209" model="account.account.tag">
+    <field name="name">aus Sportunterricht Jugendhilfe</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_210" model="account.account.tag">
+    <field name="name">aus sportlichen Veranstaltungen Jugendhilfe</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_211" model="account.account.tag">
+    <field name="name">Aufwendungen für Roh-, Hilfs- und Betriebsstoffe/bezogene Waren</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_212" model="account.account.tag">
+    <field name="name">Sonstoge Kosten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_213" model="account.account.tag">
+    <field name="name">Sportunterricht</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_214" model="account.account.tag">
+    <field name="name">Darbietungen Jugendlicher und Erwachsener</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_215" model="account.account.tag">
+    <field name="name">Sonstige Kosten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_216" model="account.account.tag">
+    <field name="name">Ergebnisumbuchung nach 8980</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_217" model="account.account.tag">
+    <field name="name">Umsatzerlöse</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_218" model="account.account.tag">
+    <field name="name">Bestandsveränderung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_219" model="account.account.tag">
+    <field name="name">Andere aktivierte Eigenleistungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_220" model="account.account.tag">
+    <field name="name">Einnahmen aus Umsatzerlösen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_221" model="account.account.tag">
+    <field name="name">Sonstige betriebliche Aufwendungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_222" model="account.account.tag">
+    <field name="name">Zinsen und ähnliche Aufwendungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_223" model="account.account.tag">
+    <field name="name">Sonstige Steuern</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_224" model="account.account.tag">
+    <field name="name">Umsatzerlöse aus bezahltem Sport</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_225" model="account.account.tag">
+    <field name="name">Umsatzerlöseaus Fußball mit Lizenzspielern</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_226" model="account.account.tag">
+    <field name="name">Veranstaltungsabhängige Kosten</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_227" model="account.account.tag">
+    <field name="name">Sonstige Steuern, Abgaben</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_228" model="account.account.tag">
+    <field name="name">Kommerzielle Werbung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_229" model="account.account.tag">
+    <field name="name">Kurzfristige Vermietung von Sportstätten an Nichtmitglieder</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_230" model="account.account.tag">
+    <field name="name">Sonstiges</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_231" model="account.account.tag">
+    <field name="name">Ausgaben für Werbung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_232" model="account.account.tag">
+    <field name="name">Ausgaben zur Sportstättenvermietung</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_233" model="account.account.tag">
+    <field name="name">Sonstige Zinsen und ähnliche Einnahmen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_234" model="account.account.tag">
+    <field name="name">Ausgaben für Roh-, Hilfs- und Betriebsstoffe und für bezogene Waren</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_235" model="account.account.tag">
+    <field name="name">Erträge aus Beteiligungen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_236" model="account.account.tag">
+    <field name="name">Erträge aus anderen Wertpapieren</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_237" model="account.account.tag">
+    <field name="name">Sonstige Zinsen und ähnliche Erträge</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_238" model="account.account.tag">
+    <field name="name">Abschreibungen auf Finanzanlagen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_239" model="account.account.tag">
+    <field name="name">Erträge/Einnahmen</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_240" model="account.account.tag">
+    <field name="name">Aufwendungen/Ausgaben</field>
+    <field name="applicability">accounts</field>
+  </record>
+  <record id="account_tag_skr49_241" model="account.account.tag">
+    <field name="name">Steuerrechtlicher Ausgleichsposten (Bilanzierer)</field>
+    <field name="applicability">accounts</field>
+  </record>
+</odoo>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- ust Codes -->
+        <!-- Purchases + Input ust -->
+
+        <record id="tax_export_skr49" model="account.tax.template">
+            <field name="sequence">22</field>
+            <field name="chart_template_id" ref="l10n_chart_de_skr49"/>
+            <field name="name">Steuerfreie Ausfuhr (§4 Nr. 1a UStG)</field>
+            <field name="description">steuerfreie Ausfuhr</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">0</field>
+            <field name="type_tax_use">sale</field>
+            <field name="price_include">False</field>
+            <field name="active">True</field>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                    'plus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_43_tag')],
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_1840'),
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                    'minus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_43_tag')],
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_1840'),
+                }),
+            ]"/>
+            <field name="tax_group_id" ref="tax_group_0"/>
+        </record>
+        <record id="tax_not_taxable_skr49" model="account.tax.template">
+            <field name="sequence">20</field>
+            <field name="chart_template_id" ref="l10n_chart_de_skr49"/>
+            <field name="name">nicht steuerbare Umsätze</field>
+            <field name="description">nicht steuerbare Umsätze</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">0</field>
+            <field name="type_tax_use">sale</field>
+            <field name="price_include">False</field>
+            <field name="active">True</field>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                    'plus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_45_tag')],
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_1840'),
+                }),
+
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                    'minus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_45_tag')],
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_1840'),
+                }),
+
+            ]"/>
+            <field name="tax_group_id" ref="tax_group_0"/>
+        </record>
+        <record id="tax_ust_19_skr49" model="account.tax.template">
+            <field name="sequence">10</field>
+            <field name="chart_template_id" ref="l10n_chart_de_skr49"/>
+            <field name="name">19% Umsatzsteuer</field>
+            <field name="description">19% USt</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">19</field>
+            <field name="l10n_de_datev_code">13</field>
+            <field name="type_tax_use">sale</field>
+            <field name="price_include">False</field>
+            <field name="active">True</field>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                    'plus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_81_tag')],
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_1850'),
+                    'plus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_26_tag')],
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                    'minus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_81_tag')],
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_1850'),
+                    'minus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_26_tag')],
+                }),
+            ]"/>
+            <field name="tax_group_id" ref="tax_group_19"/>
+        </record>
+        <record id="tax_ust_7_skr49" model="account.tax.template">
+            <field name="sequence">15</field>
+            <field name="chart_template_id" ref="l10n_chart_de_skr49"/>
+            <field name="name">7% Umsatzsteuer</field>
+            <field name="description">7% USt</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">7</field>
+            <field name="l10n_de_datev_code">12</field>
+            <field name="type_tax_use">sale</field>
+            <field name="price_include">False</field>
+            <field name="active">True</field>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                    'plus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_86_tag')],
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_1845'),
+                    'plus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_27_tag')]
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                    'minus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_86_tag')],
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_1845'),
+                    'minus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_27_tag')],
+                }),
+            ]"/>
+            <field name="tax_group_id" ref="tax_group_7"/>
+        </record>
+        <record id="tax_vst_19_skr49" model="account.tax.template">
+            <field name="sequence">10</field>
+            <field name="chart_template_id" ref="l10n_chart_de_skr49"/>
+            <field name="name">19% Vorsteuer</field>
+            <field name="description">19% VSt</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">19</field>
+            <field name="l10n_de_datev_code">19</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="price_include">False</field>
+            <field name="active">True</field>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_0835'),
+                    'minus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_66_tag')]
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_0835'),
+                    'plus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_66_tag')],
+                }),
+            ]"/>
+            <field name="tax_group_id" ref="tax_group_19"/>
+        </record>
+        <record id="tax_vst_7_skr49" model="account.tax.template">
+            <field name="sequence">15</field>
+            <field name="chart_template_id" ref="l10n_chart_de_skr49"/>
+            <field name="name">7% Vorsteuer</field>
+            <field name="description">7% VSt</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">7</field>
+            <field name="l10n_de_datev_code">18</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="price_include">False</field>
+            <field name="active">True</field>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_0830'),
+                    'minus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_66_tag')]
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('chart_skr49_0830'),
+                    'plus_report_expression_ids': [ref('l10n_de.tax_report_de_tag_66_tag')],
+                }),
+            ]"/>
+            <field name="tax_group_id" ref="tax_group_7"/>
+        </record>
+</odoo>
