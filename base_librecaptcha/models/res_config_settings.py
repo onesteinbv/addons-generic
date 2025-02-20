@@ -24,3 +24,6 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.librecaptcha_type",
         readonly=False,
     )
+    librecaptcha_valid_server = fields.Boolean(
+        related="company_id.librecaptcha_valid_server",
+    )

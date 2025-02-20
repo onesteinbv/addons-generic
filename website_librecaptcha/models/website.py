@@ -15,6 +15,10 @@ class Website(models.Model):
         readonly=False,
     )
     librecaptcha_url = fields.Char(related="company_id.librecaptcha_url")
+    librecaptcha_valid_server = fields.Boolean(
+        related="company_id.librecaptcha_valid_server"
+    )
+
     librecaptcha_level = fields.Selection(
         [
             ("easy", "Easy"),

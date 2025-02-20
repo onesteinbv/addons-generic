@@ -11,13 +11,19 @@
                         <field name="librecaptcha_enabled" />
                     </div>
                     <div class="o_setting_right_pane" id="librecaptcha_settings">
-                        <label for="librecaptcha_enabled" />
+                        <label string="LibreCaptcha" for="librecaptcha_enabled" />
                         <div class="text-muted">
-                            Protect your forms from spam and abuse.
+                            Secure your forms with open source anti-spam protection.
                         </div>
                         <div class="content-group"
                             attrs="{'invisible': [('librecaptcha_enabled', '=', False)]}"
                             id="librecaptcha_settings_server">
+                            <div name="div_librecaptcha_url_invalid" class="mt16 row">
+                                <field name="librecaptcha_valid_server" invisible="1" />
+                                <div class="alert alert-danger col-12" role="alert" attrs="{'invisible': [('librecaptcha_valid_server', '=', True)]}">
+                                    <span>Invalid server please double check url</span>
+                                </div>
+                            </div>
                             <div name="div_librecaptcha_url" class="mt16 row">
                                 <label for="librecaptcha_url" string="Url"
                                     class="col-3 o_light_label" />

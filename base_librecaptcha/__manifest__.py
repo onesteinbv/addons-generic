@@ -9,6 +9,7 @@
     "depends": ["base", "portal"],
     "external_dependencies": {"python": ["requests"]},
     "data": [
+        "data/ir_cron_data.xml",
         "templates/captcha.xml",
         "templates/auth_signup_login_templates.xml",
         "views/res_config_settings_views.xml",

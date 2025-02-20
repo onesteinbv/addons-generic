@@ -76,7 +76,8 @@ class LibreCaptcha(models.AbstractModel):
         raise Exception(error)
 
     def is_enabled(self):
-        return self._get_config_record().librecaptcha_enabled
+        record = self._get_config_record()
+        return record.librecaptcha_enabled and record.librecaptcha_valid_server
 
     def _get_config_record(self):
         """method to be inherit to change the config record"""

@@ -40,6 +40,8 @@ class CaptchaAuthSignupHome(AuthSignupHome):
             return super().web_login(*args, **kw)
 
         if request.httprequest.method == "POST":
+            if request.session.uid:
+                return super().web_login(*args, **kw)
             try:
                 request.env["librecaptcha"].answer(
                     request.params.get("captcha_id"),

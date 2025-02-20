@@ -1,6 +1,6 @@
 {
     "name": "Website LibreCaptcha",
-    "summary": "Enable settings per webiste for LibreCaptcha",
+    "summary": "Enable settings per website for LibreCaptcha",
     "author": "Onestein",
     "website": "https://www.onestein.nl",
     "category": "Tools",
