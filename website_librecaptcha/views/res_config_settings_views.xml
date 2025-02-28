@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_librecaptcha.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div name="div_librecaptcha_level" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </div>
+            <div name="div_librecaptcha_media" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </div>
+            <div name="div_librecaptcha_type" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </div>
+        </field>
+    </record>
+
+    <record id="res_config_settings_view_form_website" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="20" />
+        <field name="inherit_id" ref="website.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='website_settings']" position="after">
+                <h2>LibreCaptcha</h2>
+                <div class="row mt16 o_settings_container" id="Librecaptcha_website_settings">
+                    <div class="col-12 col-lg-6 o_setting_box" id="librecaptcha">
+                        <div class="o_setting_left_pane">
+                            <field name="website_librecaptcha_enabled"
+                                attrs="{'readonly': [('librecaptcha_enabled', '=', False)]}" />
+                        </div>
+                        <div class="o_setting_right_pane" id="website_librecaptcha_settings">
+                            <label string="LibreCaptcha" for="website_librecaptcha_enabled" />
+                            <div class="text-muted">
+                                Secure your forms with open source anti-spam protection.
+                            </div>
+                            <div class="content-group"
+                                attrs="{'invisible': ['|', ('librecaptcha_enabled', '=', False), ('website_librecaptcha_enabled', '=', False)]}"
+                                id="website_librecaptcha_settings_server">
+                                <div name="div_librecaptcha_url_invalid" class="mt16 row">
+                                    <field name="librecaptcha_valid_server" invisible="1" />
+                                    <div class="alert alert-danger col-12" role="alert"
+                                        attrs="{'invisible': [('librecaptcha_valid_server', '=', True)]}">
+                                        <span>Invalid server please double check url</span>
+                                    </div>
+                                </div>
+                                <div name="div_librecaptcha_url" class="mt16 row">
+                                    <div class="text-muted">
+                                        LibreCaptcha Url is shared with company settings.
+                                    </div>
+                                    <label for="librecaptcha_url" string="Url"
+                                        class="col-3 o_light_label" />
+                                    <field name="librecaptcha_url"
+                                        attrs="{'required': [('website_librecaptcha_enabled', '!=', False)]}" />
+                                </div>
+                                <div name="div_librecaptcha_level" class="mt16 row">
+                                    <label for="website_librecaptcha_level" string="Level"
+                                        class="col-3 o_light_label" />
+                                    <field name="website_librecaptcha_level"
+                                        attrs="{'required': [('website_librecaptcha_enabled', '!=', False)]}" />
+                                </div>
+                                <div name="div_librecaptcha_media" class="mt16 row">
+                                    <label for="website_librecaptcha_media" string="Media"
+                                        class="col-3 o_light_label" />
+                                    <field name="website_librecaptcha_media"
+                                        attrs="{'required': [('website_librecaptcha_enabled', '!=', False)]}" />
+                                </div>
+                                <div name="div_librecaptcha_type" class="mt16 row">
+                                    <label for="website_librecaptcha_type" string="Type"
+                                        class="col-3 o_light_label" />
+                                    <field name="website_librecaptcha_type"
+                                        attrs="{'required': [('librecaptcha_enabled', '!=', False)]}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

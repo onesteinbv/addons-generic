@@ -14,16 +14,14 @@ class MainController(Controller):
         """Obscure that we're using librecaptcha and what server 🤫
         This we also can keep the lc server unexposed 🤩
         """
-        mimetype = (
-            request.env["ir.config_parameter"]
-            .sudo()
-            .get_param("base_librecaptcha.media", "image/gif")
-        )
         media = request.env["librecaptcha"].media(kw.get("id"))
         if not media:
             return request.not_found()
+        mimetype = request.env["librecaptcha"]._get_config().get("media")
         return _send_file(
-            BytesIO(media), mimetype=mimetype, environ=request.httprequest.environ
+            BytesIO(media),
+            mimetype=mimetype,
+            environ=request.httprequest.environ,
         )
 
     @route("/captcha", type="json", auth="public", methods=["POST"])

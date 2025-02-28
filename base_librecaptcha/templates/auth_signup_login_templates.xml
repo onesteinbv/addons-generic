@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="librecaptcha_signup" inherit_id="auth_signup.signup">
+        <t t-call="auth_signup.fields" position="after">
+            <div t-if="captcha_enabled" class="form-group mb-3">
+                <t t-call="base_librecaptcha.widget" />
+            </div>
+        </t>
+    </template>
+
+    <template id="librecaptcha_login" inherit_id="web.login">
+        <xpath expr="//input[@name='password']/parent::div" position="after">
+            <div t-if="captcha_enabled" class="form-group mb-3">
+                <t t-call="base_librecaptcha.widget" />
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
