@@ -194,7 +194,8 @@ class MainController(Controller):
     )
     def signup(self, **post):
         website = request.website.sudo()
-        captcha_enabled = request.env["librecaptcha"].is_enabled()
+        # captcha_enabled = request.env["librecaptcha"].is_enabled()
+        captcha_enabled = False
 
         subscription = website.ensure_subscription()
         if not subscription.sale_subscription_line_ids:
