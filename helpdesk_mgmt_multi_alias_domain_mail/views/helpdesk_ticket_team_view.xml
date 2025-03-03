@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_helpdesk_team_form" model="ir.ui.view">
+        <field name="name">view.helpdesk_team.form</field>
+        <field name="model">helpdesk.ticket.team</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_team_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='alias_domain']" position="replace">
+                <field name="alias_domain_id" class="oe_inline" placeholder="e.g. domain.com"
+                                           options="{'no_create': True, 'no_open': True}" style="width:35% !important"/>
+            </xpath>
+            <xpath expr="//button[@name='%(base_setup.action_general_configuration)d']" position="attributes">
+                <attribute name="attrs">{'invisible': [('alias_domain_id', '!=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

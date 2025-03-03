@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div data-key="helpdesk_mgmt" position="inside">
+                <h2>Email</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="helpdesk_mgmt_use_team_email_as_reply_to" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="helpdesk_mgmt_use_team_email_as_reply_to" />
+                            <div class="text-muted">By default user's email address is used as the Reply To Email Address</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
