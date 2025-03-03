@@ -2,211 +2,52 @@
 <odoo noupdate="1">
     <record id="helpdesk_ticket_created_email_template" model="mail.template">
         <field name="name">Support Ticket Number</field>
-        <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket" />
-        <field name="force_email_layout_id" ref="mail_layout_force.mail_layout_noop" />
+        <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
         <field name="email_from">{{ object.team_id.email or object.company_id.partner_id.email or ''}}</field>
         <field
                 name="email_to"
-            >{{not object.partner_id and object.partner_email or ''}}</field>
+        >{{not object.partner_id and object.partner_email or ''}}
+        </field>
         <field name="partner_to">{{object.partner_id.id}}</field>
         <field name="reply_to">{{ object.team_id.email or object.company_id.partner_id.email or ''}}</field>
         <field
-            name="lang"
-        >{{ object.partner_id.lang or ctx.get("lang") or object.company_id.partner_id.lang or object.env.user.lang }}</field>
+                name="lang"
+        >{{ object.partner_id.lang or ctx.get("lang") or object.company_id.partner_id.lang or object.env.user.lang }}
+        </field>
         <field name="subject">Ticket {{object.number or 'n/a' }}: {{object.name or '' }}</field>
         <field name="body_html" type="html">
-            <div>Dear <t t-out="object.partner_id.name or object.partner_name or ''" />
-                    <br />
-                    <br />
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear
+                    <t t-out="object.partner_id.name or object.partner_name or ''"/>
+                    <br/>
+                    <br/>
                     <p>
-                        Thank you for your report. Your report has been registered under ticket <t t-out="object.name" /> and is being processed.
+                        Thank you for your report. Your report has been registered under ticket
+                        <t t-out="object.name"/>
+                        and is being processed.
                     </p>
                     <p>If there are any questions or uncertainties, please let us know.</p>
                     Kind regards,
                     <br/>
-                    <div style="font-family:Helvetica, Arial;font-size: 12pt; color: #000000;">
-                        <table style="font-family:Helvetica, Arial;border-spacing:0px;" cellspacing="0" cellpadding="0"
-                               border="0">
-                            <tbody>
-                                <tr>
-                                    <td style="font-family:Helvetica, Arial;border-right: 4px solid #1c355e; padding-right: 8px;"
-                                        rowspan="6">
-                                        <span style="font-family: georgia, serif;">
-                                            <a t-att-href="object.company_id.website or ''" target="_blank" rel="noopener"
-                                               style="text-decoration:none;">
-                                                <img t-attf-src="/logo.png?company={{ object.company_id.id }}"
-                                                     t-att-alt="object.company_id.name"
-                                                     style="border-image-width:1;border-image-source:none;border-image-slice:100%;border-image-repeat:stretch;border-image-outset:0;border-right-style:none;border-right-color:currentcolor;border-bottom-style:none;border-bottom-color:currentcolor;border-left-style:none;border-left-color:currentcolor;border-top-style:none;border-top-color:currentcolor;height: 100%; width: 100%; object-fit: contain;"
-                                                     data-original-title="" title=""/>
-                                            </a>
-                                        </span>
-                                    </td>
-                                    <td style="font-family:Helvetica, Arial;padding-left: 8px;">
-                                        <span style="font-family: georgia, serif; font-size: 14pt;">
-                                            <strong>
-                                                <span style="font-family:Helvetica, Arial;color: rgb(28, 53, 94);">
-                                                    <t t-out="object.company_id.name" /> Support
-                                                </span>
-                                            </strong>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-family:Helvetica, Arial;padding-left: 8px;">
-                                        <span style="font-family: georgia, serif;">
-                                            <strong> &#160;</strong>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-family:Helvetica, Arial;padding-left: 8px;">
-                                        <div style="font-family:Helvetica, Arial;">
-                                            <span style="font-family: georgia, serif;"> &#160;</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <t t-if="object.company_id.phone or object.company_id.mobile">
-                                        <td style="font-family:Helvetica, Arial;padding-left: 8px;"><b>T</b>: &#160;<t t-out="object.company_id.phone or object.company_id.mobile"/>
-                                        </td>
-                                    </t>
-                                </tr>
-                                <tr>
-                                    <t t-if="object.company_id.street or object.company_id.city or object.company_id.zip">
-                                        <td style="font-family:Helvetica, Arial;padding-left: 8px;"><b>A</b>: &#160;
-                                            <t t-if="object.company_id.street"><t t-out="object.company_id.street"/></t>
-                                            <t t-if="object.company_id.street and (object.company_id.city or object.company_id.zip)">
-                                                |
-                                            </t>
-                                            <t t-if="object.company_id.zip"><t t-out="object.company_id.zip"/></t>
-                                            <t t-if="object.company_id.zip and object.company_id.city"> </t>
-                                            <t t-if="object.company_id.city"><t t-out="object.company_id.city"/></t>
-                                        </td>
-                                    </t>
-                                </tr>
-                                <tr>
-                                    <t t-if="object.company_id.website">
-                                        <td style="font-family:Helvetica, Arial;padding-left: 8px;"><b>W</b>: &#160;<a
-                                                t-att-href="object.company_id.website" target="_blank" data-original-title="" title=""
-                                                style="text-decoration:none;"><t t-out="object.company_id.website"/>
-                                        </a>
-                                        </td>
-                                    </t>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <br />
-                    <p>
-                        This e-mail is intended for the addressee’s eyes only. If you are not the intended recipient, you are hereby kindly requested to inform the sender of this. In view of the electronic nature of this communication, <t t-out="object.company_id.name" /> is neither liable for the proper and complete transmission of the information contained therein nor for any delay in its receipt. For information about <t t-out="object.company_id.name" />
-                        <t t-if="object.company_id.website">
-                            ,direct your browser to <t t-out="object.company_id.website" />
-                        </t>
-                    </p>
-                </div>
-        </field>
-    </record>
-
-    <record id="helpdesk_ticket_draft_email_template" model="mail.template">
-        <field name="name">Support</field>
-        <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket" />
-        <field name="force_email_layout_id" ref="mail_layout_force.mail_layout_noop" />
-        <field name="email_from">{{ object.team_id.email or object.company_id.partner_id.email or ''}}</field>
-        <field
-                name="email_to"
-            >{{not object.partner_id and object.partner_email or ''}}</field>
-        <field name="partner_to">{{object.partner_id.id}}</field>
-        <field name="reply_to">{{ object.team_id.email or object.company_id.partner_id.email or ''}}</field>
-        <field
-            name="lang"
-        >{{ object.partner_id.lang or ctx.get("lang") or object.company_id.partner_id.lang or object.env.user.lang }}</field>
-        <field name="subject">Ticket {{object.number or 'n/a' }}: {{object.name or '' }}</field>
-        <field name="body_html" type="html">
-            <div>Dear <t t-out="object.partner_id.name or object.partner_name or ''" />
-                    <br />
-                    <br />
-                    Kind regards,
                     <br/>
-                    <div style="font-family:Helvetica, Arial;font-size: 12pt; color: #000000;">
-                        <table style="font-family:Helvetica, Arial;border-spacing:0px;" cellspacing="0" cellpadding="0"
-                               border="0">
-                            <tbody>
-                                <tr>
-                                    <td style="font-family:Helvetica, Arial;border-right: 4px solid #1c355e; padding-right: 8px;"
-                                        rowspan="6">
-                                        <span style="font-family: georgia, serif;">
-                                            <a t-att-href="object.company_id.website or ''" target="_blank" rel="noopener"
-                                               style="text-decoration:none;">
-                                                <img t-attf-src="/logo.png?company={{ object.company_id.id }}"
-                                                     t-att-alt="object.company_id.name"
-                                                     style="border-image-width:1;border-image-source:none;border-image-slice:100%;border-image-repeat:stretch;border-image-outset:0;border-right-style:none;border-right-color:currentcolor;border-bottom-style:none;border-bottom-color:currentcolor;border-left-style:none;border-left-color:currentcolor;border-top-style:none;border-top-color:currentcolor;height: 100%; width: 100%; object-fit: contain;"
-                                                     data-original-title="" title=""/>
-                                            </a>
-                                        </span>
-                                    </td>
-                                    <td style="font-family:Helvetica, Arial;padding-left: 8px;">
-                                        <span style="font-family: georgia, serif; font-size: 14pt;">
-                                            <strong>
-                                                <span style="font-family:Helvetica, Arial;color: rgb(28, 53, 94);">
-                                                    <t t-out="object.company_id.name" /> Support
-                                                </span>
-                                            </strong>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-family:Helvetica, Arial;padding-left: 8px;">
-                                        <span style="font-family: georgia, serif;">
-                                            <strong> &#160;</strong>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-family:Helvetica, Arial;padding-left: 8px;">
-                                        <div style="font-family:Helvetica, Arial;">
-                                            <span style="font-family: georgia, serif;"> &#160;</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <t t-if="object.company_id.phone or object.company_id.mobile">
-                                        <td style="font-family:Helvetica, Arial;padding-left: 8px;"><b>T</b>: &#160;<t t-out="object.company_id.phone or object.company_id.mobile"/>
-                                        </td>
-                                    </t>
-                                </tr>
-                                <tr>
-                                    <t t-if="object.company_id.street or object.company_id.city or object.company_id.zip">
-                                        <td style="font-family:Helvetica, Arial;padding-left: 8px;"><b>A</b>: &#160;
-                                            <t t-if="object.company_id.street"><t t-out="object.company_id.street"/></t>
-                                            <t t-if="object.company_id.street and (object.company_id.city or object.company_id.zip)">
-                                                |
-                                            </t>
-                                            <t t-if="object.company_id.zip"><t t-out="object.company_id.zip"/></t>
-                                            <t t-if="object.company_id.zip and object.company_id.city"> </t>
-                                            <t t-if="object.company_id.city"><t t-out="object.company_id.city"/></t>
-                                        </td>
-                                    </t>
-                                </tr>
-                                <tr>
-                                    <t t-if="object.company_id.website">
-                                        <td style="font-family:Helvetica, Arial;padding-left: 8px;"><b>W</b>: &#160;<a
-                                                t-att-href="object.company_id.website" target="_blank" data-original-title="" title=""
-                                                style="text-decoration:none;"><t t-out="object.company_id.website"/>
-                                        </a>
-                                        </td>
-                                    </t>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <br />
                     <p>
-                        This e-mail is intended for the addressee’s eyes only. If you are not the intended recipient, you are hereby kindly requested to inform the sender of this. In view of the electronic nature of this communication, <t t-out="object.company_id.name" /> is neither liable for the proper and complete transmission of the information contained therein nor for any delay in its receipt. For information about <t t-out="object.company_id.name" />
+                        This e-mail is intended for the addressee’s eyes only. If you are not the intended recipient,
+                        you are hereby
+                        kindly requested to inform the sender of this. In view of the electronic nature of this
+                        communication,
+                        <t t-out="object.company_id.name"/>
+                        is neither liable for the proper and complete transmission of the information contained therein
+                        nor for any
+                        delay in its receipt. For information about
+                        <t t-out="object.company_id.name"/>
                         <t t-if="object.company_id.website">
-                            ,direct your browser to <t t-out="object.company_id.website" />
+                            ,direct your browser to
+                            <t t-out="object.company_id.website"/>
                         </t>
                     </p>
-                </div>
+                </p>
+            </div>
         </field>
     </record>
 </odoo>

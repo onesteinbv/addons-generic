@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_mail_alias_form">
+            <field name="name">mail.alias.view.form</field>
+            <field name="model">mail.alias</field>
+            <field name="inherit_id" ref="mail.view_mail_alias_form"/>
+            <field name="arch" type="xml">
+                <field name="alias_domain" position="replace">
+                    <field name="alias_domain_id" class="oe_inline" placeholder="e.g. domain.com"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                </field>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_mail_alias_tree">
+        <field name="name">mail.alias.tree</field>
+        <field name="model">mail.alias</field>
+        <field name="inherit_id" ref="mail.view_mail_alias_tree"/>
+        <field name="arch" type="xml">
+            <field name="alias_name" position="after">
+                <field name="alias_domain_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_mail_alias_search">
+        <field name="name">mail.alias.search</field>
+        <field name="model">mail.alias</field>
+        <field name="inherit_id" ref="mail.view_mail_alias_search"/>
+        <field name="arch" type="xml">
+            <field name="alias_name" position="after">
+                <field name="alias_domain_id"/>
+            </field>
+        </field>
+    </record>
+
+
+</odoo>
