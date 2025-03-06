@@ -13,5 +13,4 @@
     "application": False,
     "depends": ["currency_rate_update_mapping", "crypto_currency"],
     "data": [],
-    "external_dependencies": {"python": ["pycgapi"]},
 }
