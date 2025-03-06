@@ -66,6 +66,7 @@
                             <field name="name" attrs="{'readonly': [('is_deployed', '=', True)]}"/>
                             <field name="description"/>
                             <field name="template_id"/>
+                            <field name="partner_ids" widget="many2many_tags_email" />
                         </group>
                         <group  id="group_repository" string="Repository">
                             <field name="repository_url" attrs="{'readonly': [('is_deployed', '=', True)]}"/>

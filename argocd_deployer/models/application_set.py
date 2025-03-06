@@ -39,6 +39,11 @@ class ApplicationSet(models.Model):
         help="Folder inside the repository in which to store the application YAML files.",
     )
     namespace_prefix_id = fields.Many2one("argocd.application.namespace.prefix")
+    partner_ids = fields.Many2many(
+        comodel_name="res.partner",
+        string="Followers",
+        help="Partners that are automically added as followers to applications in the application set.",
+    )
 
     _sql_constraints = [
         ("application_set_name_unique", "unique(name)", "Already exists"),

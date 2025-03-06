@@ -11,6 +11,7 @@
         "data/application_set_template.xml",
         "data/application_set.xml",
         "data/ir_cron_data.xml",
+        "data/mail_data.xml",
         "views/application_domain_view.xml",
         "views/application_template_view.xml",
         "views/application_set_template_view.xml",

@@ -257,4 +257,20 @@ class Application(models.Model):
                 "argocd.application_destruction_delay", "0"
             )
         )
+        self.message_post(
+            subtype_xmlid="argocd_deployer.subtype_application_deletion",
+            body=_("Destroying application '%(name)s' in %(eta)s seconds.")
+            % {"name": self.name, "eta": eta or delay},
+        )
         self.with_delay(eta=eta or delay).immediate_destroy()
+
+    def _message_auto_subscribe_followers(self, updated_values, default_subtype_ids):
+        res = super()._message_auto_subscribe_followers(
+            updated_values, default_subtype_ids
+        )
+        if updated_values.get("application_set_id"):
+            res += [
+                (p.id, default_subtype_ids, False)
+                for p in self.application_set_id.partner_ids
+            ]
+        return res
