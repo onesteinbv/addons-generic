@@ -3,11 +3,14 @@
 import logging
 from datetime import timedelta
 
-from pycgapi import CoinGeckoAPI
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util import Retry
 
 from odoo import _, fields, models
 
 _logger = logging.getLogger(__name__)
+API_URL = "https://api.coingecko.com/api/v3/coins/%s/history"
 
 
 class ResCurrencyRateProviderCoinGecko(models.Model):
@@ -40,7 +43,6 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
 
     def _get_historical_rate_from_coingecko(self, date_from, date_to, base_currency):
         """Get all the exchange rates from 'date_from' to 'date_to'"""
-        api = CoinGeckoAPI()
         content = {}
         current_date = date_from
         while current_date <= date_to:
@@ -51,8 +53,8 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
                 lambda rpm: rpm.provider_service == self.service
             ):
                 try:
-                    coin_data = api.coin_historical_on_date(
-                        currency.provider_reference, current_date.strftime("%m-%d-%Y")
+                    coin_data = self._get_coin_data_for_date(
+                        currency.provider_reference, current_date
                     )
                 except Exception as e:
                     _logger.warning(
@@ -87,3 +89,19 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
                         )
             current_date += timedelta(days=1)
         return content
+
+    def _get_coin_data_for_date(self, provider_reference, current_date):
+        """Get the exchange rate for a coin on the given date"""
+        retries = Retry(
+            total=5,
+            backoff_factor=1,
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods=["HEAD", "GET", "OPTIONS"],
+        )
+        adapter = HTTPAdapter(max_retries=retries)
+        session = requests.Session()
+        session.mount("https://", adapter)
+        params = {"date": current_date.strftime("%d-%m-%Y"), "localization": "en"}
+        response = session.get(API_URL % provider_reference, params=params)
+        response.raise_for_status()
+        return response.json()
