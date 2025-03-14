@@ -4,7 +4,7 @@
 {
     "name": "Website Membership Group",
     "category": "Membership",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "author": "Onestein",
     "license": "AGPL-3",
     "website": "https://www.onestein.nl",
@@ -14,6 +14,12 @@
     ],
     "data": [
         "views/membership_group_view.xml",
+        "views/res_partner_view.xml",
         "templates/website.xml",
     ],
+    "assets": {
+        "web.assets_frontend": [
+            "/website_membership_group/static/src/css/website_membership.css",
+        ],
+    },
 }

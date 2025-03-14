@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
 
@@ -6,22 +6,59 @@
         <t t-call="website.layout">
             <t t-set="additional_title" t-value="title" />
             <div id="wrap">
-                <div class="oe_structure" id="oe_structure_website_group_1"/>
-                <div class="container">
+                <div class="oe_structure" id="oe_structure_website_group_1" />
+                <div class="container" name="membership_page">
                     <div class="row" name="description_row">
-                        <h3 class="col-lg-12 text-center" id="membership_group_name" t-field="membership_group.name"/>
+                        <h3 class="col-lg-12 text-center" id="membership_group_name"
+                            t-field="membership_group.name" />
                         <div class="col-lg-4">
-                            <div t-field="membership_group.image" t-options='{"widget": "image", "class": "d-block mx-auto mb16"}'/>
+                            <div t-field="membership_group.image"
+                                t-options='{"widget": "image", "class": "d-block mx-auto mb16"}' />
                         </div>
                         <div class="col-lg-8 mt32">
                             <t t-if="membership_group">
-                                <div t-field="membership_group.website_top"/>
-                                <div t-field="membership_group.website_bottom"/>
+                                <div t-field="membership_group.website_top" />
+                                <div t-field="membership_group.website_bottom" />
                             </t>
                         </div>
                     </div>
                 </div>
-                <div class="oe_structure" id="oe_structure_website_membership_group_2"/>
+                <div class="container mt16">
+                    <div class="row o_web_membership_list_container">
+                        <div class="col-lg-8 col-md-7 mb48">
+                            <div class="row o_web_membership_membership_member_list">
+                                <div class="col-lg-12">
+                                    <h4>Group Members</h4>
+                                </div>
+                                <t t-set="members" t-value="membership_group._get_website_members()" />
+                                <t t-if="members">
+                                    <div class="col-lg-6" t-foreach="members" t-as="member">
+                                        <div class="o_web_membership_membership_member">
+                                            <img
+                                                t-att-src="image_data_uri(member.image_128 or member.avatar_128)"
+                                                alt="Member"
+                                                height="48" width="48"
+                                            />
+                                            <t t-if="member.website_published">
+                                                <a t-attf-href="/members/#{slug(member)}">
+                                                    <t t-esc="member.display_name" />
+                                                </a>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-esc="member.display_name" />
+                                            </t>
+                                        </div>
+                                    </div>
+                                </t>
+                                <h5 t-else="" class="col-lg-6">
+                                    No member found.
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="oe_structure" id="oe_structure_website_membership_group_2" />
             </div>
         </t>
     </template>

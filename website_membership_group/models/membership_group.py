@@ -27,3 +27,6 @@ class MembershipGroup(models.Model):
                 and membership_group.page_id.url
                 or "/members/group/%s" % slug(membership_group)
             )
+
+    def _get_website_members(self):
+        return self.partner_ids.filtered(lambda x: not x.is_anonymous)
