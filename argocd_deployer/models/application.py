@@ -188,12 +188,12 @@ class Application(models.Model):
         }
 
     def render_config(self, context=None):
-        self.ensure_one()
-        environment = jinja2.Environment()
-        template = environment.from_string(self.template_id.config)
-        values = self._get_config_render_values()
-        values.update(context=context or {})
-        self.config = template.render(values)
+        for app in self:
+            environment = jinja2.Environment()
+            template = environment.from_string(app.template_id.config)
+            values = app._get_config_render_values()
+            values.update(context=context or {})
+            app.config = template.render(values)
 
     def _get_repository(self):
         """Get the repository specified in the application set."""

@@ -131,4 +131,13 @@
         <field name="res_model">argocd.application</field>
         <field name="view_mode">tree,form</field>
     </record>
+
+    <record id="application_render_config_action" model="ir.actions.server">
+        <field name="name">Render Config</field>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application"/>
+        <field name="binding_model_id" ref="argocd_deployer.model_argocd_application"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.render_config()</field>
+    </record>    
 </odoo>
