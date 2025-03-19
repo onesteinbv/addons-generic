@@ -243,8 +243,8 @@ class Application(models.Model):
         self._apply_repository_changes(self._get_deploy_content)
 
     def deploy(self):
-        self.ensure_one()
-        self.with_delay().immediate_deploy()
+        for app in self:
+            app.with_delay().immediate_deploy()
 
     def immediate_destroy(self):
         self.ensure_one()
