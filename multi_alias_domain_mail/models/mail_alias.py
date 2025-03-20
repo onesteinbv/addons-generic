@@ -28,6 +28,19 @@ class MailAlias(models.Model):
             ON mail_alias (alias_name, COALESCE(alias_domain_id, 0))
         """)
 
+    @api.constrains('alias_name', 'alias_domain_id')
+    def _check_alias_domain_clash(self):
+        """ Within a given alias domain, aliases should not conflict with bounce
+        or catchall email addresses, as emails should be unique for the gateway. """
+        failing = self.filtered(lambda alias: alias.alias_name and alias.alias_name in [
+            alias.alias_domain_id.bounce_alias, alias.alias_domain_id.catchall_alias
+        ])
+        if failing:
+            raise ValidationError(
+                _('Aliases %(alias_names)s is already used as bounce or catchall address. Please choose another alias.',
+                  alias_names=', '.join(failing.mapped('display_name')))
+            )
+
     @api.constrains('alias_domain_id', 'alias_force_thread_id', 'alias_parent_model_id',
                     'alias_parent_thread_id', 'alias_model_id')
     def _check_alias_domain_id_mc(self):
