@@ -16,7 +16,6 @@ def _notify_get_reply_to(cls, default=None):
     res_ids = _records.ids if _records and model else []
     _res_ids = res_ids or [False]  # always have a default value located in False
 
-    result = dict.fromkeys(_res_ids, False)
     result_email = dict()
     doc_names = dict()
 
@@ -56,10 +55,10 @@ def _notify_get_reply_to(cls, default=None):
 
     reply_to_formatted = dict.fromkeys(_res_ids, default)
     for res_id, record_reply_to in result_email.items():
-        result[res_id] = cls._notify_get_reply_to_formatted_email(
+        reply_to_formatted[res_id] = cls._notify_get_reply_to_formatted_email(
             record_reply_to, doc_names.get(res_id) or '', company=record_ids_to_company[res_id],
         )
-    return result
+    return reply_to_formatted
 
 def _notify_get_reply_to_formatted_email(cls, record_email, record_name, company=False):
     """
