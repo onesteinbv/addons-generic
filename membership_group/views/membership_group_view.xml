@@ -57,6 +57,8 @@
                                         name="partner_id"
                                         domain="[('membership_state', 'in', ['invoiced', 'paid', 'free'])]"
                                     />
+                                    <field name="type" />
+                                    <field name="wants_to_collaborate" />
                                 </tree>
                             </field>
                         </page>

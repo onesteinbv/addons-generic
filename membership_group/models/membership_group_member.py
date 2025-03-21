@@ -5,7 +5,7 @@ class MembershipGroupMember(models.Model):
     _name = "membership.group.member"
     _description = "Membership Group Member"
 
-    partner_id = fields.Many2one("res.partner", required=True, ondelete="cascade")
+    partner_id = fields.Many2one("res.partner", string="Member", required=True, ondelete="cascade")
     group_id = fields.Many2one("membership.group", required=True, ondelete="cascade")
     wants_to_collaborate = fields.Boolean()
     type = fields.Selection(
