@@ -31,7 +31,7 @@ class PortalController(CustomerPortal):
     def portal_my_applications(self, page=1, sortby=None, **kw):
         values = self._prepare_portal_layout_values()
         searchbar_sortings = {
-            "name": {"label": _("Name"), "order": "name desc"},
+            "name": {"label": _("Name"), "order": "name asc"},
             "creation": {"label": _("Creation"), "order": "create_date desc"},
         }
         if not sortby:
