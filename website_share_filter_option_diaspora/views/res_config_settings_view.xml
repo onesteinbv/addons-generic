@@ -4,10 +4,15 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="website_share_filter_option_technical.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='website_share_pinterest']/.." position="before">
-                <div class="row">
-                    <label for="website_share_diaspora" string="Diaspora" class="col-md-3 o_light_label"/>
-                    <field name="website_share_diaspora"/>
+            <xpath expr="//div[@id='social_media_settings']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" id="setting_website_share_diaspora">
+                    <div class="o_setting_left_pane">
+                        <field name="website_share_diaspora"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label string="Diaspora" for="website_share_diaspora"/>
+                        <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
+                    </div>
                 </div>
             </xpath>
         </field>

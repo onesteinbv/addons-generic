@@ -2,7 +2,7 @@
     "name": "Website Share Filter Option Reddit",
     "summary": "Website Share Filter Option Reddit",
     "category": "Website",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.1.0",
     "author": "Onestein",
     "license": "AGPL-3",
     "website": "https://www.onestein.nl",
