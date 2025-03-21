@@ -7,39 +7,64 @@
             <xpath expr="//div[@id='google_analytics_setting']/.." position="after">
                 <h2>Social Media</h2>
                 <div class="row mt16 o_settings_container" id="social_media_settings" attrs="{'invisible': [('website_id', '=', False)]}">
-                    <div class="col-12 col-lg-6 o_setting_box" id="share_filter_settings">
+                    <div class="col-12 col-lg-12 o_setting_box">
+                        <div class="text-muted">
+                            <p style="margin-bottom: 0">Share Buttons</p>
+                            <p style="margin-bottom: 0">Select which share options you want to allow</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="setting_website_share_twitter">
+                        <div class="o_setting_left_pane">
+                            <field name="website_share_twitter"/>
+                        </div>
                         <div class="o_setting_right_pane">
-                            <span class="o_form_label">Share Buttons</span>
+                            <label string="Twitter" for="website_share_twitter"/>
                             <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
-                            <div class="text-muted">
-                                Select which share options you want to allow
-                            </div>
-                            <div class="content-group">
-                                <div class="row">
-                                    <label for="website_share_twitter" string="Twitter" class="col-md-3 o_light_label"/>
-                                    <field name="website_share_twitter"/>
-                                </div>
-                                <div class="row">
-                                    <label for="website_share_facebook" string="Facebook" class="col-md-3 o_light_label"/>
-                                    <field name="website_share_facebook"/>
-                                </div>
-                                <div class="row">
-                                    <label for="website_share_whatsapp" string="Whatsapp" class="col-md-3 o_light_label"/>
-                                    <field name="website_share_whatsapp"/>
-                                </div>
-                                <div class="row">
-                                    <label for="website_share_linkedin" string="LinkedIn" class="col-md-3 o_light_label"/>
-                                    <field name="website_share_linkedin"/>
-                                </div>
-                                <div class="row">
-                                    <label for="website_share_pinterest" string="Pinterest" class="col-md-3 o_light_label"/>
-                                    <field name="website_share_pinterest"/>
-                                </div>
-                                <div class="row">
-                                    <label for="website_share_email" string="Email" class="col-md-3 o_light_label"/>
-                                    <field name="website_share_email"/>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="setting_website_share_facebook">
+                        <div class="o_setting_left_pane">
+                            <field name="website_share_facebook"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Facebook" for="website_share_facebook"/>
+                            <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="setting_website_share_whatsapp">
+                        <div class="o_setting_left_pane">
+                            <field name="website_share_whatsapp"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Whatsapp" for="website_share_whatsapp"/>
+                            <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="setting_website_share_linkedin">
+                        <div class="o_setting_left_pane">
+                            <field name="website_share_linkedin"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="LinkedIn" for="website_share_linkedin"/>
+                            <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="setting_website_share_pininterest">
+                        <div class="o_setting_left_pane">
+                            <field name="website_share_pinterest"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Pinterest" for="website_share_pinterest"/>
+                            <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="setting_website_share_email">
+                        <div class="o_setting_left_pane">
+                            <field name="website_share_email"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Email" for="website_share_email"/>
+                            <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
                         </div>
                     </div>
                 </div>
