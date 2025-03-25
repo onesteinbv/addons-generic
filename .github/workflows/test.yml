@@ -36,11 +36,5 @@ jobs:
           echo ADDONS_PATH=$ADDONS_PATH,$(find $(pwd)/* -name .git -exec dirname {} \; | uniq | tr '\n' ',' | sed 's/,$//') >> $GITHUB_ENV
       - name: Initialize test db
         run: oca_init_test_database
-        env:
-          ADDONS_DIR: .
-          ODOO_VERSION: "16.0"
       - name: Run tests
         run: oca_run_tests
-        env:
-          ADDONS_DIR: .
-          ODOO_VERSION: "16.0"
