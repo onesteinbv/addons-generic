@@ -32,7 +32,7 @@ jobs:
         run: |
           pip install git-aggregator
           gitaggregate -c repos.yaml
-          echo $ADDONS_PATH,$(find $(pwd)/* -name .git -exec dirname {} \; | uniq | tr '\n' ',' | sed 's/,$//') >> $GITHUB_ENV
+          echo ADDONS_PATH=$ADDONS_PATH,$(find $(pwd)/* -name .git -exec dirname {} \; | uniq | tr '\n' ',' | sed 's/,$//') >> $GITHUB_ENV
       - name: Initialize test db
         run: oca_init_test_database
         env:
