@@ -16,5 +16,4 @@ class HelpdeskTicket(models.Model):
             ("5", "Blocker"),
         ],
         default="0",
-        string="Priority",
     )
