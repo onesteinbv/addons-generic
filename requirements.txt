@@ -30,3 +30,5 @@ xlrd
 python-slugify
 vcrpy
 bokeh==3.1.1
+dnspython==2.6.1
+pyyaml
