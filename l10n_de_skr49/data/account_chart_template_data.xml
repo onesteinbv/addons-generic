@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- oca-hooks:disable=xml-duplicate-record-id -->
 <odoo>
     <data noupdate="1">
         <record id="l10n_chart_de_skr49" model="account.chart.template">

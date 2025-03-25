@@ -1,0 +1,42 @@
+name: tests
+
+on:
+  pull_request:
+    branches:
+      - "16.0"
+  push:
+    branches:
+      - "16.0"
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    container: ghcr.io/oca/oca-ci/py3.10-odoo16.0:latest
+    name: Odoo
+    services:
+      postgres:
+        image: postgres:13.0
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: odoo
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install external dependencies
+        run: |
+          pip3 install -r requirements.txt
+          pip3 install odoo_test_helper
+      - name: Aggregate repos.yaml
+        run: |
+          set -x
+          pip install git-aggregator
+          gitaggregate -c repos.yaml
+          echo "ADDONS_PATH=$ADDONS_PATH,$(find $(pwd)/* -name .git -exec dirname {} \; | uniq | tr '\n' ',' | sed 's/,$//')" >> $GITHUB_ENV
+      - name: Install addons and dependencies
+        run: oca_install_addons
+      - name: Initialize test db
+        run: oca_init_test_database
+      - name: Run tests
+        run: oca_run_tests

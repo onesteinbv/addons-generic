@@ -23,4 +23,5 @@
         "views/res_partner_view.xml",
         "menuitems.xml",
     ],
+    "installable": False,
 }
