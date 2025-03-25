@@ -33,8 +33,9 @@ jobs:
           set -x
           pip install git-aggregator
           gitaggregate -c repos.yaml
-          ADDONS_PATH="$ADDONS_PATH,$(find $(pwd)/* -name .git -exec dirname {} \; | uniq | tr '\n' ',' | sed 's/,$//')"
-          echo "addons_path=${ADDONS_PATH},${ADDONS_DIR}" >> ${ODOO_RC}
+          echo "ADDONS_PATH=$ADDONS_PATH,$(find $(pwd)/* -name .git -exec dirname {} \; | uniq | tr '\n' ',' | sed 's/,$//')" >> $GITHUB_ENV
+      - name: Install addons and dependencies
+        run: oca_install_addons
       - name: Initialize test db
         run: oca_init_test_database
       - name: Run tests
