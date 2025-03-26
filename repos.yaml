@@ -1,0 +1,17 @@
+# oca
+./oca:
+  defaults:
+    depth: 1
+  remotes:
+    onestein: https://github.com/onesteinbv/addons-oca.git
+  merges:
+    - onestein 18.0
+
+# third-party
+./third-party:
+  defaults:
+    depth: 1
+  remotes:
+    onestein: https://github.com/onesteinbv/addons-third-party.git
+  merges:
+    - onestein 18.0
