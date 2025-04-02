@@ -23,6 +23,6 @@ class Mail(models.Model):
             _logger.error(
                 "Outgoing mail failure (%s): %s",
                 failure_type,
-                failure_reason or "unknown",
+                failure_reason or ",".join(self.mapped("failure_reason")) or "unknown",
             )
         return res
