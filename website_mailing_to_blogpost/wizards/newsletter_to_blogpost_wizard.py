@@ -8,6 +8,7 @@ from odoo.addons.http_routing.models.ir_http import slug
 
 class NewsletterToBlogpostWizard(models.TransientModel):
     _name = "newsletter.to.blogpost.wizard"
+    _description = "Convert to Blogpost"
 
     publish = fields.Boolean(default=True)
     mailing_id = fields.Many2one("mailing.mailing", required=True)
