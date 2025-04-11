@@ -4,7 +4,7 @@
 {
     "name": "Mass Mailing Membership Group",
     "category": "Membership",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "author": "Onestein",
     "license": "AGPL-3",
     "website": "https://www.onestein.nl",
@@ -17,7 +17,6 @@
     "data": [
         "views/membership_group_view.xml",
         "views/membership_group_member_view.xml",
-        "views/res_partner_view.xml",
     ],
     "demo": [
         "data/mailing_list_demo.xml",
