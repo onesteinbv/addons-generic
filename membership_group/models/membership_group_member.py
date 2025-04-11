@@ -61,9 +61,9 @@ class MembershipGroupMember(models.Model):
             if (
                 not record.date_to
                 and record.group_id
-                and record.group_id._has_termination_cycle()
+                and record.group_id.membership_end_date
             ):
-                record.date_to = record.group_id.next_termination_date
+                record.date_to = record.group_id.membership_end_date
 
     @api.depends("group_id")
     def _compute_vote_right(self):

@@ -91,8 +91,7 @@ class TestMembershipGroup(common.TransactionCase):
         group_1_with_termination = self.env["membership.group"].create(
             {
                 "name": "Test Group 1 with termination",
-                "termination_cycle": True,
-                "next_termination_date": "2025-06-01",
+                "membership_end_date": "2025-06-01",
             }
         )
         member_group_termination = self.env["membership.group.member"].create(
@@ -104,7 +103,7 @@ class TestMembershipGroup(common.TransactionCase):
 
         self.assertEqual(
             member_group_termination.date_to,
-            group_1_with_termination.next_termination_date,
+            group_1_with_termination.membership_end_date,
         )
         self.assertTrue(member_group_termination.active)
 

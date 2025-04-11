@@ -29,14 +29,8 @@ class MembershipGroup(models.Model):
     )
     partner_ids_count = fields.Integer("# of Members", compute="_compute_partner_ids")
 
-    termination_cycle = fields.Boolean(
-        help="""
-            Members from a group with a termination cycle will be
-            removed from the group on the termination date",
-            """,
-    )
-    next_termination_date = fields.Date(
-        help="Next termination date for members of this group",
+    membership_end_date = fields.Date(
+        help="Default date to for members of this group",
     )
     voting_group = fields.Boolean(copy=False)
 
@@ -64,10 +58,6 @@ class MembershipGroup(models.Model):
         for group in self:
             group.partner_ids = group.membership_group_member_ids.mapped("partner_id")
             group.partner_ids_count = len(group.partner_ids)
-
-    def _has_termination_cycle(self):
-        self.ensure_one()
-        return bool(self.termination_cycle and self.next_termination_date)
 
     def action_open_partner_view(self):
         action_name = "membership.action_membership_members"

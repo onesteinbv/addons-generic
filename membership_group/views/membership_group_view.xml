@@ -62,8 +62,10 @@
                                     <field name="date_end" optional="show" />
                                     <field name="type" />
                                     <field name="wants_to_collaborate" />
-                                    <button type="object" name="action_revoke_membership" string="Revoke"
-                                        icon="fa-trash" attrs="{'invisible': [('active','=', False)]}" />
+                                    <button type="object" name="action_revoke_membership"
+                                        string="Revoke"
+                                        icon="fa-trash"
+                                        attrs="{'invisible': [('active','=', False)]}" />
                                 </tree>
                             </field>
                         </page>
@@ -72,9 +74,7 @@
                         </page>
                         <page string="Configuration">
                             <group>
-                                <field name="termination_cycle" widget="boolean_toggle" />
-                                <field name="next_termination_date"
-                                    attrs="{'required': [('termination_cycle','=', True)], 'invisible': [('termination_cycle', '=', False)]}" />
+                                <field name="membership_end_date" />
                                 <field name="voting_group" widget="boolean_toggle" />
                             </group>
                         </page>
@@ -89,7 +89,8 @@
         <field name="arch" type="xml">
             <search string="Membership Groups">
                 <field name="name" />
-                <filter name="filter_voting_group" string="Voting Group" domain="[('voting_group', '=', True)]" />
+                <filter name="filter_voting_group" string="Voting Group"
+                    domain="[('voting_group', '=', True)]" />
             </search>
         </field>
     </record>
