@@ -12,6 +12,7 @@
         "membership",
     ],
     "data": [
+        "data/ir_actions_server_data.xml",
         "data/ir_cron_data.xml",
         "security/ir.model.access.csv",
         "views/membership_group_member_view.xml",

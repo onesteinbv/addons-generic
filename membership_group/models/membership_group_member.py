@@ -76,6 +76,17 @@ class MembershipGroupMember(models.Model):
             active_records.date_end = fields.Date.today()
         return True
 
+    def action_open_partners(self):
+        ref_name = "membership.action_membership_members"
+        action = self.env["ir.actions.act_window"]._for_xml_id(ref_name)
+        action["context"] = {"active_test": False}
+        if len(self.partner_id) > 1:
+            action["domain"] = [("id", "in", self.partner_id.ids)]
+        elif len(self.partner_id) == 1:
+            action["views"] = [(False, "form")]
+            action["res_id"] = self.partner_id.id
+        return action
+
     @api.model
     def _cron_revoke_membership(self):
         self.search([("date_to", "<=", fields.date.today())]).action_revoke_membership()
