@@ -1,6 +1,6 @@
 /** @odoo-module */
 
-import {MembershipReportListController} from "./membership_report_list_controller";
+import {MembershipReportListController} from "./membership_report_list_controller.esm";
 import {listView} from "@web/views/list/list_view";
 import {registry} from "@web/core/registry";
 

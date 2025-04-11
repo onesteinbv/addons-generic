@@ -67,26 +67,9 @@
     </record>
 
     <record id="action_membership_group_member" model="ir.actions.act_window">
-        <field name="name">Current Members</field>
+        <field name="name">Members</field>
         <field name="res_model">membership.group.member</field>
         <field name="view_mode">tree,pivot</field>
-    </record>
-
-    <record id="action_membership_group_future_member" model="ir.actions.act_window">
-        <field name="name">Future Members</field>
-        <field name="res_model">membership.group.member</field>
-        <field name="view_mode">tree,pivot</field>
-        <field name="context">{'active_test': False, 'create': False, 'edit': False}</field>
-        <field name="domain">[('active', '=', False), ('date_from', '&gt;',
-            context_today().strftime('%Y-%m-%d'))]</field>
-    </record>
-
-    <record id="action_membership_group_past_member" model="ir.actions.act_window">
-        <field name="name">Past Members</field>
-        <field name="res_model">membership.group.member</field>
-        <field name="view_mode">tree,pivot</field>
-        <field name="context">{'active_test': False, 'create': False, 'edit': False}</field>
-        <field name="domain">[('active', '=', False), ('date_end', '!=', False)]</field>
     </record>
 
     <record id="action_membership_group_voting_member" model="ir.actions.act_window">

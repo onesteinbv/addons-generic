@@ -25,22 +25,8 @@
 
     <menuitem
         id="membership_group_membership_menu"
-        name="Current Members"
+        name="Members"
         action="action_membership_group_member"
-        parent="membership_group.membership_group_reporting_menu"
-    />
-
-    <menuitem
-        id="membership_group_future_membership_menu"
-        name="Future Members"
-        action="action_membership_group_future_member"
-        parent="membership_group.membership_group_reporting_menu"
-    />
-
-    <menuitem
-        id="membership_group_past_membership_menu"
-        name="Past Members"
-        action="action_membership_group_past_member"
         parent="membership_group.membership_group_reporting_menu"
     />
 

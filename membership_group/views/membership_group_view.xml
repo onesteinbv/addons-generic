@@ -57,6 +57,7 @@
                                         name="partner_id"
                                         domain="[('membership_state', 'in', ['invoiced', 'paid', 'free'])]"
                                     />
+                                    <field name="group_id" optional="hide" />
                                     <field name="date_from" optional="show" />
                                     <field name="date_to" optional="show" />
                                     <field name="date_end" optional="show" />
