@@ -25,10 +25,12 @@ class MembershipGroupMember(models.Model):
         ],
     )
     date_from = fields.Date(
+        string="From",
         default=fields.Date.context_today,
         help="Start date of the membership",
     )
     date_to = fields.Date(
+        string="To",
         compute="_compute_date_to",
         store=True,
         readonly=False,
@@ -36,6 +38,7 @@ class MembershipGroupMember(models.Model):
         help="Planned end date of the membership",
     )
     date_end = fields.Date(
+        string="Ended on",
         help="End date of the membership",
     )
     vote_right = fields.Boolean(
