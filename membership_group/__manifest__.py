@@ -17,7 +17,7 @@
         "views/membership_group_member_view.xml",
         "views/membership_group_view.xml",
         "views/res_partner_view.xml",
-        "wizard/membership_vote_history_view.xml",
+        "wizard/membership_history_wizard_view.xml",
         "menuitems.xml",
     ],
     "assets": {

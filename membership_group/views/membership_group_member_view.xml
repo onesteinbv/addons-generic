@@ -4,7 +4,7 @@
     <record id="membership_group_member_view_tree" model="ir.ui.view">
         <field name="model">membership.group.member</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <tree editable="bottom" js_class="membership_report_list">
                 <field name="active" invisible="1" />
                 <field name="partner_id" />
                 <field name="group_id" />
@@ -70,6 +70,8 @@
         <field name="name">Members</field>
         <field name="res_model">membership.group.member</field>
         <field name="view_mode">tree,pivot</field>
+        <field name="view_id" ref="membership_group_member_view_tree" />
+        <field name="context">{'create': False, 'edit': False}</field>
     </record>
 
     <record id="action_membership_group_voting_member" model="ir.actions.act_window">
@@ -78,7 +80,7 @@
         <field name="view_mode">tree</field>
         <field name="view_id" ref="view_membership_group_member_tree_voting" />
         <field name="domain">[('vote_right', '=', True)]</field>
-        <field name="context">{'create': False, 'edit': False}</field>
+        <field name="context">{'create': False, 'edit': False, 'default_only_voting_members': True}</field>
     </record>
 
 </odoo>

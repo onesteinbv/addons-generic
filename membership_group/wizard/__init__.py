@@ -1,1 +1,1 @@
-from . import membership_vote_history
+from . import membership_history_wizard
