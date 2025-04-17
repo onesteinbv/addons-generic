@@ -24,7 +24,7 @@ class ResPartner(models.Model):
         string="Can Vote",
     )
 
-    @api.depends("membership_group_member_ids", "membership_group_member_ids.group_id")
+    @api.depends("membership_group_member_ids", "membership_group_member_ids.group_id", "membership_group_member_ids.active")
     def _compute_membership_group_ids(self):
         for partner in self:
             partner.membership_group_ids = partner.membership_group_member_ids.mapped(
@@ -32,11 +32,7 @@ class ResPartner(models.Model):
             )
             partner.membership_group_ids_count = len(partner.membership_group_ids)
 
-    @api.depends(
-        "membership_group_ids",
-        "membership_group_ids.voting_group",
-        "membership_group_ids.active",
-    )
+    @api.depends("membership_group_ids", "membership_group_ids.voting_group")
     def _compute_member_can_vote(self):
         for partner in self:
             partner.member_can_vote = bool(
