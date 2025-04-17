@@ -25,8 +25,8 @@ class ResPartner(models.Model):
     )
 
     @api.depends(
-        "membership_group_member_ids", 
-        "membership_group_member_ids.group_id", 
+        "membership_group_member_ids",
+        "membership_group_member_ids.group_id",
         "membership_group_member_ids.active",
     )
     def _compute_membership_group_ids(self):
