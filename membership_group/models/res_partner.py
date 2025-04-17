@@ -32,7 +32,7 @@ class ResPartner(models.Model):
             )
             partner.membership_group_ids_count = len(partner.membership_group_ids)
 
-    @api.depends("membership_group_ids", "membership_group_ids.voting_group")
+    @api.depends("membership_group_ids", "membership_group_ids.voting_group", "membership_group_ids.active")
     def _compute_member_can_vote(self):
         for partner in self:
             partner.member_can_vote = bool(
