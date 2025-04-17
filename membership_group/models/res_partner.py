@@ -24,7 +24,11 @@ class ResPartner(models.Model):
         string="Can Vote",
     )
 
-    @api.depends("membership_group_member_ids", "membership_group_member_ids.group_id", "membership_group_member_ids.active")
+    @api.depends(
+        "membership_group_member_ids", 
+        "membership_group_member_ids.group_id", 
+        "membership_group_member_ids.active",
+    )
     def _compute_membership_group_ids(self):
         for partner in self:
             partner.membership_group_ids = partner.membership_group_member_ids.mapped(
