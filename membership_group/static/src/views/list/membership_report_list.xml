@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="MembershipReport.Buttons" t-inherit="web.ListView.Buttons" t-inherit-mode="primary" owl="1">
+        <xpath expr="(//div/*)[last()]" position="after">
+            <button type="button" class="btn btn-primary me-2" t-on-click="onClickMembershipHistoryAtDate">
+                At Date
+            </button>
+        </xpath>
+    </t>
+
+</templates>

@@ -25,8 +25,15 @@
 
     <menuitem
         id="membership_group_membership_menu"
-        name="Membership Group Members"
+        name="Members"
         action="action_membership_group_member"
+        parent="membership_group.membership_group_reporting_menu"
+    />
+
+    <menuitem
+        id="membership_group_voting_membership_menu"
+        name="Voting Members"
+        action="action_membership_group_voting_member"
         parent="membership_group.membership_group_reporting_menu"
     />
 

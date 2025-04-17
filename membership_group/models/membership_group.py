@@ -1,4 +1,5 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class MembershipGroup(models.Model):
@@ -28,19 +29,30 @@ class MembershipGroup(models.Model):
     )
     partner_ids_count = fields.Integer("# of Members", compute="_compute_partner_ids")
 
+    membership_end_date = fields.Date(
+        help="Default date to for members of this group",
+    )
+    voting_group = fields.Boolean(copy=False)
+
+    @api.constrains("voting_group")
+    def _check_voting_group(self):
+        """Only allow one voting group"""
+        if voting_groups := self.search([("voting_group", "=", True)]):
+            if not voting_groups or len(voting_groups) == 1:
+                return
+            raise ValidationError(_("Only one voting group is allowed"))
+
     @api.depends("name", "parent_id.complete_name")
     def _compute_complete_name(self):
         for group in self:
             if group.parent_id:
-                group.complete_name = "%s / %s" % (
-                    group.parent_id.complete_name,
-                    group.name,
-                )
+                group.complete_name = f"{group.parent_id.complete_name} / {group.name}"
             else:
                 group.complete_name = group.name
 
     @api.depends(
-        "membership_group_member_ids", "membership_group_member_ids.partner_id"
+        "membership_group_member_ids",
+        "membership_group_member_ids.partner_id",
     )
     def _compute_partner_ids(self):
         for group in self:

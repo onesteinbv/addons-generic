@@ -1,3 +1,5 @@
+import freezegun
+
 from odoo.tests import common
 
 
@@ -84,3 +86,37 @@ class TestMembershipGroup(common.TransactionCase):
             ],
         )
         self.assertEqual(res["res_id"], self.group_1.id)
+
+    def test_05_membership_group_with_revoke_date(self):
+        group_1_with_termination = self.env["membership.group"].create(
+            {
+                "name": "Test Group 1 with termination",
+                "membership_end_date": "2025-06-01",
+            }
+        )
+        member_group_termination = self.env["membership.group.member"].create(
+            {
+                "partner_id": self.partner_1.id,
+                "group_id": group_1_with_termination.id,
+            }
+        )
+
+        self.assertEqual(
+            member_group_termination.date_to,
+            group_1_with_termination.membership_end_date,
+        )
+        self.assertTrue(member_group_termination.active)
+
+        with freezegun.freeze_time("2025-05-01"):
+            self.env["membership.group.member"]._cron_revoke_membership()
+
+        self.assertTrue(member_group_termination.active)
+
+        with freezegun.freeze_time("2025-06-01"):
+            self.env["membership.group.member"]._cron_revoke_membership()
+
+        self.assertFalse(member_group_termination.active)
+        self.assertEqual(
+            str(member_group_termination.date_end),
+            "2025-06-01",
+        )

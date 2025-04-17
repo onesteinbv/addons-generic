@@ -1,12 +1,16 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class MembershipGroupMember(models.Model):
     _name = "membership.group.member"
     _description = "Membership Group Member"
 
+    active = fields.Boolean(default=True)
     partner_id = fields.Many2one(
-        "res.partner", string="Member", required=True, ondelete="cascade"
+        "res.partner",
+        string="Member",
+        required=True,
+        ondelete="cascade",
     )
     group_id = fields.Many2one("membership.group", required=True, ondelete="cascade")
     wants_to_collaborate = fields.Boolean()
@@ -20,11 +24,69 @@ class MembershipGroupMember(models.Model):
             ("committee", "Committee"),
         ],
     )
+    date_from = fields.Date(
+        string="From",
+        default=fields.Date.context_today,
+        help="Start date of the membership",
+    )
+    date_to = fields.Date(
+        string="To",
+        compute="_compute_date_to",
+        store=True,
+        readonly=False,
+        precompute=True,
+        help="Planned end date of the membership",
+    )
+    date_end = fields.Date(
+        string="Ended on",
+        help="End date of the membership",
+    )
+    vote_right = fields.Boolean(
+        compute="_compute_vote_right",
+        store=True,
+        help="Member has voting rights",
+    )
 
     _sql_constraints = [
         (
             "partner_group_uniq",
-            "unique(partner_id, group_id)",
+            "unique(active, partner_id, group_id)",
             "Member already exists for this group!",
         )
     ]
+
+    @api.depends("group_id")
+    def _compute_date_to(self):
+        for record in self:
+            if (
+                not record.date_to
+                and record.group_id
+                and record.group_id.membership_end_date
+            ):
+                record.date_to = record.group_id.membership_end_date
+
+    @api.depends("group_id")
+    def _compute_vote_right(self):
+        for record in self:
+            record.vote_right = record.group_id.voting_group
+
+    def action_revoke_membership(self):
+        if active_records := self.filtered(lambda x: x.active):
+            active_records.active = False
+            active_records.date_end = fields.Date.today()
+        return True
+
+    def action_open_partners(self):
+        ref_name = "membership.action_membership_members"
+        action = self.env["ir.actions.act_window"]._for_xml_id(ref_name)
+        action["context"] = {"active_test": False}
+        if len(self.partner_id) > 1:
+            action["domain"] = [("id", "in", self.partner_id.ids)]
+        elif len(self.partner_id) == 1:
+            action["views"] = [(False, "form")]
+            action["res_id"] = self.partner_id.id
+        return action
+
+    @api.model
+    def _cron_revoke_membership(self):
+        self.search([("date_to", "<=", fields.date.today())]).action_revoke_membership()

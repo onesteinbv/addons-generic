@@ -17,4 +17,9 @@
             <field name="name">Youth Club</field>
         </record>
 
+        <record id="demo_membership_vote_group" model="membership.group">
+            <field name="name">Vote Group</field>
+            <field name="voting_group" eval="True" />
+        </record>
+
 </odoo>
