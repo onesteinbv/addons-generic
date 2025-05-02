@@ -10,6 +10,7 @@
         "subscription_oca",
         "argocd_deployer",
         "sale_recurring_payment",
+        "account_invoice_pricelist",
     ],
     "demo": [
         "demo/sale_subscription_template_demo.xml",
