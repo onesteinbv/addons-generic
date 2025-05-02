@@ -145,7 +145,9 @@ class Subscription(models.Model):
     def _prepare_account_move(self, line_ids):
         # TODO: Only used in draft, invoice, invoice_send make it also work for sale_and_invoice
         if not self.account_invoice_ids_count:  # First time don't invoice stat products
-            return super()._prepare_account_move(line_ids)
+            res = super()._prepare_account_move(line_ids)
+            res["pricelist_id"] = self.pricelist_id.id
+            return res
 
         # TODO: Fix this with a sequence in sale.subscription.line
         sequence = 0
@@ -180,10 +182,6 @@ class Subscription(models.Model):
                 )
                 additional_invoice_line_ids.append(Command.create(line_values))
         line_ids += additional_invoice_line_ids
-        return super()._prepare_account_move(line_ids)
-
-    def create_invoice(self):
-        # TODO: Only used in draft, invoice, invoice_send make it also work for sale_and_invoice
-        res = super().create_invoice()
-        res.button_update_prices_from_pricelist()
+        res = super()._prepare_account_move(line_ids)
+        res["pricelist_id"] = self.pricelist_id.id
         return res
