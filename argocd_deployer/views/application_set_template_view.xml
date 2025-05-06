@@ -28,6 +28,6 @@
         <field name="name">Application Set Templates</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">argocd.application.set.template</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

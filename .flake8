@@ -10,6 +10,6 @@ select = C,E,F,W,B,B9
 # W503: line break before binary operator (black behaviour)
 # Custom adjustment: ignore B950 (black behaviour)
 #   to allow longer comments (see https://github.com/psf/black/issues/1331)
-ignore = E203,E501,W503,B950
+ignore = E203,E501,W503,B950,E741
 per-file-ignores=
     __init__.py:F401

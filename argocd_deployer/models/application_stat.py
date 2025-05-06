@@ -81,13 +81,9 @@ class ApplicationStat(models.Model):
         gc_date = fields.Datetime.now() - timedelta(days=retention)
         total = self.search_count([("date", "<=", fields.Datetime.to_string(gc_date))])
         batch = self.search(
-            [("date", "<=", fields.Datetime.to_string(gc_date))],
-            limit=batch_size
+            [("date", "<=", fields.Datetime.to_string(gc_date))], limit=batch_size
         )
         done = len(batch)
         batch.unlink()
 
-        self.env["ir.cron"]._notify_progress(
-            done=done,
-            remaining=total - done
-        )
+        self.env["ir.cron"]._notify_progress(done=done, remaining=total - done)

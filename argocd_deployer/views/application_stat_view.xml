@@ -4,7 +4,7 @@
         <field name="model">argocd.application.stat</field>
         <field name="arch" type="xml">
             <list editable="bottom">
-                <field name="application_id" invisible="1" />
+                <field name="application_id" column_invisible="1" />
                 <field name="date" />
                 <field name="type_id" />
                 <field name="message" />
