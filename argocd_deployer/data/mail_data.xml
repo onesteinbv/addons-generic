@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="subtype_application_deletion" model="mail.message.subtype">
+        <field name="name">Application Deletion</field>
+        <field name="res_model">argocd.application</field>
+        <field name="default" eval="True" />
+        <field name="internal" eval="True" />
+    </record>
+</odoo>

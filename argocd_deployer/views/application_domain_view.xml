@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="application_domain_tree" model="ir.ui.view">
+        <field name="model">argocd.application.domain</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="scope" />
+                <field name="name" />
+                <field name="scope_unique" readonly="1" />
+            </list>
+        </field>
+    </record>
+</odoo>
