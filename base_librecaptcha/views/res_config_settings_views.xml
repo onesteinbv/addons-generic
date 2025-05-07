@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <block name="integration" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" id="librecaptcha">
+                    <div class="o_setting_left_pane">
+                        <field name="librecaptcha_enabled" />
+                    </div>
+                    <div class="o_setting_right_pane" id="librecaptcha_settings">
+                        <label string="LibreCaptcha" for="librecaptcha_enabled" />
+                        <div class="text-muted">
+                            Secure your forms with open source anti-spam protection.
+                        </div>
+                        <div class="content-group"
+                            invisible="not librecaptcha_enabled"
+                            id="librecaptcha_settings_server">
+                            <div name="div_librecaptcha_url_invalid" class="mt16 row">
+                                <field name="librecaptcha_valid_server" invisible="1" />
+                                <div class="alert alert-danger col-12" role="alert" invisible="librecaptcha_valid_server">
+                                    <span>Invalid server please double check url</span>
+                                </div>
+                            </div>
+                            <div name="div_librecaptcha_url" class="mt16 row">
+                                <label for="librecaptcha_url" string="Url"
+                                    class="col-3 o_light_label" />
+                                <field name="librecaptcha_url"
+                                    required="librecaptcha_enabled" />
+                            </div>
+                            <div name="div_librecaptcha_level" class="mt16 row">
+                                <label for="librecaptcha_level" string="Level"
+                                    class="col-3 o_light_label" />
+                                <field name="librecaptcha_level"
+                                    required="librecaptcha_enabled" />
+                            </div>
+                            <div name="div_librecaptcha_media" class="mt16 row">
+                                <label for="librecaptcha_media" string="Media"
+                                    class="col-3 o_light_label" />
+                                <field name="librecaptcha_media"
+                                    required="librecaptcha_enabled" />
+                            </div>
+                            <div name="div_librecaptcha_type" class="mt16 row">
+                                <label for="librecaptcha_type" string="Type"
+                                    class="col-3 o_light_label" />
+                                <field name="librecaptcha_type"
+                                    required="librecaptcha_enabled" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </block>
+        </field>
+    </record>
+
+</odoo>
