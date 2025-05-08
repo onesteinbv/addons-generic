@@ -8,7 +8,7 @@
     "category": "Accounting/Localizations/Account Charts",
     "author": "Onestein",
     "website": "https://www.onestein.nl",
-    "depends": ["account", "l10n_nl", "l10n_multilang", "account_journal_subtype"],
+    "depends": ["account", "l10n_nl", "account_journal_subtype"],
     "data": [
         "data/account_account_tag.xml",
         "data/account_chart_template.xml",
@@ -29,8 +29,7 @@
     "demo": [
         "demo/demo_company.xml",
     ],
-    "auto_install": False,
-    "installable": True,
+    "auto_install": True,
     "countries": ["nl"],
     "license": "LGPL-3",
 }
