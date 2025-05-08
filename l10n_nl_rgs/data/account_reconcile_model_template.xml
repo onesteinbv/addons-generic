@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="prive_opname_template" model="account.reconcile.model.template">
+        <field name="chart_template_id" ref="l10nnl_rgs_chart_template"/>
+        <field name="name">Privé opname</field>
+        <field name="rule_type">writeoff_button</field>
+    </record>
+    <record id="prive_opname_line_template" model="account.reconcile.model.line.template">
+        <field name="model_id" ref="prive_opname_template"/>
+        <field name="account_id" ref="0509040"/>
+        <field name="amount_string">100</field>
+    </record>
+    <record id="prive_storting_template" model="account.reconcile.model.template">
+        <field name="chart_template_id" ref="l10nnl_rgs_chart_template"/>
+        <field name="name">Privé storting</field>
+        <field name="rule_type">writeoff_button</field>
+    </record>
+    <record id="prive_storting_line_template" model="account.reconcile.model.line.template">
+        <field name="model_id" ref="prive_storting_template"/>
+        <field name="account_id" ref="0509030"/>
+        <field name="amount_string">100</field>
+    </record>
+    <record id="kruisposten_template" model="account.reconcile.model.template">
+        <field name="chart_template_id" ref="l10nnl_rgs_chart_template"/>
+        <field name="name">Kruisposten</field>
+        <field name="rule_type">writeoff_button</field>
+    </record>
+    <record id="kruisposten_line_template" model="account.reconcile.model.line.template">
+        <field name="model_id" ref="kruisposten_template"/>
+        <field name="account_id" ref="1003010"/>
+        <field name="amount_string">100</field>
+    </record>
+    <record id="bankkosten_template" model="account.reconcile.model.template">
+        <field name="chart_template_id" ref="l10nnl_rgs_chart_template"/>
+        <field name="name">Bankkosten</field>
+        <field name="rule_type">writeoff_button</field>
+    </record>
+    <record id="bankkosten_line_template" model="account.reconcile.model.line.template">
+        <field name="model_id" ref="bankkosten_template"/>
+        <field name="account_id" ref="4210040"/>
+        <field name="amount_string">100</field>
+    </record>
+    <record id="verzekeringen_template" model="account.reconcile.model.template">
+        <field name="chart_template_id" ref="l10nnl_rgs_chart_template"/>
+        <field name="name">Verzekeringen</field>
+        <field name="rule_type">writeoff_button</field>
+    </record>
+    <record id="verzekeringen_line_template" model="account.reconcile.model.line.template">
+        <field name="model_id" ref="verzekeringen_template"/>
+        <field name="account_id" ref="4208020"/>
+        <field name="amount_string">100</field>
+    </record>
+    <record id="spaarrekening_template" model="account.reconcile.model.template">
+        <field name="chart_template_id" ref="l10nnl_rgs_chart_template"/>
+        <field name="name">Spaarrekening</field>
+        <field name="rule_type">writeoff_button</field>
+    </record>
+    <record id="spaarrekening_line_template" model="account.reconcile.model.line.template">
+        <field name="model_id" ref="spaarrekening_template"/>
+        <field name="account_id" ref="1002070"/>
+        <field name="amount_string">100</field>
+    </record>
+
+</odoo>
