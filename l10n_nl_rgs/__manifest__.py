@@ -31,5 +31,6 @@
     ],
     "auto_install": False,
     "installable": True,
+    "countries": ["nl"],
     "license": "LGPL-3",
 }

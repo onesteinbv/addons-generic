@@ -1,0 +1,5 @@
+"id","name","country_id","name@nl"
+"l10n_nl.tax_group_0","BTW Nul","base.nl","BTW Nul"
+"l10n_nl.tax_group_9","BTW Laag","base.nl","BTW Laag"
+"l10n_nl.tax_group_21","BTW Hoog","base.nl","BTW Hoog"
+"tax_group_verlegd","BTW Verlegd","base.nl","BTW Verlegd"
