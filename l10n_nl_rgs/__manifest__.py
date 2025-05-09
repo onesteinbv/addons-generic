@@ -7,7 +7,6 @@
     'website': 'https://www.onestein.nl',
     'depends': [
         'account',
-        'l10n_nl',
         'account_journal_subtype',
     ],
     'data': [
@@ -19,7 +18,8 @@
     'demo': [
         'demo/demo_company.xml',
     ],
-    'auto_install': False,
+    'auto_install': ['account'],
     'installable': True,
+    "countries": ["nl"],
     'license': 'LGPL-3',
 }
