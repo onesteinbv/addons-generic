@@ -1,7 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-# Copyright (C) 2016 Onestein (<http://www.onestein.eu>).
-
+from . import template_nl_rgs
 from . import account_account_template
 from . import account_account
 from . import account_chart_template

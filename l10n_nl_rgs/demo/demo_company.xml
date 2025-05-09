@@ -30,7 +30,8 @@
     </function>
 
     <function model="account.chart.template" name="try_loading">
-        <value eval="[ref('l10n_nl_rgs.l10nnl_rgs_chart_template')]"/>
+        <value eval="[]"/>
+        <value>nl_rgs</value>
         <value model="res.company" eval="obj().env.ref('l10n_nl_rgs.demo_company_nl_rgs')"/>
     </function>
 
