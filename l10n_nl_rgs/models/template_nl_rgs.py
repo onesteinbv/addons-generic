@@ -40,6 +40,7 @@ class AccountChartTemplate(models.AbstractModel):
                 "account_journal_payment_credit_account_id": "1203050",
                 "default_cash_difference_income_account_id": "4210070",
                 "default_cash_difference_expense_account_id": "4210070",
+                "transfer_account_id": "1003010",
             },
         }
 
@@ -241,47 +242,6 @@ class AccountChartTemplate(models.AbstractModel):
                 "l10n_nl_rgs.account_tag_0506009", raise_if_not_found=False
             ):
                 company.get_unaffected_earnings_account().tag_ids += undist_profit_tag
-
-    def _set_liquidity_transfer_account(self, company):
-        """Set the transfer account 1003010 on the company (delete 1003011)"""
-        # set account 1003010
-        transfer_account = self.env["account.account"].search(
-            [("code", "=", "1003010"), ("company_id", "=", company.id)], limit=1
-        )
-        if transfer_account and company.transfer_account_id != transfer_account:
-            company.transfer_account_id = transfer_account
-
-        # delete account 1003011
-        wrong_transfer_account = self.env["account.account"].search(
-            [("code", "=", "1003011"), ("company_id", "=", company.id)], limit=1
-        )
-        if (
-            wrong_transfer_account
-            and company.transfer_account_id != wrong_transfer_account
-        ):
-            wrong_transfer_account.unlink()
-
-    def _set_liquidity_transfer_account_template(self):
-        """Set liquidity transfer template: 1003010 (delete 1003011)"""
-        rgs = self.env.ref("l10n_nl_rgs.l10nnl_rgs_chart_template")
-        rgs_xml_id = "l10n_nl_rgs.l10nnl_rgs_chart_template_liquidity_transfer"
-        liquidity_account_template = self.env.ref(rgs_xml_id, raise_if_not_found=False)
-        if liquidity_account_template and liquidity_account_template.code == "1003011":
-            # liquidity transfer account template
-            correct_account_template = self.env["account.account.template"].search(
-                [
-                    ("code", "=", "1003010"),
-                    ("chart_template_id", "=", rgs.id),
-                ]
-            )
-            if len(correct_account_template) == 1:
-                account_data = dict(
-                    xml_id=rgs_xml_id,
-                    record=correct_account_template,
-                    noupdate=True,
-                )
-                self.env["ir.model.data"]._update_xmlids([account_data])
-                liquidity_account_template.unlink()
 
     def add_account_group_allowed_journals(self, company):
         """Inherit this method to fix reference code missing in account groups"""
