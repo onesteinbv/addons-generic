@@ -215,6 +215,14 @@ class AccountChartTemplate(models.AbstractModel):
                 "type": "cash",
                 "show_on_dashboard": True,
             },
+            "caba": {
+                "name": _("Cash Basis Taxes"),
+                "type": "general",
+                "subtype": "general_misc",
+                "code": _("CABA"),
+                "show_on_dashboard": False,
+                "active": False,
+            },
         }
         return data
 
