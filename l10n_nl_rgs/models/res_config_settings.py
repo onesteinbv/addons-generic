@@ -14,12 +14,7 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
     )
 
-    @api.depends("chart_template_id")
+    @api.depends("chart_template")
     def _compute_is_l10n_nl_rgs(self):
         for config in self:
-            if config.chart_template_id == self.env.ref(
-                "l10n_nl_rgs.l10nnl_rgs_chart_template"
-            ):
-                config.is_l10n_nl_rgs = True
-            else:
-                config.is_l10n_nl_rgs = False
+            config.is_l10n_nl_rgs = config.chart_template == "nl_rgs"
