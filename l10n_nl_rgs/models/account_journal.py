@@ -23,8 +23,8 @@ class AccountJournal(models.Model):
 
     @api.model
     def _fill_missing_values(self, vals, protected_codes=False):
-        chart_template = self.env.company.chart_template_id
-        is_rgs = chart_template == self.env.ref("l10n_nl_rgs.l10nnl_rgs_chart_template")
+        chart_template = self.env.company.chart_template
+        is_rgs = chart_template == "nl_rgs"
         is_bank = vals.get("type") == "bank"
         is_cash = vals.get("type") == "cash"
         if not vals.get("default_account_id") and is_rgs and (is_bank or is_cash):
@@ -44,12 +44,9 @@ class AccountJournal(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         journals = super().create(vals_list)
-        coa = self.env.ref("l10n_nl_rgs.l10nnl_rgs_chart_template", False)
-        if not coa:
-            return journals
         account_account_obj = self.env["account.account"]
         for journal in journals:
-            if journal.company_id.chart_template_id == coa:
+            if journal.company_id.chart_template == "nl_rgs":
                 all_accounts = account_account_obj.search(
                     [
                         ("company_id", "=", journal.company_id.id),

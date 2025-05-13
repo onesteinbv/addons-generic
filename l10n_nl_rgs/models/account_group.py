@@ -39,9 +39,7 @@ class AccountGroup(models.Model):
     )
 
     def _adapt_parent_account_group(self):
-        if self.company_id.chart_template_id != self.env.ref(
-            "l10n_nl_rgs.l10nnl_rgs_chart_template", False
-        ):
+        if self.company_id.chart_template != "nl_rgs":
             return super(AccountGroup, self)._adapt_parent_account_group()
 
     def get_all_account_ids(self):
