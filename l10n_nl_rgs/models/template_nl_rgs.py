@@ -226,53 +226,21 @@ class AccountChartTemplate(models.AbstractModel):
         }
         return data
 
-    @api.model
-    def _prepare_transfer_account_for_direct_creation(self, name, company):
-        res = super(
-            AccountChartTemplate, self
-        )._prepare_transfer_account_for_direct_creation(name, company)
-        if company.account_fiscal_country_id.code == "NL":
-            xml_id = self.env.ref("l10n_nl_rgs.account_tag_1003000").id
-            res.setdefault("tag_ids", [])
-            res["tag_ids"].append((4, xml_id))
-        return res
-
-    @api.model
-    def _create_liquidity_journal_suspense_account(self, company, code_digits):
-        account = super()._create_liquidity_journal_suspense_account(
-            company, code_digits
-        )
-        if company.account_fiscal_country_id.code == "NL":
-            account.tag_ids = [
-                Command.link(self.env.ref("l10n_nl_rgs.account_tag_1003000").id)
-            ]
-            if account.referentiecode:
-                account.reconcile = True
-
-                installed_langs = dict(self.env["res.lang"].get_installed())
-                # Install Dutch language if not done yet
-                lang = "nl_NL"
-                if lang not in installed_langs:
-                    self.env["res.lang"]._activate_lang(lang)
-                account.update_field_translations(
-                    "name", {"nl_NL": "Nog af te letteren bank"}
-                )
-        return account
-
-    def _get_account_vals(self, company, account_template, code_acc, tax_template_ref):
-        self.ensure_one()
-        vals = super()._get_account_vals(
-            company, account_template, code_acc, tax_template_ref
-        )
-
-        if self == self.env.ref("l10n_nl_rgs.l10nnl_rgs_chart_template", False):
-            vals.update(
-                {
-                    "referentiecode": account_template.referentiecode,
-                    "sort_code": account_template.sort_code,
-                }
-            )
-        return vals
+    def _post_load_data(
+        self, template_code, company, template_data
+    ):  # pylint: disable=missing-return
+        super()._post_load_data(template_code, company, template_data)
+        if template_code == "nl_rgs":
+            if cross_post_tag := self.env.ref(
+                "l10n_nl_rgs.account_tag_1003000", raise_if_not_found=False
+            ):
+                company.account_journal_suspense_account_id.tag_ids += cross_post_tag
+                company.account_journal_suspense_account_id.reconcile = True
+                company.transfer_account_id.tag_ids += cross_post_tag
+            if undist_profit_tag := self.env.ref(
+                "l10n_nl_rgs.account_tag_0506009", raise_if_not_found=False
+            ):
+                company.get_unaffected_earnings_account().tag_ids += undist_profit_tag
 
     def generate_account(
         self, tax_template_ref, acc_template_ref, code_digits, company
@@ -540,90 +508,6 @@ class AccountChartTemplate(models.AbstractModel):
         ):
             return company.default_cash_difference_income_account_id
         return super()._create_cash_discount_gain_account(company, code_digits)
-
-    def _translate_journal_names_to_dutch(self, company):
-        """Workaround to translate journal names to Dutch, since standard Odoo doesn't do that"""
-
-        installed_langs = dict(self.env["res.lang"].get_installed())
-        # Install Dutch language if not done yet
-        lang = "nl_NL"
-        if lang not in installed_langs:
-            self.env["res.lang"]._activate_lang(lang)
-        journals = self.env["account.journal"].search(
-            [
-                ("company_id", "=", company.id),
-            ]
-        )
-        for journal in journals:
-            if (
-                journal.code == "INV"
-                and journal.with_context(lang="en_US").name == "Customer Invoices"
-            ):
-                journal.update_field_translations("name", {"nl_NL": "Klantfacturen"})
-                journal.alias_name = "klantfacturen"
-            elif (
-                journal.code == "BILL"
-                and journal.with_context(lang="en_US").name == "Vendor Bills"
-            ):
-                journal.update_field_translations(
-                    "name", {"nl_NL": "Leveranciersfacturen"}
-                )
-                journal.alias_name = "facturen"
-            elif (
-                journal.code == "MISC"
-                and journal.with_context(lang="en_US").name
-                == "Miscellaneous Operations"
-            ):
-                journal.update_field_translations("name", {"nl_NL": "Memoriaal"})
-            elif (
-                journal.code == "EXCH"
-                and journal.with_context(lang="en_US").name == "Exchange Difference"
-            ):
-                journal.update_field_translations(
-                    "name", {"nl_NL": "Wisselkoers verschil"}
-                )
-            elif (
-                journal.code == "CABA"
-                and journal.with_context(lang="en_US").name == "Cash Basis Taxes"
-            ):
-                journal.update_field_translations("name", {"nl_NL": "Kasstelsel BTW"})
-            elif (
-                journal.code.startswith("CSH")
-                and journal.with_context(lang="en_US").name == "Cash"
-            ):
-                journal.update_field_translations("name", {"nl_NL": "Kas"})
-            elif (
-                journal.code == "ACCR"
-                and journal.with_context(lang="en_US").name == "Accruals"
-            ):
-                journal.update_field_translations(
-                    "name", {"nl_NL": "Overlopende rekeningen"}
-                )
-            elif (
-                journal.code == "DEPR"
-                and journal.with_context(lang="en_US").name == "Depreciations"
-            ):
-                journal.update_field_translations("name", {"nl_NL": "Afschrijvingen"})
-            elif (
-                journal.code == "FCR"
-                and journal.with_context(lang="en_US").name
-                == "Foreign currency revaluation"
-            ):
-                journal.update_field_translations(
-                    "name", {"nl_NL": "Herwaardering vreemde valuta"}
-                )
-            elif (
-                journal.code == "WAG"
-                and journal.with_context(lang="en_US").name == "Wages"
-            ):
-                journal.update_field_translations("name", {"nl_NL": "Lonen"})
-            elif (
-                journal.code == "STJ"
-                and journal.with_context(lang="en_US").name == "Inventory Valuation"
-            ):
-                journal.update_field_translations(
-                    "name", {"nl_NL": "Voorraadwaardering"}
-                )
 
     @api.model
     def _patch_fix_stock_account(self):
