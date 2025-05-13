@@ -36,8 +36,9 @@ class AccountGroup(models.Model):
         comodel_name="account.account", inverse_name="group_id", string="Accounts"
     )
 
-    def _adapt_parent_account_group(self):
-        if self.company_id.chart_template != "nl_rgs":
+    def _adapt_parent_account_group(self, company=None):
+        company = company if company else self.company_id
+        if company.chart_template != "nl_rgs":
             return super(AccountGroup, self)._adapt_parent_account_group()
 
     def get_all_account_ids(self):

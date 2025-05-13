@@ -26,9 +26,9 @@ class AccountJournal(models.Model):
         is_bank = vals.get("type") == "bank"
         is_cash = vals.get("type") == "cash"
         if not vals.get("default_account_id") and is_rgs and (is_bank or is_cash):
-            account = chart_template._l10n_nl_rgs_get_create_bank_cash_account(
-                vals["type"], self.env.company
-            )
+            account = self.env[
+                "account.chart.template"
+            ]._l10n_nl_rgs_get_create_bank_cash_account(vals["type"], self.env.company)
             if account:
                 vals.update({"default_account_id": account.id})
                 account.deprecated = False
@@ -47,7 +47,7 @@ class AccountJournal(models.Model):
             if journal.company_id.chart_template == "nl_rgs":
                 all_accounts = account_account_obj.search(
                     [
-                        ("company_id", "=", journal.company_id.id),
+                        ("company_ids", "in", (journal.company_id.id,)),
                         ("account_type", "!=", "asset_cash"),
                     ]
                 )

@@ -127,75 +127,96 @@ class AccountChartTemplate(models.AbstractModel):
                 "name": _("Accruals"),
                 "type": "general",
                 "code": _("ACCR"),
-                "favorite": True,
+                "show_on_dashboard": True,
                 "color": 11,
                 "sequence": 15,
+                "subtype": "general_accr",
             },
             "depreciations": {
                 "name": _("Depreciations"),
                 "type": "general",
                 "code": "DEPR",
-                "favorite": True,
+                "show_on_dashboard": True,
                 "color": 11,
                 "sequence": 16,
+                "subtype": "general_depr",
             },
             "foreign_currency_revaluation": {
                 "name": _("Foreign currency revaluation"),
                 "type": "general",
                 "code": _("FCR"),
-                "favorite": True,
+                "show_on_dashboard": True,
                 "sequence": 17,
+                "subtype": "general_fcr",
             },
             "wages": {
                 "name": _("Wages"),
                 "type": "general",
                 "code": _("WAG"),
-                "favorite": True,
+                "show_on_dashboard": True,
                 "sequence": 18,
+                "subtype": "general_wag",
             },
             "inventory_valuation": {
                 "name": _("Inventory Valuation"),
                 "type": "general",
                 "code": _("STJ"),
-                "favorite": True,
+                "show_on_dashboard": True,
                 "sequence": 19,
+                "subtype": "general_stj",
             },
             "taxes": {
                 "name": _("Taxes"),
                 "type": "general",
                 "code": _("TAX"),
-                "favorite": True,
+                "show_on_dashboard": True,
                 "sequence": 20,
+                "subtype": "general_tax",
+            },
+            "sale": {
+                "name": _("Customer Invoices"),
+                "type": "sale",
+                "code": _("INV"),
+                "show_on_dashboard": True,
+                "color": 11,
+                "sequence": 5,
+            },
+            "purchase": {
+                "name": _("Vendor Bills"),
+                "type": "purchase",
+                "code": _("BILL"),
+                "show_on_dashboard": True,
+                "color": 11,
+                "sequence": 6,
+            },
+            "general": {
+                "name": _("Miscellaneous Operations"),
+                "type": "general",
+                "code": _("MISC"),
+                "show_on_dashboard": False,
+                "sequence": 9,
+                "subtype": "general_misc",
+            },
+            "exch": {
+                "name": _("Exchange Difference"),
+                "type": "general",
+                "code": _("EXCH"),
+                "show_on_dashboard": False,
+                "subtype": "general_exch",
+            },
+            "bank": {
+                "name": _("Bank"),
+                "type": "bank",
+                "show_on_dashboard": True,
+                "sequence": 7,
+            },
+            "cash": {
+                "name": _("Cash"),
+                "type": "cash",
+                "show_on_dashboard": True,
             },
         }
         return data
-
-        # default_journals = self._get_account_journal("nl_rgs")
-
-        # # Archive unwanted journals and add related subtypes
-        # for journal_id in default_journals:
-        #     journal = default_journals[journal_id]
-        #     code = journal["code"]
-        #     if code == "CABA":
-        #         journal["active"] = False
-        #     if code == "general":
-        #         subtype = "general_misc"
-        #         if code == _("EXCH"):
-        #             subtype = "general_exch"
-        #         elif journal["code"] == _("ACCR"):
-        #             subtype = "general_accr"
-        #         elif journal["code"] == _("DEPR"):
-        #             subtype = "general_depr"
-        #         elif journal["code"] == _("FCR"):
-        #             subtype = "general_fcr"
-        #         elif journal["code"] == _("WAG"):
-        #             subtype = "general_wag"
-        #         elif journal["code"] == _("STJ"):
-        #             subtype = "general_stj"
-        #         elif journal["code"] == _("TAX"):
-        #             subtype = "general_tax"
-        #         journal["subtype"] = subtype
-        # return resp_journals
 
     @api.model
     def _prepare_transfer_account_for_direct_creation(self, name, company):
@@ -462,15 +483,15 @@ class AccountChartTemplate(models.AbstractModel):
         return bank_journals
 
     def _l10n_nl_rgs_get_create_bank_cash_account(self, account_type, company):
-        self.ensure_one()
         prefix = False
-        if account_type == "bank" and self.bank_account_code_prefix:
-            prefix = self.bank_account_code_prefix
-        if account_type == "cash" and self.cash_account_code_prefix:
-            prefix = self.cash_account_code_prefix
-        digits = self.code_digits
+        if account_type == "bank" and company.bank_account_code_prefix:
+            prefix = company.bank_account_code_prefix
+        if account_type == "cash" and company.cash_account_code_prefix:
+            prefix = company.cash_account_code_prefix
+        template_data = self._get_nl_rgs_template_data()
+        digits = int(template_data.get("code_digits"))
         accounts = self.env["account.account"].search(
-            [("code", "=like", prefix + "%"), ("company_id", "=", company.id)]
+            [("code", "=like", prefix + "%"), ("company_ids", "in", (company.id,))]
         )
         for num in range(0, 9):
             new_code = str(prefix.ljust(digits - 1, "0")) + str(num)

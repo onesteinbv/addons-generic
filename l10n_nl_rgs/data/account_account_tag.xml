@@ -456,7 +456,7 @@
     </record>
 
     <record id="account_tag_0309000" model="account.account.tag">
-        <field name="name">Overige vorderingen</field>
+        <field name="name">Overige vorderingen (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -816,7 +816,7 @@
     </record>
 
     <record id="account_tag_0601000" model="account.account.tag">
-        <field name="name">Egalisatierekening</field>
+        <field name="name">Egalisatierekening (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -984,43 +984,43 @@
     </record>
 
     <record id="account_tag_1209029" model="account.account.tag">
-        <field name="name">Schulden aan banken</field>
+        <field name="name">Schulden aan banken (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_1209040" model="account.account.tag">
-        <field name="name">Ontvangen vooruitbetalingen op bestellingen</field>
+        <field name="name">Ontvangen vooruitbetalingen op bestellingen (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_1203000" model="account.account.tag">
-        <field name="name">Schulden aan leveranciers en handelskredieten</field>
+        <field name="name">Schulden aan leveranciers en handelskredieten (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_1209079" model="account.account.tag">
-        <field name="name">Te betalen wissels en cheques</field>
+        <field name="name">Te betalen wissels en cheques (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_1208100" model="account.account.tag">
-        <field name="name">Schulden aan groepsmaatschappijen</field>
+        <field name="name">Schulden aan groepsmaatschappijen (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_1208200" model="account.account.tag">
-        <field name="name">Schulden aan overige verbonden maatschappijen</field>
+        <field name="name">Schulden aan overige verbonden maatschappijen (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_1208300" model="account.account.tag">
-        <field name="name">Schulden aan participanten en aan maatschappijen waarin wordt deelgenomen</field>
+        <field name="name">Schulden aan participanten en aan maatschappijen waarin wordt deelgenomen (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -1038,13 +1038,13 @@
     </record>
 
     <record id="account_tag_1205009" model="account.account.tag">
-        <field name="name">Belastingen en premies sociale verzekeringen</field>
+        <field name="name">Belastingen en premies sociale verzekeringen (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_1204089" model="account.account.tag">
-        <field name="name">Schulden ter zake van pensioenen</field>
+        <field name="name">Schulden ter zake van pensioenen (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -1068,19 +1068,19 @@
     </record>
 
     <record id="account_tag_1209000" model="account.account.tag">
-        <field name="name">Overige schulden</field>
+        <field name="name">Overige schulden (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_1210000" model="account.account.tag">
-        <field name="name">Overlopende passiva</field>
+        <field name="name">Overlopende passiva (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_1220000" model="account.account.tag">
-        <field name="name">Tussenrekeningen</field>
+        <field name="name">Tussenrekeningen (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -1290,25 +1290,25 @@
     </record>
 
     <record id="account_tag_4400000" model="account.account.tag">
-        <field name="name">Overige organisatiekosten</field>
+        <field name="name">Overige organisatiekosten (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_8060000" model="account.account.tag">
-        <field name="name">Kosten omtrent leefbaarheid</field>
+        <field name="name">Kosten omtrent leefbaarheid (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_8080000" model="account.account.tag">
-        <field name="name">Verkoopkosten</field>
+        <field name="name">Verkoopkosten (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
 
     <record id="account_tag_8090000" model="account.account.tag">
-        <field name="name">Algemene beheerskosten</field>
+        <field name="name">Algemene beheerskosten (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -1512,7 +1512,7 @@
     </record>
 
     <record id="account_tag_8209000" model="account.account.tag">
-        <field name="name">Opbrengsten servicecontracten</field>
+        <field name="name">Opbrengsten servicecontracten (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -1794,7 +1794,7 @@
     </record>
 
     <record id="account_tag_8401000" model="account.account.tag">
-        <field name="name">Opbrengst van vorderingen die tot de vaste activa behoren en van effecten</field>
+        <field name="name">Opbrengst van vorderingen die tot de vaste activa behoren en van effecten (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -1818,7 +1818,7 @@
     </record>
 
     <record id="account_tag_8405000" model="account.account.tag">
-        <field name="name">Waardeveranderingen van financiële vaste activa en van effecten</field>
+        <field name="name">Waardeveranderingen van financiële vaste activa en van effecten (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -1872,7 +1872,7 @@
     </record>
 
     <record id="account_tag_8500000" model="account.account.tag">
-        <field name="name">Derivaten</field>
+        <field name="name">Derivaten (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -1956,7 +1956,7 @@
     </record>
 
     <record id="account_tag_8410000" model="account.account.tag">
-        <field name="name">Aandeel in resultaat van ondernemingen waarin wordt deelgenomen</field>
+        <field name="name">Aandeel in resultaat van ondernemingen waarin wordt deelgenomen (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -1968,7 +1968,7 @@
     </record>
 
     <record id="account_tag_9001100" model="account.account.tag">
-        <field name="name">Ledenbetalingen (inclusief reeds betaalde voorschotten)</field>
+        <field name="name">Ledenbetalingen (inclusief reeds betaalde voorschotten) (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
@@ -1992,7 +1992,7 @@
     </record>
 
     <record id="account_tag_9104000" model="account.account.tag">
-        <field name="name">Mutatie fiscale oudedagsreserve</field>
+        <field name="name">Mutatie fiscale oudedagsreserve (Duplicate???)</field>
         <field name="applicability">accounts</field>
         <field name="country_id" ref="base.nl"/>
     </record>
