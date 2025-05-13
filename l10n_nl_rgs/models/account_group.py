@@ -35,6 +35,12 @@ class AccountGroup(models.Model):
     account_ids = fields.One2many(
         comodel_name="account.account", inverse_name="group_id", string="Accounts"
     )
+    rgs_allowed_journals_code = fields.Char(
+        help="Comma reparated list of allowed journal codes."
+    )
+    rgs_allowed_journals_type = fields.Char(
+        help="Comma reparated list of allowed journal types."
+    )
 
     def _adapt_parent_account_group(self, company=None):
         company = company if company else self.company_id
