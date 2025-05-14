@@ -1,1 +1,1 @@
-from . import test_l10n_nl_rgs_coa
+from . import test_account_group
