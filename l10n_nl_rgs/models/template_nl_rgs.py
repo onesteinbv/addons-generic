@@ -280,3 +280,34 @@ class AccountChartTemplate(models.AbstractModel):
                     [("subtype", "in", allowed_subtypes)]
                 )
             group.allowed_journal_ids = allowed_journals
+
+    def _l10n_nl_rgs_get_create_bank_cash_account(self, account_type, company):
+        prefix = False
+        if account_type == "bank" and company.bank_account_code_prefix:
+            prefix = company.bank_account_code_prefix
+        if account_type == "cash" and company.cash_account_code_prefix:
+            prefix = company.cash_account_code_prefix
+        template_data = self._get_nl_rgs_template_data()
+        digits = int(template_data.get("code_digits"))
+        accounts = self.env["account.account"].search(
+            [("code", "=like", prefix + "%"), ("company_ids", "in", (company.id,))]
+        )
+        for num in range(0, 9):
+            new_code = str(prefix.ljust(digits - 1, "0")) + str(num)
+            rec = accounts.filtered(lambda a: a.code == new_code)
+            if rec:
+                existing_journal = self.env["account.journal"].search(
+                    [
+                        ("type", "=", account_type),
+                        ("default_account_id", "=", rec.id),
+                        ("company_id", "=", company.id),
+                    ],
+                    limit=1,
+                )
+                if not existing_journal:
+                    return rec
+            if not rec:
+                # TODO automatically create a new account?
+                # new_account = self.env["account.account"].create({"code": new_code, "company_id": company.id})
+                # return new_account
+                pass

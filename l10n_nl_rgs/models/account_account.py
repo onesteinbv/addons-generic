@@ -23,11 +23,12 @@ class AccountAccount(models.Model):
         return resp
 
     def group_set_allowed_journals(self):
-        for rec in self:
-            if rec.group_id and rec.group_id.auto_allowed_journals:
-                rec.with_context(
-                    group_allowed_journal_change=True
-                ).allowed_journal_ids = rec.group_id.active_allowed_journal_ids
+        for rec in self.filtered(
+            lambda a: a.group_id and a.group_id.auto_allowed_journals
+        ):
+            rec.with_context(
+                group_allowed_journal_change=True
+            ).allowed_journal_ids = rec.group_id.active_allowed_journal_ids
 
     @api.model_create_multi
     def create(self, vals_list):
