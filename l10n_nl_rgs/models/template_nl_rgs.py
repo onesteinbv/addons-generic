@@ -231,76 +231,25 @@ class AccountChartTemplate(models.AbstractModel):
         self, template_code, company, template_data
     ):  # pylint: disable=missing-return
         super()._post_load_data(template_code, company, template_data)
-        if template_code == "nl_rgs":
-            if cross_post_tag := self.env.ref(
-                "l10n_nl_rgs.account_tag_1003000", raise_if_not_found=False
-            ):
-                company.account_journal_suspense_account_id.tag_ids += cross_post_tag
-                company.account_journal_suspense_account_id.reconcile = True
-                company.transfer_account_id.tag_ids += cross_post_tag
-            if undist_profit_tag := self.env.ref(
-                "l10n_nl_rgs.account_tag_0506009", raise_if_not_found=False
-            ):
-                company.get_unaffected_earnings_account().tag_ids += undist_profit_tag
+        if template_code != "nl_rgs":
+            return
 
-    def add_account_group_allowed_journals(self, company):
-        """Inherit this method to fix reference code missing in account groups"""
-        self.ensure_one()
+        if cross_post_tag := self.env.ref(
+            "l10n_nl_rgs.account_tag_1003000", raise_if_not_found=False
+        ):
+            company.account_journal_suspense_account_id.tag_ids += cross_post_tag
+            company.account_journal_suspense_account_id.reconcile = True
+            company.transfer_account_id.tag_ids += cross_post_tag
+        if undist_profit_tag := self.env.ref(
+            "l10n_nl_rgs.account_tag_0506009", raise_if_not_found=False
+        ):
+            company.get_unaffected_earnings_account().tag_ids += undist_profit_tag
+        self._set_allowed_journals(company)
 
-        group_templates = self.env["account.group.template"].search(
-            [
-                ("chart_template_id", "=", self.id),
-                "|",
-                ("rgs_allowed_journals_code", "!=", False),
-                ("rgs_allowed_journals_type", "!=", False),
-            ]
-        )
-        referentiecodes = group_templates.mapped("referentiecode")
-        all_groups = self.env["account.group"].search(
-            [("company_id", "=", company.id), ("referentiecode", "in", referentiecodes)]
-        )
-        all_journals = self.env["account.journal"].search(
-            [
-                ("company_id", "=", company.id),
-            ]
-        )
-
-        for group_template in group_templates:
-            group = all_groups.filtered(
-                lambda g: g.referentiecode == group_template.referentiecode
-            )
-            if not group:
-                continue
-            journals = self.env["account.journal"]
-            if group_template.rgs_allowed_journals_type:
-                type_list = [
-                    jtype
-                    for jtype in group_template.rgs_allowed_journals_type.split(",")
-                ]
-                journals |= self.get_allowed_account_journals_based_on_type(
-                    all_journals, type_list
-                )
-            if group_template.rgs_allowed_journals_code:
-                code_list = [
-                    jcode
-                    for jcode in group_template.rgs_allowed_journals_code.split(",")
-                ]
-                journals |= self.get_allowed_account_journals_based_on_code(
-                    all_journals, code_list
-                )
-            if journals:
-                group.allowed_journal_ids = journals
-
-        # Set the accounts allowed journal
-        all_groups = self.env["account.group"].search([("company_id", "=", company.id)])
-        for group in all_groups:
-            group.accounts_set_allowed_journals()
-
-    def get_allowed_account_journals_based_on_type(self, all_journals, type_list):
-        return all_journals.filtered(lambda j: j.type in type_list)
-
-    def get_allowed_account_journals_based_on_code(self, all_journals, code_list):
-        subtype_mapping = {
+    def _set_allowed_journals(self, company):
+        """Set the allowed journals for the group"""
+        # NOTE: Migrated from 16 not sure why the subtype is not used directly like rgs_allowed_journals_subtype
+        code_subtype_mapping = {
             "WAG": "general_wag",
             "DEPR": "general_depr",
             "FCR": "general_fcr",
@@ -309,11 +258,28 @@ class AccountChartTemplate(models.AbstractModel):
             "MISC": "general_misc",
             "EXCH": "general_exch",
         }
-        subtype_list = []
-        for k, v in subtype_mapping.items():
-            if k in code_list and v not in subtype_list:
-                subtype_list.append(v)
-        return all_journals.filtered(lambda j: j.subtype in subtype_list)
+        journals = self.env["account.journal"].search([("company_id", "=", company.id)])
+        groups = self.env["account.group"].search([("company_id", "=", company.id)])
+
+        for group in groups:
+            allowed_journals = self.env["account.journal"]
+            if group.rgs_allowed_journals_type:
+                allowed_journals = journals.filtered_domain(
+                    [
+                        ("type", "in", group.rgs_allowed_journals_type.split(",")),
+                    ]
+                )
+            if group.rgs_allowed_journals_code:
+                codes = group.rgs_allowed_journals_code.split(",")
+                allowed_subtypes = [
+                    code_subtype_mapping[code]
+                    for code in code_subtype_mapping.keys()
+                    if code in codes
+                ]
+                allowed_journals |= journals.filtered_domain(
+                    [("subtype", "in", allowed_subtypes)]
+                )
+            group.allowed_journal_ids = allowed_journals
 
     def _create_bank_journals(self, company, acc_template_ref):
         self.ensure_one()
