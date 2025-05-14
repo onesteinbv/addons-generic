@@ -40,6 +40,8 @@ class AccountGroup(models.Model):
         string="Accounts",
     )
 
+    @api.depends_context("company")
+    @api.depends("code_prefix_start", "code_prefix_end")
     def _compute_account_ids(self):
         for group in self:
             query = """
