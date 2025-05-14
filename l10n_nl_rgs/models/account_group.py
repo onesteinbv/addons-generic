@@ -1,6 +1,6 @@
 # Copyright (C) 2016 Onestein (<http://www.onestein.eu>).
 
-from odoo import api, fields, models
+from odoo import Command, api, fields, models
 
 
 class AccountGroup(models.Model):
@@ -28,19 +28,39 @@ class AccountGroup(models.Model):
         default=True,
         help="If Automatic Allowed Journals is on. Changes here will be brought to the underlying accounts.",
     )
-    # From account financial report
-    group_child_ids = fields.One2many(
-        comodel_name="account.group", inverse_name="parent_id", string="Child Groups"
-    )
-    account_ids = fields.One2many(
-        comodel_name="account.account", inverse_name="group_id", string="Accounts"
-    )
     rgs_allowed_journals_code = fields.Char(
         help="Comma reparated list of allowed journal codes."
     )
     rgs_allowed_journals_type = fields.Char(
         help="Comma reparated list of allowed journal types."
     )
+    account_ids = fields.One2many(
+        comodel_name="account.account",
+        compute="_compute_account_ids",
+        string="Accounts",
+    )
+
+    def _compute_account_ids(self):
+        for group in self:
+            query = """
+                SELECT
+                    a.id
+                FROM
+                    account_account a
+                JOIN
+                    account_group g
+                    ON g.code_prefix_start <= LEFT((a.code_store::json ->> %(company_id)s), char_length(g.code_prefix_start))
+                    AND g.code_prefix_end >= LEFT((a.code_store::json ->> %(company_id)s), char_length(g.code_prefix_end))
+                    AND g.company_id = %(company_id)s
+                WHERE g.id = %(group_id)s
+            """
+            self.env.cr.execute(
+                query,
+                {"group_id": group.id, "company_id": str(self.env.company.root_id.id)},
+            )
+            group.account_ids = [
+                Command.set([row[0] for row in self.env.cr.fetchall()])
+            ]
 
     @api.depends("parent_id", "parent_id.allowed_journal_ids", "allowed_journal_ids")
     @api.onchange("parent_id", "allowed_journal_ids")
@@ -53,7 +73,7 @@ class AccountGroup(models.Model):
 
     def _inverse_active_allowed_journals(self):
         for rec in self:
-            parent_journals = rec.parent_id.get_all_allowed_journal_ids()
+            parent_journals = rec.parent_id.active_allowed_journal_ids
             rec.allowed_journal_ids = rec.active_allowed_journal_ids - parent_journals
 
     def _adapt_parent_account_group(self, company=None):
@@ -61,26 +81,17 @@ class AccountGroup(models.Model):
         if company.chart_template != "nl_rgs":
             return super(AccountGroup, self)._adapt_parent_account_group()
 
-    # def get_all_account_ids(self):
-    #     accounts = self.env["account.account"]
-    #     for rec in self:
-    #         accounts |= rec.account_ids
-    #         if rec.group_child_ids:
-    #             accounts |= rec.group_child_ids.get_all_account_ids()
-    #     return accounts
+    def write(self, vals):
+        ret = super().write(vals)
+        self.accounts_set_allowed_journals()
+        return ret
 
-    # def write(self, vals):
-    #     ret = super().write(vals)
-    #     # Always check the allowed journals if auto_allowed_journals
-    #     self.accounts_set_allowed_journals()
-    #     return ret
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        records.accounts_set_allowed_journals()
+        return records
 
-    # @api.model_create_multi
-    # def create(self, vals_list):
-    #     records = super().create(vals_list)
-    #     records.accounts_set_allowed_journals()
-    #     return records
-
-    # def accounts_set_allowed_journals(self):
-    #     for rec in self.filtered(lambda g: g.auto_allowed_journals):
-    # rec.account_ids.group_set_allowed_journals()
+    def accounts_set_allowed_journals(self):
+        for rec in self.filtered(lambda g: g.auto_allowed_journals):
+            rec.account_ids.group_set_allowed_journals()
