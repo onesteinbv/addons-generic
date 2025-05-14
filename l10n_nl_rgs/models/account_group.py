@@ -38,7 +38,7 @@ class AccountGroup(models.Model):
         comodel_name="account.account",
         compute="_compute_account_ids",
         string="Accounts",
-    )
+    )  # TODO: Move to account_usability
 
     @api.depends_context("company")
     @api.depends("code_prefix_start", "code_prefix_end")
