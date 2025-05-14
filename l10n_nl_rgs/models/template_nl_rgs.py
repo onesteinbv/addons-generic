@@ -281,6 +281,9 @@ class AccountChartTemplate(models.AbstractModel):
                 )
             group.allowed_journal_ids = allowed_journals
 
+        accounts = groups.mapped("account_ids")
+        accounts.group_set_allowed_journals()
+
     def _l10n_nl_rgs_get_create_bank_cash_account(self, account_type, company):
         prefix = False
         if account_type == "bank" and company.bank_account_code_prefix:
