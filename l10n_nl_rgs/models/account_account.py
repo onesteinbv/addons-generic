@@ -6,7 +6,6 @@ class AccountAccount(models.Model):
     _inherit = "account.account"
     _order = "sort_code, code, placeholder_code"
 
-    # FIXME: This should be English with Dutch translation
     referentiecode = fields.Char()
     sort_code = fields.Char(string="Sorting code")
 

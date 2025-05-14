@@ -21,7 +21,10 @@ class AccountGroupTest(TransactionCase):
             {
                 "name": "Test Group",
                 "company_id": company.id,
+                "code_prefix_start": "1000",
+                "code_prefix_end": "1999",
                 "allowed_journal_ids": [Command.set(allowed_journals.ids)],
+                "auto_allowed_journals": False,
             }
         )
         # Create a test account
@@ -33,6 +36,7 @@ class AccountGroupTest(TransactionCase):
                 "company_ids": [Command.set(company.ids)],
             }
         )
+        self.assertEqual(group.id, account.group_id.id)
 
         self.assertNotIn(
             allowed_journals.id,
