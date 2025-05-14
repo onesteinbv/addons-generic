@@ -5,22 +5,17 @@ from odoo.tests.common import TransactionCase
 class AccountGroupTest(TransactionCase):
     def test_allowed_journals(self):
         """Test wheter the account_ids field is correctly computed"""
-        company = self.env["res.company"].create(
-            {"name": "Test Company", "chart_template": "nl_rgs"}
-        )
         allowed_journals = self.env["account.journal"].create(
             {
                 "code": "j1",
                 "type": "bank",
                 "name": "Journal 1",
-                "company_id": company.id,
             }
         )
         # Create a account group
         group = self.env["account.group"].create(
             {
                 "name": "Test Group",
-                "company_id": company.id,
                 "code_prefix_start": "1000",
                 "code_prefix_end": "1999",
                 "allowed_journal_ids": [Command.set(allowed_journals.ids)],
@@ -33,7 +28,6 @@ class AccountGroupTest(TransactionCase):
                 "code": "1000",
                 "name": "Test Account",
                 "group_id": group.id,
-                "company_ids": [Command.set(company.ids)],
             }
         )
         self.assertEqual(group.id, account.group_id.id)
@@ -54,12 +48,7 @@ class AccountGroupTest(TransactionCase):
 
         # Add a new journal to the group we expect it to be added to the account
         new_allowed_journal = self.env["account.journal"].create(
-            {
-                "code": "j2",
-                "type": "bank",
-                "name": "Journal 2",
-                "company_id": company.id,
-            }
+            {"code": "j2", "type": "bank", "name": "Journal 2"}
         )
         group.allowed_journal_ids = [Command.link(new_allowed_journal.id)]
         self.assertIn(
