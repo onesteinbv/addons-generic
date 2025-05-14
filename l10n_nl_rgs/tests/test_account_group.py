@@ -3,6 +3,67 @@ from odoo.tests.common import TransactionCase
 
 
 class AccountGroupTest(TransactionCase):
+    def test_allowed_journals(self):
+        """Test wheter the account_ids field is correctly computed"""
+        company = self.env["res.company"].create(
+            {"name": "Test Company", "chart_template": "nl_rgs"}
+        )
+        allowed_journals = self.env["account.journal"].create(
+            {
+                "code": "j1",
+                "type": "bank",
+                "name": "Journal 1",
+                "company_id": company.id,
+            }
+        )
+        # Create a account group
+        group = self.env["account.group"].create(
+            {
+                "name": "Test Group",
+                "company_id": company.id,
+                "allowed_journal_ids": [Command.set(allowed_journals.ids)],
+            }
+        )
+        # Create a test account
+        account = self.env["account.account"].create(
+            {
+                "code": "1000",
+                "name": "Test Account",
+                "group_id": group.id,
+                "company_ids": [Command.set(company.ids)],
+            }
+        )
+
+        self.assertNotIn(
+            allowed_journals.id,
+            account.allowed_journal_ids.ids,
+            "The account should not have the allowed journals.",
+        )
+
+        # Enable auto_allowed_journals
+        group.auto_allowed_journals = True
+        self.assertIn(
+            allowed_journals.id,
+            account.allowed_journal_ids.ids,
+            "The account should have the allowed journals after enabling auto allowed journals.",
+        )
+
+        # Add a new journal to the group we expect it to be added to the account
+        new_allowed_journal = self.env["account.journal"].create(
+            {
+                "code": "j2",
+                "type": "bank",
+                "name": "Journal 2",
+                "company_id": company.id,
+            }
+        )
+        group.allowed_journal_ids = [Command.link(new_allowed_journal.id)]
+        self.assertIn(
+            new_allowed_journal.id,
+            account.allowed_journal_ids.ids,
+            "The account should have the allowed journals after enabling auto allowed journals.",
+        )
+
     def test_active_allowed_journals(self):
         """Test active_allowed_journal_ids specifically the inverse and recursive compute methods"""
         # Create a test company
@@ -33,7 +94,7 @@ class AccountGroupTest(TransactionCase):
                 "company_id": company.id,
             }
         )
-        # Create a test account group with allowed journals
+        # Create a account group with allowed journals
         group1 = self.env["account.group"].create(
             {
                 "name": "Test Group 1",
