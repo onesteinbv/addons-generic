@@ -5,10 +5,7 @@
     "category": "Accounting/Localizations/Account Charts",
     "author": "Onestein",
     "website": "https://www.onestein.nl",
-    "depends": [
-        "account",
-        "account_journal_subtype",
-    ],
+    "depends": ["account", "account_journal_subtype", "account_usability"],
     "data": [
         "data/account_account_tag.xml",
         "data/account_tax_report_data.xml",
