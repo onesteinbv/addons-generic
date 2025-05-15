@@ -14,7 +14,6 @@
         "data/mis_report_profit_loss.xml",
         "views/mis_report_instance.xml",
     ],
-    "installable": True,
     "auto_install": True,
     "license": "LGPL-3",
 }
