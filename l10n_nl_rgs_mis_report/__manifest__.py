@@ -8,6 +8,7 @@
     "author": "Onestein",
     "website": "https://www.onestein.nl",
     "depends": ["l10n_nl_rgs", "mis_builder"],
+    "countries": ["nl"],
     "data": [
         "data/mis_report_styles.xml",
         "data/mis_report_balance_sheet.xml",
