@@ -51,7 +51,10 @@
                     <notebook>
                         <page string="Membership" name="membership">
                             <field name="membership_group_member_ids">
-                                <tree editable="top">
+                                <tree editable="top" decoration-muted="not active">
+                                    <control>
+                                        <create name="add_member" string="Add a member" />
+                                    </control>
                                     <field name="active" invisible="1" />
                                     <field
                                         name="partner_id"
@@ -65,7 +68,6 @@
                                     <field name="wants_to_collaborate" />
                                     <button type="object" name="action_revoke_membership"
                                         string="Revoke"
-                                        icon="fa-trash"
                                         attrs="{'invisible': [('active','=', False)]}" />
                                 </tree>
                             </field>

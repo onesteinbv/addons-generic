@@ -1,5 +1,7 @@
 import freezegun
 
+from odoo import fields
+from odoo.exceptions import ValidationError
 from odoo.tests import common
 
 
@@ -20,18 +22,21 @@ class TestMembershipGroup(common.TransactionCase):
             {
                 "partner_id": cls.partner_1.id,
                 "group_id": cls.group_1.id,
+                "date_from": fields.Date.today(),
             }
         )
         cls.membership_1b = membership_group_member_obj.create(
             {
                 "partner_id": cls.partner_2.id,
                 "group_id": cls.group_1.id,
+                "date_from": fields.Date.today(),
             }
         )
         cls.membership_2a = membership_group_member_obj.create(
             {
                 "partner_id": cls.partner_1.id,
                 "group_id": cls.group_2.id,
+                "date_from": fields.Date.today(),
             }
         )
 
@@ -91,13 +96,14 @@ class TestMembershipGroup(common.TransactionCase):
         group_1_with_termination = self.env["membership.group"].create(
             {
                 "name": "Test Group 1 with termination",
-                "membership_end_date": "2025-06-01",
+                "membership_end_date": "2055-06-01",
             }
         )
         member_group_termination = self.env["membership.group.member"].create(
             {
                 "partner_id": self.partner_1.id,
                 "group_id": group_1_with_termination.id,
+                "date_from": fields.Date.today(),
             }
         )
 
@@ -107,16 +113,77 @@ class TestMembershipGroup(common.TransactionCase):
         )
         self.assertTrue(member_group_termination.active)
 
-        with freezegun.freeze_time("2025-05-01"):
+        with freezegun.freeze_time(str(fields.Date.today())):
             self.env["membership.group.member"]._cron_revoke_membership()
 
         self.assertTrue(member_group_termination.active)
 
-        with freezegun.freeze_time("2025-06-01"):
+        with freezegun.freeze_time("2055-06-01"):
             self.env["membership.group.member"]._cron_revoke_membership()
 
         self.assertFalse(member_group_termination.active)
         self.assertEqual(
             str(member_group_termination.date_end),
-            "2025-06-01",
+            "2055-06-01",
         )
+
+    def test_06_overlap_dates(self):
+        MembershipGroupMember = self.env["membership.group.member"]
+        new_partner = self.env["res.partner"].create({"name": "Test partner 3"})
+        member_1 = MembershipGroupMember.create(
+            {
+                "partner_id": new_partner.id,
+                "group_id": self.group_1.id,
+                "date_from": "2025-01-01",
+            }
+        )
+
+        with self.assertRaises(ValidationError):
+            MembershipGroupMember.create(
+                {
+                    "partner_id": new_partner.id,
+                    "group_id": self.group_1.id,
+                    "date_from": "2025-02-01",
+                }
+            )
+
+        with self.assertRaises(ValidationError):
+            MembershipGroupMember.create(
+                {
+                    "active": False,
+                    "partner_id": new_partner.id,
+                    "group_id": self.group_1.id,
+                    "date_from": "2025-01-02",
+                }
+            )
+
+        member_1.date_end = "2025-01-31"
+        MembershipGroupMember.create(
+            {
+                "active": False,
+                "partner_id": new_partner.id,
+                "group_id": self.group_1.id,
+                "date_from": "2025-02-01",
+            }
+        )
+
+        MembershipGroupMember.with_context(stop_test=True).create(
+            {
+                "active": False,
+                "partner_id": new_partner.id,
+                "group_id": self.group_1.id,
+                "date_from": "2024-01-01",
+                "date_end": "2024-04-01",
+            }
+        )
+
+        with self.assertRaises(ValidationError):
+            MembershipGroupMember.create(
+                {
+                    "active": False,
+                    "partner_id": new_partner.id,
+                    "group_id": self.group_1.id,
+                    "date_from": "2024-03-01",
+                    "date_end": "2024-03-05",
+                }
+            )

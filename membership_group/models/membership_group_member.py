@@ -1,9 +1,11 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class MembershipGroupMember(models.Model):
     _name = "membership.group.member"
     _description = "Membership Group Member"
+    _order = "active desc, date_from desc"
 
     active = fields.Boolean(default=True)
     partner_id = fields.Many2one(
@@ -26,6 +28,7 @@ class MembershipGroupMember(models.Model):
     )
     date_from = fields.Date(
         string="From",
+        required=True,
         default=fields.Date.context_today,
         help="Start date of the membership",
     )
@@ -47,13 +50,48 @@ class MembershipGroupMember(models.Model):
         help="Member has voting rights",
     )
 
-    _sql_constraints = [
-        (
-            "partner_group_uniq",
-            "unique(active, partner_id, group_id)",
-            "Member already exists for this group!",
+    def init(self):
+        self.env.cr.execute(
+            """
+            DROP INDEX IF EXISTS partner_group_active_uniq;
+            CREATE UNIQUE INDEX partner_group_active_uniq
+              ON %(table)s (partner_id, group_id)
+             WHERE active = TRUE;
+        """
+            % {"table": self._table}
         )
-    ]
+
+    @api.constrains("partner_id", "group_id", "date_from", "date_end", "date_to")
+    def _check_no_overlap_dates(self):
+        for record in self:
+            if record.date_end and record.date_end < record.date_from:
+                raise ValidationError(_("Date end needs to be higher then date from"))
+            if record.date_to and record.date_to < record.date_from:
+                raise ValidationError(_("Date to needs to be higher then date from"))
+
+            domain = [
+                ("id", "!=", record.id),
+                ("partner_id", "=", record.partner_id.id),
+                ("group_id", "=", record.group_id.id),
+            ]
+
+            if records := self.with_context(active_test=False).search(domain):
+                records._check_overlap_dates(record)
+
+    def _check_overlap_dates(self, record):
+        for rec in self:
+            date_end = rec.date_end or rec.date_to
+
+            if rec.date_from >= record.date_from and not date_end:
+                raise ValidationError(
+                    _("The membership dates overlap with an existing record!")
+                )
+            elif record.date_from >= rec.date_from and (
+                not date_end or record.date_from <= date_end
+            ):
+                raise ValidationError(
+                    _("The membership dates overlap with an existing record!")
+                )
 
     @api.depends("group_id")
     def _compute_date_to(self):
@@ -69,6 +107,14 @@ class MembershipGroupMember(models.Model):
     def _compute_vote_right(self):
         for record in self:
             record.vote_right = record.group_id.voting_group
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        today = fields.Date.today()
+        for vals in vals_list:
+            if fields.Date.from_string(vals_list[0]["date_from"]) != today:
+                vals["active"] = False
+        return super().create(vals_list)
 
     def action_revoke_membership(self):
         if active_records := self.filtered(lambda x: x.active):

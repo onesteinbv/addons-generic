@@ -5,7 +5,9 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     membership_group_member_ids = fields.One2many(
-        "membership.group.member", "partner_id"
+        "membership.group.member",
+        "partner_id",
+        context={"active_test": False},
     )
     membership_group_ids = fields.Many2many(
         "membership.group",

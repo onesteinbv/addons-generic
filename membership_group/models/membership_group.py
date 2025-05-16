@@ -14,7 +14,11 @@ class MembershipGroup(models.Model):
     complete_name = fields.Char(
         compute="_compute_complete_name", recursive=True, store=True
     )
-    membership_group_member_ids = fields.One2many("membership.group.member", "group_id")
+    membership_group_member_ids = fields.One2many(
+        "membership.group.member",
+        "group_id",
+        context={"active_test": False},
+    )
     parent_id = fields.Many2one(
         comodel_name="membership.group", string="Parent", index=True
     )
