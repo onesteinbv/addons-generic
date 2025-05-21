@@ -52,8 +52,6 @@ class PaymentTransaction(models.Model):
         if (
             (self.sale_order_ids and self.sale_order_ids.group_subscription_lines())
             or (self.invoice_ids and self.invoice_ids.subscription_id)
-            and method_record.supports_payment_api
-            and method_record.supports_order_api
         ):
             result = self.with_context(
                 first_mollie_payment=True

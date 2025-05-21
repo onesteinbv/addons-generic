@@ -123,7 +123,6 @@ class PaymentTransaction(models.Model):
         if (
             self.is_donation
             and self.donation_frequency != "onetime"
-            and method_record.supports_payment_api
         ):
             result = self.with_context(
                 first_mollie_donation_payment=True
