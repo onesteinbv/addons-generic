@@ -4,8 +4,18 @@
         <field name="model">payment.provider.mandate</field>
         <field name="arch" type="xml">
             <form>
+                <field name="is_revoked" invisible="1" />
+                <header>
+                    <button
+                        name="revoke"
+                        type="object"
+                        string="Revoke"
+                        class="btn-danger"
+                        confirm="Are you sure you want to revoke this mandate?"
+                        attrs="{'invisible': [('is_revoked', '=', True)]}"
+                    />
+                </header>
                 <sheet>
-                    <field name="is_revoked" invisible="1" />
                     <widget
                         name="web_ribbon"
                         title="Revoked"
