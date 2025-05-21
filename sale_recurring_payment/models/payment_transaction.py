@@ -78,17 +78,35 @@ class PaymentTransaction(models.Model):
     def _process_payment_provider_recurring_payment(self, subscription, invoice):
         # This method needs to be extended in each provider module.
         # This method should process payment transactions(recurring payments) for subscription invoices
+        
         payment_transaction = self._get_payment_transaction_by_mandate_id_for_invoice(
             invoice.id,
             subscription.payment_provider_mandate_id.id,
         )
-        return payment_transaction
+        if not payment_transaction:
+            payment_transaction = self.create(
+                self._prepare_vals_for_recurring_payment_transaction_for_subscription(
+                    invoice, subscription
+                )
+            )
+            payment, provider_reference = payment_transaction.create_provider_recurring_payment(
+                subscription
+            )
+            payment_transaction.write({"provider_reference": provider_reference})
+            done_payment_transaction = (
+                payment_transaction.update_state_recurring_payment_transaction(
+                    subscription.payment_provider_mandate_id.provider_id, payment
+                )
+            )
+            if done_payment_transaction:
+                done_payment_transaction._reconcile_after_done()
+        return payment_transaction        
 
     def create_provider_recurring_payment(self, subscription):
         # This method needs to be extended in each provider module.
         # This method should create recurring payments at the provider end
         # We expect to receive a data structure containing the payment data(depending on the payment provider implementation)
-        return None
+        return None, None
 
     def _prepare_vals_for_recurring_payment_transaction_for_subscription(
         self, invoice, subscription
@@ -114,10 +132,4 @@ class PaymentTransaction(models.Model):
         self, invoice_id, payment_provider_mandate_id
     ):
         # This method should search for payment transaction with payment_provider_mandate_id and invoice provided
-        return self.search(
-            [
-                ("payment_provider_mandate_id", "=", payment_provider_mandate_id),
-                ("invoice_ids", "in", invoice_id),
-            ],
-            limit=1,
-        )
+        return 

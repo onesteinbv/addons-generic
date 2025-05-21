@@ -110,45 +110,23 @@ class PaymentTransaction(models.Model):
             return super()._provider_get_payment_data()
         return self.provider_id._api_mollie_get_payment_data(self.provider_reference)
 
-    def _process_payment_provider_recurring_payment(self, subscription, invoice):
-        payment_transaction = super()._process_payment_provider_recurring_payment(
-            subscription, invoice
-        )
-        if not payment_transaction:
-            if subscription.payment_provider_mandate_id.provider_id.code == "mollie":
-                payment_transaction = self.create(
-                    self._prepare_vals_for_recurring_payment_transaction_for_subscription(
-                        invoice, subscription
-                    )
-                )
-                payment = payment_transaction.create_provider_recurring_payment(
-                    subscription
-                )
-                payment_transaction.write({"provider_reference": payment["id"]})
-                done_payment_transaction = (
-                    payment_transaction.update_state_recurring_payment_transaction(
-                        subscription.payment_provider_mandate_id.provider_id, payment
-                    )
-                )
-                if done_payment_transaction:
-                    done_payment_transaction._reconcile_after_done()
-        return payment_transaction
-
     def create_provider_recurring_payment(self, subscription):
-        provider_payment = super().create_provider_recurring_payment(subscription)
-        if subscription.payment_provider_mandate_id.provider_id.code == "mollie":
-            mollie = self.env.ref("payment.payment_provider_mollie")
-            mollie_client = mollie._api_mollie_get_client()
-            mollie_payment_vals, params = self.with_context(
-                recurring_mollie_payment=True,
-                mandate_id=subscription.payment_provider_mandate_id.reference,
-            )._mollie_prepare_payment_payload("payment")
-            mollie_payment_vals.pop("redirectUrl")
-            mollie_payment_vals.pop("method")
-            mollie_payment_vals.pop("customerId")
-            customer = mollie_client.customers.get(self.partner_id.mollie_customer_id)
-            provider_payment = customer.payments.create(mollie_payment_vals)
-        return provider_payment
+        provider_payment, provider_reference  = super().create_provider_recurring_payment(subscription)
+        if subscription.payment_provider_mandate_id.provider_id.code != "mollie":
+            return provider_payment, provider_reference
+        
+        mollie = self.env.ref("payment.payment_provider_mollie")
+        mollie_client = mollie._api_mollie_get_client()
+        mollie_payment_vals, params = self.with_context(
+            recurring_mollie_payment=True,
+            mandate_id=subscription.payment_provider_mandate_id.reference,
+        )._mollie_prepare_payment_payload("payment")
+        mollie_payment_vals.pop("redirectUrl")
+        mollie_payment_vals.pop("method")
+        mollie_payment_vals.pop("customerId")
+        customer = mollie_client.customers.get(self.partner_id.mollie_customer_id)
+        provider_payment = customer.payments.create(mollie_payment_vals)
+        return provider_payment, provider_payment["id"]
 
     def update_state_recurring_payment_transaction(self, provider, payment):
         payment_transaction = super().update_state_recurring_payment_transaction(
