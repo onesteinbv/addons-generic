@@ -1,11 +1,9 @@
 import logging
-from datetime import datetime
 from html import escape
 
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -22,7 +20,7 @@ class SaleSubscription(models.Model):
         help="Date when last invoice was generated for the mandate",
     )
     paid_for_date = fields.Date(
-        help="The date until the mandate is paid for (invoice date + recurring rule)",
+        help="The date until the subscription is paid for (invoice date + recurring rule)",
         compute="_compute_paid_for_date",
         store=True,
     )
@@ -82,45 +80,18 @@ class SaleSubscription(models.Model):
         return res
 
     def write(self, values):
-        if "stage_id" in values:
-            for record in self:
-                if (
-                    record.stage_id
-                    and record.stage_id.type == "post"
-                    and record.payment_provider_mandate_id
-                    and record.payment_provider_mandate_id.is_revoked
-                ):
-                    raise UserError(
-                        _(
-                            "Terminated subscriptions with payment provider mandate also terminated cannot be "
-                            "updated. Please generate a new subscription"
-                        )
-                    )
-
         res = super().write(values)
-        if "stage_id" in values:
-            for record in self:
-                if (
-                    record.stage_id
-                    and record.stage_id.type == "post"
-                    and record.payment_provider_mandate_id
-                    and not record.payment_provider_mandate_id.is_revoked
-                ):
-                    record.terminate_payment_provider_mandate()
-        return res
+        if "stage_id" not in values:
+            return res
 
-    @api.model
-    def terminate_payment_provider_mandate(self):
-        # This method cancels/terminates the subscription
-        # This method needs to be extended in each provider module to end the mandates on provider end.
-        vals = {"date": datetime.today(), "recurring_next_date": False}
-        stage = self.stage_id
-        closed_stage = self.env["sale.subscription.stage"].search(
-            [("type", "=", "post")], limit=1
-        )
-        if stage != closed_stage:
-            vals["stage_id"]: closed_stage.id
-        return vals
+        for record in self.filtered(
+            lambda r: r.stage_id
+            and r.stage_id.type == "post"
+            and r.payment_provider_mandate_id
+            and not r.payment_provider_mandate_id.is_revoked
+        ):
+            record.payment_provider_mandate_id.revoke()
+        return res
 
     def _log_provider_exception(self, exception, process):
         """Both log error, and post a message on the subscription record."""

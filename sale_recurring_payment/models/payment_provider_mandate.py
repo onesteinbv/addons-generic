@@ -29,6 +29,7 @@ class PaymentProviderMandate(models.Model):
         help="If the mandate is revoked, no more payments can be made with this mandate",
         default=False,
     )
+    partner_id = fields.Many2one(comodel_name="res.partner")
 
     def revoke(self):
         self.is_revoked = True

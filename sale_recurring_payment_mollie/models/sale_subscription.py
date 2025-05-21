@@ -1,6 +1,6 @@
 import logging
 
-from odoo import _, api, fields, models
+from odoo import models
 
 _logger = logging.getLogger(__name__)
 
@@ -35,23 +35,3 @@ class SaleSubscription(models.Model):
             self, unpaid_invoice
         )
         return True
-
-    @api.model
-    def terminate_payment_provider_mandate(self):
-        # This method terminates the mandate on mollie
-        vals = super().terminate_payment_provider_mandate()
-        if self.payment_provider_mandate_id.provider_id.code != "mollie":
-            return vals
-        mollie = self.env.ref("payment.payment_provider_mollie")
-        mollie_client = mollie._api_mollie_get_client()
-        customer = mollie_client.customers.get(self.partner_id.mollie_customer_id)
-        customer.mandates.delete(self.payment_provider_mandate_id.reference)
-        cancelled_date = fields.Date.context_today(self)
-        msg = _(
-            "The mollie mandate for this subscription has been terminated on %(cancelled_date)s",
-            cancelled_date=cancelled_date,
-        )
-        self.sudo().message_post(body=msg)
-        self.payment_provider_mandate_id.write({"is_revoked": True})
-        self.write(vals)
-        return vals
