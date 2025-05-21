@@ -132,4 +132,10 @@ class PaymentTransaction(models.Model):
         self, invoice_id, payment_provider_mandate_id
     ):
         # This method should search for payment transaction with payment_provider_mandate_id and invoice provided
-        return 
+        return self.search(
+            [
+                ("payment_provider_mandate_id", "=", payment_provider_mandate_id),
+                ("invoice_ids", "in", invoice_id),
+            ],
+            limit=1,
+        )
