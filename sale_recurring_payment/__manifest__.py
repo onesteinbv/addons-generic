@@ -1,6 +1,6 @@
 {
     "name": "Sale - Recurring Payment",
-    "version": "16.0.1.0.0",
+    "version": "16.0.2.0.0",
     "category": "eCommerce",
     "license": "LGPL-3",
     "summary": "Sale - Recurring Payment",
@@ -8,8 +8,6 @@
     "depends": ["subscription_oca", "account_payment"],
     "data": [
         "security/ir.model.access.csv",
-        "data/update_payment_provider_payments_cron.xml",
-        "views/sale_subscription_view.xml",
         "views/payment_provider_view.xml",
         "views/payment_provider_mandate_view.xml",
     ],
