@@ -1,6 +1,15 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
+MEMBER_TYPE = [
+    ("follower", "Follower"),
+    ("applicant", "Applicant"),
+    ("applicant_follower", "Applicant / Follower"),
+    ("collaborator_follower", "Collaborator / Follower"),
+    ("collaborator", "Collaborator"),
+    ("committee", "Committee"),
+]
+
 
 class MembershipGroupMember(models.Model):
     _name = "membership.group.member"
@@ -16,16 +25,7 @@ class MembershipGroupMember(models.Model):
     )
     group_id = fields.Many2one("membership.group", required=True, ondelete="cascade")
     wants_to_collaborate = fields.Boolean()
-    type = fields.Selection(
-        [
-            ("follower", "Follower"),
-            ("applicant", "Applicant"),
-            ("applicant_follower", "Applicant / Follower"),
-            ("collaborator_follower", "Collaborator / Follower"),
-            ("collaborator", "Collaborator"),
-            ("committee", "Committee"),
-        ],
-    )
+    type = fields.Selection(MEMBER_TYPE)
     date_from = fields.Date(
         string="From",
         required=True,
@@ -57,7 +57,7 @@ class MembershipGroupMember(models.Model):
             CREATE UNIQUE INDEX partner_group_active_uniq
               ON %(table)s (partner_id, group_id)
              WHERE active = TRUE;
-        """
+            """
             % {"table": self._table}
         )
 
@@ -83,6 +83,10 @@ class MembershipGroupMember(models.Model):
             date_end = rec.date_end or rec.date_to
 
             if rec.date_from >= record.date_from and not date_end:
+                if record.active and not rec.active:
+                    continue
+                if self.env.context.get("membership_cronjob"):
+                    continue
                 raise ValidationError(
                     _("The membership dates overlap with an existing record!")
                 )
@@ -112,14 +116,42 @@ class MembershipGroupMember(models.Model):
     def create(self, vals_list):
         today = fields.Date.today()
         for vals in vals_list:
-            if fields.Date.from_string(vals_list[0]["date_from"]) != today:
+            date_from = vals.get("date_from")
+            if isinstance(date_from, str):
+                date_from = fields.Date.from_string(date_from)
+            if date_from != today:
                 vals["active"] = False
         return super().create(vals_list)
 
+    def action_change_type(self):
+        ref_name = "membership_group.action_membership_type_wizard"
+        action = self.env["ir.actions.act_window"]._for_xml_id(ref_name)
+        wizard = self.env["membership.type.wizard"].create(
+            {
+                "member_id": self.id,
+                "date_from": self.date_to or fields.Date.today(),
+            }
+        )
+        action["res_id"] = wizard.id
+        return action
+
     def action_revoke_membership(self):
-        if active_records := self.filtered(lambda x: x.active):
-            active_records.active = False
-            active_records.date_end = fields.Date.today()
+        self.with_context(membership_cronjob=True).write(
+            {
+                "active": False,
+                "date_end": fields.Date.today(),
+            }
+        )
+        return True
+
+    def action_activate_membership(self):
+        for record in self:
+            try:
+                record.active = True
+            except ValidationError:
+                # if fails, we process the next record
+                continue
+            record.env.cr.commit()
         return True
 
     def action_open_partners(self):
@@ -136,3 +168,9 @@ class MembershipGroupMember(models.Model):
     @api.model
     def _cron_revoke_membership(self):
         self.search([("date_to", "<=", fields.date.today())]).action_revoke_membership()
+
+    @api.model
+    def _cron_activate_membership(self):
+        self.with_context(active_test=False).search(
+            [("date_from", "=", fields.date.today())]
+        ).action_activate_membership()
