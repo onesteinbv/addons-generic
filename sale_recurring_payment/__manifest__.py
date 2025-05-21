@@ -11,5 +11,6 @@
         "data/update_payment_provider_payments_cron.xml",
         "views/sale_subscription_view.xml",
         "views/payment_provider_view.xml",
+        "views/payment_provider_mandate_view.xml",
     ],
 }
