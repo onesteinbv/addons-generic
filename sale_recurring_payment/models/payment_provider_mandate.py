@@ -25,6 +25,13 @@ class PaymentProviderMandate(models.Model):
     provider_id = fields.Many2one(
         string="Provider", comodel_name="payment.provider", required=True
     )
+    is_revoked = fields.Boolean(
+        help="If the mandate is revoked, no more payments can be made with this mandate",
+        default=False,
+    )
+
+    def revoke(self):
+        self.is_revoked = True
 
     _sql_constraints = [
         ("reference_uniq", "unique(reference)", "Reference must be unique!"),

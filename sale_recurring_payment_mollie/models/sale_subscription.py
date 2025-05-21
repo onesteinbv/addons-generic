@@ -52,6 +52,6 @@ class SaleSubscription(models.Model):
             cancelled_date=cancelled_date,
         )
         self.sudo().message_post(body=msg)
-        vals["is_payment_provider_mandate_terminated"] = True
+        self.payment_provider_mandate_id.write({"is_revoked": True})
         self.write(vals)
         return vals

@@ -1,6 +1,6 @@
 {
     "name": "Sale - Recurring Payment",
-    "version": "16.0.0.1",
+    "version": "16.0.1.0.0",
     "category": "eCommerce",
     "license": "LGPL-3",
     "summary": "Sale - Recurring Payment",

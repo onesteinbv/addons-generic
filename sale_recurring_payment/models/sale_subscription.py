@@ -18,7 +18,6 @@ class SaleSubscription(models.Model):
         string="Payment Provider Mandate",
         readonly=True,
     )
-    is_payment_provider_mandate_terminated = fields.Boolean()
     last_date_invoiced = fields.Date(
         help="Date when last invoice was generated for the mandate",
     )
@@ -51,7 +50,7 @@ class SaleSubscription(models.Model):
             [
                 ("template_id.invoicing_mode", "!=", "sale_and_invoice"),
                 ("payment_provider_mandate_id", "!=", False),
-                ("is_payment_provider_mandate_terminated", "=", False),
+                ("payment_provider_mandate_id.is_revoked", "=", False),
                 "|",
                 ("recurring_next_date", "<=", date_ref),
                 ("last_date_invoiced", "=", date_ref),
@@ -89,7 +88,7 @@ class SaleSubscription(models.Model):
                     record.stage_id
                     and record.stage_id.type == "post"
                     and record.payment_provider_mandate_id
-                    and record.is_payment_provider_mandate_terminated
+                    and record.payment_provider_mandate_id.is_revoked
                 ):
                     raise UserError(
                         _(
@@ -105,7 +104,7 @@ class SaleSubscription(models.Model):
                     record.stage_id
                     and record.stage_id.type == "post"
                     and record.payment_provider_mandate_id
-                    and not record.is_payment_provider_mandate_terminated
+                    and not record.payment_provider_mandate_id.is_revoked
                 ):
                     record.terminate_payment_provider_mandate()
         return res
