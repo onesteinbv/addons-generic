@@ -46,12 +46,8 @@ class PaymentTransaction(models.Model):
 
     def _create_mollie_order_or_payment(self):
         self.ensure_one()
-        method_record = self.provider_id.mollie_methods_ids.filtered(
-            lambda m: m.method_code == self.mollie_payment_method
-        )
-        if (
-            (self.sale_order_ids and self.sale_order_ids.group_subscription_lines())
-            or (self.invoice_ids and self.invoice_ids.subscription_id)
+        if (self.sale_order_ids and self.sale_order_ids.group_subscription_lines()) or (
+            self.invoice_ids and self.invoice_ids.subscription_id
         ):
             result = self.with_context(
                 first_mollie_payment=True
@@ -111,10 +107,13 @@ class PaymentTransaction(models.Model):
         return self.provider_id._api_mollie_get_payment_data(self.provider_reference)
 
     def create_provider_recurring_payment(self, subscription):
-        provider_payment, provider_reference  = super().create_provider_recurring_payment(subscription)
+        (
+            provider_payment,
+            provider_reference,
+        ) = super().create_provider_recurring_payment(subscription)
         if subscription.payment_provider_mandate_id.provider_id.code != "mollie":
             return provider_payment, provider_reference
-        
+
         mollie = self.env.ref("payment.payment_provider_mollie")
         mollie_client = mollie._api_mollie_get_client()
         mollie_payment_vals, params = self.with_context(

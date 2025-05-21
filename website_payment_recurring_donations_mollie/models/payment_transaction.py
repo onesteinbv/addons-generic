@@ -116,14 +116,8 @@ class PaymentTransaction(models.Model):
         Overriden this method for handing the donation transactions
         """
         self.ensure_one()
-        method_record = self.provider_id.mollie_methods_ids.filtered(
-            lambda m: m.method_code == self.mollie_payment_method
-        )
 
-        if (
-            self.is_donation
-            and self.donation_frequency != "onetime"
-        ):
+        if self.is_donation and self.donation_frequency != "onetime":
             result = self.with_context(
                 first_mollie_donation_payment=True
             )._mollie_create_payment_record("payment")

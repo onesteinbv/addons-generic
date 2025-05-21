@@ -23,7 +23,7 @@ exclude: |
   # Temporary modules
   nextcloud_odoo_sync/
 default_language_version:
-  python: python3
+  python: python3.10
   node: "16.17.0"
 repos:
   - repo: local

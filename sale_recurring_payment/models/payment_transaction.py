@@ -76,12 +76,16 @@ class PaymentTransaction(models.Model):
         )
 
     def _process_payment_provider_recurring_payment(self, subscription, invoice):
-        # This method needs to be extended in each provider module.
-        # This method should process payment transactions(recurring payments) for subscription invoices
-        
-        payment_transaction = self._get_payment_transaction_by_mandate_id_for_invoice(
-            invoice.id,
-            subscription.payment_provider_mandate_id.id,
+        payment_transaction = self.search(
+            [
+                (
+                    "payment_provider_mandate_id",
+                    "=",
+                    subscription.payment_provider_mandate_id.id,
+                ),
+                ("invoice_ids", "in", invoice.id),
+            ],
+            limit=1,
         )
         if not payment_transaction:
             payment_transaction = self.create(
@@ -89,9 +93,10 @@ class PaymentTransaction(models.Model):
                     invoice, subscription
                 )
             )
-            payment, provider_reference = payment_transaction.create_provider_recurring_payment(
-                subscription
-            )
+            (
+                payment,
+                provider_reference,
+            ) = payment_transaction.create_provider_recurring_payment(subscription)
             payment_transaction.write({"provider_reference": provider_reference})
             done_payment_transaction = (
                 payment_transaction.update_state_recurring_payment_transaction(
@@ -100,7 +105,7 @@ class PaymentTransaction(models.Model):
             )
             if done_payment_transaction:
                 done_payment_transaction._reconcile_after_done()
-        return payment_transaction        
+        return payment_transaction
 
     def create_provider_recurring_payment(self, subscription):
         # This method needs to be extended in each provider module.
@@ -127,15 +132,3 @@ class PaymentTransaction(models.Model):
         # This method needs to be extended in each provider module.
         # This method should update the state of payment transactions and return done payment transactions if any
         return self.env["payment.transaction"]
-
-    def _get_payment_transaction_by_mandate_id_for_invoice(
-        self, invoice_id, payment_provider_mandate_id
-    ):
-        # This method should search for payment transaction with payment_provider_mandate_id and invoice provided
-        return self.search(
-            [
-                ("payment_provider_mandate_id", "=", payment_provider_mandate_id),
-                ("invoice_ids", "in", invoice_id),
-            ],
-            limit=1,
-        )
