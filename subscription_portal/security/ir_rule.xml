@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sale_subscription_portal_rule" model="ir.rule">
+        <field name="name">sale_subscription_portal_rule</field>
+        <field name="model_id" ref="subscription_oca.model_sale_subscription"/>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="domain_force">
+            ['|', ('partner_id', '=', user.partner_id.id), ('partner_id', 'child_of', user.partner_id.id)]
+        </field>
+    </record>
+</odoo>

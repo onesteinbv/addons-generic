@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sale_subscription_portal_access" model="ir.model.access">
+        <field name="name">sale_subscription_portal_access</field>
+        <field name="model_id" ref="subscription_oca.model_sale_subscription"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record id="sale_subscription_stage_portal_access" model="ir.model.access">
+        <field name="name">sale_subscription_stage_portal_access</field>
+        <field name="model_id" ref="subscription_oca.model_sale_subscription_stage"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+</odoo>
