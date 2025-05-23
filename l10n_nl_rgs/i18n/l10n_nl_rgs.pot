@@ -1,0 +1,2048 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_nl_rgs
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-14 14:47+0000\n"
+"PO-Revision-Date: 2025-05-14 14:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8512000
+msgid "(Amortisatie van) agio en disagio"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_1a
+msgid "1a. Supplies/services taxed at 21% (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_1a
+msgid "1a. Supplies/services taxed at high rate (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_1b
+msgid "1b. Supplies/services taxed at low rate (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_1b
+msgid "1b. Supplies/services taxed at low rate (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_1c
+msgid "1c. Supplies/services taxed at other rates except 0% (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_1c
+msgid "1c. Supplies/services taxed at other rates except 0% (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_1d
+msgid "1d. Private use (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_1d
+msgid "1d. Private use (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_1e
+msgid "1e. Supplies/services taxed at 0% or not taxed with you (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_1e
+msgid "1e. Supplies/services taxed at 0% or not taxed with you (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_2a
+msgid ""
+"2a. Supplies/services where the collection of turnover tax has been "
+"transferred to you (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_2a
+msgid ""
+"2a. Supplies/services where the levy of Sales Tax has been transferred to "
+"you (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_3a
+msgid "3a. Deliveries to countries outside the EU (exports) (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_3b
+msgid ""
+"3b. Deliveries to/services in countries within the EU and A-B-C supply chain"
+" transactions (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_3bg
+msgid "3bg. Deliveries of products to countries within the EU (turnover)."
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_3bs
+msgid "3bs. Services in countries within the EU (revenue)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_3bt
+msgid "3bt. A-B-C supply chain transactions within the EU (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_3c
+msgid "3c. Installation/remote sales within the EU (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_4a
+msgid "4a. Supplies/services from countries outside the EU (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_4a
+msgid ""
+"4a. Supplies/services from countries outside the EU (imports) (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_4b
+msgid "4b. Supplies/services from countries within the EU (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_4b
+msgid "4b. Supplies/services from countries within the EU (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_5a
+msgid "5a. Sales tax payable (headings 1a to 4b) (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_5b
+msgid "5b. Input tax (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_5c
+msgid "5c. Subtotal (heading 5a minus 5b) (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_5d
+msgid "5d. Reduction according to the small business scheme (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_5e
+msgid "5e. Estimate previous return(s) (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_5f
+msgid "5f. Estimate this return (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_5g
+msgid "5g. Total payable/reclaimable (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_89
+msgid "Aandeel derden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_84
+msgid "Aandeel in resultaat van ondernemingen waarin wordt deelgenomen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8410000
+msgid ""
+"Aandeel in resultaat van ondernemingen waarin wordt deelgenomen "
+"(Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8420000
+msgid ""
+"Aandeel in resultaat van ondernemingen waarin wordt deelgenomen - "
+"vrijstelling"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0508000
+msgid "Aandeel van derden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0401000
+msgid "Aandelen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0501000
+msgid "Aandelenkapitaal"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model,name:l10n_nl_rgs.model_account_account
+msgid "Account"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model,name:l10n_nl_rgs.model_account_chart_template
+msgid "Account Chart Template"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model,name:l10n_nl_rgs.model_account_group
+msgid "Account Group"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4209000
+msgid "Accountants- en advieskosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_account_group__account_ids
+msgid "Accounts"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0801000
+msgid "Achtergestelde schulden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4210000
+msgid "Administratieve lasten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8515000
+msgid "Aflossingspremies"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1201059
+msgid "Aflossingsverplichtingen van langlopende leningen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_41
+msgid "Afschrijvingen op immateriële en materiële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4101000
+msgid "Afschrijvingen op immateriële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4102000
+msgid "Afschrijvingen op materiële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4103008
+msgid "Afschrijvingen vastgoed"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0502000
+msgid "Agio"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4302000
+msgid "Agrarische bedrijfskosten veeteelt"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8008000
+msgid "Agrarische bedrijfsopbrengsten veeteelt"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_80_9
+msgid "Algemene beheerskosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8090000
+msgid "Algemene beheerskosten (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_account_group__active_allowed_journal_ids
+#: model_terms:ir.ui.view,arch_db:l10n_nl_rgs.view_account_group_form
+msgid "Allowed Journals"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4215000
+msgid "Andere kosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0214000
+msgid "Andere vaste bedrijfsmiddelen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4208000
+msgid "Assurantiekosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4204000
+msgid "Autokosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_account_group__auto_allowed_journals
+msgid "Automatic Allowed Journals"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0213000
+msgid "Automobielen en overige transportmiddelen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.column,name:l10n_nl_rgs.tax_report_balance
+msgid "Balance"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8215000
+msgid "Baten als tegenprestatie voor de levering van producten en/of diensten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8203000
+msgid "Baten en giften uit fondsenwerving"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8205000
+msgid "Baten uit acties van derden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8204000
+msgid "Baten uit gezamenlijke acties"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4216000
+msgid "Baten uit niet-ondernemingsactiviteiten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8212000
+msgid "Baten werk in opdracht van derden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0202000
+msgid "Bedrijfsgebouwen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_60
+msgid "Belastingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806039
+msgid "Belastingen en premies sociale verzekeringen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1205009
+msgid "Belastingen en premies sociale verzekeringen (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_9101000
+msgid "Belastingen over de winst of het verlies"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0507000
+msgid "Bestemmingsfondsen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0505019
+msgid "Bestemmingsreserves"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7008000
+msgid "Betalingskortingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8518000
+msgid "Bijkomende kosten ter afsluiting van een financiering"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4106009
+msgid "Bijzondere waardeverminderingen van vlottende activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4105000
+msgid "Boekresultaat op immateriële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4106000
+msgid "Boekresultaat op materiële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4107000
+msgid "Boekresultaat vastgoed"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8032000
+msgid "Boekwaarde verkochte vastgoedportefeuille"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0105000
+msgid "Bouwclaims"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_account_group__code
+#: model_terms:ir.ui.view,arch_db:l10n_nl_rgs.view_account_group_search
+msgid "Code"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8211000
+msgid "College-, cursus-, les- en examengelden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,help:l10n_nl_rgs.field_account_group__rgs_allowed_journals_code
+msgid "Comma reparated list of allowed journal codes."
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,help:l10n_nl_rgs.field_account_group__rgs_allowed_journals_type
+msgid "Comma reparated list of allowed journal types."
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0509069
+msgid "Commanditair kapitaal"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model,name:l10n_nl_rgs.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0106000
+msgid "Concessies, vergunningen en intellectuele eigendom"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model,name:l10n_nl_rgs.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0802000
+msgid "Converteerbare leningen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0301000
+msgid "Deelnemingen in groepsmaatschappijen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0302000
+msgid "Deelnemingen in overige verbonden maatschappijen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,help:l10n_nl_rgs.field_account_group__allowed_journal_ids
+msgid ""
+"Define in which journals this account can be used. If empty, can be used in "
+"all journals."
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0406000
+msgid "Derivaten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8500000
+msgid "Derivaten (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8033000
+msgid "Directe kosten inzake verkoop vastgoedportefeuille"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_res_company__l10n_nl_rgs_disable_allowed_journals
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_res_config_settings__l10n_nl_rgs_disable_allowed_journals
+#: model_terms:ir.ui.view,arch_db:l10n_nl_rgs.res_config_settings_view_form
+msgid "Disable allowed journals"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4199000
+msgid "Doorberekende afschrijvingen en waardeveranderingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8499000
+msgid "Doorberekende financiële baten en lasten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8219000
+msgid "Doorberekening overige bedrijfsopbrengsten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4213000
+msgid "Dotaties en vrijval (fiscale) reserves"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4214000
+msgid "Dotaties en vrijval voorzieningen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_04
+msgid "Effecten (kortlopend)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_06
+msgid "Egalisatierekening"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0601000
+msgid "Egalisatierekening (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0509100
+msgid "Eigen vermogen firmant 2"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0509200
+msgid "Eigen vermogen firmant 3"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0509300
+msgid "Eigen vermogen firmant 4"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0509400
+msgid "Eigen vermogen firmant 5"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0509000
+msgid "Eigen vermogen onderneming natuurlijke personen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_3003000
+msgid "Emballage"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8516000
+msgid "Emissiekosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4202000
+msgid "Exploitatie- en machinekosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8218900
+msgid "Exploitatiesubsidies"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_50
+msgid "Financiële baten en lasten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0507100
+msgid ""
+"Financiële instrumenten op basis van juridische vorm geclassificeerd als "
+"eigen vermogen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0804000
+msgid "Financiële lease verplichtingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_03
+msgid "Financiële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0510000
+msgid "Fiscale reserves"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8104000
+msgid "Geactiveerde productie voor het eigen bedrijf"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0222000
+msgid "Gebruiksvee"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4106200
+msgid "Gerealiseerde waardeveranderingen van beleggingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_3103000
+msgid "Gereed product"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0107000
+msgid "Goodwill"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_05
+msgid "Groepsvermogen - Eigen vermogen - Kapitaal"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_3102000
+msgid "Halffabrikaten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_3001000
+msgid "Handelsgoederen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0503000
+msgid "Herwaarderingsreserves"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4201000
+msgid "Huisvestingskosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0209000
+msgid "Huurdersinvesteringen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8208000
+msgid "Huurontvangsten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8010000
+msgid "Huuropbrengsten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,help:l10n_nl_rgs.field_account_group__auto_allowed_journals
+msgid ""
+"If Automatic Allowed Journals is on. Changes here will be brought to the "
+"underlying accounts."
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_01
+msgid "Immateriële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7007000
+msgid "Inkoopkortingen en bonussen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7101000
+msgid "Inkoopwaarde agrarisch"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7005000
+msgid "Inkoopwaarde handelsgoederen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7006000
+msgid "Inkoopwaarde productiegoederen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0330000
+msgid "Interne lening"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0215000
+msgid "Inventaris"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_res_config_settings__is_l10n_nl_rgs
+msgid "Is L10N Nl Rgs"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model,name:l10n_nl_rgs.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4206000
+msgid "Kantoorkosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0509049
+msgid "Kapitaal stichting, coöperatie en vereniging"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1001000
+msgid "Kasmiddelen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8006000
+msgid "Kortingen, bonussen en provisies"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1208500
+msgid "Kortlopende financiële lease verplichtingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1201000
+msgid "Kortlopende leningen-schulden-verplichtingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_12
+msgid "Kortlopende schulden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8517000
+msgid "Kosten bij vervroegde aflossing (eenmalig)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4211000
+msgid "Kosten fondsenwerving"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_80_6
+msgid "Kosten omtrent leefbaarheid"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8060000
+msgid "Kosten omtrent leefbaarheid (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8051000
+msgid "Kosten overige activiteiten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4212000
+msgid "Kosten stamrecht en lijfrentes"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7003000
+msgid "Kosten uitbesteed werk en andere externe kosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8409000
+msgid "Kosten van beheer en administratie"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8408000
+msgid "Kosten van beleggingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7001000
+msgid "Kosten van grond- en hulpstoffen / halffabrikaten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0102000
+msgid "Kosten van ontwikkeling"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0101000
+msgid "Kosten van oprichting en van uitgifte van aandelen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7002000
+msgid "Kosten van personeel"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7004000
+msgid "Kosten van rente en afschrijvingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7200000
+msgid "Kostprijs - inkoopwaarde groepen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7009000
+msgid "Kostprijs intercompany transacties"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_70
+msgid "Kostprijs van de omzet"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7201000
+msgid "Kostprijs van de omzet niet ingekocht bij leden (Coöperatie)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1003000
+msgid "Kruisposten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_08
+msgid "Langlopende schulden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8015000
+msgid "Lasten onderhoudsactiviteiten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8012000
+msgid "Lasten servicecontracten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_40
+msgid "Lasten uit hoofde van personeelsbeloningen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4216100
+msgid "Lasten uit niet-ondernemingsactiviteiten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8014000
+msgid "Lasten verhuur en beheeractiviteiten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0308000
+msgid "Latente belastingvorderingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1103169
+msgid "Latente belastingvorderingen (kortlopend)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_88
+msgid "Ledenbetalingen (inclusief reeds betaalde voorschotten)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_9001100
+msgid "Ledenbetalingen (inclusief reeds betaalde voorschotten) (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0320000
+msgid "Leningen u/g (langlopend)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_10
+msgid "Liquide middelen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4001000
+msgid "Lonen en salarissen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0210000
+msgid "Machines en installaties"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8130000
+msgid "Marge-voorraden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_02
+msgid "Materiële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0221000
+msgid "Meerjaren plantopstand"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_95
+msgid "Mutatie fiscale oudedagsreserve"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_9104000
+msgid "Mutatie fiscale oudedagsreserve (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7010000
+msgid "Mutatie omzetvorderingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0705000
+msgid "Negatieve goodwill"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8514000
+msgid "Negatieve herwaarderingen van puttable financiële instrumenten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8513000
+msgid ""
+"Negatieve verschil tussen het ontvangen bedrag en de bij het aangaan van de "
+"lening als schuld erkende hoofdsom"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_80_3
+msgid "Netto gerealiseerd resultaat verkoop vastgoedportefeuille"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_80_1
+msgid "Netto resultaat exploitatie van vastgoedportefeuille"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_80_5
+msgid "Netto resultaat overige activiteiten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_80_2
+msgid "Netto resultaat verkocht vastgoed in ontwikkeling"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8210000
+msgid "Netto verkoopresultaat vastgoedportefeuille"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0340000
+msgid "Netto vermogenswaarde niet-Daeb"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_80
+msgid "Netto-omzet"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8009000
+msgid "Netto-omzet groepen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8005000
+msgid "Netto-omzet intercompany transacties"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8001000
+msgid "Netto-omzet uit leveringen geproduceerde goederen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8002000
+msgid "Netto-omzet uit verkoop van handelsgoederen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_90
+msgid "Nettoresultaat"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_9999100
+msgid "Nettoresultaat (EZ-VOF)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_9999000
+msgid "Nettoresultaat na belastingen (B.V.)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0206000
+msgid "Niet -Daeb-vastgoed in exploitatie"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0217000
+msgid "Niet aan de bedrijfsuitoefening dienstbare materiële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_3105000
+msgid "Niet gebruiksvee"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4106300
+msgid "Niet-gerealiseerde waardeveranderingen van beleggingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8041000
+msgid "Niet-gerealiseerde waardeveranderingen van vastgoedportefeuille"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8043000
+msgid ""
+"Niet-gerealiseerde waardeveranderingen van vastgoedportefeuille bestemd voor"
+" verkoop"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8042000
+msgid ""
+"Niet-gerealiseerde waardeveranderingen van vastgoedportefeuille verkocht "
+"onder voorwaarden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0803000
+msgid "Obligatieleningen, pandbrieven en andere leningen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0402000
+msgid "Obligaties"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8020000
+msgid "Omzet verkocht vastgoed in ontwikkeling"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_35
+msgid "Onderhanden projecten (activa)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1209119
+msgid "Onderhanden projecten (passiva) overige schulden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_3501000
+msgid "Onderhanden projecten in opdracht van derden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_3101000
+msgid "Onderhanden werk"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0218000
+msgid "Onroerende en roerende zaken ten dienste van de exploitatie"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0207000
+msgid "Onroerende zaken verkocht onder voorwaarden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8202000
+msgid "Ontvangen doorbelasting personeelskosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8201000
+msgid "Ontvangen managementvergoeding"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806059
+msgid "Ontvangen vooruitbetalingen op bestellingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1209040
+msgid "Ontvangen vooruitbetalingen op bestellingen (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0506009
+msgid "Onverdeelde winst"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_45
+msgid ""
+"Opbrengst van vorderingen die tot de vaste activa behoren en van effecten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8401000
+msgid ""
+"Opbrengst van vorderingen die tot de vaste activa behoren en van effecten "
+"(Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8050000
+msgid "Opbrengsten overige activiteiten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8011000
+msgid "Opbrengsten servicecontracten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8209000
+msgid "Opbrengsten servicecontracten (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8003000
+msgid "Opbrengsten uit het verlenen van diensten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8497000
+msgid ""
+"Opbrengsten uit niet op netto-vermogenswaarde e.d. gewaardeerde deelnemingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0404000
+msgid "Optierechten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0405000
+msgid "Optieverplichtingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4207000
+msgid "Organisatiekosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806148
+msgid "Oudedagsverplichting"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1104105
+msgid "Overheid"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8013000
+msgid "Overheidsbijdragen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_42
+msgid "Overige bedrijfskosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_82
+msgid "Overige bedrijfsopbrengsten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0303000
+msgid "Overige deelnemingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8016000
+msgid "Overige directe operationele lasten explotatie bezit"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0403000
+msgid "Overige effecten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0304000
+msgid "Overige effecten (langlopend)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0110000
+msgid "Overige immateriële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0509079
+msgid "Overige kapitaalcomponenten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4004008
+msgid "Overige lasten uit hoofde van personeelsbeloningen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8004000
+msgid "Overige netto-omzet"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8213000
+msgid "Overige opbrengsten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_44
+msgid "Overige organisatiekosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4400000
+msgid "Overige organisatiekosten (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4012000
+msgid "Overige personeelsgerelateerde kosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8406000
+msgid "Overige rentelasten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0506000
+msgid "Overige reserves"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806129
+msgid "Overige schulden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1209000
+msgid "Overige schulden (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_3106000
+msgid "Overige voorraden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0704000
+msgid "Overige voorzieningen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1103000
+msgid "Overige vorderingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0309000
+msgid "Overige vorderingen (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_41_2
+msgid "Overige waardeveranderingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8040000
+msgid "Overige waardeveranderingen van vastgoedportefeuille"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1104000
+msgid "Overlopende activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806170
+msgid "Overlopende passiva"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1210000
+msgid "Overlopende passiva (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0807000
+msgid "Participaties (geclassificeerd als vreemd vermogen)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4003000
+msgid "Pensioenlasten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8511000
+msgid "Positieve herwaarderingen van puttable financiële instrumenten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8510000
+msgid ""
+"Positieve verschil tussen het ontvangen bedrag en de bij het aangaan van de "
+"lening als schuld erkende hoofdsom"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7013000
+msgid "Privé-gebruik diensten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7012000
+msgid "Privé-gebruik goederen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model_terms:ir.ui.view,arch_db:l10n_nl_rgs.view_account_group_form
+msgid "Referentie Grootboek Schema (RGS)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_account_account__referentiecode
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_account_group__referentiecode
+#: model_terms:ir.ui.view,arch_db:l10n_nl_rgs.view_account_group_search
+#: model_terms:ir.ui.view,arch_db:l10n_nl_rgs.view_account_search
+msgid "Referentiecode"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8402000
+msgid "Rentebaten en soortgelijke opbrengsten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8520000
+msgid ""
+"Rentekosten begrepen in de leasetermijn in geval van financiële leasing"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8404000
+msgid "Rentelasten en soortgelijke kosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_9001000
+msgid "Resultaat aandeel van derden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_account_group__rgs_allowed_journals_code
+msgid "Rgs Allowed Journals Code"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_account_group__rgs_allowed_journals_type
+msgid "Rgs Allowed Journals Type"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1204000
+msgid "Salarisverwerking"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_account_group__allowed_journal_ids
+msgid "Saved Allowed Journals"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0212000
+msgid "Schepen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0805000
+msgid "Schulden aan banken"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1209029
+msgid "Schulden aan banken (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1250000
+msgid "Schulden aan daeb-niet daeb"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806009
+msgid "Schulden aan groepsmaatschappijen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1208100
+msgid "Schulden aan groepsmaatschappijen (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1260000
+msgid "Schulden aan leden van de coöperatie"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806069
+msgid "Schulden aan leveranciers en handelskredieten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1203000
+msgid "Schulden aan leveranciers en handelskredieten (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1211000
+msgid "Schulden aan overheid (kortlopend)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806119
+msgid "Schulden aan overheid (langlopend)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806019
+msgid "Schulden aan overige verbonden maatschappijen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1208200
+msgid "Schulden aan overige verbonden maatschappijen (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806029
+msgid ""
+"Schulden aan participanten en aan maatschappijen waarin wordt deelgenomen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1208300
+msgid ""
+"Schulden aan participanten en aan maatschappijen waarin wordt deelgenomen "
+"(Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806049
+msgid "Schulden ter zake van pensioenen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1204089
+msgid "Schulden ter zake van pensioenen (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1208400
+msgid "Schulden uit hoofde van belasting naar de winst"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806044
+msgid "Schulden uit hoofde van belastingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_1
+msgid "Section 1: Domestic performance"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_1
+msgid "Section 1: Domestic services (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_2
+msgid "Section 2: Domestic reverse charge (VAT) schemes"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_2
+msgid "Section 2: Domestic reverse charge arrangements (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_3
+msgid "Section 3: Performance to or from abroad (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_4
+msgid "Section 4: Services provided to you from abroad (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_4
+msgid "Section 4: Services provided to you from abroad (turnover)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report.line,name:l10n_nl_rgs.tax_report_rub_btw_5
+msgid "Section 5: Input tax, small business scheme and total (VAT)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4002000
+msgid "Sociale lasten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8214000
+msgid "Som van de (geworven) baten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_account_account__sort_code
+#: model:ir.model.fields,field_description:l10n_nl_rgs.field_account_group__sort_code
+msgid "Sorting code"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8216000
+msgid "Sponsorbijdragen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0505000
+msgid "Statutaire reserves"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8207000
+msgid "Subsidiebaten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.report,name:l10n_nl_rgs.tax_report
+msgid "Tax report"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806079
+msgid "Te betalen wissels en cheques"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1209079
+msgid "Te betalen wissels en cheques (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0310000
+msgid "Te vorderen BWS-subsidies"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1103039
+msgid "Te vorderen subsidies"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1002000
+msgid "Tegoeden op bankgirorekeningen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0201000
+msgid "Terreinen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:ir.model.fields,help:l10n_nl_rgs.field_account_group__active_allowed_journal_ids
+msgid ""
+"This is the allowed journal for this group. It's calculated from all "
+"parent_groups"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8023000
+msgid "Toegerekende financieringskosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4301000
+msgid "Toegerekende kosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8007000
+msgid "Toegerekende opbrengsten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8022000
+msgid "Toegerekende organisatiekosten verkocht vastgoed in ontwikkeling"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8031000
+msgid "Toegerekende organisatiekosten verkoop vastgoedportefeuille"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7202000
+msgid "Totaal van lasten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4205000
+msgid "Transportkosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1105000
+msgid "Tussenrekeningen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1220000
+msgid "Tussenrekeningen (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1230000
+msgid "Uit te keren dividend aan houders van aandelen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1240000
+msgid "Uit te keren dividend aan houders van preferente aandelen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8021000
+msgid "Uitgaven verkocht vastgoed in ontwikkeling"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8519000
+msgid ""
+"Valutaverschillen op leningen voor zover zij als een correctie van de "
+"verschuldigde rentekosten kunnen worden aangemerkt"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1103129
+msgid "Van aandeelhouders opgevraagde stortingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0216000
+msgid "Vaste bedrijfsmiddelen in uitvoering"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_3104000
+msgid "Vastgoed"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_02_1
+msgid "Vastgoedbeleggingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0205000
+msgid "Vastgoedbeleggingen in exploitatie"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0204000
+msgid "Vastgoedbeleggingen in ontwikkeling bestemd voor eigen exploitatie"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0203000
+msgid "Verbouwingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4203000
+msgid "Verkoop gerelateerde kosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_80_8
+msgid "Verkoopkosten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8080000
+msgid "Verkoopkosten (Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8030000
+msgid "Verkoopopbrengst vastgoedportefeuille"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0806109
+msgid ""
+"Verplichtingen uit hoofde van onroerende zaken verkocht onder voorwaarden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8206000
+msgid "Verzekeringsuitkeringen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0211000
+msgid "Vliegtuigen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_3002000
+msgid "Voorraad grond- en hulpstoffen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_7011000
+msgid "Voorraadmutatie"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_30
+msgid "Voorraden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0109000
+msgid "Vooruitbetalingen op immateriële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0216100
+msgid "Vooruitbetalingen op materiële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_3004000
+msgid "Vooruitbetalingen op voorraden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0702000
+msgid "Voorziening voor belastingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0704174
+msgid "Voorziening voor onrendabele investeringen en herstructureringen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0701000
+msgid "Voorziening voor pensioenen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_07
+msgid "Voorzieningen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_11
+msgid "Vorderingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0305000
+msgid "Vorderingen op groepsmaatschappijen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1103099
+msgid "Vorderingen op groepsmaatschappijen (kortlopend)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1101000
+msgid "Vorderingen op handelsdebiteuren"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1103300
+msgid "Vorderingen op leden van de coöperatie"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0307000
+msgid "Vorderingen op overige verbonden maatschappijen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1103109
+msgid "Vorderingen op overige verbonden maatschappijen (kortlopend)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0306000
+msgid ""
+"Vorderingen op participanten en op maatschappijen waarin wordt deelgenomen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1103119
+msgid ""
+"Vorderingen op participanten en op maatschappijen waarin wordt deelgenomen "
+"(kortlopend)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1103159
+msgid "Vorderingen uit hoofde van belastingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_1103149
+msgid "Vorderingen uit hoofde van pensioenen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8302000
+msgid "Vrijval egalisatierekening IPR"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_46
+msgid "Vrijval herwaarderingsreserve"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8303000
+msgid "Vrijval overige egalisatierekeningen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8301000
+msgid "Vrijval uit herwaarderingsreserve"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8120000
+msgid "Waardeveranderingen van agrarische voorraden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_47
+msgid "Waardeveranderingen van financiële vaste activa en van effecten"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8405000
+msgid ""
+"Waardeveranderingen van financiële vaste activa en van effecten "
+"(Duplicate???)"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_41_1
+msgid ""
+"Waardeveranderingen van immateriële en materiële vaste activa en "
+"vastgoedbeleggingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4103000
+msgid "Waardeveranderingen van immateriële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4104000
+msgid "Waardeveranderingen van materiële vaste activa"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8498000
+msgid ""
+"Waardeveranderingen van niet op netto-vermogenswaarde e.d. gewaardeerde "
+"deelnemingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_80_4
+msgid "Waardeveranderingen vastgoedportefeuille"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4003999
+msgid "Werkkostenregeling - detail"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_0504000
+msgid "Wettelijke reserves"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8110000
+msgid "Wijziging agrarische voorraden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_4105500
+msgid "Wijziging in de reële waarde van vastgoedbeleggingen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8103000
+msgid "Wijziging in onderhanden projecten in opdracht van derden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8101000
+msgid ""
+"Wijziging in voorraden grond- en hulpstoffen, gereed product en "
+"handelsgoederen"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8102000
+msgid "Wijziging in voorraden onderhanden werk"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_81
+msgid "Wijziging voorraden"
+msgstr ""
+
+#. module: l10n_nl_rgs
+#: model:account.account.tag,name:l10n_nl_rgs.account_tag_8407000
+msgid "Wisselkoersverschillen"
+msgstr ""
