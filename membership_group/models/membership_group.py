@@ -17,7 +17,6 @@ class MembershipGroup(models.Model):
     membership_group_member_ids = fields.One2many(
         "membership.group.member",
         "group_id",
-        context={"active_test": False},
     )
     parent_id = fields.Many2one(
         comodel_name="membership.group", string="Parent", index=True

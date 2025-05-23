@@ -111,17 +111,17 @@ class TestMembershipGroup(common.TransactionCase):
             member_group_termination.date_to,
             group_1_with_termination.membership_end_date,
         )
-        self.assertTrue(member_group_termination.active)
+        self.assertEqual(member_group_termination.state, "current")
 
         with freezegun.freeze_time(str(fields.Date.today())):
             self.env["membership.group.member"]._cron_revoke_membership()
 
-        self.assertTrue(member_group_termination.active)
+        self.assertEqual(member_group_termination.state, "current")
 
         with freezegun.freeze_time("2055-06-01"):
             self.env["membership.group.member"]._cron_revoke_membership()
 
-        self.assertFalse(member_group_termination.active)
+        self.assertEqual(member_group_termination.state, "historic")
         self.assertEqual(
             str(member_group_termination.date_end),
             "2055-06-01",
@@ -150,7 +150,6 @@ class TestMembershipGroup(common.TransactionCase):
         with self.assertRaises(ValidationError):
             MembershipGroupMember.create(
                 {
-                    "active": False,
                     "partner_id": new_partner.id,
                     "group_id": self.group_1.id,
                     "date_from": "2025-01-02",
@@ -160,16 +159,14 @@ class TestMembershipGroup(common.TransactionCase):
         member_1.date_end = "2025-01-31"
         MembershipGroupMember.create(
             {
-                "active": False,
                 "partner_id": new_partner.id,
                 "group_id": self.group_1.id,
                 "date_from": "2025-02-01",
             }
         )
 
-        MembershipGroupMember.with_context(stop_test=True).create(
+        MembershipGroupMember.create(
             {
-                "active": False,
                 "partner_id": new_partner.id,
                 "group_id": self.group_1.id,
                 "date_from": "2024-01-01",
@@ -180,7 +177,6 @@ class TestMembershipGroup(common.TransactionCase):
         with self.assertRaises(ValidationError):
             MembershipGroupMember.create(
                 {
-                    "active": False,
                     "partner_id": new_partner.id,
                     "group_id": self.group_1.id,
                     "date_from": "2024-03-01",

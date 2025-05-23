@@ -32,7 +32,6 @@ class MembershipHistoryWizard(models.TransientModel):
         action["display_name"] = format_date(self.env, self.date)
         action["context"] = dict(
             literal_eval(action["context"]),
-            active_test=False,
             export_xlsx=True,
         )
 

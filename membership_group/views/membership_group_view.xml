@@ -51,11 +51,11 @@
                     <notebook>
                         <page string="Membership" name="membership">
                             <field name="membership_group_member_ids">
-                                <tree editable="top" decoration-muted="not active">
+                                <tree editable="top" decoration-muted="state != 'current'">
                                     <control>
                                         <create name="add_member" string="Add a member" />
                                     </control>
-                                    <field name="active" invisible="1" />
+                                    <field name="state" />
                                     <field name="create_date" invisible="1" />
                                     <field
                                         name="partner_id"
@@ -69,11 +69,11 @@
                                         attrs="{'readonly': [('create_date', '!=', False)]}" />
                                     <button type="object" name="action_change_type"
                                         string="Change Type"
-                                        attrs="{'invisible': ['|', ('active','=', False), ('create_date', '=', False)]}" />
+                                        attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
                                     <field name="wants_to_collaborate" />
                                     <button type="object" name="action_revoke_membership"
                                         string="Revoke"
-                                        attrs="{'invisible': ['|', ('active','=', False), ('create_date', '=', False)]}" />
+                                        attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
                                 </tree>
                             </field>
                         </page>

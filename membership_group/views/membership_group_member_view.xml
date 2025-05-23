@@ -4,11 +4,12 @@
     <record id="membership_group_member_view_tree" model="ir.ui.view">
         <field name="model">membership.group.member</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" decoration-muted="not active" js_class="membership_report_list">
+            <tree editable="bottom" decoration-muted="state != 'current'"
+                js_class="membership_report_list">
                 <control>
                     <create name="add_member" string="Add a member" />
                 </control>
-                <field name="active" invisible="1" />
+                <field name="state" />
                 <field name="create_date" invisible="1" />
                 <field name="partner_id" />
                 <field name="group_id" />
@@ -19,11 +20,11 @@
                     attrs="{'readonly': [('create_date', '!=', False)]}" />
                 <button type="object" name="action_change_type"
                     string="Change Type"
-                    attrs="{'invisible': ['|', ('active','=', False), ('create_date', '=', False)]}" />
+                    attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
                 <field name="wants_to_collaborate" optional="hide" />
                 <button type="object" name="action_revoke_membership"
                     string="Revoke"
-                    attrs="{'invisible': ['|', ('active','=', False), ('create_date', '=', False)]}" />
+                    attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
             </tree>
         </field>
     </record>
@@ -32,8 +33,9 @@
         <field name="name">membership.group.member.tree.voting</field>
         <field name="model">membership.group.member</field>
         <field name="arch" type="xml">
-            <tree import="0" decoration-muted="not active" js_class="membership_report_list">
-                <field name="active" invisible="1" />
+            <tree import="0" decoration-muted="'state','!=', 'current'"
+                js_class="membership_report_list">
+                <field name="state" />
                 <field name="partner_id" />
                 <field name="date_from" />
                 <field name="date_to" />
@@ -62,15 +64,19 @@
                 <field name="group_id" />
                 <field name="type" />
                 <separator />
-                <filter name="filter_active" string="Active Members"
-                    domain="[('active', '=', True)]" />
-                <filter name="filter_inactive" string="Inactive Members"
-                    domain="[('active', '=', False)]" />
+                <filter name="filter_current" string="Current"
+                    domain="[('state', '=', 'current')]" />
+                <filter name="filter_historic" string="Historic"
+                    domain="[('state', '=', 'historic')]" />
+                <filter name="filter_future" string="Future"
+                    domain="[('state', '=', 'future')]" />
                 <separator />
                 <filter name="show_collaborators" string="Want to Collaborate"
                     domain="[('wants_to_collaborate', '=', True)]" />
                 <separator />
                 <group expand="0" name="claims" string="Group By">
+                    <filter string="State" name="groupby_state" domain="[]" help="State"
+                        context="{'group_by':'state'}" />
                     <filter string="Partner" name="groupby_partner_id" domain="[]" help="Partner"
                         context="{'group_by':'partner_id'}" />
                     <filter string="Group" name="groupby_group_id" domain="[]" help="Group"
@@ -87,7 +93,7 @@
         <field name="res_model">membership.group.member</field>
         <field name="view_mode">tree,pivot</field>
         <field name="view_id" ref="membership_group_member_view_tree" />
-        <field name="context">{'active_test': False, 'create': False, 'edit': False}</field>
+        <field name="context">{'create': False, 'edit': False}</field>
     </record>
 
     <record id="action_membership_group_voting_member" model="ir.actions.act_window">
@@ -96,8 +102,7 @@
         <field name="view_mode">tree</field>
         <field name="view_id" ref="view_membership_group_member_tree_voting" />
         <field name="domain">[('vote_right', '=', True)]</field>
-        <field name="context">{'active_test': False, 'create': False, 'edit': False,
-            'default_only_voting_members': True}</field>
+        <field name="context">{'create': False, 'edit': False, 'default_only_voting_members': True}</field>
     </record>
 
 </odoo>

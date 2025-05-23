@@ -1,7 +1,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from odoo.addons.membership_group.models.membership_group_member import MEMBER_TYPE
+from ..models.membership_group_member import MEMBER_TYPE
 
 
 class MembershipTypeWizard(models.TransientModel):
@@ -14,7 +14,7 @@ class MembershipTypeWizard(models.TransientModel):
         required=True,
         ondelete="cascade",
     )
-    member_active = fields.Boolean(related="member_id.active")
+    member_state = fields.Selection(related="member_id.state")
     member_current_type = fields.Selection(
         related="member_id.type",
         string="Current Type",

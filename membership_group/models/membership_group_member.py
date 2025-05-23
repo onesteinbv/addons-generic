@@ -14,9 +14,20 @@ MEMBER_TYPE = [
 class MembershipGroupMember(models.Model):
     _name = "membership.group.member"
     _description = "Membership Group Member"
-    _order = "active desc, date_from desc"
+    _order = "state asc, date_from desc"
 
-    active = fields.Boolean(default=True)
+    state = fields.Selection(
+        [
+            ("current", "Current"),
+            ("historic", "Historic"),
+            ("future", "Future"),
+        ],
+        default="current",
+        compute="_compute_state",
+        precompute=True,
+        store=True,
+        required=True,
+    )
     partner_id = fields.Many2one(
         "res.partner",
         string="Member",
@@ -50,17 +61,6 @@ class MembershipGroupMember(models.Model):
         help="Member has voting rights",
     )
 
-    def init(self):
-        self.env.cr.execute(
-            """
-            DROP INDEX IF EXISTS partner_group_active_uniq;
-            CREATE UNIQUE INDEX partner_group_active_uniq
-              ON %(table)s (partner_id, group_id)
-             WHERE active = TRUE;
-            """
-            % {"table": self._table}
-        )
-
     @api.constrains("partner_id", "group_id", "date_from", "date_end", "date_to")
     def _check_no_overlap_dates(self):
         for record in self:
@@ -75,23 +75,40 @@ class MembershipGroupMember(models.Model):
                 ("group_id", "=", record.group_id.id),
             ]
 
-            if records := self.with_context(active_test=False).search(domain):
+            if records := self.search(domain):
                 records._check_overlap_dates(record)
+
+    @api.depends("date_from", "date_end", "date_to")
+    def _compute_state(self):
+        for record in self:
+            if record.date_end:
+                record.state = "historic"
+            elif record.date_from > fields.Date.context_today(record):
+                record.state = "future"
+            else:
+                record.state = "current"
 
     def _check_overlap_dates(self, record):
         for rec in self:
-            date_end = rec.date_end or rec.date_to
+            rec_date_end = rec.date_end or rec.date_to
+            record_date_end = record.date_end or record.date_to
 
-            if rec.date_from >= record.date_from and not date_end:
-                if record.active and not rec.active:
-                    continue
+            if (
+                rec.date_from >= record.date_from
+                and not rec_date_end
+                and not record_date_end
+            ):
+                raise ValidationError(
+                    _("The membership dates overlap with an existing record!")
+                )
+            elif rec.date_from >= record.date_from and record_date_end > rec.date_from:
                 if self.env.context.get("membership_cronjob"):
                     continue
                 raise ValidationError(
                     _("The membership dates overlap with an existing record!")
                 )
             elif record.date_from >= rec.date_from and (
-                not date_end or record.date_from <= date_end
+                not rec_date_end or record.date_from <= rec_date_end
             ):
                 raise ValidationError(
                     _("The membership dates overlap with an existing record!")
@@ -112,17 +129,6 @@ class MembershipGroupMember(models.Model):
         for record in self:
             record.vote_right = record.group_id.voting_group
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        today = fields.Date.today()
-        for vals in vals_list:
-            date_from = vals.get("date_from")
-            if isinstance(date_from, str):
-                date_from = fields.Date.from_string(date_from)
-            if date_from != today:
-                vals["active"] = False
-        return super().create(vals_list)
-
     def action_change_type(self):
         ref_name = "membership_group.action_membership_type_wizard"
         action = self.env["ir.actions.act_window"]._for_xml_id(ref_name)
@@ -138,21 +144,13 @@ class MembershipGroupMember(models.Model):
     def action_revoke_membership(self):
         self.with_context(membership_cronjob=True).write(
             {
-                "active": False,
+                "state": "historic",
                 "date_end": fields.Date.today(),
             }
         )
-        return True
 
     def action_activate_membership(self):
-        for record in self:
-            try:
-                record.active = True
-            except ValidationError:
-                # if fails, we process the next record
-                continue
-            record.env.cr.commit()
-        return True
+        self.write({"state": "current"})
 
     def action_open_partners(self):
         ref_name = "membership.action_membership_members"
@@ -167,10 +165,17 @@ class MembershipGroupMember(models.Model):
 
     @api.model
     def _cron_revoke_membership(self):
-        self.search([("date_to", "<=", fields.date.today())]).action_revoke_membership()
+        self.search(
+            [
+                ("state", "<=", "current"),
+                ("date_to", "<=", fields.date.today()),
+            ]
+        ).action_revoke_membership()
 
     @api.model
     def _cron_activate_membership(self):
-        self.with_context(active_test=False).search(
-            [("date_from", "=", fields.date.today())]
+        self.search(
+            [
+                ("date_from", "=", fields.date.today()),
+            ]
         ).action_activate_membership()
