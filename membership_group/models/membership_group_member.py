@@ -90,6 +90,14 @@ class MembershipGroupMember(models.Model):
 
     def _check_overlap_dates(self, record):
         for rec in self:
+            if rec.state == "current" and record.state == "current":
+                raise ValidationError(
+                    _(
+                        "You cannot have two current memberships for the "
+                        "same partner in the same group!"
+                    )
+                )
+
             rec_date_end = rec.date_end or rec.date_to
             record_date_end = record.date_end or record.date_to
 

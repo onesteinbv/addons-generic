@@ -183,3 +183,22 @@ class TestMembershipGroup(common.TransactionCase):
                     "date_end": "2024-03-05",
                 }
             )
+
+    def test_07_current_members(self):
+        MembershipGroupMember = self.env["membership.group.member"]
+        new_partner = self.env["res.partner"].create({"name": "Test partner"})
+        MembershipGroupMember.create(
+            {
+                "partner_id": new_partner.id,
+                "group_id": self.group_1.id,
+                "date_from": "2024-01-01",
+            }
+        )
+        with self.assertRaises(ValidationError):
+            MembershipGroupMember.create(
+                {
+                    "partner_id": new_partner.id,
+                    "group_id": self.group_1.id,
+                    "date_from": "2024-01-01",
+                }
+            )
