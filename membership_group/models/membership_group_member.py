@@ -81,12 +81,17 @@ class MembershipGroupMember(models.Model):
     @api.depends("date_from", "date_end", "date_to")
     def _compute_state(self):
         for record in self:
-            if record.date_end:
-                record.state = "historic"
-            elif record.date_from > fields.Date.context_today(record):
-                record.state = "future"
-            else:
+            today = fields.Date.context_today(record)
+            end_date = record.date_end or record.date_to
+
+            if today >= record.date_from and not record.date_end:
                 record.state = "current"
+            elif today < record.date_from:
+                record.state = "future"
+            elif end_date < today:
+                record.state = "historic"
+            else:
+                record.state = "historic"
 
     def _check_overlap_dates(self, record):
         for rec in self:
@@ -110,8 +115,6 @@ class MembershipGroupMember(models.Model):
                     _("The membership dates overlap with an existing record!")
                 )
             elif rec.date_from >= record.date_from and record_date_end > rec.date_from:
-                if self.env.context.get("membership_cronjob"):
-                    continue
                 raise ValidationError(
                     _("The membership dates overlap with an existing record!")
                 )
@@ -150,7 +153,7 @@ class MembershipGroupMember(models.Model):
         return action
 
     def action_revoke_membership(self):
-        self.with_context(membership_cronjob=True).write(
+        self.write(
             {
                 "state": "historic",
                 "date_end": fields.Date.today(),
@@ -175,7 +178,7 @@ class MembershipGroupMember(models.Model):
     def _cron_revoke_membership(self):
         self.search(
             [
-                ("state", "<=", "current"),
+                ("state", "=", "current"),
                 ("date_to", "<=", fields.date.today()),
             ]
         ).action_revoke_membership()
@@ -184,6 +187,7 @@ class MembershipGroupMember(models.Model):
     def _cron_activate_membership(self):
         self.search(
             [
-                ("date_from", "=", fields.date.today()),
+                ("state", "=", "future"),
+                ("date_from", "<=", fields.date.today()),
             ]
         ).action_activate_membership()
