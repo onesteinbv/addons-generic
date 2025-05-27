@@ -14,6 +14,7 @@
     ],
     "demo": [
         "demo/sale_subscription_template_demo.xml",
+        "demo/product_product_demo.xml",
         "demo/product_template_demo.xml",
     ],
     "data": [

@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="demo_s3_storage_product" model="product.template">
-        <field name="name">S3 Storage</field>
-        <field name="application_stat_type_id" ref="argocd_deployer.demo_storage_usage_application_stat_type" />
-        <field name="list_price">0.20</field>
-        <field name="invoice_policy">order</field>
-    </record>
-
     <record id="demo_curq_basis_product_template" model="product.template">
         <field name="name">Curq Basis</field>
         <field name="application_template_id" ref="argocd_deployer.demo_curq_basis_application_template" />
