@@ -61,22 +61,61 @@ class MembershipGroupMember(models.Model):
         help="Member has voting rights",
     )
 
+    def _prepare_error_message(self):
+        self.ensure_one()
+        return _(
+            "The member %(partner)s from group %(group)s",
+            partner=self.partner_id.name,
+            group=self.group_id.name,
+        )
+
     @api.constrains("partner_id", "group_id", "date_from", "date_end", "date_to")
     def _check_no_overlap_dates(self):
+        errors = []
         for record in self:
+            message = record._prepare_error_message()
             if record.date_end and record.date_end < record.date_from:
-                raise ValidationError(_("Date end needs to be higher then date from"))
+                message += _(
+                    " has an end date (%(date_end)s) that is before "
+                    "the start date (%(date_from)s).",
+                    date_end=record.date_end,
+                    date_from=record.date_from,
+                )
+                errors.append(message)
             if record.date_to and record.date_to < record.date_from:
-                raise ValidationError(_("Date to needs to be higher then date from"))
+                message += _(
+                    " has a date to (%(date_to)s) that is before "
+                    "the start date (%(date_from)s).",
+                    date_to=record.date_to,
+                    date_from=record.date_from,
+                )
+                errors.append(message)
+            if record.date_end and record.date_to and record.date_end > record.date_to:
+                message += _(
+                    " has an end date (%(date_end)s) that is after "
+                    "the date to (%(date_to)s).",
+                    date_end=record.date_end,
+                    date_to=record.date_to,
+                )
+                errors.append(message)
 
             domain = [
                 ("id", "!=", record.id),
                 ("partner_id", "=", record.partner_id.id),
                 ("group_id", "=", record.group_id.id),
             ]
-
             if records := self.search(domain):
-                records._check_overlap_dates(record)
+                if error := records._check_overlap_dates(record):
+                    message = record._prepare_error_message()
+                    errors.append(message + error)
+
+        if errors:
+            raise ValidationError(
+                _(
+                    "Some membership records have errors:\n%(errors)s",
+                    errors="\n".join(errors),
+                )
+            )
 
     @api.depends("date_from", "date_end", "date_to")
     def _compute_state(self):
@@ -96,12 +135,7 @@ class MembershipGroupMember(models.Model):
     def _check_overlap_dates(self, record):
         for rec in self:
             if rec.state == "current" and record.state == "current":
-                raise ValidationError(
-                    _(
-                        "You cannot have two current memberships for the "
-                        "same partner in the same group!"
-                    )
-                )
+                return _(" has two current memberships in the same group!")
 
             rec_date_end = rec.date_end or rec.date_to
             record_date_end = record.date_end or record.date_to
@@ -111,19 +145,13 @@ class MembershipGroupMember(models.Model):
                 and not rec_date_end
                 and not record_date_end
             ):
-                raise ValidationError(
-                    _("The membership dates overlap with an existing record!")
-                )
+                return _(" has dates overlap with an existing record!")
             elif rec.date_from >= record.date_from and record_date_end > rec.date_from:
-                raise ValidationError(
-                    _("The membership dates overlap with an existing record!")
-                )
+                return _(" the membership dates overlap with an existing record!")
             elif record.date_from >= rec.date_from and (
                 not rec_date_end or record.date_from <= rec_date_end
             ):
-                raise ValidationError(
-                    _("The membership dates overlap with an existing record!")
-                )
+                return _(" the membership dates overlap with an existing record!")
 
     @api.depends("group_id")
     def _compute_date_to(self):
