@@ -1,0 +1,86 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_payment_recurring_donations
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-22 13:35+0000\n"
+"PO-Revision-Date: 2023-09-22 13:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_payment_recurring_donations
+#: model_terms:ir.ui.view,arch_db:website_payment_recurring_donations.s_donation_button
+msgid "<span>Give Monthly</span>"
+msgstr "<span>Geef maandelijks</span>"
+
+#. module: website_payment_recurring_donations
+#: model_terms:ir.ui.view,arch_db:website_payment_recurring_donations.s_donation_button
+msgid "<span>Just Once</span>"
+msgstr "<span>Slechts één keer</span>"
+
+#. module: website_payment_recurring_donations
+#: model_terms:ir.ui.view,arch_db:website_payment_recurring_donations.donation_mail_body
+msgid "As you have opted for recurring donations, fixed"
+msgstr "Omdat u heeft gekozen voor terugkerende donaties, vast"
+
+#. module: website_payment_recurring_donations
+#: model:ir.model.fields,field_description:website_payment_recurring_donations.field_payment_transaction__donation_frequency
+#: model_terms:ir.ui.view,arch_db:website_payment_recurring_donations.payment_checkout
+msgid "Donation Frequency"
+msgstr "Donatie Frequentie"
+
+#. module: website_payment_recurring_donations
+#: model_terms:ir.ui.view,arch_db:website_payment_recurring_donations.payment_checkout
+msgid "Give Monthly"
+msgstr "Geef maandelijks"
+
+#. module: website_payment_recurring_donations
+#: model_terms:ir.ui.view,arch_db:website_payment_recurring_donations.payment_checkout
+msgid "Just Once"
+msgstr "Slechts één keer"
+
+#. module: website_payment_recurring_donations
+#: model:ir.model.fields.selection,name:website_payment_recurring_donations.selection__payment_transaction__donation_frequency__monthly
+msgid "Monthly"
+msgstr "Maandelijks"
+
+#. module: website_payment_recurring_donations
+#: model:ir.model.fields.selection,name:website_payment_recurring_donations.selection__payment_transaction__donation_frequency__onetime
+msgid "One Time"
+msgstr "Eenmaal"
+
+#. module: website_payment_recurring_donations
+#: model:ir.model,name:website_payment_recurring_donations.model_payment_transaction
+msgid "Payment Transaction"
+msgstr "Betalingstransactie"
+
+#. module: website_payment_recurring_donations
+#: model:ir.model.fields,field_description:website_payment_recurring_donations.field_payment_transaction__recurring_donation_provider_reference
+msgid "Provider Reference For Recurring Donation"
+msgstr "Providerreferentie voor terugkerende donaties"
+
+#. module: website_payment_recurring_donations
+#: model_terms:ir.ui.view,arch_db:website_payment_recurring_donations.donation_mail_body
+msgid ""
+"anniversary\n"
+"                            of the first donation.You can submit your cancellation request by emailing to the address: (processing would be done within 3 business days)."
+msgstr ""
+"verjaardag\n"
+"                            van de eerste donatie.Je kunt je annuleringsverzoek indienen door een e-mail te sturen naar het volgende adres: (verwerking zal binnen 3 werkdagen plaatsvinden)."
+
+#. module: website_payment_recurring_donations
+#: model_terms:ir.ui.view,arch_db:website_payment_recurring_donations.donation_mail_body
+msgid "on the"
+msgstr "op de"
+
+#. module: website_payment_recurring_donations
+#: model_terms:ir.ui.view,arch_db:website_payment_recurring_donations.donation_mail_body
+msgid "payments will be debited by"
+msgstr "betalingen worden gedebiteerd door"

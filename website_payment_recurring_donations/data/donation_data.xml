@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2023 Onestein - Anjeel Haria
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+    <template id="donation_mail_body" inherit_id="website_payment.donation_mail_body" name="Donation mail">
+        <xpath expr="//table" position="inside">
+            <t t-if="not is_internal_notification">
+                <t t-if="tx.donation_frequency != 'onetime'">
+                    <tr><td valign="top">
+                        <div style="margin: 16px 0px 16px 0px;">
+                            As you have opted for recurring donations, fixed <span t-out="tx.donation_frequency"/> payments will be debited by <span t-out="tx.company_id.name"/> on the <span t-out="tx.donation_frequency"/> anniversary
+                            of the first donation.You can submit your cancellation request by emailing to the address: (processing would be done within 3 business days).
+                        </div>
+                    </td></tr>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>
