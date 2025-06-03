@@ -131,11 +131,19 @@ class Subscription(models.Model):
             quantity = max(
                 stats
             )  # TODO: Make configurable also what the policy should be if there's no stats found
+
+        # TODO: This must be refactored once recurring payments and subscription_oca is refactored... This is a workaround
+        price_unit = stat_product.list_price
+        if stat_product.stat_threshold:
+            if quantity > stat_product.stat_threshold:
+                quantity -= stat_product.stat_threshold
+            else:
+                quantity = 0
         return {
             "product_id": stat_product.id,
             "name": "> %s" % stat_product.name,  # TODO: Improve layout
             "quantity": quantity,
-            "price_unit": stat_product.list_price,
+            "price_unit": price_unit,
             "tax_ids": [Command.set(stat_product.taxes_id.ids)],
             "product_uom_id": stat_product.uom_id.id,
             "account_id": account.id,
