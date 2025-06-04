@@ -25,7 +25,7 @@ class ApplicationDomain(models.Model):
             domain += [("scope", "=", self.scope)]
         else:
             domain += [("scope_unique", "=", False)]
-        if self.search(domain, count=True):
+        if self.search_count(domain):
             raise ValidationError(_("Domain is already in use"))
 
     @api.model
@@ -59,7 +59,7 @@ class ApplicationDomain(models.Model):
                 else:
                     search_domain += [("scope_unique", "=", False)]
 
-                already_exists = self.search(search_domain, count=True)
+                already_exists = self.search_count(search_domain)
                 if not already_exists:
                     best_available = domain_name
                     break

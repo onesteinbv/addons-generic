@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="demo_subscription_template" model="sale.subscription.template">
+        <field name="name">Curq (monthly)</field>
+        <field name="invoicing_mode">invoice_send</field>
+    </record>
+</odoo>
