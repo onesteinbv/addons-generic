@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="deployment_delayed_notification_mail_template" model="mail.template">
+        <field name="name">ArgoCD: Deployment Delayed Notification (for partner)</field>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application" />
+        <field name="subject">Deployment delayed</field>
+        <field name="email_from">{{ object.partner_id.company_id.email }}</field>
+        <field name="partner_to">{{ object.partner_id.id }}</field>
+        <field name="email_to">{{ object.partner_id.email }}</field>
+        <field name="body_html" type="html">
+            <p>Dear <t t-esc="object.partner_id.name" />, </p>
+            <br />
+            <p>Your application has been delayed for deployment because our servers are currently full.</p>
+            <p>We try to process your request within 48 hours. Until then, we keep you up to date.</p>
+            <br />
+            <p>Kind regards, </p>
+        </field>
+    </record>
+</odoo>
