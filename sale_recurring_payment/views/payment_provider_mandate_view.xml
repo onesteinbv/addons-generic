@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="payment_provider_mandate_form" model="ir.ui.view">
+        <field name="model">payment.provider.mandate</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="is_revoked" invisible="1" />
+                <header>
+                    <button
+                        name="revoke"
+                        type="object"
+                        string="Revoke"
+                        class="btn-danger"
+                        confirm="Are you sure you want to revoke this mandate?"
+                        invisible="is_revoked"
+                    />
+                </header>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Revoked"
+                        bg_color="bg-danger"
+                        invisible="not is_revoked"
+                    />
+                    <group>
+                        <field name="reference" />
+                        <field name="provider_id" />
+                        <field name="partner_id" />
+                    </group>
+                    <notebook>
+                        <page string="Transactions">
+                            <field name="payment_transaction_ids" colspan="4" nolabel="1" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
