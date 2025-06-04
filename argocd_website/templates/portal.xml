@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="portal_breadcrumbs"
+        inherit_id="portal.portal_breadcrumbs"
+    >
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li
+                t-if="page_name == 'Applications'"
+                t-attf-class="breadcrumb-item #{'active ' if not app else ''}"
+            >
+                <a
+                    t-if="app"
+                    t-attf-href="/my/applications?{{ keep_query() }}"
+                >Applications</a>
+                <t t-else="">Applications</t>
+            </li>
+            <li t-if="app" class="breadcrumb-item active">
+                <t t-esc="app.name" />
+            </li>
+        </xpath>
+    </template>
+
+    <template
+        id="portal_my_home"
+        inherit_id="portal.portal_my_home"
+        priority="40"
+    >
+        <div id="portal_client_category" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Applications</t>
+                <t t-set="text">Manage your applications</t>
+                <t t-set="url" t-value="'/my/applications'" />
+                <t t-set="placeholder_count" t-value="'app_count'" />
+            </t>
+        </div>
+    </template>
+
+    <template id="external_links_dropdown">
+        <t t-set="urls" t-value="app.get_urls()" />
+        <t t-if="len(urls) == 1">
+            <a t-attf-class="btn #{class}" aria-expanded="false" aria-haspopup="true"
+               t-att-href="urls[0][0]" target="_blank" t-attf-title="Open #{urls[0][1]}">
+                <i class="fa fa-external-link fa-fw" />
+            </a>
+        </t>
+        <div t-attf-class="dropdown position-static" t-else="">
+            <button t-attf-class="btn #{class}" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" aria-haspopup="true">
+                <i class="fa fa-external-link fa-fw" />
+            </button>
+
+            <ul class="dropdown-menu">
+                <li t-foreach="urls" t-as="url">
+                    <a t-att-href="url[0]" target="_blank" t-attf-title="Open #{url[1]}" class="dropdown-item">
+                        <t t-esc="url[1]" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </template>
+
+    <template id="actions_dropdown">
+        <div t-attf-class="dropdown position-static">
+            <button class="btn btn-link" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" aria-haspopup="true">
+                <i class="fa fa-ellipsis-v fa-fw" />
+            </button>
+
+            <ul class="dropdown-menu">
+                <li>
+                    <a t-attf-href="/my/applications/#{app.id}/domain-names" title="Configure Domain Names" class="dropdown-item">
+                        <i class="fa fa-globe mr4" />Configure Domain Names
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </template>
+
+
+    <template id="portal_my_applications" name="My Applications">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Applications</t>
+            </t>
+            <t t-if="apps" t-call="portal.portal_table">
+                <t t-set="classes" t-value="'mb-2'" />
+                <thead>
+                    <tr class="active">
+                        <th>Name</th>
+                        <th>Company</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="apps" t-as="app">
+                        <tr>
+                            <td>
+                                <a
+                                    t-att-href="app.get_portal_url()"
+                                    t-att-title="app.name"
+                                >
+                                    <t t-esc="app.name" />
+                                </a>
+                            </td>
+                            <td>
+                                <t t-esc="app.partner_id.display_name" />
+                            </td>
+                            <td>
+                                <div class="js_health_check" t-att-data-app-id="app.id">
+                                    <i class="fa fa-circle-o-notch fa-spin fa-fw " />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+<!--                                    <t t-call="argocd_website.actions_dropdown" /> -->
+                                    <t t-call="argocd_website.external_links_dropdown">
+                                        <t t-set="class" t-value="'btn-link'" />
+                                    </t>
+                                </div>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+            <t t-else="">
+                <p>You have no applications currently.</p>
+            </t>
+            <a href="/application/order" class="btn btn-primary">
+                Request new application
+            </a>
+        </t>
+    </template>
+
+    <template id="portal_application_page" name="My Application">
+        <t t-call="portal.portal_layout">
+            <div class="col-12">
+                <div class="d-flex">
+                    <h2 class="mb-0 flex-fill">
+                        <span>
+                            Application - <span t-field="app.name" />
+                        </span>
+                    </h2>
+                    <div class="mr4">
+                        <button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#modalUpgrade">
+                            <i class="fa fa-angle-double-up fa-lg fa-fw" />
+                        </button>
+                    </div>
+                    <div>
+                        <t t-call="argocd_website.external_links_dropdown">
+                            <t t-set="class" t-value="'btn-light'" />
+                        </t>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" t-if="message == 'request_deletion'">
+                    <i class="fa fa-fw fa-info" /> Please check your email to confirm the deletion.
+                </div>
+                <div class="alert alert-info" t-if="message == 'pending_deletion'">
+                    <i class="fa fa-fw fa-info" /> The deletion of this application is pending this can take a couple of minutes.
+                </div>
+                <div class="d-flex">
+                    <div class="flex-fill">
+                        <!-- Address -->
+                        <strong class="d-block">Address: </strong>
+                        <address t-field="app.partner_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name", "email"], "no_marker": True}'/>
+
+                        <!-- Chamber of Commerce -->
+                        <strong>Chamber of Commerce #:</strong>
+                        <span t-field="app.partner_id.company_registry" />
+                    </div>
+                    <div t-if="app.domain_ids">
+                        <strong>Health: </strong>
+                        <span class="js_health_check" t-att-data-app-id="app.id">
+                            <i class="fa fa-circle-o-notch fa-spin fa-fw" />
+                        </span>
+                    </div>
+                </div>
+                <div class="mt16" t-if="app.subscription_line_id">
+                    <ul class="list-group mb-2">
+                        <li class="list-group-item d-grid">
+                            <div class="row">
+                                <div class="col-xl-9 col-8 fw-bold" t-esc="app.subscription_line_id.product_id.name" />
+                            </div>
+                            <div class="row" t-foreach="app.subscription_line_id.product_id.product_template_variant_value_ids" t-as="variant">
+                                <div class="col-xl-9 col-8">
+                                    <span t-esc="variant.attribute_id.name" />:
+                                    <span class="badge text-bg-light" t-esc="variant.name" />
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <t t-call="argocd_website.portal_application_upgrade_modal" />
+        </t>
+    </template>
+
+    <template id="portal_application_upgrade_modal">
+        <div class="modal fade" tabindex="-1" role="dialog" t-att-id="modalId or 'modalUpgrade'">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Upgrade application</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Upgrading applications is currently not automated,
+                            please send an email to <a t-attf-href="mailto:#{env.company.email}"><t t-esc="env.company.email" /></a> with your request.
+                        </p>
+                        <p>
+                            We'll contact you when we processed your request.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="error_page" name="Error">
+        <t t-call="portal.portal_layout">
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    <t t-esc="message" />
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_application_domain_names_page" name="Domain Names">
+        <t t-call="portal.portal_layout">
+            <div class="col-12">
+                <div class="d-flex w-100">
+                    <h2 class="mb-0 flex-fill">
+                        <span>
+                            Configure domain names for <span t-field="app.name" />
+                        </span>
+                    </h2>
+
+                    <b>Perform these steps:</b>
+                    <ol>
+                        <li>Purchase a domain name</li>
+                        <li>Configure a <b>CNAME</b> record for your domain pointing to your instances (e.g. <b><t t-esc="app.format_domain()" /></b> for Odoo)</li>
+                        <li>Insert your domain names below and verify them</li>
+                        <li>Leave them empty to use the default domain names</li>
+                    </ol>
+
+                    <form method="POST">
+                        <input type="hidden" name="csrf_token"
+                               t-att-value="request.csrf_token()"/>
+                        <div class="js_domain_cname_check mb-3" t-att-data-app-id="app.id">
+                            <label for="input_domain">Odoo</label>
+                            <div class="input-group">
+                                <input name="domain" id="input_domain" class="form-control" placeholder="e.g. www.example.com"
+                                       t-att-value="defaults.get('domain', '')" />
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary">
+                                        <i class="fa fa-check spinner-grow-sm ml4" />
+                                        Verify
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="text-success d-none"> <!-- valid-feedback and invalid-feedback is buggy with input group -->
+                                Looks good!
+                            </div>
+                            <div class="text-danger d-none"></div>
+                        </div>
+
+                        <t t-foreach="app.tag_ids.filtered(lambda t: t.domain_yaml_path)" t-as="tag">
+                            <div class="js_domain_cname_check mb-3" t-att-data-tag-id="tag.id" t-att-data-app-id="app.id">
+                                <label t-attf-for="input_domain_#{tag.id}"><t t-esc="tag.name" /></label>
+                                <div class="input-group">
+                                    <input t-attf-name="domain_#{tag.id}" t-attf-id="input_domain_#{tag.id}"
+                                           class="form-control" t-attf-placeholder="e.g. #{tag.key}.example.com"
+                                           t-att-value="defaults.get('domain_%s' % tag.key, '')"
+                                    />
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-secondary">
+                                            <i class="fa fa-check spinner-grow-sm mr4" />
+                                            Verify
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="text-success d-none">
+                                    Looks good!
+                                </div>
+                                <div class="text-danger d-none"></div>
+                            </div>
+                        </t>
+                        <p class="alert alert-info"> It can take a few minutes for the changes to take place</p>
+                        <button class="btn btn-primary btn-lg">
+                            Confirm
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

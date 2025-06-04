@@ -1,3 +1,5 @@
 GitPython
 phonenumbers
 mollie-api-python==3.1.1
+pyyaml
+dnspython==2.6.1

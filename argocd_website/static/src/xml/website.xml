@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+    <t t-name="argo_website.List">
+        <div t-if="sub.lines">
+            <ul class="list-group mb-2">
+                <li class="list-group-item d-grid"
+                    t-foreach="sub.lines" t-as="line" t-key="line.id">
+                    <div class="row">
+                        <div class="col-xl-9 col-8 fw-bold" t-esc="line.name" />
+                        <div class="col-xl-3 col-4 fw-bold text-end" t-esc="line.price_base_formatted" />
+                    </div>
+                    <div class="row" t-if="line.variant_values" t-as="variant_value" t-foreach="line.variant_values" t-key="variant_value.id">
+                        <div class="col-xl-9 col-8 small">
+                            <span t-esc="variant_value.name" />:
+                            <span class="badge text-bg-light" t-esc="variant_value.value" />
+                        </div>
+                        <div class="col-xl-3 col-4 small text-end"
+                             t-if="variant_value.price_extra"
+                             t-esc="variant_value.price_extra_formatted"
+                        />
+                    </div>
+                    <t t-if="line.stat_products">
+                        <div class="row">
+                            <div class="col-12 fw-bold small pt-2">
+                                <span class="fa fa-fw fa-caret-right" /> Extra costs
+                            </div>
+                        </div>
+                        <div class="row" t-as="stat_product" t-foreach="line.stat_products" t-key="stat_product.id">
+                            <div class="col-12 small">
+                                <span class="fa fa-fw" />
+                                <span t-esc="stat_product.name" />:
+                                <span class="badge text-bg-light">
+                                    <t t-esc="stat_product.price_base_formatted" /> per <t t-esc="stat_product.uom" />
+                                </span>
+                            </div>
+                        </div>
+                    </t>
+                </li>
+            </ul>
+
+            <ul class="list-group mb-2">
+                <li class="list-group-item list-group-item-secondary d-grid">
+                    <div class="row">
+                        <div class="col-xl-9 col-8">Tax</div>
+                        <div class="col-xl-3 col-4 text-end" t-esc="sub.amount_tax_formatted" />
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-9 col-8 fw-bold">Total</div>
+                        <div class="col-xl-3 col-4 fw-bold text-end" t-esc="sub.amount_total_formatted" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="mb-2" t-else="">
+            Empty
+        </div>
+    </t>
+</template>
