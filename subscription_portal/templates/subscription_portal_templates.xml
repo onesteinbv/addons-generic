@@ -123,8 +123,8 @@
                     />
                 </t>
             </t>
-            <t t-call="portal.portal_record_sidebar">
-                <t t-set="title">
+            <div class="col-12">
+                <div>
                     <div class="d-flex w-100">
                         <h5 class="mb-0 flex-fill">
                             <span>
@@ -143,8 +143,8 @@
                             </button>
                         </div>
                     </div>
-                </t>
-                <t t-set="entries">
+                </div>
+                <div>
                     <div class="alert alert-info mt-2" t-if="success == 'start_cancellation'">
                         <i class="fa fa-fw fa-info" /> Please check your email to confirm the cancellation.
                     </div>
@@ -313,8 +313,8 @@
                             </table>
                         </div>
                     </div>
-                </t>
-            </t>
+                </div>
+            </div>
             <!-- chatter -->
             <div id="subscription_communication" class="mt-4">
                 <h2>Communication</h2>
@@ -331,42 +331,38 @@
 
     <template id="error_page" name="Error">
         <t t-call="portal.portal_layout">
-            <t t-call="portal.portal_record_sidebar">
-                <t t-set="entries">
-                    <div class="alert alert-danger">
-                        <t t-esc="message" />
-                    </div>
-                </t>
-            </t>
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    <t t-esc="message" />
+                </div>
+            </div>
         </t>
     </template>
 
     <template id="portal_subscription_confirm_cancellation_page" name="Cancel Subscription">
         <t t-call="portal.portal_layout">
-            <t t-call="portal.portal_record_sidebar">
-                <t t-set="title">
-                    <div class="d-flex">
-                        <h2 class="mb-0 flex-fill">
-                            <span>
-                                Subscription - <span t-field="subscription.name" />
-                            </span>
-                        </h2>
-                    </div>
-                </t>
-                <t t-set="entries">
-                    <p class="mb16">
-                        Are you sure you want to cancel this subscription (<i><t t-esc="subscription.name" /></i>)?
-                        <!-- TODO: Make reversible? -->
-                        <strong class="text-danger">This action is irreversible! You cannot reactivate your subscription after cancelling it.</strong>
-                    </p>
-                    <form method="POST">
-                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                        <input type="hidden" name="token" t-att-value="subscription.cancellation_token" />
-                        <button class="btn btn-danger">Confirm Cancellation</button>
-                        <a class="btn btn-link" t-attf-href="/my/subscriptions/#{subscription.id}">Keep subscription</a>
-                    </form>
-                </t>
-            </t>
+            <div class="col-12">
+                <div class="d-flex">
+                    <h2 class="mb-0 flex-fill">
+                        <span>
+                            Subscription - <span t-field="subscription.name" />
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            <div>
+                <p class="mb16">
+                    Are you sure you want to cancel this subscription (<i><t t-esc="subscription.name" /></i>)?
+                    <!-- TODO: Make reversible? -->
+                    <strong class="text-danger">This action is irreversible! You cannot reactivate your subscription after cancelling it.</strong>
+                </p>
+                <form method="POST">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                    <input type="hidden" name="token" t-att-value="subscription.cancellation_token" />
+                    <button class="btn btn-danger">Confirm Cancellation</button>
+                    <a class="btn btn-link" t-attf-href="/my/subscriptions/#{subscription.id}">Keep subscription</a>
+                </form>
+            </div>
         </t>
     </template>
 
