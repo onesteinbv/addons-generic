@@ -1,121 +1,121 @@
-"id","sequence","name","description","invoice_label","amount","amount_type","type_tax_use","tax_scope","tax_group_id","price_include","repartition_line_ids/factor_percent","repartition_line_ids/repartition_type","repartition_line_ids/document_type","repartition_line_ids/tag_ids","repartition_line_ids/account_id"
-"btw_0","10","Verkopen - BTW 0% (nul-tarief)","0% BTW","0% VAT","0.0","percent","sale","consu","tax_group_0",,"100","base","invoice","+1e (omzet)",
-,,,,,,,,,,,"100","tax","invoice",,
-,,,,,,,,,,,"100","base","refund","-1e (omzet)",
-,,,,,,,,,,,"100","tax","refund",,
-"btw_9","10","Verkopen - BTW laag (9%)","9% BTW","9% VAT ","9.0","percent","sale","consu","tax_group_9",,"100","base","invoice","+1b (omzet)",
-,,,,,,,,,,,"100","tax","invoice","+1b (BTW)","vat_payable_l"
-,,,,,,,,,,,"100","base","refund","-1b (omzet)",
-,,,,,,,,,,,"100","tax","refund","-1b (BTW)","vat_payable_l"
-"btw_21","5","Verkopen - BTW hoog (21%)","21% BTW","21% VAT","21.0","percent","sale","consu","tax_group_21",,"100","base","invoice","+1a (omzet)",
-,,,,,,,,,,,"100","tax","invoice","+1a (BTW)","vat_payable_h"
-,,,,,,,,,,,"100","base","refund","-1a (omzet)",
-,,,,,,,,,,,"100","tax","refund","-1a (BTW)","vat_payable_h"
-"btw_9_incl","10","Verkopen - BTW laag incl. (9%)","9% BTW Incl.","9% VAT incl.","9.0","percent","sale","consu","tax_group_9","True","100","base","invoice","+1b (omzet)",
-,,,,,,,,,,,"100","tax","invoice","+1b (BTW)","vat_payable_l"
-,,,,,,,,,,,"100","base","refund","-1b (omzet)",
-,,,,,,,,,,,"100","tax","refund","-1b (BTW)","vat_payable_l"
-"btw_21_incl","5","Verkopen - BTW hoog incl. (21%)","21% BTW Incl.","9% VAT incl.","21.0","percent","sale","consu","tax_group_21","True","100","base","invoice","+1a (omzet)",
-,,,,,,,,,,,"100","tax","invoice","+1a (BTW)","vat_payable_h"
-,,,,,,,,,,,"100","base","refund","-1a (omzet)",
-,,,,,,,,,,,"100","tax","refund","-1a (BTW)","vat_payable_h"
-"btw_0_d","10","Verkopen - BTW 0% (nul-tarief)","0% BTW diensten","0% VAT services","0.0","percent","sale","service","tax_group_0",,"100","base","invoice","+1e (omzet)",
-,,,,,,,,,,,"100","tax","invoice",,
-,,,,,,,,,,,"100","base","refund","-1e (omzet)",
-,,,,,,,,,,,"100","tax","refund",,
-"btw_9_d","10","Verkopen - BTW laag (9%)","9% BTW diensten","9% VAT services","9.0","percent","sale","service","tax_group_9",,"100","base","invoice","+1b (omzet)",
-,,,,,,,,,,,"100","tax","invoice","+1b (BTW)","vat_payable_l_d"
-,,,,,,,,,,,"100","base","refund","-1b (omzet)",
-,,,,,,,,,,,"100","tax","refund","-1b (BTW)","vat_payable_l_d"
-"btw_21_d","6","Verkopen - BTW hoog (21%)","21% BTW diensten","21% VAT services","21.0","percent","sale","service","tax_group_21",,"100","base","invoice","+1a (omzet)",
-,,,,,,,,,,,"100","tax","invoice","+1a (BTW)","vat_payable_h_d"
-,,,,,,,,,,,"100","base","refund","-1a (omzet)",
-,,,,,,,,,,,"100","tax","refund","-1a (BTW)","vat_payable_h_d"
-"btw_9_d_incl","10","Verkopen - BTW laag incl. (9%)","9% BTW diensten Incl.","9% VAT services incl.","9.0","percent","sale","service","tax_group_9","True","100","base","invoice","+1b (omzet)",
-,,,,,,,,,,,"100","tax","invoice","+1b (BTW)","vat_payable_l_d"
-,,,,,,,,,,,"100","base","refund","-1b (omzet)",
-,,,,,,,,,,,"100","tax","refund","-1b (BTW)","vat_payable_l_d"
-"btw_21_d_incl","6","Verkopen - BTW hoog incl. (21%)","21% BTW diensten Incl.","21% VAT services incl.","21.0","percent","sale","service","tax_group_21","True","100","base","invoice","+1a (omzet)",
-,,,,,,,,,,,"100","tax","invoice","+1a (BTW)","vat_payable_h_d"
-,,,,,,,,,,,"100","base","refund","-1a (omzet)",
-,,,,,,,,,,,"100","tax","refund","-1a (BTW)","vat_payable_h_d"
-"btw_9_buy","10","Inkopen - BTW laag (9%)","9% BTW","9% VAT","9.0","percent","purchase",,"tax_group_9",,"100","base","invoice",,
-,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_l"
-,,,,,,,,,,,"100","base","refund",,
-,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_l"
-"btw_9_buy_incl","10","Inkopen - BTW laag incl. (9%)","9% BTW Incl.","9% VAT incl.","9.0","percent","purchase",,"tax_group_9","True","100","base","invoice",,
-,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_l"
-,,,,,,,,,,,"100","base","refund",,
-,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_l"
-"btw_21_buy","5","Inkopen - BTW hoog (21%)","21% BTW","21% VAT","21.0","percent","purchase",,"tax_group_21",,"100","base","invoice",,
-,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_h"
-,,,,,,,,,,,"100","base","refund",,
-,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_h"
-"btw_21_buy_incl","7","Inkopen - BTW hoog incl. (21%)","21% BTW Incl.","21% VAT incl.","21.0","percent","purchase",,"tax_group_21","True","100","base","invoice",,
-,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_h"
-,,,,,,,,,,,"100","base","refund",,
-,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_h"
-"btw_verk_0","15","Verkopen - BTW verlegd Producten","BTW verlegd Producten","Reverse-charged VAT (products)","0.0","percent","sale","consu","tax_group_verlegd",,"100","base","invoice","+1e (omzet)",
-,,,,,,,,,,,"100","tax","invoice",,
-,,,,,,,,,,,"100","base","refund","-1e (omzet)",
-,,,,,,,,,,,"100","tax","refund",,
-"btw_verk_0_d","15","Verkopen - BTW verlegd Diensten","BTW verlegd Diensten","Reverse-charged VAT (services)","0.0","percent","sale","service","tax_group_verlegd",,"100","base","invoice","+1e (omzet)",
-,,,,,,,,,,,"100","tax","invoice",,
-,,,,,,,,,,,"100","base","refund","-1e (omzet)",
-,,,,,,,,,,,"100","tax","refund",,
-"btw_ink_0","15","Inkopen - BTW verlegd (21%)","21% BTW verlegd","Reverse-charged VAT (21%)","21.0","percent","purchase",,"tax_group_verlegd",,"100","base","invoice","+2a (omzet)",
-,,,,,,,,,,,"-100","tax","invoice","-2a (BTW)","vat_payable_v"
-,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_payable_v"
-,,,,,,,,,,,"100","base","refund","-2a (omzet)",
-,,,,,,,,,,,"-100","tax","refund","+2a (BTW)","vat_payable_v"
-,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_payable_v"
-"btw_ink_1","15","Inkopen - BTW verlegd (9%)","9% BTW verlegd","Reverse-charged VAT (9%)","9.0","percent","purchase",,"tax_group_verlegd",,"100","base","invoice","+2a (omzet)",
-,,,,,,,,,,,"-100","tax","invoice","-2a (BTW)","vat_payable_v"
-,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_payable_v"
-,,,,,,,,,,,"100","base","refund","-2a (omzet)",
-,,,,,,,,,,,"-100","tax","refund","+2a (BTW)","vat_payable_v"
-,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_payable_v"
-"btw_I_9","20","Inkopen - Import binnen EU laag (9%)","9% BTW import binnen EU","9% VAT intra-EU import","9.0","percent","purchase",,"tax_group_9",,"100","base","invoice","+4b (omzet)",
-,,,,,,,,,,,"-100","tax","invoice","-4b (BTW)","vat_payable_l_eu"
-,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_l_eu"
-,,,,,,,,,,,"100","base","refund","-4b (omzet)",
-,,,,,,,,,,,"-100","tax","refund","+4b (BTW)","vat_payable_l_eu"
-,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_l_eu"
-"btw_I_21","20","Inkopen - Import binnen EU hoog (21%)","21% BTW import binnen EU","21% VAT intra-EU import","21.0","percent","purchase",,"tax_group_21",,"100","base","invoice","+4b (omzet)",
-,,,,,,,,,,,"-100","tax","invoice","-4b (BTW)","vat_payable_h_eu"
-,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_h_eu"
-,,,,,,,,,,,"100","base","refund","-4b (omzet)",
-,,,,,,,,,,,"-100","tax","refund","+4b (BTW)","vat_payable_h_eu"
-,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_h_eu"
-"btw_X0_producten","20","Verkopen - Export goederen binnen EU","BTW export binnen EU (producten)","VAT intra-EU export (products)","0.0","percent","sale","consu","tax_group_0",,"100","base","invoice","+3bg (omzet)",
-,,,,,,,,,,,"100","tax","invoice",,
-,,,,,,,,,,,"100","base","refund","-3bg (omzet)",
-,,,,,,,,,,,"100","tax","refund",,
-"btw_X0_diensten","20","Verkopen - Export diensten binnen EU","BTW export binnen EU (diensten)","VAT intra-EU export (services)","0.0","percent","sale","service","tax_group_0",,"100","base","invoice","+3bs (omzet)",
-,,,,,,,,,,,"100","tax","invoice",,
-,,,,,,,,,,,"100","base","refund","-3bs (omzet)",
-,,,,,,,,,,,"100","tax","refund",,
-"btw_E1_9","20","Inkopen - Import buiten EU laag (9%)","BTW import buiten EU laag inkopen","9% VAT import intra-EU","9.0","percent","purchase",,"tax_group_9",,"100","base","invoice","+4a (omzet)",
-,,,,,,,,,,,"-100","tax","invoice","-4a (BTW)","vat_payable_l_non_eu"
-,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_l_non_eu"
-,,,,,,,,,,,"100","base","refund","-4a (omzet)",
-,,,,,,,,,,,"-100","tax","refund","+4a (BTW)","vat_payable_l_non_eu"
-,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_l_non_eu"
-"btw_E2","20","Inkopen - Import buiten EU hoog (21%)","BTW import buiten EU hoog inkopen","Import goods from outside the EU","21.0","percent","purchase",,"tax_group_21",,"100","base","invoice","+4a (omzet)",
-,,,,,,,,,,,"-100","tax","invoice","-4a (BTW)","vat_payable_h_non_eu"
-,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_h_non_eu"
-,,,,,,,,,,,"100","base","refund","-4a (omzet)",
-,,,,,,,,,,,"-100","tax","refund","+4a (BTW)","vat_payable_h_non_eu"
-,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_h_non_eu"
-"btw_X1","20","Verkopen - Export goederen buiten EU","BTW export buiten EU (producten)","VAT export non-EU (products)","0.0","percent","sale","consu","tax_group_0",,"100","base","invoice","+3a (omzet)",
-,,,,,,,,,,,"100","tax","invoice",,
-,,,,,,,,,,,"100","base","refund","-3a (omzet)",
-,,,,,,,,,,,"100","tax","refund",,
-"btw_X3","21","Verkopen - Export diensten buiten EU","BTW export buiten EU (diensten)","VAT export non-EU (services)","0.0","percent","sale","service","tax_group_0",,"100","base","invoice",,
-,,,,,,,,,,,"100","tax","invoice",,
-,,,,,,,,,,,"100","base","refund",,
-,,,,,,,,,,,"100","tax","refund",,
-"btw_X10","50","Installatie/afstandsverkopen binnen EU","Inst./afst.verkopen binnen EU","Intra-EU distance sale/installation","0.0","percent","sale",,"tax_group_0",,"100","base","invoice","+3c (omzet)",
-,,,,,,,,,,,"100","tax","invoice",,
-,,,,,,,,,,,"100","base","refund","-3c (omzet)",
-,,,,,,,,,,,"100","tax","refund",,
+"id","sequence","name","description","invoice_label","invoice_label@nl","amount","amount_type","type_tax_use","tax_scope","tax_group_id","price_include","repartition_line_ids/factor_percent","repartition_line_ids/repartition_type","repartition_line_ids/document_type","repartition_line_ids/tag_ids","repartition_line_ids/account_id"
+"btw_0","10","Verkopen - BTW 0% (nul-tarief)","0% BTW","0% VAT","0% BTW","0.0","percent","sale","consu","tax_group_0",,"100","base","invoice","+1e (omzet)",
+,,,,,,,,,,,,"100","tax","invoice",,
+,,,,,,,,,,,,"100","base","refund","-1e (omzet)",
+,,,,,,,,,,,,"100","tax","refund",,
+"btw_9","10","Verkopen - BTW laag (9%)","9% BTW","9% VAT ","9% BTW","9.0","percent","sale","consu","tax_group_9",,"100","base","invoice","+1b (omzet)",
+,,,,,,,,,,,,"100","tax","invoice","+1b (BTW)","vat_payable_l"
+,,,,,,,,,,,,"100","base","refund","-1b (omzet)",
+,,,,,,,,,,,,"100","tax","refund","-1b (BTW)","vat_payable_l"
+"btw_21","5","Verkopen - BTW hoog (21%)","21% BTW","21% VAT","21% BTW","21.0","percent","sale","consu","tax_group_21",,"100","base","invoice","+1a (omzet)",
+,,,,,,,,,,,,"100","tax","invoice","+1a (BTW)","vat_payable_h"
+,,,,,,,,,,,,"100","base","refund","-1a (omzet)",
+,,,,,,,,,,,,"100","tax","refund","-1a (BTW)","vat_payable_h"
+"btw_9_incl","10","Verkopen - BTW laag incl. (9%)","9% BTW Incl.","9% VAT incl.","9% BTW incl.","9.0","percent","sale","consu","tax_group_9","True","100","base","invoice","+1b (omzet)",
+,,,,,,,,,,,,"100","tax","invoice","+1b (BTW)","vat_payable_l"
+,,,,,,,,,,,,"100","base","refund","-1b (omzet)",
+,,,,,,,,,,,,"100","tax","refund","-1b (BTW)","vat_payable_l"
+"btw_21_incl","5","Verkopen - BTW hoog incl. (21%)","21% BTW Incl.","9% VAT incl.","9% BTW incl.","21.0","percent","sale","consu","tax_group_21","True","100","base","invoice","+1a (omzet)",
+,,,,,,,,,,,,"100","tax","invoice","+1a (BTW)","vat_payable_h"
+,,,,,,,,,,,,"100","base","refund","-1a (omzet)",
+,,,,,,,,,,,,"100","tax","refund","-1a (BTW)","vat_payable_h"
+"btw_0_d","10","Verkopen - BTW 0% (nul-tarief)","0% BTW diensten","0% VAT services","0% BTW diensten","0.0","percent","sale","service","tax_group_0",,"100","base","invoice","+1e (omzet)",
+,,,,,,,,,,,,"100","tax","invoice",,
+,,,,,,,,,,,,"100","base","refund","-1e (omzet)",
+,,,,,,,,,,,,"100","tax","refund",,
+"btw_9_d","10","Verkopen - BTW laag (9%)","9% BTW diensten","9% VAT services","9% BTW diensten","9.0","percent","sale","service","tax_group_9",,"100","base","invoice","+1b (omzet)",
+,,,,,,,,,,,,"100","tax","invoice","+1b (BTW)","vat_payable_l_d"
+,,,,,,,,,,,,"100","base","refund","-1b (omzet)",
+,,,,,,,,,,,,"100","tax","refund","-1b (BTW)","vat_payable_l_d"
+"btw_21_d","6","Verkopen - BTW hoog (21%)","21% BTW diensten","21% VAT services","21% BTW diensten","21.0","percent","sale","service","tax_group_21",,"100","base","invoice","+1a (omzet)",
+,,,,,,,,,,,,"100","tax","invoice","+1a (BTW)","vat_payable_h_d"
+,,,,,,,,,,,,"100","base","refund","-1a (omzet)",
+,,,,,,,,,,,,"100","tax","refund","-1a (BTW)","vat_payable_h_d"
+"btw_9_d_incl","10","Verkopen - BTW laag incl. (9%)","9% BTW diensten Incl.","9% VAT services incl.","9% BTW diensten incl.","9.0","percent","sale","service","tax_group_9","True","100","base","invoice","+1b (omzet)",
+,,,,,,,,,,,,"100","tax","invoice","+1b (BTW)","vat_payable_l_d"
+,,,,,,,,,,,,"100","base","refund","-1b (omzet)",
+,,,,,,,,,,,,"100","tax","refund","-1b (BTW)","vat_payable_l_d"
+"btw_21_d_incl","6","Verkopen - BTW hoog incl. (21%)","21% BTW diensten Incl.","21% VAT services incl.","21% BTW diensten incl.","21.0","percent","sale","service","tax_group_21","True","100","base","invoice","+1a (omzet)",
+,,,,,,,,,,,,"100","tax","invoice","+1a (BTW)","vat_payable_h_d"
+,,,,,,,,,,,,"100","base","refund","-1a (omzet)",
+,,,,,,,,,,,,"100","tax","refund","-1a (BTW)","vat_payable_h_d"
+"btw_9_buy","10","Inkopen - BTW laag (9%)","9% BTW","9% VAT","9% BTW","9.0","percent","purchase",,"tax_group_9",,"100","base","invoice",,
+,,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_l"
+,,,,,,,,,,,,"100","base","refund",,
+,,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_l"
+"btw_9_buy_incl","10","Inkopen - BTW laag incl. (9%)","9% BTW Incl.","9% VAT incl.","9% BTW incl.","9.0","percent","purchase",,"tax_group_9","True","100","base","invoice",,
+,,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_l"
+,,,,,,,,,,,,"100","base","refund",,
+,,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_l"
+"btw_21_buy","5","Inkopen - BTW hoog (21%)","21% BTW","21% VAT","21% BTW","21.0","percent","purchase",,"tax_group_21",,"100","base","invoice",,
+,,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_h"
+,,,,,,,,,,,,"100","base","refund",,
+,,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_h"
+"btw_21_buy_incl","7","Inkopen - BTW hoog incl. (21%)","21% BTW Incl.","21% VAT incl.","21% BTW incl.","21.0","percent","purchase",,"tax_group_21","True","100","base","invoice",,
+,,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_h"
+,,,,,,,,,,,,"100","base","refund",,
+,,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_h"
+"btw_verk_0","15","Verkopen - BTW verlegd Producten","BTW verlegd Producten","Reverse-charged VAT (products)","BTW verlegd (producten)","0.0","percent","sale","consu","tax_group_verlegd",,"100","base","invoice","+1e (omzet)",
+,,,,,,,,,,,,"100","tax","invoice",,
+,,,,,,,,,,,,"100","base","refund","-1e (omzet)",
+,,,,,,,,,,,,"100","tax","refund",,
+"btw_verk_0_d","15","Verkopen - BTW verlegd Diensten","BTW verlegd Diensten","Reverse-charged VAT (services)","BTW verlegd (diensten)","0.0","percent","sale","service","tax_group_verlegd",,"100","base","invoice","+1e (omzet)",
+,,,,,,,,,,,,"100","tax","invoice",,
+,,,,,,,,,,,,"100","base","refund","-1e (omzet)",
+,,,,,,,,,,,,"100","tax","refund",,
+"btw_ink_0","15","Inkopen - BTW verlegd (21%)","21% BTW verlegd","Reverse-charged VAT (21%)","21% BTW verlegd","21.0","percent","purchase",,"tax_group_verlegd",,"100","base","invoice","+2a (omzet)",
+,,,,,,,,,,,,"-100","tax","invoice","-2a (BTW)","vat_payable_v"
+,,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_payable_v"
+,,,,,,,,,,,,"100","base","refund","-2a (omzet)",
+,,,,,,,,,,,,"-100","tax","refund","+2a (BTW)","vat_payable_v"
+,,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_payable_v"
+"btw_ink_1","15","Inkopen - BTW verlegd (9%)","9% BTW verlegd","Reverse-charged VAT (9%)","9% BTW verlegd","9.0","percent","purchase",,"tax_group_verlegd",,"100","base","invoice","+2a (omzet)",
+,,,,,,,,,,,,"-100","tax","invoice","-2a (BTW)","vat_payable_v"
+,,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_payable_v"
+,,,,,,,,,,,,"100","base","refund","-2a (omzet)",
+,,,,,,,,,,,,"-100","tax","refund","+2a (BTW)","vat_payable_v"
+,,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_payable_v"
+"btw_I_9","20","Inkopen - Import binnen EU laag (9%)","9% BTW import binnen EU","9% VAT intra-EU import","9% BTW import binnen EU","9.0","percent","purchase",,"tax_group_9",,"100","base","invoice","+4b (omzet)",
+,,,,,,,,,,,,"-100","tax","invoice","-4b (BTW)","vat_payable_l_eu"
+,,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_l_eu"
+,,,,,,,,,,,,"100","base","refund","-4b (omzet)",
+,,,,,,,,,,,,"-100","tax","refund","+4b (BTW)","vat_payable_l_eu"
+,,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_l_eu"
+"btw_I_21","20","Inkopen - Import binnen EU hoog (21%)","21% BTW import binnen EU","21% VAT intra-EU import","21% BTW import binnen EU","21.0","percent","purchase",,"tax_group_21",,"100","base","invoice","+4b (omzet)",
+,,,,,,,,,,,,"-100","tax","invoice","-4b (BTW)","vat_payable_h_eu"
+,,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_h_eu"
+,,,,,,,,,,,,"100","base","refund","-4b (omzet)",
+,,,,,,,,,,,,"-100","tax","refund","+4b (BTW)","vat_payable_h_eu"
+,,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_h_eu"
+"btw_X0_producten","20","Verkopen - Export goederen binnen EU","BTW export binnen EU (producten)","VAT intra-EU export (products)","BTW export binnen EU (producten)","0.0","percent","sale","consu","tax_group_0",,"100","base","invoice","+3bg (omzet)",
+,,,,,,,,,,,,"100","tax","invoice",,
+,,,,,,,,,,,,"100","base","refund","-3bg (omzet)",
+,,,,,,,,,,,,"100","tax","refund",,
+"btw_X0_diensten","20","Verkopen - Export diensten binnen EU","BTW export binnen EU (diensten)","VAT intra-EU export (services)","BTW export binnen EU (diensten)","0.0","percent","sale","service","tax_group_0",,"100","base","invoice","+3bs (omzet)",
+,,,,,,,,,,,,"100","tax","invoice",,
+,,,,,,,,,,,,"100","base","refund","-3bs (omzet)",
+,,,,,,,,,,,,"100","tax","refund",,
+"btw_E1_9","20","Inkopen - Import buiten EU laag (9%)","BTW import buiten EU laag inkopen","9% VAT import intra-EU","BTW import buiten EU laag inkopen","9.0","percent","purchase",,"tax_group_9",,"100","base","invoice","+4a (omzet)",
+,,,,,,,,,,,,"-100","tax","invoice","-4a (BTW)","vat_payable_l_non_eu"
+,,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_l_non_eu"
+,,,,,,,,,,,,"100","base","refund","-4a (omzet)",
+,,,,,,,,,,,,"-100","tax","refund","+4a (BTW)","vat_payable_l_non_eu"
+,,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_l_non_eu"
+"btw_E2","20","Inkopen - Import buiten EU hoog (21%)","BTW import buiten EU hoog inkopen","Import goods from outside the EU","BTW import buiten EU hoog inkopen","21.0","percent","purchase",,"tax_group_21",,"100","base","invoice","+4a (omzet)",
+,,,,,,,,,,,,"-100","tax","invoice","-4a (BTW)","vat_payable_h_non_eu"
+,,,,,,,,,,,,"100","tax","invoice","+5b (BTW)","vat_refund_h_non_eu"
+,,,,,,,,,,,,"100","base","refund","-4a (omzet)",
+,,,,,,,,,,,,"-100","tax","refund","+4a (BTW)","vat_payable_h_non_eu"
+,,,,,,,,,,,,"100","tax","refund","-5b (BTW)","vat_refund_h_non_eu"
+"btw_X1","20","Verkopen - Export goederen buiten EU","BTW export buiten EU (producten)","VAT export non-EU (products)","BTW export buiten EU (producten)","0.0","percent","sale","consu","tax_group_0",,"100","base","invoice","+3a (omzet)",
+,,,,,,,,,,,,"100","tax","invoice",,
+,,,,,,,,,,,,"100","base","refund","-3a (omzet)",
+,,,,,,,,,,,,"100","tax","refund",,
+"btw_X3","21","Verkopen - Export diensten buiten EU","BTW export buiten EU (diensten)","VAT export non-EU (services)","BTW export buiten EU (diensten)","0.0","percent","sale","service","tax_group_0",,"100","base","invoice",,
+,,,,,,,,,,,,"100","tax","invoice",,
+,,,,,,,,,,,,"100","base","refund",,
+,,,,,,,,,,,,"100","tax","refund",,
+"btw_X10","50","Installatie/afstandsverkopen binnen EU","Inst./afst.verkopen binnen EU","Intra-EU distance sale/installation","Inst./afst.verkopen binnen EU","0.0","percent","sale",,"tax_group_0",,"100","base","invoice","+3c (omzet)",
+,,,,,,,,,,,,"100","tax","invoice",,
+,,,,,,,,,,,,"100","base","refund","-3c (omzet)",
+,,,,,,,,,,,,"100","tax","refund",,
