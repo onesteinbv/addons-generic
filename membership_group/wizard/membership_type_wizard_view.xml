@@ -14,7 +14,6 @@
                     <group>
                         <field name="type" required="1" />
                         <field name="date_from" required="1" />
-                        <field name="date_to" />
                     </group>
                 </group>
                 <footer>
