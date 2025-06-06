@@ -178,6 +178,11 @@ class MembershipGroupMember(models.Model):
             }
         )
         action["res_id"] = wizard.id
+        ctx = dict(self.env.context) | {
+            "create": True,
+            "edit": True,
+        }
+        action["context"] = ctx
         return action
 
     def action_revoke_membership(self):
