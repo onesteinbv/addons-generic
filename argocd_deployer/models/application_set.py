@@ -41,8 +41,8 @@ class ApplicationSet(models.Model):
     namespace_prefix_id = fields.Many2one("argocd.application.namespace.prefix")
     partner_ids = fields.Many2many(
         comodel_name="res.partner",
-        string="Followers",
-        help="Partners that are automically added as followers to applications in the application set.",
+        string="Application Followers",
+        help="Partners that are automatically added as followers to applications in the application set.",
     )
 
     _sql_constraints = [
