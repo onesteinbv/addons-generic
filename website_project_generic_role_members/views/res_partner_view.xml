@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="inherit_id" ref="membership.view_partner_form" />
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='associate_member']" position="before">
+                <field name="is_anonymous"/>
+            </xpath>
+            <xpath expr="//field[@name='member_lines']" position="before">
+                <group>
+                    <field name="website_description" string="Website Member Description"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
