@@ -1,0 +1,23 @@
+.fa {
+
+    $size: 1rem;
+
+    &.m-1 {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        // fa-1x is not ouput
+        width: $size;
+        height: $size;
+        line-height: $size;
+        @for $i from 2 through 5 {
+            &.fa-#{$i}x {
+                width: $size + $i;
+                height: $size + $i;
+                line-height: $size + $i;
+            }
+        }
+        // Default, if no background-color already selected
+        background-color: $gray-100;
+    }
+}

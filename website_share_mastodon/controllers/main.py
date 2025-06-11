@@ -1,0 +1,27 @@
+import urllib
+
+from odoo.addons.website_two_steps_share_technical.controllers.main import (
+    ShareController,
+)
+
+
+class MainController(ShareController):
+    def compute_default_values(self, platform):
+        if platform == "mastodon":
+            return {
+                "service_name": "Mastodon",
+                "service_icon_url": "/website_share_mastodon/static/img/icons/mastodon.svg",
+                "default_domain": "https://mastodon.social",
+            }
+        return super().compute_default_values(platform)
+
+    def compose_final_url(self, kwargs):
+        if kwargs["platform"] == "mastodon":
+            base_url = kwargs["domain"]
+            args_dict = {"text": "{} {}".format(kwargs["title"], kwargs["url"])}
+            url_parts = list(urllib.parse.urlparse(base_url))
+            url_parts[2] = "/share"
+            url_parts[4] = urllib.parse.urlencode(args_dict)
+            final_url = urllib.parse.urlunparse(url_parts)
+            return final_url
+        return super().compose_final_url(kwargs)

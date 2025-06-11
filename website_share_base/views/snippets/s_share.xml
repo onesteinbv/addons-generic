@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="s_share" name="Share" inherit_id="website.s_share">
+        <xpath expr="//a[@t-attf-class='s_share_facebook #{_link_classes}']/i" position="replace">
+            <img src="/website_share_base/static/img/icons/facebook.svg" t-attf-class="fa social-media-icon #{not _link_classes and 'rounded shadow-sm' or 'm-1'}" alt="social-media-icon"/>
+        </xpath>
+
+        <xpath expr="//a[@t-attf-class='s_share_twitter #{_link_classes}']/i" position="replace">
+            <img src="/website_share_base/static/img/icons/twitter.svg" t-attf-class="fa social-media-icon #{not _link_classes and 'rounded shadow-sm' or 'm-1'}" alt="social-media-icon"/>
+        </xpath>
+
+        <xpath expr="//a[@t-attf-class='s_share_linkedin #{_link_classes}']/i" position="replace">
+            <img src="/website_share_base/static/img/icons/linkedin.svg" t-attf-class="fa social-media-icon #{not _link_classes and 'rounded shadow-sm' or 'm-1'}" alt="social-media-icon"/>
+        </xpath>
+
+        <xpath expr="//a[@t-attf-class='s_share_whatsapp #{_link_classes}']/i" position="replace">
+            <img src="/website_share_base/static/img/icons/whatsapp.svg" t-attf-class="fa social-media-icon #{not _link_classes and 'rounded shadow-sm' or 'm-1'}" alt="social-media-icon"/>
+        </xpath>
+
+        <xpath expr="//a[@t-attf-class='s_share_pinterest #{_link_classes}']/i" position="replace">
+            <img src="/website_share_base/static/img/icons/pinterest.svg" t-attf-class="fa social-media-icon #{not _link_classes and 'rounded shadow-sm' or 'm-1'}" alt="social-media-icon"/>
+        </xpath>
+
+        <xpath expr="//a[@t-attf-class='s_share_email #{_link_classes}']/i" position="replace">
+            <img src="/website_share_base/static/img/icons/envelope.svg" t-attf-class="fa social-media-icon #{not _link_classes and 'rounded shadow-sm' or 'm-1'}" alt="social-media-icon"/>
+        </xpath>
+    </template>
+
+</odoo>
