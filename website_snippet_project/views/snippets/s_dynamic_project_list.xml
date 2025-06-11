@@ -1,0 +1,14 @@
+<odoo>
+    <template id="s_dynamic_project_list_snippet" name="Projects">
+        <t t-call="website.s_dynamic_snippet_template">
+            <t t-set="snippet_name" t-value="'s_dynamic_project_list'"/>
+        </t>
+    </template>
+
+    <template id="snippets" inherit_id="website.snippets" name="project snippets">
+        <xpath expr="//t[@id='installed_snippets_hook']" position="after">
+            <t t-snippet="website_snippet_project.s_dynamic_project_list_snippet" string="Projects" t-thumbnail="/website_snippet_project/static/src/img/snippets_thumbs/s_dynamic_project_list.svg"/>
+        </xpath>
+    </template>
+
+</odoo>
