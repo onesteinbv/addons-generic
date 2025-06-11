@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="project_project_list_template" name="Project List Page">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Projects</t>
+            <div id="wrap">
+                <div class="oe_structure" />
+                <div class="container mt16 o_web_project_list_container">
+                    <div class="row">
+                        <t t-foreach="project_categories" t-as="category">
+                            <t t-set="projects_length" t-value="len(category.project_ids.filtered(lambda x: x.is_published))" />
+                            <t t-if="projects_length">
+                                <div class="col-lg-12 mb16 mb48 clearfix">
+                                    <h3 class="text-center">
+                                        <t t-esc="category.name" />
+                                    </h3>
+                                    <h4 class="text-center text-muted">
+                                        <t t-esc="category.description" />
+                                    </h4>
+                                </div>
+                                <div t-att-class="'col-lg-12 mb16 %s clearfix' % ('o_web_project' if projects_length &lt; 4 else '')">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-3 col-md-6 o_web_projects_list" t-foreach="category.project_ids.filtered(lambda x: x.is_published).sorted(key=lambda p: p.name)" t-as="project">
+                                            <div class="o_web_project_detail">
+                                                <span
+                                                    t-field="project.image_128"
+                                                    alt="Project"
+                                                    height="100" width="100"
+                                                    t-options='{"widget": "image","alt-field": "name"}'
+                                                />
+                                                <h5>
+                                                    <t t-esc="project.name" />
+                                                </h5>
+                                                <div class="o_web_project_short_description">
+                                                    <p class="text-muted">
+                                                        <t t-esc="project.short_description" />
+                                                    </p>
+                                                </div>
+                                                <p>
+                                                    <a class="btn btn-primary" t-attf-href="/projects/#{slug(project)}">
+                                                        Discover
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </t>
+                    </div>
+                </div>
+                <div class="oe_structure" />
+            </div>
+        </t>
+    </template>
+
+    <template id="project_project_category_template" name="Project Category Page">
+        <t t-call="website.layout">
+            <t t-set="additional_title">
+                <t t-esc="category.name" />
+            </t>
+            <div id="wrap">
+                <div class="oe_structure" />
+                <div class="container mt16 o_web_project_list_container">
+                    <div class="row">
+                        <t t-set="projects_length" t-value="len(category.project_ids.filtered(lambda x: x.is_published))" />
+                        <t t-if="projects_length">
+                            <div class="col-lg-12 mb16 mb48 clearfix">
+                                <h1 class="text-center">
+                                    <t t-esc="category.name" />
+                                </h1>
+                                <h3 class="text-center text-muted">
+                                    <t t-esc="category.description" />
+                                </h3>
+                            </div>
+                            <div t-att-class="'col-lg-12 mb16 %s clearfix' % ('o_web_project' if projects_length &lt; 4 else '')">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-3 col-md-6 o_web_projects_list" t-foreach="category.project_ids.filtered(lambda x: x.is_published).sorted(key=lambda p: p.name)" t-as="project">
+                                        <div class="o_web_project_detail">
+                                            <span
+                                                t-field="project.image_128"
+                                                alt="Project"
+                                                height="100" width="100"
+                                                t-options='{"widget": "image","alt-field": "name"}'
+                                            />
+                                            <h3>
+                                                <t t-esc="project.name" />
+                                            </h3>
+                                            <div class="o_web_project_short_description">
+                                                <p class="text-muted">
+                                                    <t t-esc="project.short_description" />
+                                                </p>
+                                            </div>
+                                            <p>
+                                                <a class="btn btn-primary" t-attf-href="/projects/#{slug(project)}">
+                                                    Discover
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                <div class="oe_structure" />
+            </div>
+        </t>
+    </template>
+
+    <template id="project_project_details_template" name="Project Detail Page">
+        <t t-call="website.layout">
+            <t t-set="additional_title">
+                <t t-esc="project.name" />
+            </t>
+            <div id="wrap">
+                <div class="oe_structure" />
+                <div class="card card-body bg-light mb48">
+                    <div class="container">
+                        <div class="row">
+                            <span
+                                t-field="project.image_128"
+                                class="text-center"
+                                alt="Project"
+                                height="128" width="128" style="float: left; margin-right: 10px; margin-bottom: 5px"
+                                t-options='{"widget": "image","alt-field": "name"}'
+                            />
+                            <div>
+                                <h3 style="text-align: center">
+                                    <t t-esc="project.name" />
+                                </h3>
+                                <div class="o_web_project_description" t-field="project.description"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure" />
+            </div>
+        </t>
+    </template>
+
+</odoo>

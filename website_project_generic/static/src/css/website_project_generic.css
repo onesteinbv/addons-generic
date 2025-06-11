@@ -1,0 +1,93 @@
+.o_web_projects_list {
+    border-right: solid 1px #ccc;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.o_web_project {
+    text-align: center;
+}
+
+.o_web_project .o_web_projects_list {
+    float: none;
+    display: inline-block;
+}
+
+.o_web_projects_list:nth-child(4n),
+.o_web_projects_list:last-child {
+    border-right: none;
+}
+
+.o_web_project_short_description {
+    height: 60px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.o_web_projects_list:before {
+    border-bottom: solid 1px #ccc;
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    width: 101%;
+    left: 0;
+}
+
+.o_web_project_detail {
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.o_web_project_description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 20px;
+}
+
+.o_web_project_detail h3 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    margin-top: 10px;
+    padding-bottom: 5px;
+}
+
+@media (max-width: 991px) {
+    .o_web_projects_list:nth-child(4n) {
+        border-right: solid 1px #ccc;
+    }
+    .o_web_projects_list:nth-child(3) {
+        float: left;
+    }
+    .o_web_projects_list:nth-child(2n) {
+        border-right: none;
+    }
+    .o_web_project_list_container h1 {
+        font-size: 30px;
+    }
+    .o_web_project_list_container h3 {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 767px) {
+    .o_web_projects_list:nth-child(4n) {
+        border-right: none;
+    }
+    .o_web_projects_list {
+        border-right: none;
+    }
+    .o_web_projects_list:nth-child(3) {
+        float: none;
+    }
+    .o_web_project .o_web_projects_list {
+        display: block;
+    }
+    .o_web_project_list_container h1 {
+        font-size: 24px;
+    }
+    .o_web_project_list_container h3 {
+        font-size: 18px;
+    }
+}
