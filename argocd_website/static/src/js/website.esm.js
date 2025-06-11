@@ -1,9 +1,7 @@
-
-import publicWidget from "@web/legacy/js/public/public_widget";
-import { rpc } from "@web/core/network/rpc";
-
 import { SIZES, utils as uiUtils } from "@web/core/ui/ui_service";
+import publicWidget from "@web/legacy/js/public/public_widget";
 import { renderToElement } from "@web/core/utils/render";
+import { rpc } from "@web/core/network/rpc";
 
 // Require("website.content.menu");
 
