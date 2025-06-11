@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf8"?>
+<odoo>
+
+    <template id="layout" inherit_id="website.layout">
+        <xpath expr="//div[hasclass('o_frontend_to_backend_nav')]" position="attributes">
+            <attribute name="t-if">not no_navbar</attribute>
+        </xpath>
+    </template>
+
+</odoo>
