@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="membership_activity_search" model="ir.ui.view">
+        <field name="model">membership.activity</field>
+        <field name="inherit_id" ref="membership_activity.membership_activity_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_id']" position="after">
+                <field
+                    name="project_type_id"
+                    domain="[('project_ok', '=', True)]"
+                    filter_domain="[('project_type_id', 'child_of', self)]"
+                />
+            </xpath>
+            <xpath expr="//filter[@name='project_group_by']" position="after">
+                <filter name="project_type_group_by" string="Project Type" context="{'group_by':'project_type_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
