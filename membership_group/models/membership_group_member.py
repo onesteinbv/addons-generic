@@ -208,16 +208,13 @@ class MembershipGroupMember(models.Model):
         return action
 
     @api.model
-    def _cron_revoke_membership(self):
+    def _cron_process_membership(self):
         self.search(
             [
                 ("state", "=", "current"),
                 ("date_to", "<=", fields.date.today()),
             ]
         ).action_revoke_membership()
-
-    @api.model
-    def _cron_activate_membership(self):
         self.search(
             [
                 ("state", "=", "future"),

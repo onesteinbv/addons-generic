@@ -114,12 +114,12 @@ class TestMembershipGroup(common.TransactionCase):
         self.assertEqual(member_group_termination.state, "current")
 
         with freezegun.freeze_time(str(fields.Date.today())):
-            self.env["membership.group.member"]._cron_revoke_membership()
+            self.env["membership.group.member"]._cron_process_membership()
 
         self.assertEqual(member_group_termination.state, "current")
 
         with freezegun.freeze_time("2055-06-01"):
-            self.env["membership.group.member"]._cron_revoke_membership()
+            self.env["membership.group.member"]._cron_process_membership()
 
         self.assertEqual(member_group_termination.state, "historic")
         self.assertEqual(

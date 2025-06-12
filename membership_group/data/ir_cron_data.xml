@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
 
-    <record id="ir_cron_revoke_memberships" model="ir.cron">
-        <field name="name">Membership: Revoke expired memberships</field>
+    <record id="ir_cron_process_memberships" model="ir.cron">
+        <field name="name">Membership: Process memberships</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
         <field name="nextcall"
@@ -10,20 +10,8 @@
         <field name="numbercall">-1</field>
         <field name="model_id" ref="model_membership_group_member" />
         <field name="state">code</field>
-        <field name="code">model._cron_revoke_membership()</field>
+        <field name="code">model._cron_process_membership()</field>
         <field name="active" eval="True" />
     </record>
 
-    <record id="ir_cron_activate_memberships" model="ir.cron">
-        <field name="name">Membership: Activate future memberships</field>
-        <field name="interval_number">1</field>
-        <field name="interval_type">days</field>
-        <field name="nextcall"
-            eval="(DateTime.now().replace(hour=5, minute=0, second=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />
-        <field name="numbercall">-1</field>
-        <field name="model_id" ref="model_membership_group_member" />
-        <field name="state">code</field>
-        <field name="code">model._cron_activate_membership()</field>
-        <field name="active" eval="True" />
-    </record>
 </odoo>
