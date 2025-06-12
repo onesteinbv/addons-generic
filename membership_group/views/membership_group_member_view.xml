@@ -29,6 +29,34 @@
         </field>
     </record>
 
+    <record id="membership_group_member_view_tree_partner" model="ir.ui.view">
+        <field name="model">membership.group.member</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" decoration-muted="state != 'current'"
+                js_class="membership_report_list">
+                <control>
+                    <create name="add_group" string="Add to group" />
+                </control>
+                <field name="state" />
+                <field name="create_date" invisible="1" />
+                <field name="group_id" />
+                <field name="date_from" optional="show" />
+                <field name="date_to" optional="show" />
+                <field name="date_end" optional="show" />
+                <field name="type"
+                    attrs="{'readonly': [('create_date', '!=', False)]}" />
+                <button type="object" name="action_change_type"
+                    string="Change Type"
+                    attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
+                <field name="wants_to_collaborate" optional="hide" />
+                <button type="object" name="action_revoke_membership"
+                    string="Revoke"
+                    attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
+            </tree>
+        </field>
+    </record>
+
+
     <record id="view_membership_group_member_tree_voting" model="ir.ui.view">
         <field name="name">membership.group.member.tree.voting</field>
         <field name="model">membership.group.member</field>
