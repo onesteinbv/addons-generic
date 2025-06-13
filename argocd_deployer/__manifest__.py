@@ -33,5 +33,5 @@
         "demo/application_tag_demo.xml",
         "demo/application_stat_type_demo.xml",
     ],
-    "external_dependencies": {"python": ["git"]},
+    "external_dependencies": {"python": ["GitPython"]},
 }

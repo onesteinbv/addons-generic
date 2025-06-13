@@ -3,6 +3,17 @@ from odoo.tests.common import TransactionCase
 
 
 class TestSubscription(TransactionCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.test_pricelist = cls.env["product.pricelist"].create(
+            [
+                {
+                    "name": "Test pricelist",
+                }
+            ]
+        )
+
     def test_name_is_shortened(self):
         partner_with_long_name = self.env["res.partner"].create(
             {"name": "hello my company has a really long name"}  # 39 characters
@@ -18,7 +29,7 @@ class TestSubscription(TransactionCase):
             {
                 "partner_id": partner_with_long_name.id,
                 "template_id": self.ref("argocd_sale.demo_subscription_template"),
-                "pricelist_id": self.ref("product.list0"),
+                "pricelist_id": self.test_pricelist.id,
                 "sale_subscription_line_ids": [
                     Command.create({"product_id": product.id})
                 ],
@@ -52,7 +63,7 @@ class TestSubscription(TransactionCase):
             {
                 "partner_id": partner_with_long_name.id,
                 "template_id": self.ref("argocd_sale.demo_subscription_template"),
-                "pricelist_id": self.ref("product.list0"),
+                "pricelist_id": self.test_pricelist.id,
                 "sale_subscription_line_ids": [
                     Command.create({"product_id": product.id})
                 ],
@@ -80,7 +91,7 @@ class TestSubscription(TransactionCase):
             {
                 "partner_id": partner_with_long_name.id,
                 "template_id": self.ref("argocd_sale.demo_subscription_template"),
-                "pricelist_id": self.ref("product.list0"),
+                "pricelist_id": self.test_pricelist.id,
                 "sale_subscription_line_ids": [
                     Command.create({"product_id": product.id})
                 ],

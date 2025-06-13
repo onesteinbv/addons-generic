@@ -34,5 +34,5 @@
             "argocd_website/static/src/xml/website.xml",
         ]
     },
-    "external_dependencies": {"python": ["yaml", "requests", "dnspython==2.6.1"]},
+    "external_dependencies": {"python": ["pyyaml", "requests", "dnspython==2.6.1"]},
 }

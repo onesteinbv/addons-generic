@@ -6,6 +6,6 @@
     "website": "https://www.onestein.nl",
     "license": "AGPL-3",
     "depends": ["base"],
-    "external_dependencies": {"python": ["gitlab"]},
+    "external_dependencies": {"python": ["python-gitlab"]},
     "data": ["security/ir_model_access.xml", "views/gitlab_view.xml", "menuitems.xml"],
 }

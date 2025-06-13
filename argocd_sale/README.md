@@ -6,7 +6,7 @@ Deploy application when an invoice is paid.
 How oca_subscription works:
 <pre>
 sale order -> (payment link + payment) -> first invoice
-                                       -> subscription -> recurring invoice
+-> subscription -> recurring invoice
 </pre>
 
 Because the first invoice is not linked ot the subscription we skip the sale order and directly use
