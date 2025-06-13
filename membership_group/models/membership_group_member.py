@@ -146,7 +146,11 @@ class MembershipGroupMember(models.Model):
                 and not record_date_end
             ):
                 return _(" has dates overlap with an existing record!")
-            elif rec.date_from >= record.date_from and record_date_end > rec.date_from:
+            elif (
+                rec.date_from >= record.date_from
+                and record_date_end
+                and record_date_end > rec.date_from
+            ):
                 return _(" the membership dates overlap with an existing record!")
             elif record.date_from >= rec.date_from and (
                 not rec_date_end or record.date_from <= rec_date_end
