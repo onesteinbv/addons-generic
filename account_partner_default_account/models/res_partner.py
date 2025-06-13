@@ -10,7 +10,7 @@ class ResPartner(models.Model):
     partner_default_account_id = fields.Many2one(
         "account.account",
         company_dependent=True,
-        domain="[('account_type', 'not in', ('asset_receivable', 'liability_payable')), ('deprecated', '=', False), ('company_id', '=', current_company_id)]",
+        domain="[('account_type', 'not in', ('asset_receivable', 'liability_payable')), ('deprecated', '=', False)]",
         string="Partner Default Account",
     )
 
