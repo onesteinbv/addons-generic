@@ -12,7 +12,6 @@
         <field name="phone">+31 71 1234567</field>
         <field name="email">info@companyrgs.nlexample.com</field>
         <field name="website">www.nlexample.com</field>
-        <field name="l10n_nl_kvk">12345678</field>
     </record>
 
     <record id="demo_company_nl_rgs" model="res.company">
@@ -33,6 +32,7 @@
         <value eval="[]"/>
         <value>nl_rgs</value>
         <value model="res.company" eval="obj().env.ref('l10n_nl_rgs.demo_company_nl_rgs')"/>
+        <value name="install_demo" eval="True"/>
     </function>
 
 </odoo>

@@ -16,8 +16,8 @@ class AccountGroupTest(TransactionCase):
         group = self.env["account.group"].create(
             {
                 "name": "Test Group",
-                "code_prefix_start": "1000",
-                "code_prefix_end": "1999",
+                "code_prefix_start": "100000",
+                "code_prefix_end": "100100",
                 "allowed_journal_ids": [Command.set(allowed_journals.ids)],
                 "auto_allowed_journals": False,
             }
@@ -25,7 +25,7 @@ class AccountGroupTest(TransactionCase):
         # Create a test account
         account = self.env["account.account"].create(
             {
-                "code": "1000",
+                "code": "100000",
                 "name": "Test Account",
                 "group_id": group.id,
             }
