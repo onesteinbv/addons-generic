@@ -2,7 +2,7 @@
 <odoo>
 
     <template id="product_share_buttons" inherit_id="website_sale.product_share_buttons">
-        <xpath expr="//a[@class='s_share_email']" position="before">
+        <xpath expr="//a[hasclass('s_share_email')]" position="before">
             <a t-if="not _exclude_share_links or not 'skype' in _exclude_share_links" href="https://web.skype.com/share?url={url}&amp;text={title}" class="s_share_skype" target="_blank" aria-label="Skype">
                 <img src="/website_sale_share_skype/static/img/icons/skype.svg" class="fa social-media-icon rounded shadow-sm" alt="social-media-icon"/>
             </a>

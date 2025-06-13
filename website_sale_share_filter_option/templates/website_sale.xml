@@ -5,22 +5,22 @@
         <xpath expr="//div[@data-snippet='s_share']" position="before">
             <t t-set="_exclude_share_links" t-value="website.get_exclude_share_links()"/>
         </xpath>
-        <xpath expr="//a[@class='s_share_facebook']" position="attributes">
+        <xpath expr="//a[hasclass('s_share_facebook')]" position="attributes">
             <attribute name="t-if">not _exclude_share_links or not 'facebook' in _exclude_share_links</attribute>
         </xpath>
-        <xpath expr="//a[@class='s_share_twitter']" position="attributes">
+        <xpath expr="//a[hasclass('s_share_twitter')]" position="attributes">
             <attribute name="t-if">not _exclude_share_links or not 'twitter' in _exclude_share_links</attribute>
         </xpath>
-        <xpath expr="//a[@class='s_share_linkedin']" position="attributes">
+        <xpath expr="//a[hasclass('s_share_linkedin')]" position="attributes">
             <attribute name="t-if">not _exclude_share_links or not 'linkedin' in _exclude_share_links</attribute>
         </xpath>
-        <xpath expr="//a[@class='s_share_whatsapp']" position="attributes">
+        <xpath expr="//a[hasclass('s_share_whatsapp')]" position="attributes">
             <attribute name="t-if">not _exclude_share_links or not 'whatsapp' in _exclude_share_links</attribute>
         </xpath>
-        <xpath expr="//a[@class='s_share_pinterest']" position="attributes">
+        <xpath expr="//a[hasclass('s_share_pinterest')]" position="attributes">
             <attribute name="t-if">not _exclude_share_links or not 'pinterest' in _exclude_share_links</attribute>
         </xpath>
-        <xpath expr="//a[@class='s_share_email']" position="attributes">
+        <xpath expr="//a[hasclass('s_share_email')]" position="attributes">
             <attribute name="t-if">not _exclude_share_links or not 'email' in _exclude_share_links</attribute>
         </xpath>
     </template>
