@@ -7,8 +7,7 @@
     "license": "AGPL-3",
     "website": "https://www.onestein.nl",
     "depends": [
-        "website",
-        "website_share_base",
+        "website_sale_share_base",
     ],
     "data": ["templates/website_sale.xml"],
     "assets": {
