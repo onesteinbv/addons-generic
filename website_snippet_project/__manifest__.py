@@ -22,7 +22,7 @@
             "/website_snippet_project/static/src/snippets/s_project_list/000.esm.js",
             "/website_snippet_project/static/src/snippets/s_project_list/000.scss",
         ],
-        "web_editor.assets_wysiwyg": [
+        "website.assets_wysiwyg": [
             "/website_snippet_project/static/src/snippets/s_project_list/options.esm.js",
         ],
     },
