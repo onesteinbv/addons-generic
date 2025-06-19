@@ -14,7 +14,6 @@
     "data": [
         "data/ir_cron_data.xml",
         "views/project_view.xml",
-        "views/res_partner_view.xml",
         "menuitems.xml",
     ],
 }

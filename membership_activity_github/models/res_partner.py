@@ -1,10 +1,8 @@
-from odoo import api, fields, models
+from odoo import api, models
 
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
-
-    github_login = fields.Char(string="Github Username")
 
     @api.model
     def get_id_by_github_login(self, github_login):

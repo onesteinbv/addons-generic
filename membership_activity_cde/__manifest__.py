@@ -6,7 +6,7 @@
     "author": "Onestein",
     "website": "https://www.onestein.nl",
     "license": "AGPL-3",
-    "depends": ["membership_activity"],
+    "depends": ["membership_activity", "partner_cde"],
     "data": [
         "data/membership_activity_type_data.xml",
     ],
