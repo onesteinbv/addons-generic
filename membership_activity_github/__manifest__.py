@@ -11,6 +11,5 @@
         "data/ir_cron_data.xml",
         "data/ir_config_parameter_data.xml",
         "views/project_view.xml",
-        "views/res_partner_view.xml",
     ],
 }
