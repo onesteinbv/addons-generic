@@ -18,7 +18,7 @@ DONATION_FREQUENCY_MAP = {"monthly": "months"}
 class PaymentTransaction(models.Model):
     _inherit = "payment.transaction"
 
-    def _get_transaction_customer_id(self):
+    def _get_donation_transaction_customer_id(self):
         mollie_customer_id = False
         if self.is_donation and self.partner_id:
             partner_obj = self.partner_id
@@ -90,7 +90,7 @@ class PaymentTransaction(models.Model):
         )
         if "://localhost" not in webhook_urls and "://192.168." not in webhook_urls:
             webhook_url = webhook_urls
-        mollie_customer_id = self._get_transaction_customer_id()
+        mollie_customer_id = self._get_donation_transaction_customer_id()
         customer = mollie_client.customers.get(mollie_customer_id)
         data = {
             "amount": amount or "",
@@ -139,11 +139,12 @@ class PaymentTransaction(models.Model):
                     "sequenceType": "first",
                 }
             )
-        mollie_customer_id = self._get_transaction_customer_id()
-        if api_type == "order":
-            payment_data["payment"]["customerId"] = mollie_customer_id
-        else:
-            payment_data["customerId"] = mollie_customer_id
+        if self.is_donation and self.partner_id:
+            mollie_customer_id = self._get_donation_transaction_customer_id()
+            if api_type == "order":
+                payment_data["payment"]["customerId"] = mollie_customer_id
+            else:
+                payment_data["customerId"] = mollie_customer_id
         return payment_data, params
 
     def action_terminate_recurring_donation(self):

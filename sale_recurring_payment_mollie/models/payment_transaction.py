@@ -88,12 +88,12 @@ class PaymentTransaction(models.Model):
                     "mandateId": self._context.get("mandate_id"),
                 }
             )
-        mollie_customer_id = self._get_transaction_customer_id()
-        if api_type == "order":
-            payment_data["payment"]["customerId"] = mollie_customer_id
-        else:
-            payment_data["customerId"] = mollie_customer_id
-
+        if self.sale_order_ids or self.invoice_ids:
+            mollie_customer_id = self._get_transaction_customer_id()
+            if api_type == "order":
+                payment_data["payment"]["customerId"] = mollie_customer_id
+            else:
+                payment_data["customerId"] = mollie_customer_id
         return payment_data, params
 
     def _get_mandate_reference_for_payment_provider(self, payment):
