@@ -10,22 +10,21 @@ class PaymentTransaction(models.Model):
 
     def _get_transaction_customer_id(self):
         mollie_customer_id = False
-        if self.sale_order_ids or self.invoice_ids:
-            partner_obj = (
-                self.invoice_ids
-                and self.invoice_ids[0].partner_id
-                or self.sale_order_ids
-                and self.sale_order_ids[0].partner_id
-            )
-            if partner_obj.mollie_customer_id:
-                mollie_customer_id = partner_obj.mollie_customer_id
-            else:
-                customer_id_data = self.provider_id.with_context(
-                    partner=partner_obj.id
-                )._api_mollie_create_customer_id()
-                if customer_id_data and customer_id_data.get("id"):
-                    mollie_customer_id = customer_id_data.get("id")
-                    partner_obj.write({"mollie_customer_id": mollie_customer_id})
+        partner_obj = (
+            self.invoice_ids
+            and self.invoice_ids[0].partner_id
+            or self.sale_order_ids
+            and self.sale_order_ids[0].partner_id
+        )
+        if partner_obj.mollie_customer_id:
+            mollie_customer_id = partner_obj.mollie_customer_id
+        else:
+            customer_id_data = self.provider_id.with_context(
+                partner=partner_obj.id
+            )._api_mollie_create_customer_id()
+            if customer_id_data and customer_id_data.get("id"):
+                mollie_customer_id = customer_id_data.get("id")
+                partner_obj.write({"mollie_customer_id": mollie_customer_id})
         return mollie_customer_id
 
     def _must_create_mandate(self, payment_data):
@@ -88,12 +87,12 @@ class PaymentTransaction(models.Model):
                     "mandateId": self._context.get("mandate_id"),
                 }
             )
-        mollie_customer_id = self._get_transaction_customer_id()
-        if api_type == "order":
-            payment_data["payment"]["customerId"] = mollie_customer_id
-        else:
-            payment_data["customerId"] = mollie_customer_id
-
+        if self.sale_order_ids or self.invoice_ids:
+            mollie_customer_id = self._get_transaction_customer_id()
+            if api_type == "order":
+                payment_data["payment"]["customerId"] = mollie_customer_id
+            else:
+                payment_data["customerId"] = mollie_customer_id
         return payment_data, params
 
     def _get_mandate_reference_for_payment_provider(self, payment):
