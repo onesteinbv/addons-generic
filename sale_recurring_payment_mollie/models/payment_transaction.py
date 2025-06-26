@@ -10,22 +10,21 @@ class PaymentTransaction(models.Model):
 
     def _get_transaction_customer_id(self):
         mollie_customer_id = False
-        if self.sale_order_ids or self.invoice_ids:
-            partner_obj = (
-                self.invoice_ids
-                and self.invoice_ids[0].partner_id
-                or self.sale_order_ids
-                and self.sale_order_ids[0].partner_id
-            )
-            if partner_obj.mollie_customer_id:
-                mollie_customer_id = partner_obj.mollie_customer_id
-            else:
-                customer_id_data = self.provider_id.with_context(
-                    partner=partner_obj.id
-                )._api_mollie_create_customer_id()
-                if customer_id_data and customer_id_data.get("id"):
-                    mollie_customer_id = customer_id_data.get("id")
-                    partner_obj.write({"mollie_customer_id": mollie_customer_id})
+        partner_obj = (
+            self.invoice_ids
+            and self.invoice_ids[0].partner_id
+            or self.sale_order_ids
+            and self.sale_order_ids[0].partner_id
+        )
+        if partner_obj.mollie_customer_id:
+            mollie_customer_id = partner_obj.mollie_customer_id
+        else:
+            customer_id_data = self.provider_id.with_context(
+                partner=partner_obj.id
+            )._api_mollie_create_customer_id()
+            if customer_id_data and customer_id_data.get("id"):
+                mollie_customer_id = customer_id_data.get("id")
+                partner_obj.write({"mollie_customer_id": mollie_customer_id})
         return mollie_customer_id
 
     def _must_create_mandate(self, payment_data):
