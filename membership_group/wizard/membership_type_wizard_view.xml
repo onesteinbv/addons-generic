@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_membership_type_wizard_form" model="ir.ui.view">
+        <field name="name">membership.type.wizard.form</field>
+        <field name="model">membership.type.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="member_id" invisible="1" />
+                        <field name="member_current_type" />
+                    </group>
+                    <group>
+                        <field name="type" required="1" />
+                        <field name="date_from" required="1" />
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_change_type" string="Confirm" type="object"
+                        class="btn-primary"
+                        data-hotkey="c" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_membership_type_wizard" model="ir.actions.act_window">
+        <field name="name">Membership Type</field>
+        <field name="res_model">membership.type.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

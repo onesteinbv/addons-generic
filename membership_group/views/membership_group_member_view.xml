@@ -4,26 +4,66 @@
     <record id="membership_group_member_view_tree" model="ir.ui.view">
         <field name="model">membership.group.member</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" js_class="membership_report_list">
-                <field name="active" invisible="1" />
+            <tree editable="bottom" decoration-muted="state != 'current'"
+                js_class="membership_report_list">
+                <control>
+                    <create name="add_member" string="Add a member" />
+                </control>
+                <field name="state" />
+                <field name="create_date" invisible="1" />
                 <field name="partner_id" />
                 <field name="group_id" />
                 <field name="date_from" optional="show" />
                 <field name="date_to" optional="show" />
                 <field name="date_end" optional="show" />
-                <field name="type" optional="show" />
+                <field name="type"
+                    attrs="{'readonly': [('create_date', '!=', False)]}" />
+                <button type="object" name="action_change_type"
+                    string="Change Type"
+                    attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
                 <field name="wants_to_collaborate" optional="hide" />
-                <button type="object" name="action_revoke_membership" string="Revoke"
-                    icon="fa-trash" attrs="{'invisible': [('active','=', False)]}" />
+                <button type="object" name="action_revoke_membership"
+                    string="Revoke"
+                    attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
             </tree>
         </field>
     </record>
+
+    <record id="membership_group_member_view_tree_partner" model="ir.ui.view">
+        <field name="model">membership.group.member</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" decoration-muted="state != 'current'"
+                js_class="membership_report_list">
+                <control>
+                    <create name="add_group" string="Add to group" />
+                </control>
+                <field name="state" />
+                <field name="create_date" invisible="1" />
+                <field name="group_id" />
+                <field name="date_from" optional="show" />
+                <field name="date_to" optional="show" />
+                <field name="date_end" optional="show" />
+                <field name="type"
+                    attrs="{'readonly': [('create_date', '!=', False)]}" />
+                <button type="object" name="action_change_type"
+                    string="Change Type"
+                    attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
+                <field name="wants_to_collaborate" optional="hide" />
+                <button type="object" name="action_revoke_membership"
+                    string="Revoke"
+                    attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
+            </tree>
+        </field>
+    </record>
+
 
     <record id="view_membership_group_member_tree_voting" model="ir.ui.view">
         <field name="name">membership.group.member.tree.voting</field>
         <field name="model">membership.group.member</field>
         <field name="arch" type="xml">
-            <tree import="0" js_class="membership_report_list">
+            <tree import="0" decoration-muted="'state','!=', 'current'"
+                js_class="membership_report_list">
+                <field name="state" />
                 <field name="partner_id" />
                 <field name="date_from" />
                 <field name="date_to" />
@@ -51,10 +91,20 @@
                 <field name="partner_id" />
                 <field name="group_id" />
                 <field name="type" />
+                <separator />
+                <filter name="filter_current" string="Current"
+                    domain="[('state', '=', 'current')]" />
+                <filter name="filter_historic" string="Historic"
+                    domain="[('state', '=', 'historic')]" />
+                <filter name="filter_future" string="Future"
+                    domain="[('state', '=', 'future')]" />
+                <separator />
                 <filter name="show_collaborators" string="Want to Collaborate"
                     domain="[('wants_to_collaborate', '=', True)]" />
                 <separator />
                 <group expand="0" name="claims" string="Group By">
+                    <filter string="State" name="groupby_state" domain="[]" help="State"
+                        context="{'group_by':'state'}" />
                     <filter string="Partner" name="groupby_partner_id" domain="[]" help="Partner"
                         context="{'group_by':'partner_id'}" />
                     <filter string="Group" name="groupby_group_id" domain="[]" help="Group"

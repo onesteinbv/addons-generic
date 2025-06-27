@@ -5,7 +5,8 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     membership_group_member_ids = fields.One2many(
-        "membership.group.member", "partner_id"
+        "membership.group.member",
+        "partner_id",
     )
     membership_group_ids = fields.Many2many(
         "membership.group",
@@ -27,13 +28,13 @@ class ResPartner(models.Model):
     @api.depends(
         "membership_group_member_ids",
         "membership_group_member_ids.group_id",
-        "membership_group_member_ids.active",
+        "membership_group_member_ids.state",
     )
     def _compute_membership_group_ids(self):
         for partner in self:
-            partner.membership_group_ids = partner.membership_group_member_ids.mapped(
-                "group_id"
-            )
+            partner.membership_group_ids = partner.membership_group_member_ids.filtered(
+                lambda x: x.state == "current"
+            ).mapped("group_id")
             partner.membership_group_ids_count = len(partner.membership_group_ids)
 
     @api.depends("membership_group_ids", "membership_group_ids.voting_group")

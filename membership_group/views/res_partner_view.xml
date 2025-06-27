@@ -25,7 +25,8 @@
             </field>
             <xpath expr="//field[@name='member_lines']" position="after">
                 <group>
-                    <field name="membership_group_member_ids" string="Groups" colspan="2" />
+                    <field name="membership_group_member_ids" string="Groups" colspan="2"
+                        context="{'tree_view_ref': 'membership_group.membership_group_member_view_tree_partner'}" />
                 </group>
             </xpath>
         </field>

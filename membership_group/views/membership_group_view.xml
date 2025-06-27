@@ -51,8 +51,12 @@
                     <notebook>
                         <page string="Membership" name="membership">
                             <field name="membership_group_member_ids">
-                                <tree editable="top">
-                                    <field name="active" invisible="1" />
+                                <tree editable="top" decoration-muted="state != 'current'">
+                                    <control>
+                                        <create name="add_member" string="Add a member" />
+                                    </control>
+                                    <field name="state" />
+                                    <field name="create_date" invisible="1" />
                                     <field
                                         name="partner_id"
                                         domain="[('membership_state', 'in', ['invoiced', 'paid', 'free'])]"
@@ -61,12 +65,15 @@
                                     <field name="date_from" optional="show" />
                                     <field name="date_to" optional="show" />
                                     <field name="date_end" optional="show" />
-                                    <field name="type" />
+                                    <field name="type"
+                                        attrs="{'readonly': [('create_date', '!=', False)]}" />
+                                    <button type="object" name="action_change_type"
+                                        string="Change Type"
+                                        attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
                                     <field name="wants_to_collaborate" />
                                     <button type="object" name="action_revoke_membership"
                                         string="Revoke"
-                                        icon="fa-trash"
-                                        attrs="{'invisible': [('active','=', False)]}" />
+                                        attrs="{'invisible': ['|', ('state','!=', 'current'), ('create_date', '=', False)]}" />
                                 </tree>
                             </field>
                         </page>
