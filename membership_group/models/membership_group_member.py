@@ -121,21 +121,21 @@ class MembershipGroupMember(models.Model):
     def _compute_state(self):
         for record in self:
             today = fields.Date.context_today(record)
-            end_date = record.date_end or record.date_to
 
-            if today >= record.date_from and not record.date_end:
-                record.state = "current"
-            elif today < record.date_from:
+            if today < record.date_from:
                 record.state = "future"
-            elif end_date < today:
+            elif record.date_end and record.date_end <= today:
                 record.state = "historic"
             else:
-                record.state = "historic"
+                record.state = "current"
 
     def _check_overlap_dates(self, record):
         for rec in self:
             if rec.state == "current" and record.state == "current":
                 return _(" has two current memberships in the same group!")
+
+            if rec.state == "historic":
+                continue
 
             rec_date_end = rec.date_end or rec.date_to
             record_date_end = record.date_end or record.date_to
@@ -190,15 +190,11 @@ class MembershipGroupMember(models.Model):
         return action
 
     def action_revoke_membership(self):
-        self.write(
-            {
-                "state": "historic",
-                "date_end": fields.Date.today(),
-            }
-        )
+        self.state = "historic"
+        self.date_end = fields.Date.today()
 
     def action_activate_membership(self):
-        self.write({"state": "current"})
+        self.state = "current"
 
     def action_open_partners(self):
         ref_name = "membership.action_membership_members"
@@ -213,15 +209,18 @@ class MembershipGroupMember(models.Model):
 
     @api.model
     def _cron_process_membership(self):
+        today = fields.Date.context_today(self)
         self.search(
             [
                 ("state", "=", "current"),
-                ("date_to", "<=", fields.date.today()),
+                "|",
+                ("date_to", "<=", today),
+                ("date_end", "<=", today),
             ]
         ).action_revoke_membership()
         self.search(
             [
                 ("state", "=", "future"),
-                ("date_from", "<=", fields.date.today()),
+                ("date_from", "<=", today),
             ]
         ).action_activate_membership()

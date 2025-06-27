@@ -202,3 +202,35 @@ class TestMembershipGroup(common.TransactionCase):
                     "date_from": "2024-01-01",
                 }
             )
+
+    def test_08_compute_state_historic_with_date_to_date_end(self):
+        MembershipGroupMember = self.env["membership.group.member"]
+        member_group = self.env["membership.group"].create({"name": "Just a group"})
+
+        with freezegun.freeze_time("2023-01-01"):
+            member = MembershipGroupMember.create(
+                {
+                    "partner_id": self.partner_1.id,
+                    "group_id": member_group.id,
+                    "date_from": "2025-01-01",
+                    "date_to": "2026-01-01",
+                }
+            )
+            self.assertEqual(member.state, "future")
+
+        with freezegun.freeze_time("2025-01-01"):
+            MembershipGroupMember._cron_process_membership()
+            self.assertEqual(member.state, "current")
+
+        with freezegun.freeze_time("2025-05-01"):
+            MembershipGroupMember._cron_process_membership()
+            self.assertEqual(member.state, "current")
+
+        with freezegun.freeze_time("2025-06-01"):
+            MembershipGroupMember._cron_process_membership()
+            self.assertEqual(member.state, "current")
+
+        member.date_end = "2025-07-1"
+        with freezegun.freeze_time("2025-07-01"):
+            MembershipGroupMember._cron_process_membership()
+            self.assertEqual(member.state, "historic")
