@@ -134,9 +134,6 @@ class MembershipGroupMember(models.Model):
             if rec.state == "current" and record.state == "current":
                 return _(" has two current memberships in the same group!")
 
-            if rec.state == "historic":
-                continue
-
             rec_date_end = rec.date_end or rec.date_to
             record_date_end = record.date_end or record.date_to
 
@@ -147,13 +144,13 @@ class MembershipGroupMember(models.Model):
             ):
                 return _(" has dates overlap with an existing record!")
             elif (
-                rec.date_from >= record.date_from
+                rec.date_from > record.date_from
                 and record_date_end
                 and record_date_end > rec.date_from
             ):
                 return _(" the membership dates overlap with an existing record!")
-            elif record.date_from >= rec.date_from and (
-                not rec_date_end or record.date_from <= rec_date_end
+            elif record.date_from > rec.date_from and (
+                not rec_date_end or record.date_from < rec_date_end
             ):
                 return _(" the membership dates overlap with an existing record!")
 
@@ -178,7 +175,7 @@ class MembershipGroupMember(models.Model):
         wizard = self.env["membership.type.wizard"].create(
             {
                 "member_id": self.id,
-                "date_from": self.date_to or fields.Date.today(),
+                "date_from": fields.Date.today(),
             }
         )
         action["res_id"] = wizard.id

@@ -103,7 +103,7 @@ class TestMembershipGroup(common.TransactionCase):
             {
                 "partner_id": self.partner_1.id,
                 "group_id": group_1_with_termination.id,
-                "date_from": fields.Date.today(),
+                "date_from": "2025-01-01",
             }
         )
 
