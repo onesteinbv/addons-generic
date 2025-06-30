@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="portal_my_details" inherit_id="portal.portal_my_details">
+        <xpath expr="//div[hasclass('col-lg-8')]" position="after">
+            <div class="col-lg-4">
+                <div class="row">
+                    <t t-call="website_partner_privacy.privacy_fields"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="privacy_fields">
+        <div t-attf-class="mb-3 #{error.get('website_privacy') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="website_privacy">Website Privacy Level</label>
+                <select name="website_privacy" t-attf-class="form-select #{error.get('website_privacy') and 'is-invalid' or ''}">
+                    <t t-foreach="partner.website_privacy_selection() or []" t-as="privacy_option">
+                        <option t-att-value="privacy_option[0]"
+                                t-att-selected="privacy_option[0] == website_privacy if website_privacy else privacy_option[0] == partner.website_privacy">
+                            <t t-esc="privacy_option[1]"/>
+                        </option>
+                    </t>
+                </select>
+        </div>
+        <div class="clearfix"/>
+        <h6 style="font-weight:bold;margin-top:0.75rem !important">Other Website Privacy Settings</h6>
+        <div t-attf-class="form-check form-switch mb-3 #{error.get('is_published') and 'o_has_error' or ''} col-xl-6"  style="padding-left:12%">
+            <input t-attf-class="form-check-input custom-control-input #{error.get('is_published') and 'is-invalid' or ''}" type="checkbox" role="switch" name="is_published" t-att-checked="'checked' if partner.is_published else None"/>
+            <label class="form-check-label label-optional" for="is_published">Publish Me</label>
+        </div>
+        <div t-attf-class="form-check form-switch mb-3 #{error.get('show_email') and 'o_has_error' or ''} col-xl-6"  style="padding-left:12%">
+            <input t-attf-class="form-check-input custom-control-input #{error.get('show_email') and 'is-invalid' or ''}" type="checkbox" role="switch" name="show_email" t-att-checked="'checked' if partner.show_email else None"/>
+            <label class="form-check-label label-optional" for="show_email">Show Email</label>
+        </div>
+        <div t-attf-class="form-check form-switch mb-3 #{error.get('show_address') and 'o_has_error' or ''} col-xl-6"  style="padding-left:12%">
+            <input t-attf-class="form-check-input custom-control-input #{error.get('show_address') and 'is-invalid' or ''}" type="checkbox" role="switch" name="show_address" t-att-checked="'checked' if partner.show_address else None"/>
+            <label class="form-check-label label-optional" for="show_address">Show Address</label>
+        </div>
+        <div t-attf-class="form-check form-switch mb-3 #{error.get('show_phone') and 'o_has_error' or ''} col-xl-6"  style="padding-left:12%">
+            <input t-attf-class="form-check-input custom-control-input #{error.get('show_phone') and 'is-invalid' or ''}" type="checkbox" role="switch" name="show_phone" t-att-checked="'checked' if partner.show_phone else None"/>
+            <label class="form-check-label label-optional" for="show_phone">Show Phone</label>
+        </div>
+        <div t-attf-class="form-check form-switch mb-3 #{error.get('show_website') and 'o_has_error' or ''} col-xl-6"  style="padding-left:12%">
+            <input t-attf-class="form-check-input custom-control-input #{error.get('show_website') and 'is-invalid' or ''}" type="checkbox" role="switch" name="show_website" t-att-checked="'checked' if partner.show_website else None"/>
+            <label class="form-check-label label-optional" for="show_website">Show Your Website</label>
+        </div>
+    </template>
+</odoo>

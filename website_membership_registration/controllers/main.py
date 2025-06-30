@@ -85,16 +85,6 @@ class MembershipRegistrationController(http.Controller):
             error_message = _("Name is empty or invalid.")
         return name, name_valid, error_message
 
-    def _validate_membership_nickname(self, nickname):
-        error_message, nickname_valid = "", True
-        if nickname:
-            nickname_valid = nickname and all(
-                c.isalnum() or c.isspace() for c in nickname
-            )
-            if not nickname_valid:
-                error_message = _("Nickname is invalid.")
-        return nickname, nickname_valid, error_message
-
     def _validate_membership_product(self, product_id):
         product_valid = True
         error_message = ""
@@ -177,8 +167,6 @@ class MembershipRegistrationController(http.Controller):
             error_list.append(error_data["member_email"])
         if not validation_data["member_name"]:
             error_list.append(error_data["member_name"])
-        if not validation_data["member_nickname"]:
-            error_list.append(error_data["member_nickname"])
         if not validation_data["member_phone"]:
             error_list.append(error_data["member_phone"])
         if not validation_data["membership_product_id"]:
@@ -215,11 +203,6 @@ class MembershipRegistrationController(http.Controller):
             error_data["member_name"],
         ) = self._validate_membership_name(post["member_name"])
         (
-            partner_data["member_nickname"],
-            validation_data["member_nickname"],
-            error_data["member_nickname"],
-        ) = self._validate_membership_nickname(post["member_nickname"])
-        (
             partner_data["member_phone"],
             validation_data["member_phone"],
             error_data["member_phone"],
@@ -234,11 +217,6 @@ class MembershipRegistrationController(http.Controller):
             validation_data["application_date"],
             error_data["application_date"],
         ) = (fields.Datetime.now(), True, "")
-        (
-            partner_data["member_publish"],
-            validation_data["member_publish"],
-            error_data["member_publish"],
-        ) = ("member_publish" in post and post["member_publish"] == "on", True, "")
         (
             partner_data["membership_product_id"],
             validation_data["membership_product_id"],
@@ -309,7 +287,6 @@ class MembershipRegistrationController(http.Controller):
     def _get_new_member_vals_dict(self, partner_data):
         vals = {
             "name": partner_data["member_name"],
-            "nickname": partner_data["member_nickname"],
             "street": partner_data["member_street"],
             "street2": partner_data["member_street2"],
             "city": partner_data["member_city"],
@@ -326,6 +303,7 @@ class MembershipRegistrationController(http.Controller):
             "website_id": request.website.id,
             "company_id": request.env.company.id,
             "website_description": partner_data["website_description"],
+            "membership_application_date": fields.Date.today(),
         }
         partner_category = request.env.ref(
             "website_membership_registration.res_partner_category_website_form", False
@@ -459,7 +437,6 @@ class MembershipRegistrationController(http.Controller):
         res = {
             "is_logged": is_logged,
             "member_name": "",
-            "member_nickname": "",
             "member_email": "",
             "member_phone": "",
             "membership_group_style": membership_group_style,
@@ -472,7 +449,6 @@ class MembershipRegistrationController(http.Controller):
             "website_description": "",
             "country_id": request.env["res.country"],
             "state_id": request.env["res.country.state"],
-            "member_publish": False,
             "membership_products": membership_products,
             "membership_product_id": product.id if product else None,
             "show_address_div": (
