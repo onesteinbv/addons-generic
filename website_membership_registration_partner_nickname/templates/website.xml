@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="nickname" inherit_id="website_membership_registration.membership_registration_form" name="Nickname on membership registration" priority="21">
+        <xpath expr="//div[@id='personal_data']/div[@data-type='char']" position="after">
+            <div class="mb-3 col-12" data-type="char" data-name="Field">
+                <div class="row s_col_no_resize s_col_no_bgcolor" id="div_nickname">
+                    <label class="col-form-label col-sm-auto" style="width: 200px" for="member_nickname">
+                        <span>Nickname</span>
+                    </label>
+                    <div class="col-sm">
+                        <input class="form-control" type="text" name="member_nickname" t-att-value="member_nickname"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -12,8 +12,6 @@ from odoo.exceptions import UserError, ValidationError
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    nickname = fields.Char()
-
     email_verification_token = fields.Char()
     email_verification_url = (
         fields.Char()
@@ -43,28 +41,6 @@ class ResPartner(models.Model):
         compute="_compute_membership_group_ids",
         store=True,
     )
-
-    def _get_name(self):
-        if self.nickname and not self.website_published:
-            return self.nickname
-        return super(ResPartner, self)._get_name()
-
-    @api.depends(
-        "is_company",
-        "name",
-        "parent_id.display_name",
-        "type",
-        "company_name",
-        "commercial_company_name",
-        "nickname",
-        "website_published",
-    )
-    def _compute_display_name(self):  # pylint: disable=missing-return
-        for partner in self:
-            if partner.nickname and not partner.website_published:
-                partner.display_name = partner.nickname
-            else:
-                super(ResPartner, partner)._compute_display_name()
 
     @api.depends(
         "membership_group_member_ids",

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="portal_my_details_fields" inherit_id="portal.portal_my_details_fields">
+        <xpath expr="//input[@name='name']/.." position="after">
+            <div t-attf-class="mb-3 #{error.get('nickname') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="name">Nickname</label>
+                <input type="text" name="nickname"
+                       t-attf-class="form-control #{error.get('nickname') and 'is-invalid' or ''}"
+                       t-att-value="partner.nickname"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
