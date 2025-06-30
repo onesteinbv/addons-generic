@@ -9,9 +9,11 @@
     "license": "LGPL-3",
     "summary": "Recurring donations using Mollie Subscriptions",
     "description": """Recurring donations using Mollie Subscriptions""",
-    "depends": ["website_payment_recurring_donations", "payment_mollie_official"],
-    "data": [
-        "views/res_partner_view.xml",
+    "depends": [
+        "website_payment_recurring_donations",
+        "payment_mollie_official",
+        "partner_mollie",
     ],
+    "data": [],
     "external_dependencies": {"python": ["mollie-api-python"]},
 }
