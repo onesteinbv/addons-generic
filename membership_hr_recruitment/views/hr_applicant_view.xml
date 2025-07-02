@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_applicant_view_form" model="ir.ui.view">
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="before">
+                <field name="membership_applicant" />
+            </xpath>
+            <xpath expr="//page[last()]" position="after">
+                <page string="Membership" invisible="not membership_applicant">
+                    <field name="membership_group_member_ids" string="Membership Groups" nolabel="1" colspan="4">
+                        <list editable="top">
+                            <field name="group_id"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
