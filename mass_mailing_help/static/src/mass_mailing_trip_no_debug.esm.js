@@ -1,8 +1,8 @@
 import {doAction, wait, waitUntilAvailable} from "@web_help/helpers.esm";
 import {Trip} from "@web_help/trip.esm";
+import { _t } from "@web/core/l10n/translation";
 import {registry} from "@web/core/registry";
 import { user } from "@web/core/user";
-import { _t } from "@web/core/l10n/translation";
 
 export class MassMailingTripNoDebug extends Trip {
     setup() {
