@@ -10,7 +10,7 @@
                     <create name="add_member" string="Add a member"/>
                 </control>
                 <field name="state"/>
-                <field name="create_date" invisible="1"/>
+                <field name="create_date" column_invisible="1"/>
                 <field name="partner_id"/>
                 <field name="group_id"/>
                 <field name="date_from" optional="show"/>
@@ -38,7 +38,7 @@
                     <create name="add_group" string="Add to group" />
                 </control>
                 <field name="state" />
-                <field name="create_date" invisible="1" />
+                <field name="create_date" column_invisible="1" />
                 <field name="group_id" />
                 <field name="date_from" optional="show" />
                 <field name="date_to" optional="show" />

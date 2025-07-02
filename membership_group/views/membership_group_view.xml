@@ -56,7 +56,7 @@
                                         <create name="add_member" string="Add a member" />
                                     </control>
                                     <field name="state" />
-                                    <field name="create_date" invisible="1" />
+                                    <field name="create_date" column_invisible="1" />
                                     <field
                                         name="partner_id"
                                         domain="[('membership_state', 'in', ['invoiced', 'paid', 'free'])]"
