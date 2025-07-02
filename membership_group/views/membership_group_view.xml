@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="membership_group_view_tree" model="ir.ui.view">
+        <field name="model">membership.group</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="complete_name" />
+                <field string="Members" name="partner_ids_count" />
+            </list>
+        </field>
+    </record>
+
+    <record id="membership_group_view_form" model="ir.ui.view">
+        <field name="model">membership.group</field>
+        <field name="arch" type="xml">
+            <form string="Membership Group">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            class="oe_stat_button"
+                            name="action_open_partner_view"
+                            type="object"
+                            icon="fa-list"
+                            invisible="not partner_ids_count"
+                        >
+                            <field
+                                string="Members"
+                                name="partner_ids_count"
+                                widget="statinfo"
+                            />
+                        </button>
+                    </div>
+
+                    <div class="oe_title mb24">
+                        <h1>
+                            <field
+                                class="o_text_overflow"
+                                name="name"
+                                default_focus="1"
+                                required="1"
+                            />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="parent_id" />
+                        </group>
+                    </group>
+                    <group name="form_body" />
+                    <notebook>
+                        <page string="Membership" name="membership">
+                            <field name="membership_group_member_ids">
+                                <list editable="top" decoration-muted="state != 'current'">
+                                    <control>
+                                        <create name="add_member" string="Add a member" />
+                                    </control>
+                                    <field name="state" />
+                                    <field name="create_date" invisible="1" />
+                                    <field
+                                        name="partner_id"
+                                        domain="[('membership_state', 'in', ['invoiced', 'paid', 'free'])]"
+                                    />
+                                    <field name="group_id" optional="hide" />
+                                    <field name="date_from" optional="show" />
+                                    <field name="date_to" optional="show" />
+                                    <field name="date_end" optional="show" />
+                                    <field name="type"
+                                        readonly="create_date" />
+                                    <button type="object" name="action_change_type"
+                                            string="Change Type"
+                                            invisible="state != 'current' or not create_date"/>
+                                    <field name="wants_to_collaborate" />
+                                    <button type="object" name="action_revoke_membership"
+                                        string="Revoke"
+                                        icon="fa-trash"
+                                        invisible="state != 'current' or not create_date" />
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Subgroups">
+                            <field name="child_ids" />
+                        </page>
+                        <page string="Configuration">
+                            <group>
+                                <field name="membership_end_date" />
+                                <field name="voting_group" widget="boolean_toggle" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="membership_group_view_search" model="ir.ui.view">
+        <field name="model">membership.group</field>
+        <field name="arch" type="xml">
+            <search string="Membership Groups">
+                <field name="name" />
+                <filter name="filter_voting_group" string="Voting Group"
+                    domain="[('voting_group', '=', True)]" />
+            </search>
+        </field>
+    </record>
+
+    <record id="membership_group_action" model="ir.actions.act_window">
+        <field name="name">Membership Groups</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">membership.group</field>
+        <field name="view_id" ref="membership_group_view_tree" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Membership Group
+            </p>
+        </field>
+    </record>
+
+</odoo>

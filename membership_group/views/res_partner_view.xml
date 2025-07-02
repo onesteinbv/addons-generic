@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="inherit_id" ref="membership.view_partner_form" />
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    class="oe_stat_button"
+                    name="action_open_membership_group_view"
+                    type="object"
+                    icon="fa-list"
+                    invisible="not membership_group_ids_count"
+                >
+                    <field
+                        string="Membership Groups"
+                        name="membership_group_ids_count"
+                        widget="statinfo"
+                    />
+                </button>
+            </xpath>
+            <field name="free_member" position="after">
+                <field name="member_can_vote" />
+            </field>
+            <xpath expr="//field[@name='member_lines']" position="after">
+                <group>
+                    <field name="membership_group_member_ids" string="Groups" colspan="2"
+                           context="{'list_view_ref': 'membership_group.membership_group_member_view_tree_partner'}" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_member_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="membership.view_res_partner_member_filter" />
+        <field name="arch" type="xml">
+            <filter name="all_members" position="after">
+                <filter name="voting_members" string="Voting Members"
+                    domain="[('member_can_vote', '=', True)]" />
+            </filter>
+        </field>
+    </record>
+</odoo>
