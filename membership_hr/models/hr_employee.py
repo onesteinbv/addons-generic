@@ -10,4 +10,3 @@ class HREmployee(models.Model):
     employee_type = fields.Selection(
         selection_add=[("member", "Member")], ondelete={"member": "set default"}
     )
-

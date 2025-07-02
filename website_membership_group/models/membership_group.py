@@ -18,7 +18,7 @@ class MembershipGroup(models.Model):
 
     @api.depends("page_id", "page_id.is_published")
     def _compute_website_url(self):
-        slug = self.env['ir.http']._slug
+        slug = self.env["ir.http"]._slug
         for membership_group in self:
             membership_group.website_url = (
                 membership_group.page_id

@@ -21,7 +21,9 @@ class MembershipGroupController(http.Controller):
     )
     def display_membership_group_page(self, membership_group):
         membership_group_sudo = membership_group.sudo()
-        is_website_designer = request.env.user.has_group('website.group_website_designer')
+        is_website_designer = request.env.user.has_group(
+            "website.group_website_designer"
+        )
 
         if not membership_group_sudo.is_published and not is_website_designer:
             return request.not_found()

@@ -9,13 +9,15 @@ class TestMembershipHrRecruitment(BaseCommon):
             [{"name": "John", "login": "test1", "email": "john@test.com"}]
         )
         cls.candidate = cls.env["hr.candidate"].create(
-            [{"partner_name": "John","partner_id": cls.user.partner_id.id,}]
+            [
+                {
+                    "partner_name": "John",
+                    "partner_id": cls.user.partner_id.id,
+                }
+            ]
         )
         cls.applicant_1 = cls.env["hr.applicant"].create(
-            {
-                "membership_applicant": True,
-                "candidate_id": cls.candidate.id
-            }
+            {"membership_applicant": True, "candidate_id": cls.candidate.id}
         )
 
     def test_01_default_values_for_employee_for_member_applicant(self):
