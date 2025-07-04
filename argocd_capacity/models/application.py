@@ -38,13 +38,6 @@ class Application(models.Model):
             return False
         return sum(self.search([]).mapped("volume_claim_count")) > volume_claim_capacity
 
-    def _get_deployment_notification_mail_template(self):
-        return (
-            self.has_capacity_reached()
-            and "argocd_capacity.deployment_delayed_notification_mail_template"
-            or super()._get_deployment_notification_mail_template()
-        )
-
     def immediate_deploy(self):
         self.ensure_one()
         if self.has_capacity_reached():  # Make sure it's not orm cached computed
