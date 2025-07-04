@@ -3,7 +3,6 @@
     <data noupdate="1">
 
         <record id="membership_group.demo_member_1" model="res.partner">
-            <field name="nickname">Spiderman</field>
             <field name="membership_group_member_ids" eval="[
                     (5, 0),
                     (0, 0, {'group_id': ref('membership_group.demo_membership_group_1'), 'on_mailing_list': True, 'wants_to_collaborate': True}),
@@ -14,7 +13,6 @@
         </record>
 
         <record id="membership_group.demo_member_2" model="res.partner">
-            <field name="nickname">Isaac Newton</field>
             <field name="membership_group_member_ids" eval="[
                     (5, 0),
                     (0, 0, {'group_id': ref('membership_group.demo_membership_group_1'), 'wants_to_collaborate': True}),
@@ -24,7 +22,6 @@
         </record>
 
         <record id="membership_group.demo_member_3" model="res.partner">
-            <field name="nickname">Singing in the Rain</field>
             <field name="membership_group_member_ids" eval="[
                     (5, 0),
                     (0, 0, {'group_id': ref('membership_group.demo_membership_group_2'), 'wants_to_collaborate': True}),

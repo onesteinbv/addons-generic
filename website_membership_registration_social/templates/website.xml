@@ -10,7 +10,7 @@
         </xpath>
     </template>
 
-    <template id="telegram" inherit_id="website_membership_registration.membership_registration_form" active="False" name="Telegram on membership registration" priority="30">
+    <template id="telegram" inherit_id="website_membership_registration.membership_registration_form" active="False" name="Telegram on membership registration" priority="50">
         <xpath expr="//div[@id='personal_data']" position="inside">
             <div class="mb-3 col-12" data-type="char" data-name="Field">
                 <div class="row s_col_no_resize s_col_no_bgcolor" id="div_telegram">

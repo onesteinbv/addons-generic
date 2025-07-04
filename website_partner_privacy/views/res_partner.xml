@@ -1,0 +1,47 @@
+<odoo>
+    <record id="view_partner_simple_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_simple_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='function']" position="after">
+                <field
+                        name="website_privacy"
+                        attrs="{'invisible': [('is_company', '=', True)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">Partner Website Privacy</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="privacy" string="Privacy" attrs="{'invisible': [('is_company', '=', True)]}">
+                    <group name="Website Privacy Settings">
+                        <field
+                                name="website_privacy"
+                                attrs="{'invisible': [('is_company', '=', True)]}"
+                        />
+                        <field
+                                name="show_email"
+                                attrs="{'invisible': [('is_company', '=', True)]}"
+                        />
+                        <field
+                                name="show_address"
+                                attrs="{'invisible': [('is_company', '=', True)]}"
+                        />
+                        <field
+                                name="show_phone"
+                                attrs="{'invisible': [('is_company', '=', True)]}"
+                        />
+                        <field
+                                name="show_website"
+                                attrs="{'invisible': [('is_company', '=', True)]}"
+                        />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
