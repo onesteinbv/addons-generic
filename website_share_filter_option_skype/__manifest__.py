@@ -12,4 +12,5 @@
     ],
     "data": ["views/res_config_settings_view.xml"],
     "auto_install": True,
+    "installable": False,
 }
