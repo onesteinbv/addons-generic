@@ -11,6 +11,5 @@
         "website_share_filter_option_technical",
     ],
     "data": ["views/res_config_settings_view.xml"],
-    "auto_install": True,
-    "installable": False,
+    "installable": True,
 }

@@ -16,4 +16,5 @@
             "website_share_skype/static/src/scss/primary_variables.scss",
         ],
     },
+    "installable": True,
 }
