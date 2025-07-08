@@ -9,8 +9,10 @@
     "website": "https://www.onestein.nl",
     "depends": ["website_membership_registration", "partner_nickname"],
     "data": [
-        "data/res_partner_demo.xml",
         "templates/website.xml",
+    ],
+    "demo": [
+        "data/res_partner_demo.xml",
     ],
     "application": False,
     "installable": True,
