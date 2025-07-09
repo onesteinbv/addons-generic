@@ -42,9 +42,10 @@ class ResPartner(models.Model):
     def _get_name(self):
         name = super(ResPartner, self)._get_name()
         if self._context.get("website_id"):
-            if self.website_privacy:
-                if self.website_privacy == "nickname" and self.nickname:
-                    name = self.nickname
-                elif self.website_privacy == "anonymous":
-                    name = "Anonymous"
+            if (
+                self.website_privacy
+                and self.website_privacy == "nickname"
+                and self.nickname
+            ):
+                name = self.nickname
         return name

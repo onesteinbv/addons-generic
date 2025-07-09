@@ -38,3 +38,10 @@ class ResPartner(models.Model):
     def onchange_website_privacy(self):
         if self.website_privacy == "anonymous":
             self.is_published = False
+
+    def _get_name(self):
+        name = super(ResPartner, self)._get_name()
+        if self._context.get("website_id"):
+            if self.website_privacy and self.website_privacy == "anonymous":
+                name = "Anonymous"
+        return name
