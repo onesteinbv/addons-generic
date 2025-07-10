@@ -15,6 +15,7 @@
         "website_project_generic",
     ],
     "data": [
+        "templates/portal_template.xml",
         "templates/project_project_template.xml",
         "views/res_partner_view.xml",
     ],

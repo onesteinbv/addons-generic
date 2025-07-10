@@ -12,7 +12,7 @@
                                     <div class="o_web_project_project_manager">
                                         <h4>Project Managers:</h4>
                                         <ul>
-                                            <t t-set="project_managers" t-value="(project.user_id.partner_id + project.manager_member_ids).filtered(lambda pm:not pm.is_anonymous)" />
+                                            <t t-set="project_managers" t-value="(project.user_id.partner_id + project.manager_member_ids)" />
                                             <t t-if="project_managers">
                                                 <li t-foreach="project_managers" t-as="project_manager">
                                                     <img
@@ -22,11 +22,11 @@
                                                     />
                                                     <t t-if="project_manager.website_published">
                                                         <a t-attf-href="/partners/#{slug(project_manager)}">
-                                                            <t t-esc="project_manager.display_name" />
+                                                            <span t-esc="project_manager" t-options='{"widget": "contact","fields": ["name"]}'/>
                                                         </a>
                                                     </t>
                                                     <t t-else="">
-                                                        <span t-esc="project_manager.display_name" />
+                                                        <span t-esc="project_manager" t-options='{"widget": "contact","fields": ["name"]}' />
                                                     </t>
                                                 </li>
                                             </t>
@@ -42,7 +42,7 @@
                             <div class="col-lg-12">
                                 <h4>Team Members</h4>
                             </div>
-                            <div class="col-lg-6" t-foreach="(project.team_member_ids).filtered(lambda tm:not tm.is_anonymous)" t-as="member">
+                            <div class="col-lg-6" t-foreach="project.team_member_ids" t-as="member">
                                 <div class="o_web_project_project_member">
                                     <img
                                         t-att-src="image_data_uri(member.image_128 or member.avatar_128)"
@@ -51,15 +51,15 @@
                                     />
                                     <t t-if="member.website_published">
                                         <a t-attf-href="/members/#{slug(member)}">
-                                            <t t-esc="member.display_name" />
+                                            <t t-esc="member" t-options='{"widget": "contact","fields": ["name"]}'/>
                                         </a>
                                     </t>
                                     <t t-else="">
-                                        <span t-esc="member.display_name" />
+                                        <span t-esc="member" t-options='{"widget": "contact","fields": ["name"]}'/>
                                     </t>
                                 </div>
                             </div>
-                            <h5 class="col-lg-6" t-if="not project.team_member_ids.filtered(lambda tm:not tm.is_anonymous)">
+                            <h5 class="col-lg-6" t-if="not project.team_member_ids">
                                 No Team member found.
                             </h5>
                         </div>
