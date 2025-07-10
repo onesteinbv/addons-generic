@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="project_project_details_template" inherit_id="website_project_generic_role_members.project_project_details_template">
+        <xpath expr="//t[@t-set='project_managers']" position="attributes">
+            <attribute name="t-value">(project.user_id.partner_id + project.manager_member_ids).filtered(lambda pm:pm.website_privacy != 'anonymous')</attribute>
+        </xpath>
+        <xpath expr="//div[@t-foreach='project.team_member_ids']" position="attributes">
+            <attribute name="t-foreach">project.team_member_ids.filtered(lambda tm:tm.website_privacy != 'anonymous')</attribute>
+        </xpath>
+        <xpath expr="//h5[@t-if='not project.team_member_ids']" position="attributes">
+            <attribute name="t-if">not project.team_member_ids.filtered(lambda tm:tm.website_privacy != 'anonymous')</attribute>
+        </xpath>
+    </template>
+
+</odoo>
