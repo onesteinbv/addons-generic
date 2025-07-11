@@ -603,6 +603,10 @@ class MembershipRegistrationController(http.Controller):
                 sale_order._create_invoices()
                 partner.send_membership_verification_email()
             return request.redirect("/apply-for-membership-success")
+        self._update_old_data_in_session(partner_data, error_message, errors)
+        return request.redirect("/membership-registration")
+
+    def _update_old_data_in_session(self, partner_data, error_message, errors):
         partner_data.pop("application_date", None)
         request.session.update(
             {
@@ -611,7 +615,7 @@ class MembershipRegistrationController(http.Controller):
                 "error": errors,
             }
         )
-        return request.redirect("/membership-registration")
+        return True
 
     @http.route(
         ["/apply-for-membership-success"],
