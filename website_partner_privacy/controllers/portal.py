@@ -14,15 +14,10 @@ class CustomerPortalWebsitePrivacy(CustomerPortal):
                 "show_phone",
                 "show_website",
                 "is_published",
+                "website_privacy",
             ]
         )
         return optional_fields
-
-    def _get_mandatory_fields(self):
-        # EXTEND 'portal'
-        mandatory_fields = super()._get_mandatory_fields()
-        mandatory_fields += ["website_privacy"]
-        return mandatory_fields
 
     @route()
     def account(self, redirect=None, **post):
