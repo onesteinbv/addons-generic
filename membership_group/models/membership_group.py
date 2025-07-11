@@ -28,9 +28,15 @@ class MembershipGroup(models.Model):
     )
     parent_path = fields.Char(index=True)
     partner_ids = fields.Many2many(
-        "res.partner", string="Contacts", compute="_compute_partner_ids"
+        "res.partner",
+        string="Contacts",
+        compute="_compute_partner_ids",
+        store=True,
+        compute_sudo=False,
     )
-    partner_ids_count = fields.Integer("# of Members", compute="_compute_partner_ids")
+    partner_ids_count = fields.Integer(
+        "# of Members", compute="_compute_partner_ids", store=True, compute_sudo=False
+    )
 
     membership_end_date = fields.Date(
         help="Default date to for members of this group",
