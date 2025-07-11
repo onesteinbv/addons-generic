@@ -113,7 +113,7 @@ publicWidget.registry.WebsiteMembershipRegistration = publicWidget.Widget.extend
         }).then(function (data) {
             // Populate states and display
             var $selectStates = $("select[name='member_state_id']");
-            $("#select[name='member_state_id'] option:not(:first)"). remove();
+            $("select[name='member_state_id'] option:not(:first)"). remove();
             // Dont reload state at first loading (done in qweb)
             if ($selectStates.data('init')===0 || $selectStates.find('option').length===1) {
                 if (data.states.length || data.state_required) {
