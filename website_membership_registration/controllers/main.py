@@ -603,7 +603,7 @@ class MembershipRegistrationController(http.Controller):
                 sale_order._create_invoices()
                 partner.send_membership_verification_email()
             return request.redirect("/apply-for-membership-success")
-
+        partner_data.pop("application_date", None)
         request.session.update(
             {
                 "old_registration_data": partner_data,
