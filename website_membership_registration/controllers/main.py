@@ -299,7 +299,6 @@ class MembershipRegistrationController(http.Controller):
             or None,
             "email": partner_data["member_email"],
             "phone": partner_data["member_phone"],
-            "is_published": partner_data["member_publish"],
             "website_id": request.website.id,
             "company_id": request.env.company.id,
             "website_description": partner_data["website_description"],
