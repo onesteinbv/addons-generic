@@ -13,6 +13,7 @@ class Contact(models.AbstractModel):
                 options.update(
                     {"fields": ["name", "address", "phone", "mobile", "email"]}
                 )
+            value = value.sudo()
             if hasattr(value, "show_email") and not value.show_email:
                 "email" in options["fields"] and options["fields"].remove("email")
             if hasattr(value, "show_address") and not value.show_address:
