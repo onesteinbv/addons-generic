@@ -543,15 +543,7 @@ class MembershipRegistrationController(http.Controller):
             self._get_error_message_list(validation_data, error_data)
         )
         errors = self._get_errors_dict(validation_data)
-
         if not error_message:
-            if request.session.get("old_registration_data", {}):
-                request.session.pop("old_registration_data")
-            if request.session.get("error_message", ""):
-                request.session.pop("error_message")
-            if request.session.get("error", ""):
-                request.session.pop("error", "")
-
             product = (
                 request.env["product.product"]
                 .sudo()
@@ -563,24 +555,34 @@ class MembershipRegistrationController(http.Controller):
                 .sudo()
                 .search([("email", "=ilike", partner_vals["email"])], limit=1)
             )
-            if not partner:
-                partner = request.env["res.partner"].sudo().create(partner_vals)
-            else:
-                partner.write(partner_vals)
-            self._set_partner_membership_group(partner, partner_data)
-            if partner_data.get("member_cv"):
-                request.env["ir.attachment"].sudo().create(
-                    {
-                        "name": post["member_cv"].filename,
-                        "res_model": "res.partner",
-                        "res_id": partner.id,
-                        "datas": base64.b64encode(partner_data.get("member_cv")),
-                        "mimetype": "application/pdf",
-                    }
+            sale_order = request.env["sale.order"]
+            try:
+                if not partner:
+                    partner = request.env["res.partner"].sudo().create(partner_vals)
+                else:
+                    partner.write(partner_vals)
+                self._set_partner_membership_group(partner, partner_data)
+                if partner_data.get("member_cv"):
+                    request.env["ir.attachment"].sudo().create(
+                        {
+                            "name": post["member_cv"].filename,
+                            "res_model": "res.partner",
+                            "res_id": partner.id,
+                            "datas": base64.b64encode(partner_data.get("member_cv")),
+                        }
+                    )
+                sale_order = partner.create_membership_sale_order(
+                    product, product.list_price
                 )
-            sale_order = partner.create_membership_sale_order(
-                product, product.list_price
-            )
+            except Exception as e:
+                error_message = str(e)
+                self._handle_errors(partner_data, error_message, errors)
+            if request.session.get("old_registration_data", {}):
+                request.session.pop("old_registration_data")
+            if request.session.get("error_message", ""):
+                request.session.pop("error_message")
+            if request.session.get("error", ""):
+                request.session.pop("error", "")
             if sale_order.amount_total:
                 # Generate payment link
                 ctx = request.env.context.copy()
@@ -600,13 +602,14 @@ class MembershipRegistrationController(http.Controller):
                 return request.redirect(link_wizard.link)
             else:
                 sale_order.action_confirm()
-                sale_order._create_invoices()
+                sale_order.with_context(
+                    raise_if_nothing_to_invoice=False
+                )._create_invoices()
                 partner.send_membership_verification_email()
             return request.redirect("/apply-for-membership-success")
-        self._update_old_data_in_session(partner_data, error_message, errors)
-        return request.redirect("/membership-registration")
+        self._handle_errors(partner_data, error_message, errors)
 
-    def _update_old_data_in_session(self, partner_data, error_message, errors):
+    def _handle_errors(self, partner_data, error_message, errors):
         partner_data.pop("application_date", None)
         request.session.update(
             {
@@ -615,7 +618,7 @@ class MembershipRegistrationController(http.Controller):
                 "error": errors,
             }
         )
-        return True
+        return request.redirect("/membership-registration")
 
     @http.route(
         ["/apply-for-membership-success"],
