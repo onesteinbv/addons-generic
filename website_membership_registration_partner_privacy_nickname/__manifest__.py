@@ -7,7 +7,7 @@
     "author": "Onestein",
     "license": "AGPL-3",
     "website": "https://www.onestein.nl",
-    "depends": ["website_membership_registration", "website_partner_privacy_nickname"],
+    "depends": ["website_membership_registration_partner_privacy", "website_partner_privacy_nickname"],
     "assets": {
         "web.assets_frontend": [
             "website_membership_registration_partner_privacy_nickname/static/src/js/website_membership_registration.js",
