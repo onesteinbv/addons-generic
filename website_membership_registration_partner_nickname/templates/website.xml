@@ -6,6 +6,7 @@
                 <div class="row s_col_no_resize s_col_no_bgcolor" id="div_nickname">
                     <label class="col-form-label col-sm-auto" style="width: 200px" for="member_nickname">
                         <span>Nickname</span>
+                        <span class="s_website_form_mark" style="display:none"> *</span>
                     </label>
                     <div class="col-sm">
                         <input class="form-control" type="text" name="member_nickname" t-att-value="member_nickname"/>
