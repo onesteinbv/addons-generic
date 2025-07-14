@@ -45,6 +45,6 @@ class MembershipRegistrationControllerBirthDate(MembershipRegistrationController
             vals["birthdate_date"] = partner_data["member_birthdate_date"]
         return vals
 
-    def _update_old_data_in_session(self, partner_data, error_message, errors):
+    def _handle_errors(self, partner_data, error_message, errors):
         partner_data.pop("member_birthdate_date", None)
-        return super()._update_old_data_in_session(partner_data, error_message, errors)
+        return super()._handle_errors(partner_data, error_message, errors)
