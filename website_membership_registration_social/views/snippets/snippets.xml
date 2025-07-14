@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="snippet_options" inherit_id="website_membership_registration.snippet_options" name="membership registration snippet options">
+        <xpath expr="//div[@data-js='WebsiteMembershipRegistrationPage']" position="inside">
+                <we-checkbox string="Telegram"
+                         data-customize-website-views="website_membership_registration_social.telegram"
+                         data-no-preview="true"
+                         data-reload="/"/>
+        </xpath>
+    </template>
+</odoo>
