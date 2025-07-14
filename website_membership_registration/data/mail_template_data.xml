@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <record id="verification_email" model="mail.template">
+        <field name="name">Email Verification</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="subject">Verify Email</field>
+        <field name="email_from">"{{ object.company_id.name }}" &lt;{{ object.company_id.email }}&gt;</field>
+        <field name="email_to">{{object.email_formatted}}</field>
+        <field name="body_html" type="html">
+            <p>Dear <t t-out="object.name">partner</t>,</p>
+            <p>Your request has been received, please verify your email address by clicking <a t-att-href="ctx.get('verification_url')">here</a>.</p>
+            <p>Kind regards,</p>
+            <p><t t-out="user.name">user</t></p>
+        </field>
+        <field name="lang">{{object.lang}}</field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>
