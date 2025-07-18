@@ -9,6 +9,7 @@
     "depends": ["website_partner"],
     "data": [
         "templates/portal_template.xml",
+        "views/res_config_settings_view.xml",
         "views/res_partner.xml",
         "views/website_partner_templates.xml",
     ],
