@@ -32,10 +32,10 @@ class MembershipGroup(models.Model):
         string="Contacts",
         compute="_compute_partner_ids",
         store=True,
-        compute_sudo=False,
+        compute_sudo=True,
     )
     partner_ids_count = fields.Integer(
-        "# of Members", compute="_compute_partner_ids", store=True, compute_sudo=False
+        "# of Members", compute="_compute_partner_ids", store=True, compute_sudo=True
     )
 
     membership_end_date = fields.Date(
