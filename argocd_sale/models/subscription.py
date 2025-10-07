@@ -109,7 +109,7 @@ class Subscription(models.Model):
         return {
             "name": _("Applications"),
             "view_type": "form",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "argocd.application",
             "type": "ir.actions.act_window",
             "domain": [("id", "in", self.application_ids.ids)],
