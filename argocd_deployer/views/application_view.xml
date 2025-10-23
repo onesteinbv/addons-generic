@@ -90,8 +90,16 @@
                             <field name="domain_ids"/>
                         </group>
                     </group>
-                    <group string="YAML Configuration">
-                        <field name="config" widget="ace" nolabel="1" colspan="2" />
+                    <group string="YAML Configuration" col="3">
+                        <group string="Live">
+                            <field name="config_live" widget="ace" nolabel="1" />
+                        </group>
+                        <group string="Desired">
+                            <field name="config" widget="ace" nolabel="1" />
+                        </group>
+                        <group string="Diff">
+                            <field name="config_diff" widget="ace" nolabel="1" />
+                        </group>
                     </group>
                     <group string="Statistics">
                         <field name="stat_ids" nolabel="1" colspan="2" />

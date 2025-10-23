@@ -1,5 +1,7 @@
+import difflib
 import os
 import re
+from pathlib import Path
 
 import jinja2
 from git import Repo
@@ -21,7 +23,9 @@ class Application(models.Model):
     template_id = fields.Many2one(
         comodel_name="argocd.application.template", required=True
     )
+    config_live = fields.Text(compute="_compute_config_live")
     config = fields.Text()
+    config_diff = fields.Text(compute="_compute_config_live")
     modules = fields.Char(
         string="Modules (as string)",
         help="Comma separated list of modules",
@@ -104,6 +108,26 @@ class Application(models.Model):
                 "config.yaml",
             )
             app.is_deployed = os.path.isfile(path)
+
+    @api.depends("application_set_id", "application_set_id.is_deployed")
+    def _compute_config_live(self):
+        for app in self:
+            config_live = ""
+            if app.application_set_id:
+                path = Path(
+                    app.application_set_id._get_application_deployment_directory(
+                        app.name, "ignore"
+                    )
+                ) / Path("config.yaml")
+
+                if path.is_file():
+                    config_live = path.read_text()
+            # Compute diff
+            diff = difflib.ndiff(
+                config_live.splitlines(), (app.config or "").splitlines()
+            )
+            app.config_diff = "\n".join(diff)
+            app.config_live = config_live
 
     def _search_is_deployed(self, operator, value):
         if operator not in ["=", "!="]:
