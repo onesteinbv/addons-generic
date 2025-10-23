@@ -6,6 +6,13 @@
             <form>
                 <header>
                     <button
+                        name="render_config"
+                        type="object"
+                        class="btn-secondary"
+                        icon="fa-refresh"
+                        string="Render Config"
+                    />
+                    <button
                         name="immediate_deploy"
                         type="object"
                         string="Deploy"
@@ -20,6 +27,22 @@
                         class="btn-success"
                         confirm="Are you sure you want to deploy a new application set?"
                         invisible="is_deployed"
+                    />
+                    <button
+                        name="immediate_deploy"
+                        type="object"
+                        string="Redeploy"
+                        class="btn-warning"
+                        invisible="not is_immediate_repo_action_visible or not is_deployed"
+                        confirm="Are you sure you want to redeploy this application set?"
+                    />
+                    <button
+                        name="deploy"
+                        type="object"
+                        string="Queue Redeployment"
+                        class="btn-success"
+                        confirm="Are you sure you want to redeploy a new application set?"
+                        invisible="not is_deployed"
                     />
                     <button
                         name="immediate_destroy"
@@ -85,6 +108,17 @@
                         </group>
                         <group name="group_applications" string="Applications">
                             <field name="namespace_prefix_id"/>
+                        </group>
+                        <group string="YAML Configuration" col="3" colspan="2">
+                            <group string="Live">
+                                <field name="config_live" widget="ace" nolabel="1" />
+                            </group>
+                            <group string="Desired">
+                                <field name="config" widget="ace" nolabel="1" />
+                            </group>
+                            <group string="Diff">
+                                <field name="config_diff" widget="ace" nolabel="1" />
+                            </group>
                         </group>
                     </group>
                 </sheet>

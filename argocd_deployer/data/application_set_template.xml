@@ -37,6 +37,7 @@ spec:
           selfHeal: false
 </field>
     </record>
+    <data noupdate="1">
     <record id="application_set_template_default" model="argocd.application.set.template">
         <field name="name">Default application set template - Do not change</field>
         <field name="yaml">apiVersion: argoproj.io/v1alpha1
@@ -77,4 +78,5 @@ spec:
           selfHeal: false
         </field>
     </record>
+    </data>
 </odoo>

@@ -1,5 +1,7 @@
+import difflib
 import os
 import re
+from pathlib import Path
 
 from git import Repo
 
@@ -44,6 +46,9 @@ class ApplicationSet(models.Model):
         string="Application Followers",
         help="Partners that are automatically added as followers to applications in the application set.",
     )
+    config_live = fields.Text(compute="_compute_config_live")
+    config = fields.Text()
+    config_diff = fields.Text(compute="_compute_config_live")
 
     _sql_constraints = [
         ("application_set_name_unique", "unique(name)", "Already exists"),
@@ -258,7 +263,6 @@ class ApplicationSet(models.Model):
         in the root of the repository. There will be a templates folder in it, and a
         Chart.yaml file."""
         self.ensure_one()
-        template_yaml = self._get_argocd_template()
         repo_dir = self._get_master_repository_directory("create")
         application_set_dir = os.path.join(repo_dir, "master_application_set")
         template_dir = os.path.join(application_set_dir, "templates")
@@ -268,7 +272,7 @@ class ApplicationSet(models.Model):
 
         yaml_file = os.path.join(template_dir, "application_set.yaml")
         with open(yaml_file, "w") as fh:
-            fh.write(template_yaml)
+            fh.write(self.config)
 
         chart_file = os.path.join(application_set_dir, "Chart.yaml")
         with open(chart_file, "w") as fh:
@@ -284,7 +288,6 @@ appVersion: "1.0.0"
     def _create_application_set(self):
         """Deploy a new application set for ArgoCD."""
         self.ensure_one()
-        template_yaml = self._get_argocd_template()
         deployment_directory = self._get_application_set_deployment_directory("create")
         if not os.path.exists(deployment_directory):
             os.makedirs(deployment_directory)
@@ -292,7 +295,7 @@ appVersion: "1.0.0"
         yaml_file = os.path.join(deployment_directory, "application_set.yaml")
         message = "Added application set `%s`."
         with open(yaml_file, "w") as fh:
-            fh.write(template_yaml)
+            fh.write(self.config)
 
         return {ADD_FILES: [yaml_file]}, message
 
@@ -356,3 +359,27 @@ appVersion: "1.0.0"
         jobs = self._find_destroy_queue_jobs()
         for job in jobs:
             job.button_cancelled()
+
+    def _compute_config_live(self):
+        for app_set in self:
+            if app_set.is_master:
+                path = Path(app_set._get_master_repository_directory("ignore"))
+                path = path / Path(
+                    "master_application_set/templates/application_set.yaml"
+                )
+            else:
+                path = Path(app_set._get_application_set_deployment_directory("ignore"))
+                path = path / Path("application_set.yaml")
+            if path.is_file():
+                app_set.config_live = path.read_text()
+            else:
+                app_set.config_live = ""
+
+            diff = difflib.ndiff(
+                app_set.config_live.splitlines(), (app_set.config or "").splitlines()
+            )
+            app_set.config_diff = "\n".join(diff)
+
+    def render_config(self):
+        for app_set in self:
+            app_set.config = app_set._get_argocd_template()

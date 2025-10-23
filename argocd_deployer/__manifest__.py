@@ -4,7 +4,7 @@
     "website": "https://www.onestein.nl",
     "license": "AGPL-3",
     "category": "Tools",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "data": [
         "data/ir_config_parameter_data.xml",
         "data/application_namespace_prefix.xml",
