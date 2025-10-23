@@ -109,11 +109,11 @@ class Application(models.Model):
             )
             app.is_deployed = os.path.isfile(path)
 
-    @api.depends("application_set_id", "application_set_id.is_deployed")
+    @api.depends("application_set_id", "application_set_id.is_deployed", "name")
     def _compute_config_live(self):
         for app in self:
             config_live = ""
-            if app.application_set_id:
+            if app.application_set_id and app.name:
                 path = Path(
                     app.application_set_id._get_application_deployment_directory(
                         app.name, "ignore"
@@ -268,6 +268,11 @@ class Application(models.Model):
 
     def deploy(self):
         for app in self:
+            if not (app.config or "").strip():
+                raise ValidationError(
+                    _("Cannot deploy application '%s' with empty configuration.")
+                    % app.name
+                )
             app.with_delay().immediate_deploy()
 
     def immediate_destroy(self):
