@@ -45,6 +45,7 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
         """Get all the exchange rates from 'date_from' to 'date_to'"""
         content = {}
         current_date = date_from
+        api_key = self.env["ir.config_parameter"].get_param("X-CG_PRO_API_KEY")
         while current_date <= date_to:
             content[current_date] = {}
             for (
@@ -54,7 +55,7 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
             ):
                 try:
                     coin_data = self._get_coin_data_for_date(
-                        currency.provider_reference, current_date
+                        currency.provider_reference, current_date, api_key
                     )
                 except Exception as e:
                     _logger.warning(
@@ -90,7 +91,7 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
             current_date += timedelta(days=1)
         return content
 
-    def _get_coin_data_for_date(self, provider_reference, current_date):
+    def _get_coin_data_for_date(self, provider_reference, current_date, api_key):
         """Get the exchange rate for a coin on the given date"""
         retries = Retry(
             total=5,
@@ -102,6 +103,8 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
         session = requests.Session()
         session.mount("https://", adapter)
         params = {"date": current_date.strftime("%d-%m-%Y"), "localization": "en"}
+        if api_key:
+            params.update({"x-cg-pro-api-key": api_key})
         response = session.get(API_URL % provider_reference, params=params)
         response.raise_for_status()
         return response.json()
