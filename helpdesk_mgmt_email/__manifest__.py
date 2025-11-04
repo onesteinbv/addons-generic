@@ -8,12 +8,13 @@
     "category": "After-Sales",
     "author": "Onestein BV",
     "website": "https://www.onestein.nl",
-    "depends": ["helpdesk_mgmt", "base_automation"],
+    "depends": ["helpdesk_mgmt"],
     "data": [
         "data/mail_template.xml",
-        "data/automated_action.xml",
+        "data/ir_actions_server.xml",
         "views/helpdesk_ticket_team_view.xml",
         "views/helpdesk_ticket_view.xml",
+        "views/res_config_settings_view.xml",
     ],
     "installable": True,
 }
