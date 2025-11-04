@@ -358,7 +358,7 @@ msgid "Email"
 msgstr ""
 
 #. module: helpdesk_mgmt_email
-#: model:ir.actions.server,name:helpdesk_mgmt_email.automated_action_on_ticket_creation_ir_actions_server
+#: model:ir.actions.server,name:helpdesk_mgmt_email.email_on_ticket_creation
 msgid "Email on helpdesk ticket creation"
 msgstr "E-mail over het aanmaken van helpdesktickets"
 
