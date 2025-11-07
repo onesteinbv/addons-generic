@@ -112,7 +112,7 @@ class PaymentTransaction(models.Model):
                 )
             )
             if done_payment_transaction:
-                done_payment_transaction._reconcile_after_done()
+                done_payment_transaction._post_process()
         return payment_transaction
 
     def create_provider_recurring_payment(self, subscription):
