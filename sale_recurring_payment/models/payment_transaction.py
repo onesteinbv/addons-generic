@@ -133,6 +133,7 @@ class PaymentTransaction(models.Model):
             "provider_id": subscription.payment_provider_mandate_id.provider_id.id,
             "invoice_ids": [Command.set([invoice.id])],
             "payment_method_id": subscription.payment_provider_mandate_id.payment_method_id.id,
+            "operation": "offline",
         }
         return vals
 
