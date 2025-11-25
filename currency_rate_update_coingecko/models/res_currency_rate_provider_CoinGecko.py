@@ -11,6 +11,7 @@ from odoo import fields, models
 
 _logger = logging.getLogger(__name__)
 API_URL = "https://api.coingecko.com/api/v3/coins/%s/history"
+PRO_API_URL = "https://pro-api.coingecko.com/api/v3/coins/%s/history"
 
 
 class ResCurrencyRateProviderCoinGecko(models.Model):
@@ -104,7 +105,12 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
         session.mount("https://", adapter)
         params = {"date": current_date.strftime("%d-%m-%Y"), "localization": "en"}
         if api_key:
-            params.update({"x-cg-pro-api-key": api_key})
-        response = session.get(API_URL % provider_reference, params=params)
+            response = session.get(
+                PRO_API_URL % provider_reference,
+                params=params,
+                headers={"x-cg-pro-api-key": api_key},
+            )
+        else:
+            response = session.get(API_URL % provider_reference, params=params)
         response.raise_for_status()
         return response.json()
