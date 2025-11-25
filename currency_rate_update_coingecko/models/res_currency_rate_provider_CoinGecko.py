@@ -105,8 +105,11 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
         session.mount("https://", adapter)
         params = {"date": current_date.strftime("%d-%m-%Y"), "localization": "en"}
         if api_key:
-            params.update({"x-cg-pro-api-key": api_key})
-            response = session.get(PRO_API_URL % provider_reference, params=params)
+            response = session.get(
+                PRO_API_URL % provider_reference,
+                params=params,
+                headers={"x-cg-pro-api-key": api_key},
+            )
         else:
             response = session.get(API_URL % provider_reference, params=params)
         response.raise_for_status()
