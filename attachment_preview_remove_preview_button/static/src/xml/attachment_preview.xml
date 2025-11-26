@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t
+        t-name="Attachment"
+        t-inherit="mail.AttachmentList"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//button[@t-if='this._canPreviewAttachment(attachment)'][1]" position="replace">
+        </xpath>
+    </t>
+</templates>
