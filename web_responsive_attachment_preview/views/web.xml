@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+        <t t-set="head_web" position="inside">
+            <script type="text/javascript">
+                odoo.auto_attachment_preview = "<t
+                    t-out="request.env.user.auto_attachment_preview"
+                />";
+            </script>
+        </t>
+    </template>
+</odoo>
