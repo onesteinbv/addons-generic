@@ -8,7 +8,6 @@
     "website": "https://www.onestein.nl",
     "data": ["views/web.xml", "views/res_users.xml"],
     "depends": [
-        "attachment_preview",
         "web_responsive",
     ],
     "assets": {
