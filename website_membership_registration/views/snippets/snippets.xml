@@ -5,8 +5,8 @@
             <div data-js="WebsiteMembershipRegistrationPage" data-page-options="true" groups="website.group_website_designer" data-selector="main:has(.oe_website_membership_registration)" data-no-check="true"
             string="Membership Registration" data-target=".o_mark_required">
                 <we-select string="Group Layout" data-no-preview="true" data-reload="/">
-                    <we-button data-set-membership_group-style="list">List</we-button>
-                    <we-button data-set-membership_group-style="grid">Grid</we-button>
+                    <we-button data-set-membership-group-style="list">List</we-button>
+                    <we-button data-set-membership-group-style="grid">Grid</we-button>
                 </we-select>
                 <we-checkbox string="Bio"
                          data-customize-website-views="website_membership_registration.bio"
