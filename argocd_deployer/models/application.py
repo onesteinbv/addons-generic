@@ -26,6 +26,11 @@ class Application(models.Model):
     config_live = fields.Text(compute="_compute_config_live")
     config = fields.Text()
     config_diff = fields.Text(compute="_compute_config_live")
+    config_out_of_sync = fields.Boolean(
+        compute="_compute_config_out_of_sync",
+        string="Out of Sync",
+        help="Indicates whether the current configuration differs from the live configuration."
+    )
     tag_ids = fields.Many2many(
         comodel_name="argocd.application.tag",
         string="Tags",
@@ -103,6 +108,12 @@ class Application(models.Model):
                 "config.yaml",
             )
             app.is_deployed = os.path.isfile(path)
+
+
+    @api.depends("config_live", "config")
+    def _compute_config_out_of_sync(self):
+        for app in self:
+            app.config_out_of_sync = app.config_live != app.config
 
     @api.depends("application_set_id", "application_set_id.is_deployed", "name")
     def _compute_config_live(self):

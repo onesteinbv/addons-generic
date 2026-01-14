@@ -126,6 +126,14 @@
             <list decoration-success="is_deployed"
                   decoration-warning="not is_deployed"
             >
+                <field
+                    name="config_diff"
+                    widget="popover"
+                    icon="fa-exclamation-triangle"
+                    class="text-danger"
+                    invisible="not config_out_of_sync"
+                    nolabel="1"
+                />
                 <field name="is_deployed" column_invisible="1"/>
                 <field name="name" />
                 <field name="application_set_id" />

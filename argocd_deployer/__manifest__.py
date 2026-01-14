@@ -27,7 +27,7 @@
         "security/ir.model.access.csv",
         "menuitems.xml",
     ],
-    "depends": ["queue_job", "mail"],
+    "depends": ["queue_job", "mail", "web_widget_popover"],
     "demo": [
         "demo/application_template_demo.xml",
         "demo/application_tag_demo.xml",
