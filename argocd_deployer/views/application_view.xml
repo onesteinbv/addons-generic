@@ -114,8 +114,14 @@
         <field name="model">argocd.application</field>
         <field name="arch" type="xml">
             <search string="Applications">
-                <filter name="deployed_applications" string="Deployed Apps" domain="[('is_deployed', '=', True)]"/>
-                <filter name="not_deployed_applications" string="Not Deployed Apps" domain="[('is_deployed', '!=', True)]"/>
+                <field name="name" />
+                <field name="application_set_id" />
+                <field name="template_id" />
+                <field name="tag_ids" />
+
+                <filter name="deployed_applications" string="Deployed" domain="[('is_deployed', '=', True)]"/>
+                <filter name="not_deployed_applications" string="Not Deployed" domain="[('is_deployed', '!=', True)]"/>
+                <filter name="out_of_sync_applications" string="Out of Sync" domain="[('config_out_of_sync', '=', True)]"/>
             </search>
         </field>
     </record>
