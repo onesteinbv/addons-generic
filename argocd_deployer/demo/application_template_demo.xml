@@ -5,7 +5,6 @@
         <field name="config">
 helm: |
   domain: {{ create_domain(application.name + ".example.com", scope="Curq") }}
-  modules: website{{ application.modules and ',' + application.modules or '' }}
 {%- if has_tag('matomo_server') %}
   matomo:
     domain: {{ get_value("domain_matomo", format_domain("matomo")) }}

@@ -26,11 +26,6 @@ class Application(models.Model):
     config_live = fields.Text(compute="_compute_config_live")
     config = fields.Text()
     config_diff = fields.Text(compute="_compute_config_live")
-    modules = fields.Char(
-        string="Modules (as string)",
-        help="Comma separated list of modules",
-        compute="_compute_modules",
-    )
     tag_ids = fields.Many2many(
         comodel_name="argocd.application.tag",
         string="Tags",
@@ -172,13 +167,6 @@ class Application(models.Model):
                 ("https://%s" % prioritized_domain.name, prioritized_domain.scope)
             )
         return urls
-
-    @api.depends("tag_ids", "tag_ids.is_odoo_module")
-    def _compute_modules(self):
-        for application in self:
-            application.modules = ",".join(
-                application.tag_ids.filtered(lambda t: t.is_odoo_module).mapped("key")
-            )
 
     _sql_constraints = [
         (

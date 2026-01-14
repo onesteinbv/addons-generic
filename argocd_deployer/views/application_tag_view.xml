@@ -8,7 +8,6 @@
                     <group>
                         <field name="name" />
                         <field name="key" />
-                        <field name="is_odoo_module" />
                     </group>
                 </sheet>
             </form>
@@ -21,7 +20,6 @@
             <list>
                 <field name="name" />
                 <field name="key" />
-                <field name="is_odoo_module" />
             </list>
         </field>
     </record>
