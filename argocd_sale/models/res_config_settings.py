@@ -7,16 +7,16 @@ class ResConfigSettings(models.TransientModel):
     subscription_grace_period = fields.Integer(
         config_parameter="argocd_sale.grace_period", string="Grace Period (in days)"
     )
-    subscription_grace_period_action = fields.Selection(
+    subscription_termination_action = fields.Selection(
         selection=[
             ("destroy_app", "Destroy application"),
             ("add_tag", "Add tag"),
         ],
         default="add_tag",
-        config_parameter="argocd_sale.grace_period_action",
+        config_parameter="argocd_sale.termination_action",
     )
-    subscription_grace_period_tag_id = fields.Many2one(
+    subscription_termination_tag_id = fields.Many2one(
         comodel_name="argocd.application.tag",
-        config_parameter="argocd_sale.grace_period_tag_id",
+        config_parameter="argocd_sale.termination_tag_id",
         string="Tag",
     )

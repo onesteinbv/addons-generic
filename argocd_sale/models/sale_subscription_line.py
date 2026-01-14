@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import _, api, fields, models, Command
 from odoo.exceptions import UserError
 
 
@@ -70,15 +70,46 @@ class SubscriptionLine(models.Model):
             ).mapped("application_ids")
         res = super().write(vals)
         for app in to_redeploy:
-            app.render_config()
-            app.deploy()
+            app.render_config()  # Rerender config according to new product
         return res
+    
+    def _terminate_applications(self, eta=None):
+        self.with_delay(eta=eta)._immediate_terminate_applications()
+
+    def _immediate_terminate_applications(self):
+        """
+        Executes the termination action on self.
+
+        @return: False if nothing has been done, True if the action has been done
+        """
+        termination_action = self.env["ir.config_parameter"].get_param(
+            "argocd_sale.termination_action"
+        )
+        if not termination_action:
+            return False
+
+        applications = self.mapped("application_ids")
+
+        if termination_action == "add_tag":
+            termination_tag_id = int(
+                self.env["ir.config_parameter"].get_param(
+                    "argocd_sale.termination_tag_id", "0"
+                )
+            )
+            if not termination_tag_id:
+                return False
+            tag = self.env["argocd.application.tag"].browse(termination_tag_id)
+            if not tag:
+                return False
+            applications.write({"tag_ids": [Command.link(tag.id)]})
+            applications.render_config()
+        elif termination_action == "destroy_app":
+            applications.destroy()
+        return True
 
     @api.ondelete(at_uninstall=False)
-    def _unlink_and_destroy_app(self):
-        for line in self.filtered(lambda l: l.application_ids):
-            delta = line.sale_subscription_id.recurring_next_date - fields.Date.today()
-            line.application_ids.destroy(eta=int(delta.total_seconds()))
+    def _unlink_and_terminate_app(self):
+        self._terminate_applications()
 
     def _invoice_paid_hook(self):
         self.ensure_one()

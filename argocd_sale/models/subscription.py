@@ -42,34 +42,6 @@ class Subscription(models.Model):
             for line in lines:
                 line._invoice_paid_hook()
 
-    def _do_grace_period_action(self):
-        """
-        Executes the grace period action on self.
-
-        @return: False if nothing has been done, True if the action has been done
-        """
-        grace_period_action = self.env["ir.config_parameter"].get_param(
-            "argocd_sale.grace_period_action"
-        )
-        if not grace_period_action:
-            return False
-        linked_apps = self.mapped("sale_subscription_line_ids.application_ids")
-        if grace_period_action == "add_tag":
-            grace_period_tag_id = int(
-                self.env["ir.config_parameter"].get_param(
-                    "argocd_sale.grace_period_tag_id", "0"
-                )
-            )
-            if not grace_period_tag_id:
-                return False
-            tag = self.env["argocd.application.tag"].browse(grace_period_tag_id)
-            if not tag:
-                return False
-            linked_apps.write({"tag_ids": [Command.link(tag.id)]})
-        elif grace_period_action == "destroy_app":
-            linked_apps.destroy()
-        return True
-
     def cron_update_payment_provider_payments(self):
         # Process last payments first because in here paid_for_date can be updated
         res = super().cron_update_payment_provider_payments()
@@ -83,26 +55,15 @@ class Subscription(models.Model):
         )
         for late_sub in late_subs:
             late_sub.with_context(
-                no_destroy_app=True
-            ).close_subscription()  # no_destroy_app since we're doing the grace period action after this.
-        late_subs._do_grace_period_action()
+                termination_eta=0
+            ).close_subscription()  # Immediately terminate applications
         return res
 
     def close_subscription(self, close_reason_id=False):
-        destroy_app = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("argocd_sale.destroy_app_on_subscription_close", "False")
-            == "True"
-        )
-
-        if not self.env.context.get("no_destroy_app", False) and destroy_app:
-            # This is fine since portal users don't have write access on sale.subscription and the super writes the record
-            # Destroy app
-            self.ensure_one()
-            delta = self.recurring_next_date - fields.Date.today()
-            for line in self.filtered(lambda l: l.application_ids):
-                line.application_ids.destroy(eta=int(delta.total_seconds()))
+        self.ensure_one()
+        delta = self.recurring_next_date - fields.Date.today()
+        eta = self.env.context.get("termination_eta", int(delta.total_seconds()))
+        self.sale_subscription_line_ids._terminate_applications(eta=eta)
         return super().close_subscription(close_reason_id)
 
     def view_applications(self):
