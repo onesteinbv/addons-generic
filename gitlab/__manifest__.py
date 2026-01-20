@@ -7,6 +7,7 @@
     "license": "AGPL-3",
     "depends": ["base", "queue_job"],
     "external_dependencies": {"python": ["python-gitlab"]},
+    "demo": ["demo/gitlab_data.xml"],
     "data": [
         "security/ir_model_access.xml",
         "data/ir_cron_data.xml",

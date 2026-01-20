@@ -27,7 +27,7 @@ class ResPartner(models.Model):
         self.env.registry.clear_cache()
         return super().unlink()
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         self.env.registry.clear_cache()
-        return super().create(vals)
+        return super().create(vals_list)
