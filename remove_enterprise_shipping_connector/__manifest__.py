@@ -4,5 +4,6 @@
     "category": "Maintenance",
     "author": "Onestein",
     "license": "AGPL-3",
+    "website": "https://www.onestein.nl",
     "depends": ["base_setup"],
 }

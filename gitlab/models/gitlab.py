@@ -35,3 +35,10 @@ class Gitlab(models.Model):
                 "type": "success",
             },
         }
+
+    @api.model
+    def cron_import(self):
+        for project in self.env["gitlab.project"].search([]):
+            project.import_commits()
+            project.import_issues()
+            project.import_merge_requests()
