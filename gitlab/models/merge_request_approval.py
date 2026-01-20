@@ -28,3 +28,6 @@ class MergeRequestApproval(models.Model):
                 approval.approver_username
             )
             approval.partner_id = partner_id
+
+    def reconcile_partner(self):
+        self._compute_partner_id()

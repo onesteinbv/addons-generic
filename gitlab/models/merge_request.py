@@ -53,6 +53,9 @@ class MergeRequest(models.Model):
             )
             merge_request.partner_id = partner_id
 
+    def reconcile_partner(self):
+        self._compute_partner_id()
+
     def import_approvals(self):
         for merge_request in self:
             merge_request.with_delay(max_retries=0)._import_approvals()

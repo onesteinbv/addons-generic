@@ -33,3 +33,6 @@ class Note(models.Model):
                 note.author_username
             )
             note.partner_id = partner_id
+
+    def reconcile_partner(self):
+        self._compute_partner_id()

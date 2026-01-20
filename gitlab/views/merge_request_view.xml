@@ -17,6 +17,7 @@
                         <field name="url" widget="url" />
                         <field name="created_at" />
                         <field name="project_id" />
+                        <field name="partner_id" />
                         <field name="note_ids" />
                         <field name="approval_ids">
                             <list>
@@ -40,6 +41,7 @@
                 <field name="url" widget="url" />
                 <field name="created_at" />
                 <field name="project_id" />
+                <field name="partner_id" optional="hide" />
                 <field name="state" />
             </list>
         </field>
@@ -49,5 +51,15 @@
         <field name="name">Gitlab Merge Requests</field>
         <field name="res_model">gitlab.merge.request</field>
         <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="merge_request_reconcile_partner_action" model="ir.actions.server">
+        <field name="name">Reconcile Partners</field>
+        <field name="model_id" ref="model_gitlab_merge_request"/>
+        <field name="binding_model_id" ref="model_gitlab_merge_request"/>
+        <field name="state">code</field>
+        <field name="code">
+            records.reconcile_partner()
+        </field>
     </record>
 </odoo>

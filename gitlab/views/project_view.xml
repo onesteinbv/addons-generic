@@ -14,6 +14,7 @@
                         <field name="name" />
                         <field name="gitlab_id" />
                         <field name="group_id" />
+                        <field name="url" widget="url" />
                     </group>
                 </sheet>
             </form>

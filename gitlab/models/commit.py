@@ -4,6 +4,7 @@ from odoo import api, fields, models
 class Commit(models.Model):
     _name = "gitlab.commit"
     _description = "Gitlab Commit"
+    _rec_name = "external_id"
 
     project_id = fields.Many2one(
         comodel_name="gitlab.project", string="Project", required=True
@@ -28,6 +29,9 @@ class Commit(models.Model):
                 commit.author_email
             )
             commit.partner_id = partner_id
+
+    def reconcile_partner(self):
+        self._compute_partner_id()
 
     _sql_constraints = [
         (

@@ -14,7 +14,7 @@ class Project(models.Model):
     gitlab_id = fields.Many2one(comodel_name="gitlab", string="Gitlab", required=True)
     name = fields.Char(required=True)
     external_id = fields.Integer(string="External ID", store=True)
-    url = fields.Char(required=True)
+    url = fields.Char()
     group_id = fields.Many2one(
         comodel_name="gitlab.group",
         string="Group",

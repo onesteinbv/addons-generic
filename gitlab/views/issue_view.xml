@@ -15,6 +15,7 @@
                         <field name="author_username" />
                         <field name="url" widget="url" />
                         <field name="created_at" />
+                        <field name="partner_id" />
                         <field name="project_id" />
                         <field name="note_ids" />
                     </group>
@@ -33,6 +34,7 @@
                 <field name="url" widget="url" />
                 <field name="created_at" />
                 <field name="project_id" />
+                <field name="partner_id" optional="hide" />
                 <field name="state" />
             </list>
         </field>
@@ -42,5 +44,15 @@
         <field name="name">Gitlab Issues</field>
         <field name="res_model">gitlab.issue</field>
         <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="issue_reconcile_partner_action" model="ir.actions.server">
+        <field name="name">Reconcile Partners</field>
+        <field name="model_id" ref="model_gitlab_issue"/>
+        <field name="binding_model_id" ref="model_gitlab_issue"/>
+        <field name="state">code</field>
+        <field name="code">
+            records.reconcile_partner()
+        </field>
     </record>
 </odoo>
