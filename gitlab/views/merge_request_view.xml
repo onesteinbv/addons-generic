@@ -36,12 +36,12 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name" />
-                <field name="description" />
                 <field name="author_username" />
                 <field name="url" widget="url" />
                 <field name="created_at" />
                 <field name="project_id" />
                 <field name="partner_id" optional="hide" />
+                <field name="throughtput_time" optional="hide" />
                 <field name="state" />
             </list>
         </field>
@@ -64,7 +64,7 @@
                 <filter
                     name="last_year"
                     string="Last year"
-                    domain="[('created_at', '&gt;=', (context_today() - datetime.timedelta(year=1)).strftime('%Y-%m-%d'))]"
+                    domain="[('created_at', '&gt;=', (context_today() - datetime.timedelta(days=365)).strftime('%Y-%m-%d'))]"
                 />
 
                 <group string="Group By">

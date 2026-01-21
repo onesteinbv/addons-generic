@@ -12,7 +12,7 @@ class MergeRequestApproval(models.Model):
         ondelete="cascade",
     )
     approver_username = fields.Char(required=True)
-    approver_id = fields.Integer(string="Approver ID", required=True)
+    approver_id = fields.Char(string="Approver ID", required=True)
     approved_at = fields.Datetime(required=True)
     partner_id = fields.Many2one(
         comodel_name="res.partner",

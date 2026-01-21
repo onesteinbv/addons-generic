@@ -13,12 +13,22 @@ class Project(models.Model):
 
     gitlab_id = fields.Many2one(comodel_name="gitlab", string="Gitlab", required=True)
     name = fields.Char(required=True)
-    external_id = fields.Integer(string="External ID", store=True)
+    external_id = fields.Char(string="External ID", store=True)
     url = fields.Char()
     group_id = fields.Many2one(
         comodel_name="gitlab.group",
         string="Group",
         required=True,
+    )
+    issue_ids = fields.One2many(
+        comodel_name="gitlab.issue",
+        inverse_name="project_id",
+        string="Issues",
+    )
+    merge_request_ids = fields.One2many(
+        comodel_name="gitlab.merge.request",
+        inverse_name="project_id",
+        string="Merge Requests",
     )
 
     def import_commits(self):
@@ -104,8 +114,9 @@ class Project(models.Model):
         create_values = []
         updated_issues = self.env["gitlab.issue"]
         for issue in issues:
-            existing_issue = self.env["gitlab.issue"].search(
-                [("project_id", "=", self.id), ("external_id", "=", issue.iid)], limit=1
+            issue_iid = str(issue.iid)
+            existing_issue = self.issue_ids.filtered(
+                lambda i: i.external_id == issue_iid
             )
             if existing_issue:
                 existing_issue.write(
@@ -119,7 +130,7 @@ class Project(models.Model):
                 create_values.append(
                     {
                         "project_id": self.id,
-                        "external_id": issue.iid,
+                        "external_id": issue_iid,
                         "name": issue.title,
                         "description": issue.description,
                         "author_username": issue.author["username"],
@@ -173,8 +184,9 @@ class Project(models.Model):
         create_values = []
         updated_merge_requests = self.env["gitlab.merge.request"]
         for mr in mrs:
-            existing_mr = self.env["gitlab.merge.request"].search(
-                [("project_id", "=", self.id), ("external_id", "=", mr.iid)], limit=1
+            mr_iid = str(mr.iid)
+            existing_mr = self.merge_request_ids.filtered(
+                lambda m: m.external_id == mr_iid
             )
             if existing_mr:
                 existing_mr.write(
@@ -188,7 +200,7 @@ class Project(models.Model):
                 create_values.append(
                     {
                         "project_id": self.id,
-                        "external_id": mr.iid,
+                        "external_id": mr_iid,
                         "name": mr.title,
                         "description": mr.description,
                         "author_username": mr.author["username"],
@@ -207,6 +219,7 @@ class Project(models.Model):
 
         if not mrs:
             return
+        # Sometimes Gitlab returns 99 items, yet there are more pages
         self.with_delay(max_retries=0)._import_merge_requests(
             page + 1, per_page, since, until
         )

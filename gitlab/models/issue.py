@@ -17,7 +17,7 @@ class Issue(models.Model):
     gitlab_id = fields.Many2one(
         comodel_name="gitlab", string="Gitlab", related="project_id.gitlab_id"
     )
-    external_id = fields.Integer(string="External ID", required=True)
+    external_id = fields.Char(string="External ID", required=True)
     name = fields.Char(string="Title", required=True)
     description = fields.Text()
     url = fields.Char(required=True)
@@ -108,11 +108,11 @@ class Issue(models.Model):
         }
         notes = issue.notes.list(**params)
         existing_notes = self.note_ids.mapped("external_id")
-        filtered_notes = filter(lambda n: n.id not in existing_notes, notes)
+        filtered_notes = filter(lambda n: str(n.id) not in existing_notes, notes)
         create_values = [
             {
                 "project_id": self.project_id.id,
-                "external_id": note.id,
+                "external_id": str(note.id),
                 "name": note.body,
                 "created_at": _gitlab_datetime_to_odoo(note.created_at),
                 "author_username": note.author["username"],

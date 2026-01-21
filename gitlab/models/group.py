@@ -9,7 +9,7 @@ class Group(models.Model):
 
     gitlab_id = fields.Many2one(comodel_name="gitlab", string="Gitlab", required=True)
     name = fields.Char(required=True)
-    external_id = fields.Integer(
+    external_id = fields.Char(
         string="External ID", store=True, readonly=True, compute="_compute_external_id"
     )
     project_ids = fields.One2many(
@@ -63,18 +63,19 @@ class Group(models.Model):
         )
 
         for subgroup in subgroups:
-            if subgroup.id not in existing_groups_map:
+            subgroup_id = str(subgroup.id)
+            if subgroup_id not in existing_groups_map:
                 gitlab_group = self.env["gitlab.group"].create(
                     {
                         "gitlab_id": self.gitlab_id.id,
                         "parent_id": self.id,
                         "name": subgroup.full_path,
-                        "external_id": subgroup.id,
+                        "external_id": subgroup_id,
                     }
                 )
             else:
                 gitlab_group = existing_groups.filtered(
-                    lambda g: g.external_id == subgroup.id
+                    lambda g: g.external_id == subgroup_id
                 )
             gitlab_group.with_delay()._import_subgroups()
 
@@ -91,13 +92,14 @@ class Group(models.Model):
         create_values = []
 
         for project in projects:
-            if project.id not in existing_projects:
+            project_id = str(project.id)
+            if project_id not in existing_projects:
                 create_values.append(
                     {
                         "gitlab_id": self.gitlab_id.id,
                         "group_id": self.id,
                         "name": project.name,
-                        "external_id": project.id,
+                        "external_id": project_id,
                         "url": project.web_url,
                     }
                 )

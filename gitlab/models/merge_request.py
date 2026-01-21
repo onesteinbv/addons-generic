@@ -13,7 +13,7 @@ class MergeRequest(models.Model):
     gitlab_id = fields.Many2one(
         comodel_name="gitlab", string="Gitlab", related="project_id.gitlab_id"
     )
-    external_id = fields.Integer(string="External ID", required=True)
+    external_id = fields.Char(string="External ID", required=True)
     name = fields.Char(required=True)
     description = fields.Text()
     url = fields.Char(required=True)
@@ -50,6 +50,14 @@ class MergeRequest(models.Model):
         string="Throughput Time (days)", compute="_compute_throughtput_time", store=True
     )
 
+    _sql_constraints = [
+        (
+            "gitlab_merge_request_uniq",
+            "unique(project_id, external_id)",
+            "A merge request with the same External ID already exists for this project.",
+        ),
+    ]
+
     @api.depends("created_at", "merged_at", "closed_at")
     def _compute_throughtput_time(self):
         for merge_request in self:
@@ -85,15 +93,15 @@ class MergeRequest(models.Model):
         merge_request = project.mergerequests.get(self.external_id, max_retries=-1)
         approvals = merge_request.approvals.get(max_retries=-1)
         create_values = []
-        existing_approvals = self.approval_ids.mapped("approver_id")
         for approval in approvals.approved_by:
-            if approval["user"]["id"] in existing_approvals:
+            approval_user_id = str(approval["user"]["id"])
+            if self.approval_ids.filtered(lambda a: a.approver_id == approval_user_id):
                 continue
             create_values.append(
                 {
                     "merge_request_id": self.id,
                     "approver_username": approval["user"]["username"],
-                    "approver_id": approval["user"]["id"],
+                    "approver_id": approval_user_id,
                     "approved_at": _gitlab_datetime_to_odoo(approval["approved_at"]),
                 }
             )
@@ -118,11 +126,11 @@ class MergeRequest(models.Model):
         }
         notes = merge_request.notes.list(**params)
         existing_notes = self.note_ids.mapped("external_id")
-        filtered_notes = filter(lambda n: n.id not in existing_notes, notes)
+        filtered_notes = filter(lambda n: str(n.id) not in existing_notes, notes)
         create_values = [
             {
                 "project_id": self.project_id.id,
-                "external_id": note.id,
+                "external_id": str(note.id),
                 "name": note.body,
                 "created_at": _gitlab_datetime_to_odoo(note.created_at),
                 "author_username": note.author["username"],

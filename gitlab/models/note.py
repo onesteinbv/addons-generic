@@ -8,7 +8,9 @@ class Note(models.Model):
     project_id = fields.Many2one(
         comodel_name="gitlab.project", string="Project", required=True
     )
-    external_id = fields.Integer(string="External ID", required=True)
+    external_id = fields.Char(
+        string="External ID", required=True
+    )  # Char because Gitlab ids are larger than int4
     name = fields.Char(required=True)
     created_at = fields.Datetime()
     author_username = fields.Char(string="Username")

@@ -11,6 +11,7 @@
     "data": [
         "security/ir_model_access.xml",
         "data/ir_cron_data.xml",
+        "data/queue_job_function_data.xml",
         "views/gitlab_view.xml",
         "views/group_view.xml",
         "views/project_view.xml",
