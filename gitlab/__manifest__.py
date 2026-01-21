@@ -1,8 +1,8 @@
 {
     "name": "Gitlab",
-    "category": "Technical",
+    "category": "Tools",
     "version": "18.0.1.0.0",
-    "author": "Onestein",
+    "author": "Onestein, Odoo Community Association (OCA)",
     "website": "https://www.onestein.nl",
     "license": "AGPL-3",
     "depends": ["base", "queue_job"],
