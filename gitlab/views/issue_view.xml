@@ -54,6 +54,17 @@
                 <field name="state"/>
                 <field name="project_id"/>
                 <field name="partner_id"/>
+                <separator />
+                <filter
+                    name="last_30_days"
+                    string="Last 30 days"
+                    domain="[('created_at', '&gt;=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"
+                />
+                <filter
+                    name="last_year"
+                    string="Last year"
+                    domain="[('created_at', '&gt;=', (context_today() - datetime.timedelta(year=1)).strftime('%Y-%m-%d'))]"
+                />
 
                 <group string="Group By">
                     <filter string="Project" name="groupby_project_id" domain="[]" help="Project"
