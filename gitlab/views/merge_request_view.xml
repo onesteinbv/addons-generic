@@ -47,6 +47,25 @@
         </field>
     </record>
 
+    <record id="merge_request_search" model="ir.ui.view">
+        <field name="model">gitlab.merge.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="project_id"/>
+                <field name="partner_id"/>
+
+                <group string="Group By">
+                    <filter string="Project" name="groupby_project_id" domain="[]" help="Project"
+                        context="{'group_by':'project_id'}" />
+                    <filter string="State" name="groupby_state" domain="[]" help="State"
+                        context="{'group_by':'state'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="merge_request_action" model="ir.actions.act_window">
         <field name="name">Gitlab Merge Requests</field>
         <field name="res_model">gitlab.merge.request</field>

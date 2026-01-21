@@ -19,14 +19,16 @@ class Gitlab(models.Model):
 
     def get_server_connection(self):
         self.ensure_one()
-        gl = gitlab.Gitlab(url=self.url, private_token=self.private_token)
+        conn = gitlab.Gitlab(
+            url=self.url, private_token=self.private_token, retry_transient_errors=True
+        )
         if self.debug:
-            gl.enable_debug()
-        return gl
+            conn.enable_debug()
+        return conn
 
     def validate(self):
-        gl = self.get_server_connection()
-        gl.auth()
+        conn = self.get_server_connection()
+        conn.auth()
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
@@ -42,3 +44,12 @@ class Gitlab(models.Model):
             project.import_commits()
             project.import_issues()
             project.import_merge_requests()
+
+    @api.model
+    def cron_update_throughtput_times(self):
+        issues = self.env["gitlab.issue"].search([("state", "!=", "closed")])
+        issues._compute_throughtput_time()
+        merge_requests = self.env["gitlab.merge.request"].search(
+            [("state", "not in", ("merged", "closed"))]
+        )
+        merge_requests._compute_throughtput_time()

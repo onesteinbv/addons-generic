@@ -19,6 +19,8 @@ class MergeRequest(models.Model):
     url = fields.Char(required=True)
     created_at = fields.Datetime()
     updated_at = fields.Datetime()
+    closed_at = fields.Datetime()
+    merged_at = fields.Datetime()
     author_username = fields.Char(string="Username")
     state = fields.Selection(
         selection=[
@@ -44,6 +46,22 @@ class MergeRequest(models.Model):
         compute="_compute_partner_id",
         store=True,
     )
+    throughtput_time = fields.Integer(
+        string="Throughput Time (days)", compute="_compute_throughtput_time", store=True
+    )
+
+    @api.depends("created_at", "merged_at", "closed_at")
+    def _compute_throughtput_time(self):
+        for merge_request in self:
+            if merge_request.merged_at and merge_request.created_at:
+                delta = merge_request.merged_at - merge_request.created_at
+                merge_request.throughtput_time = delta.days
+            if merge_request.closed_at and merge_request.created_at:
+                delta = merge_request.closed_at - merge_request.created_at
+                merge_request.throughtput_time = delta.days
+            else:
+                delta = fields.Datetime.now() - merge_request.created_at
+                merge_request.throughtput_time = delta.days
 
     @api.depends("author_username")
     def _compute_partner_id(self):
@@ -63,10 +81,9 @@ class MergeRequest(models.Model):
     def _import_approvals(self):
         self.ensure_one()
         conn = self.gitlab_id.get_server_connection()
-        merge_request = conn.projects.get(
-            self.project_id.external_id
-        ).mergerequests.get(self.external_id)
-        approvals = merge_request.approvals.get()
+        project = conn.projects.get(self.project_id.external_id, max_retries=-1)
+        merge_request = project.mergerequests.get(self.external_id, max_retries=-1)
+        approvals = merge_request.approvals.get(max_retries=-1)
         create_values = []
         existing_approvals = self.approval_ids.mapped("approver_id")
         for approval in approvals.approved_by:
@@ -91,9 +108,8 @@ class MergeRequest(models.Model):
     def _import_notes(self, page, per_page):
         self.ensure_one()
         conn = self.gitlab_id.get_server_connection()
-        merge_request = conn.projects.get(
-            self.project_id.external_id
-        ).mergerequests.get(self.external_id)
+        project = conn.projects.get(self.project_id.external_id, max_retries=-1)
+        merge_request = project.mergerequests.get(self.external_id, max_retries=-1)
         params = {
             "page": page,
             "per_page": per_page,

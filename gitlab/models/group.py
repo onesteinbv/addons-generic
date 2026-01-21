@@ -54,11 +54,13 @@ class Group(models.Model):
     def _import_subgroups(self):
         self.ensure_one()
         conn = self.gitlab_id.get_server_connection()
-        group = conn.groups.get(self.name)
+        group = conn.groups.get(self.name, max_retries=-1)
 
         existing_groups = self.child_ids
         existing_groups_map = existing_groups.mapped("external_id")
-        subgroups = group.subgroups.list(get_all=True, all_available=True)
+        subgroups = group.subgroups.list(
+            get_all=True, all_available=True, max_retries=-1
+        )
 
         for subgroup in subgroups:
             if subgroup.id not in existing_groups_map:
@@ -82,7 +84,8 @@ class Group(models.Model):
     def _import_projects(self):
         self.ensure_one()
         conn = self.gitlab_id.get_server_connection()
-        projects = conn.groups.get(self.name).projects.list(get_all=True)
+        group = conn.groups.get(self.name, max_retries=-1)
+        projects = group.projects.list(get_all=True, max_retries=-1)
 
         existing_projects = self.project_ids.mapped("external_id")
         create_values = []

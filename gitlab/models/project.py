@@ -127,6 +127,7 @@ class Project(models.Model):
                         "created_at": _gitlab_datetime_to_odoo(issue.created_at),
                         "state": issue.state,
                         "updated_at": _gitlab_datetime_to_odoo(issue.updated_at),
+                        "closed_at": _gitlab_datetime_to_odoo(issue.closed_at),
                     }
                 )
         new_issues = self.env["gitlab.issue"].create(create_values)
@@ -195,6 +196,8 @@ class Project(models.Model):
                         "created_at": _gitlab_datetime_to_odoo(mr.created_at),
                         "state": mr.state,
                         "updated_at": _gitlab_datetime_to_odoo(mr.updated_at),
+                        "closed_at": _gitlab_datetime_to_odoo(mr.closed_at),
+                        "merged_at": _gitlab_datetime_to_odoo(mr.merged_at),
                     }
                 )
         new_merge_requests = self.env["gitlab.merge.request"].create(create_values)

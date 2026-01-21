@@ -23,6 +23,7 @@ class Issue(models.Model):
     url = fields.Char(required=True)
     created_at = fields.Datetime()
     updated_at = fields.Datetime()
+    closed_at = fields.Datetime()
     author_username = fields.Char(string="Username")
     state = fields.Selection(
         selection=[
@@ -36,6 +37,19 @@ class Issue(models.Model):
         compute="_compute_partner_id",
         store=True,
     )
+    throughtput_time = fields.Integer(
+        string="Throughput Time (days)", compute="_compute_throughtput_time", store=True
+    )
+
+    @api.depends("created_at", "closed_at")
+    def _compute_throughtput_time(self):
+        for issue in self:
+            if issue.closed_at and issue.created_at:
+                delta = issue.closed_at - issue.created_at
+                issue.throughtput_time = delta.days
+            else:
+                delta = fields.Datetime.now() - issue.created_at
+                issue.throughtput_time = delta.days
 
     @api.depends("author_username")
     def _compute_partner_id(self):
@@ -84,9 +98,8 @@ class Issue(models.Model):
     def _import_notes(self, page, per_page, since, until):
         self.ensure_one()
         conn = self.gitlab_id.get_server_connection()
-        issue = conn.projects.get(self.project_id.external_id).issues.get(
-            self.external_id
-        )
+        project = conn.projects.get(self.project_id.external_id, max_retries=-1)
+        issue = project.issues.get(self.external_id, max_retries=-1)
         params = {
             "page": page,
             "per_page": per_page,
