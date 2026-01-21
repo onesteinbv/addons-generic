@@ -5,8 +5,16 @@
         <field name="arch" type="xml">
             <form string="Gitlab Group">
                 <header>
-                    <button name="import_subgroups" type="object" string="Import Subgroups"/>
-                    <button name="import_projects" type="object" string="Import Projects"/>
+                    <button
+                        name="import_subgroups"
+                        type="object"
+                        string="Import Subgroups"
+                    />
+                    <button
+                        name="import_projects"
+                        type="object"
+                        string="Import Projects"
+                    />
                 </header>
                 <sheet>
                     <group>

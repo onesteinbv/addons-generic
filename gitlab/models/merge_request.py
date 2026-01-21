@@ -54,7 +54,8 @@ class MergeRequest(models.Model):
         (
             "gitlab_merge_request_uniq",
             "unique(project_id, external_id)",
-            "A merge request with the same External ID already exists for this project.",
+            "A merge request with the same External "
+            "ID already exists for this project.",
         ),
     ]
 

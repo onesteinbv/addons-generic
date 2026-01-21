@@ -40,8 +40,8 @@
 
     <record id="note_reconcile_partner_action" model="ir.actions.server">
         <field name="name">Reconcile Partners</field>
-        <field name="model_id" ref="model_gitlab_note"/>
-        <field name="binding_model_id" ref="model_gitlab_note"/>
+        <field name="model_id" ref="model_gitlab_note" />
+        <field name="binding_model_id" ref="model_gitlab_note" />
         <field name="state">code</field>
         <field name="code">
             records.reconcile_partner()

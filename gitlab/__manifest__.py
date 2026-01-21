@@ -3,7 +3,7 @@
     "category": "Tools",
     "version": "18.0.1.0.0",
     "author": "Onestein, Odoo Community Association (OCA)",
-    "website": "https://www.onestein.nl",
+    "website": "https://github.com/OCA/server-backend",
     "license": "AGPL-3",
     "depends": ["base", "queue_job"],
     "external_dependencies": {"python": ["python-gitlab"]},

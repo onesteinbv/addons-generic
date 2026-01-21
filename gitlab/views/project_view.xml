@@ -5,9 +5,17 @@
         <field name="arch" type="xml">
             <form string="Gitlab Project">
                 <header>
-                    <button name="import_commits" string="Import Commits" type="object" />
+                    <button
+                        name="import_commits"
+                        string="Import Commits"
+                        type="object"
+                    />
                     <button name="import_issues" string="Import Issues" type="object" />
-                    <button name="import_merge_requests" string="Import Merge Requests" type="object" />
+                    <button
+                        name="import_merge_requests"
+                        string="Import Merge Requests"
+                        type="object"
+                    />
                 </header>
                 <sheet>
                     <group>

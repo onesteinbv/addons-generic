@@ -5,8 +5,13 @@
         <field name="arch" type="xml">
             <form string="Gitlab Issue">
                 <header>
-                    <button name="import_notes" type="object" string="Import Notes"/>
-                    <field name="state" readonly="1" widget="statusbar" statusbar_visible="opened,closed"/>
+                    <button name="import_notes" type="object" string="Import Notes" />
+                    <field
+                        name="state"
+                        readonly="1"
+                        widget="statusbar"
+                        statusbar_visible="opened,closed"
+                    />
                 </header>
                 <sheet>
                     <group>
@@ -50,10 +55,10 @@
         <field name="model">gitlab.issue</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name"/>
-                <field name="state"/>
-                <field name="project_id"/>
-                <field name="partner_id"/>
+                <field name="name" />
+                <field name="state" />
+                <field name="project_id" />
+                <field name="partner_id" />
                 <separator />
                 <filter
                     name="last_30_days"
@@ -67,10 +72,20 @@
                 />
 
                 <group string="Group By">
-                    <filter string="Project" name="groupby_project_id" domain="[]" help="Project"
-                        context="{'group_by':'project_id'}" />
-                    <filter string="State" name="groupby_state" domain="[]" help="State"
-                        context="{'group_by':'state'}" />
+                    <filter
+                        string="Project"
+                        name="groupby_project_id"
+                        domain="[]"
+                        help="Project"
+                        context="{'group_by':'project_id'}"
+                    />
+                    <filter
+                        string="State"
+                        name="groupby_state"
+                        domain="[]"
+                        help="State"
+                        context="{'group_by':'state'}"
+                    />
                 </group>
             </search>
         </field>
@@ -78,8 +93,8 @@
 
     <record id="issue_reconcile_partner_action" model="ir.actions.server">
         <field name="name">Reconcile Partners</field>
-        <field name="model_id" ref="model_gitlab_issue"/>
-        <field name="binding_model_id" ref="model_gitlab_issue"/>
+        <field name="model_id" ref="model_gitlab_issue" />
+        <field name="binding_model_id" ref="model_gitlab_issue" />
         <field name="state">code</field>
         <field name="code">
             records.reconcile_partner()
