@@ -16,7 +16,7 @@ options.registry.dynamic_project_list = s_dynamic_snippet_carousel_options.exten
      */
     async onBuilt() {
         this._super.apply(this, arguments);
-        this.$target[0].dataset.snippet = 'dynamic_project_list';
+        this.$target[0].dataset.snippet = 's_dynamic_project_list';
     },
 });
 
