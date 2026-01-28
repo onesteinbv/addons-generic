@@ -1,4 +1,3 @@
-
 from lxml import etree
 
 from odoo import api, models
@@ -17,11 +16,13 @@ class ResConfigSettings(models.TransientModel):
 
         doc = etree.XML(ret_val["views"]["form"]["arch"])
 
-        query = "//setting[@id='compute_shipping_costs_usps'] | " \
-                "//setting[@id='compute_shipping_costs_fedex'] | " \
-                "//setting[@id='compute_shipping_costs_dhl'] | " \
-                "//setting[@id='compute_shipping_costs_ups']"
-        
+        query = (
+            "//setting[@id='compute_shipping_costs_usps'] | "
+            "//setting[@id='compute_shipping_costs_fedex'] | "
+            "//setting[@id='compute_shipping_costs_dhl'] | "
+            "//setting[@id='compute_shipping_costs_ups']"
+        )
+
         for item in doc.xpath(query):
             item.attrib["class"] = "d-none"
 

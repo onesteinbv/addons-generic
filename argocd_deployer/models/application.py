@@ -30,7 +30,7 @@ class Application(models.Model):
         compute="_compute_config_out_of_sync",
         string="Out of Sync",
         store=True,
-        help="Indicates whether the current configuration differs from the live configuration."
+        help="Indicates whether the current configuration differs from the live configuration.",
     )
     tag_ids = fields.Many2many(
         comodel_name="argocd.application.tag",
@@ -110,11 +110,12 @@ class Application(models.Model):
             )
             app.is_deployed = os.path.isfile(path)
 
-
     @api.depends("config_live", "config")
     def _compute_config_out_of_sync(self):
         for app in self:
-            app.config_out_of_sync = app.config_live.strip() != (app.config.strip() or "")
+            app.config_out_of_sync = app.config_live.strip() != (
+                app.config.strip() or ""
+            )
 
     @api.depends("application_set_id", "application_set_id.is_deployed", "name")
     def _compute_config_live(self):

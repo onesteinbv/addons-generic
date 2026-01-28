@@ -487,6 +487,7 @@ class MembershipRegistrationController(http.Controller):
         methods=["GET"],
         auth="public",
         website=True,
+        sitemap=False,
     )
     def membership_registration_form(self, product_id=None):
         if not request.website.allow_membership_registration:
@@ -528,6 +529,7 @@ class MembershipRegistrationController(http.Controller):
         auth="public",
         csrf=False,
         website=True,
+        sitemap=False,
     )
     def post_membership_registration_form(self, **post):
         if not request.website.allow_membership_registration:
@@ -682,7 +684,12 @@ class MembershipRegistrationController(http.Controller):
             "website_membership_registration.membership_registration_verify_success_page"
         )
 
-    @http.route(["/membership-registration/config/website"], type="json", auth="user")
+    @http.route(
+        ["/membership-registration/config/website"],
+        type="json",
+        auth="user",
+        sitemap=False,
+    )
     def _change_membership_registration_website_config(self, **options):
         if not request.env.user.has_group("website.group_website_restricted_editor"):
             raise NotFound()

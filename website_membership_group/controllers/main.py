@@ -18,6 +18,7 @@ class MembershipGroupController(http.Controller):
         methods=["GET"],
         auth="public",
         website=True,
+        sitemap=False,
     )
     def display_membership_group_page(self, membership_group):
         membership_group_sudo = membership_group.sudo()

@@ -74,6 +74,7 @@ class MembershipGroupController(main.MembershipGroupController):
         auth="public",
         csrf=False,
         website=True,
+        sitemap=False,
     )
     def post_subscribe_to_membership_group_mailing_list(self, **post):
         group_id = post.get("group_id")
@@ -142,6 +143,7 @@ class MembershipGroupController(main.MembershipGroupController):
         auth="public",
         csrf=False,
         website=True,
+        sitemap=False,
     )
     def post_unsubscribe_from_membership_group_mailing_list(self, **post):
         group_id = post.get("group_id")

@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models, Command
+from odoo import Command, _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -72,7 +72,7 @@ class SubscriptionLine(models.Model):
         for app in to_redeploy:
             app.render_config()  # Rerender config according to new product
         return res
-    
+
     def _terminate_applications(self, eta=None):
         self.with_delay(eta=eta)._immediate_terminate_applications()
 
