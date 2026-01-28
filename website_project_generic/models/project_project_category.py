@@ -3,7 +3,7 @@ from odoo import fields, models
 
 class ProjectProjectCategory(models.Model):
     _name = "project.project.category"
-    _inherit = ["website.published.mixin"]
+    _inherit = ["website.published.mixin", "website.seo.metadata"]
     _order = "sequence"
     _description = "Project Categories"
 
