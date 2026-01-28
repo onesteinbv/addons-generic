@@ -3,7 +3,7 @@ from odoo import api, fields, models
 
 class ProjectProject(models.Model):
     _name = "project.project"
-    _inherit = ["project.project", "image.mixin", "website.published.mixin"]
+    _inherit = ["project.project", "image.mixin", "website.published.mixin", "website.seo.metadata"]
 
     short_description = fields.Text()
     description = fields.Html()
