@@ -24,6 +24,7 @@
         "data/ir_cron_data.xml",
         "data/mail_template_data.xml",
         "data/res_partner_category_data.xml",
+        "security/security.xml",
         "views/snippets/snippets.xml",
         "views/hr_applicant_view.xml",
         "views/hr_employee_view.xml",
