@@ -113,9 +113,9 @@ class Application(models.Model):
     @api.depends("config_live", "config")
     def _compute_config_out_of_sync(self):
         for app in self:
-            app.config_out_of_sync = app.config_live.strip() != (
-                app.config.strip() or ""
-            )
+            app.config_out_of_sync = (app.config_live or "").strip() != (
+                app.config or ""
+            ).strip()
 
     @api.depends("application_set_id", "application_set_id.is_deployed", "name")
     def _compute_config_live(self):
