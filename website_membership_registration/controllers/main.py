@@ -556,7 +556,6 @@ class MembershipRegistrationController(http.Controller):
                 .sudo()
                 .search([("email", "=ilike", partner_vals["email"])], limit=1)
             )
-            sale_order = request.env["sale.order"]
             try:
                 if not partner:
                     partner = request.env["res.partner"].sudo().create(partner_vals)
@@ -610,6 +609,7 @@ class MembershipRegistrationController(http.Controller):
 
     def _handle_errors(self, partner_data, error_message, errors):
         partner_data.pop("application_date", None)
+        partner_data.pop("member_cv", None)
         request.session.update(
             {
                 "old_registration_data": partner_data,
