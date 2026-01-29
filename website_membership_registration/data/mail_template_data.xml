@@ -4,7 +4,7 @@
         <field name="name">Email Verification</field>
         <field name="model_id" ref="base.model_res_partner"/>
         <field name="subject">Verify Email</field>
-        <field name="email_from">"{{ object.company_id.name }}" &lt;{{ object.company_id.email }}&gt;</field>
+        <field name="email_from">{{ctx.get('sender_email')}}</field>
         <field name="email_to">{{object.email_formatted}}</field>
         <field name="body_html" type="html">
             <p>Dear <t t-out="object.name">partner</t>,</p>

@@ -165,7 +165,7 @@ class ResPartner(models.Model):
             "website_membership_registration.verification_email"
         )
 
-        mail_template.with_context(verification_url=verification_url).send_mail(
+        mail_template.with_context(verification_url=verification_url,sender_email=self.env.company.email).send_mail(
             self.id, force_send=True, raise_exception=False
         )
 
