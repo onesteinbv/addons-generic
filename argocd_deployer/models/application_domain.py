@@ -8,41 +8,43 @@ class ApplicationDomain(models.Model):
     _order = "sequence"
 
     application_id = fields.Many2one(comodel_name="argocd.application", required=True)
-    scope = fields.Char(default="Application", required=True)
+    scope_id = fields.Many2one(
+        comodel_name="argocd.application.domain.scope", required=True
+    )
     sequence = fields.Integer(default=10)
     name = fields.Char(required=True)
-    scope_unique = fields.Boolean(
-        help="Whether the domain is unique within it's scope (true) or globally (false)"
-    )
     url = fields.Boolean(
         default=True, help="Whether to display this domain as a link to the user"
     )
 
-    @api.constrains("name", "scope", "scope_unique")
+    @api.constrains("name", "scope_id")
     def _constrain_name(self):
-        domain = [("id", "!=", self.id), ("name", "=", self.name)]
-        if self.scope_unique:
-            domain += [("scope", "=", self.scope)]
-        else:
-            domain += [("scope_unique", "=", False)]
+        domain = [
+            ("id", "!=", self.id),
+            ("name", "=", self.name),
+            ("scope_id", "=", self.scope_id.id),
+        ]
         if self.search_count(domain):
             raise ValidationError(_("Domain is already in use"))
 
     @api.model
     def create_domain(
-        self,
-        application,
-        preferred,
-        *alternatives,
-        scope="Application",
-        scope_unique=False,
-        url=True
+        self, application, preferred, *alternatives, scope="Application", url=True
     ):
-        existing = application.domain_ids.filtered(lambda d: d.scope == scope).sorted(
-            "sequence"
-        )
+        # Find or create the domain scope
+        domain_scope_model = self.env["argocd.application.domain.scope"]
+        domain_scope = domain_scope_model.search([("name", "=", scope)])
+        if not domain_scope:
+            domain_scope = domain_scope_model.create({"name": scope})
+
+        # Check if the application already has a domain in this scope
+        existing = application.domain_ids.filtered(
+            lambda d: d.scope_id == domain_scope
+        ).sorted("sequence")
         if existing:
-            return existing.name
+            return existing[0].name
+
+        # Find the best available domain name
         domains = (preferred,) + alternatives
         i = 0
         best_available = False
@@ -53,11 +55,10 @@ class ApplicationDomain(models.Model):
                     domain_levels = domain_name.split(".")
                     domain_levels[0] += str(i)
                     domain_name = ".".join(domain_levels)
-                search_domain = [("name", "=", domain_name)]
-                if scope_unique:
-                    search_domain += [("scope", "=", scope)]
-                else:
-                    search_domain += [("scope_unique", "=", False)]
+                search_domain = [
+                    ("name", "=", domain_name),
+                    ("scope_id.name", "=", scope),
+                ]
 
                 already_exists = self.search_count(search_domain)
                 if not already_exists:
@@ -68,8 +69,7 @@ class ApplicationDomain(models.Model):
             {
                 "application_id": application.id,
                 "name": best_available,
-                "scope": scope,
-                "scope_unique": scope_unique,
+                "scope_id": domain_scope.id,
                 "url": url,
             }
         )

@@ -27,68 +27,36 @@ class TestApplicationDomain(TransactionCase):
 
     def test_uniqueness(self):
         argocd_application_domain = self.env["argocd.application.domain"]
+        scope = self.env["argocd.application.domain.scope"].create({"name": "app"})
+        scope_2 = self.env["argocd.application.domain.scope"].create({"name": "mail"})
         global_domain = argocd_application_domain.create(
-            {"application_id": self.app_1.id, "name": "mydomain", "scope": "odoo"}
+            {"application_id": self.app_1.id, "name": "mydomain", "scope_id": scope.id}
         )
         with self.subTest("Record should not constrain itself"):
-            global_domain.write({"name": "mydomain", "scope": "odoo1"})
+            global_domain.write({"name": "mydomain", "scope_id": scope.id})
             global_domain.name = "mydomain"
-            global_domain.write({"name": "mydomain3", "scope": "odoo1"})
-            global_domain.name = "mydomain"
+            global_domain.write({"name": "mydomain3", "scope_id": scope.id})
+            global_domain.name = "mydomain3"
 
         argocd_application_domain.create(
-            {"application_id": self.app_2.id, "name": "mydomain2", "scope": "odoo"}
-        )
-        with self.assertRaisesRegex(ValidationError, "already in use"):
-            argocd_application_domain.create(
-                {"application_id": self.app_1.id, "name": "mydomain2", "scope": "nc"}
-            )
-        with self.assertRaisesRegex(ValidationError, "already in use"):
-            global_domain.write({"name": "mydomain2"})
-        with self.assertRaisesRegex(ValidationError, "already in use"):
-            global_domain.name = "mydomain2"
-
-        scope_unique_domain = argocd_application_domain.create(
             {
-                "application_id": self.app_1.id,
-                "name": "scoped-domain",
-                "scope": "mail",
-                "scope_unique": True,
+                "application_id": self.app_2.id,
+                "name": "mydomain2",
+                "scope_id": scope_2.id,
             }
         )
-        with self.subTest(
-            "'scoped-domain' should be available in global and other scope"
-        ):
-            argocd_application_domain.create(
-                {
-                    "application_id": self.app_2.id,
-                    "name": "scoped-domain",
-                    "scope": "odoo",
-                }
-            )
-            argocd_application_domain.create(
-                {
-                    "application_id": self.app_2.id,
-                    "name": "scoped-domain",
-                    "scope": "other scope",
-                    "scope_unique": True,
-                }
-            )
         with self.assertRaisesRegex(ValidationError, "already in use"):
             argocd_application_domain.create(
                 {
-                    "application_id": self.app_2.id,
-                    "name": "scoped-domain",
-                    "scope": "mail",
-                    "scope_unique": True,
+                    "application_id": self.app_1.id,
+                    "name": "mydomain2",
+                    "scope_id": scope_2.id,
                 }
             )
         with self.assertRaisesRegex(ValidationError, "already in use"):
-            scope_unique_domain.scope = "other scope"
+            global_domain.write({"name": "mydomain2", "scope_id": scope_2.id})
         with self.assertRaisesRegex(ValidationError, "already in use"):
-            scope_unique_domain.scope_unique = False
-        with self.assertRaisesRegex(ValidationError, "already in use"):
-            scope_unique_domain.write({"scope_unique": False})
+            global_domain.name = "mydomain2"
 
     def test_create_domain(self):
         argocd_application_domain = self.env["argocd.application.domain"]
@@ -126,25 +94,25 @@ class TestApplicationDomain(TransactionCase):
         self.assertEqual(domain, "another", "Second alternative should have been used")
 
         domain = argocd_application_domain.create_domain(
-            self.app_1, "myapp", scope="mail", scope_unique=True
+            self.app_1, "myapp", scope="mail"
         )
         self.assertEqual(domain, "myapp")
         domain = argocd_application_domain.create_domain(
-            self.app_1, "myapp", scope="mail", scope_unique=True
+            self.app_1, "myapp", scope="mail"
         )
         self.assertEqual(domain, "myapp", "Domain should be unchanged")
 
         domain = argocd_application_domain.create_domain(
-            self.app_2, "myapp", scope="mail", scope_unique=True
+            self.app_2, "myapp", scope="mail"
         )
         self.assertEqual(domain, "myapp1")
         domain = argocd_application_domain.create_domain(
-            self.app_2, "myapp", scope="mail", scope_unique=True
+            self.app_2, "myapp", scope="mail"
         )
         self.assertEqual(domain, "myapp1", "Domain should be unchanged")
 
         domain = argocd_application_domain.create_domain(
-            self.app_2, "myapp", scope="scoped_domain", scope_unique=True
+            self.app_2, "myapp", scope="scoped_domain"
         )
         self.assertEqual(
             domain,

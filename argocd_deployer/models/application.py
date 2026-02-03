@@ -75,18 +75,19 @@ class Application(models.Model):
         self.ensure_one()
         return bool(self.tag_ids.filtered(lambda t: t.key == key))
 
-    def create_domain(
-        self, preferred, *alternatives, scope="global", scope_unique=False, url=True
-    ):
+    def create_domain(self, preferred, *alternatives, scope="global", url=True):
         """Shortcut"""
         self.ensure_one()
         return self.env["argocd.application.domain"].create_domain(
-            self,
-            preferred,
-            *alternatives,
-            scope=scope,
-            scope_unique=scope_unique,
-            url=url
+            self, preferred, *alternatives, scope=scope, url=url
+        )
+
+    def get_domains_by_scope(self, scope_name):
+        self.ensure_one()
+        return (
+            self.domain_ids.filtered(lambda d: d.scope_id.name == scope_name)
+            .sorted("sequence")
+            .mapped("name")
         )
 
     @api.depends("config")
@@ -172,12 +173,15 @@ class Application(models.Model):
     def get_urls(self):
         self.ensure_one()
         urls = []
-        for scope in self.domain_ids.filtered(lambda l: l.url).mapped("scope"):
+        for scope in self.domain_ids.filtered(lambda l: l.url).mapped("scope_id.name"):
             prioritized_domain = self.domain_ids.filtered(
-                lambda d: d.scope == scope
+                lambda d: d.scope_id.name == scope
             ).sorted("sequence")[0]
             urls.append(
-                ("https://%s" % prioritized_domain.name, prioritized_domain.scope)
+                (
+                    "https://%s" % prioritized_domain.name,
+                    prioritized_domain.scope_id.name,
+                )
             )
         return urls
 
@@ -210,6 +214,7 @@ class Application(models.Model):
             "has_tag": self.has_tag,
             "get_value": self.get_value,
             "create_domain": self.create_domain,
+            "domains": self.get_domains_by_scope,
         }
 
     def render_config(self, context=None):

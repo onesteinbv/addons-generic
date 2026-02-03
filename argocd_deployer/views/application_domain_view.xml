@@ -5,9 +5,8 @@
         <field name="arch" type="xml">
             <list editable="bottom">
                 <field name="sequence" widget="handle" />
-                <field name="scope" />
+                <field name="scope_id" />
                 <field name="name" />
-                <field name="scope_unique" readonly="1" />
             </list>
         </field>
     </record>
