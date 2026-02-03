@@ -12,7 +12,7 @@
     ],
     "assets": {
         "web.assets_backend": [
-            "/web_responsive_attachment_preview/static/src/views/form/form_renderer.esm.js",
+            "/web_responsive_attachment_preview/static/src/views/form/*",
         ],
     },
     "auto_install": True,
