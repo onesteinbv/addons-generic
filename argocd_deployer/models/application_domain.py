@@ -5,7 +5,7 @@ from odoo.exceptions import ValidationError
 class ApplicationDomain(models.Model):
     _name = "argocd.application.domain"
     _description = "ArgoCD Application Domain"
-    _order = "sequence"
+    _order = "sequence, id"
 
     application_id = fields.Many2one(comodel_name="argocd.application", required=True)
     scope_id = fields.Many2one(
@@ -38,9 +38,7 @@ class ApplicationDomain(models.Model):
             domain_scope = domain_scope_model.create({"name": scope})
 
         # Check if the application already has a domain in this scope
-        existing = application.domain_ids.filtered(
-            lambda d: d.scope_id == domain_scope
-        ).sorted("sequence")
+        existing = application.domain_ids.filtered(lambda d: d.scope_id == domain_scope)
         if existing:
             return existing[0].name
 

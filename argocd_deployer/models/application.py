@@ -84,10 +84,8 @@ class Application(models.Model):
 
     def get_domains_by_scope(self, scope_name):
         self.ensure_one()
-        return (
-            self.domain_ids.filtered(lambda d: d.scope_id.name == scope_name)
-            .sorted("sequence")
-            .mapped("name")
+        return self.domain_ids.filtered(lambda d: d.scope_id.name == scope_name).mapped(
+            "name"
         )
 
     @api.depends("config")
@@ -176,7 +174,7 @@ class Application(models.Model):
         for scope in self.domain_ids.filtered(lambda l: l.url).mapped("scope_id.name"):
             prioritized_domain = self.domain_ids.filtered(
                 lambda d: d.scope_id.name == scope
-            ).sorted("sequence")[0]
+            )[0]
             urls.append(
                 (
                     "https://%s" % prioritized_domain.name,
