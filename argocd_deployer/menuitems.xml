@@ -50,4 +50,10 @@
         parent="config_menu"
         sequence="50"
     />
+    <menuitem
+        id="application_domain_scope_menu"
+        action="application_domain_scope_action"
+        parent="config_menu"
+        sequence="60"
+    />
 </odoo>
