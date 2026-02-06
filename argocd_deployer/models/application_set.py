@@ -40,7 +40,9 @@ class ApplicationSet(models.Model):
     deployment_directory = fields.Char(
         help="Folder inside the repository in which to store the application YAML files.",
     )
-    namespace_prefix_id = fields.Many2one("argocd.application.namespace.prefix")
+    namespace_prefix = fields.Char(
+        help="Prefix added to the application namespace", required=True
+    )
     partner_ids = fields.Many2many(
         comodel_name="res.partner",
         string="Application Followers",
@@ -250,8 +252,7 @@ class ApplicationSet(models.Model):
             "{{.application_set.branch}}": self.branch or "",
             "{{.application_set.deployment_directory}}": self.deployment_directory
             or "",
-            "{{.application_set.namespace_prefix}}": self.namespace_prefix_id.name
-            or "",
+            "{{.application_set.namespace_prefix}}": self.namespace_prefix or "",
         }
         template_yaml = self.template_id.yaml
         for key, value in replacements.items():

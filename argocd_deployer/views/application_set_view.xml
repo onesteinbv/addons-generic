@@ -107,7 +107,7 @@
                             <field name="repository_directory" readonly="is_deployed"/>
                         </group>
                         <group name="group_applications" string="Applications">
-                            <field name="namespace_prefix_id"/>
+                            <field name="namespace_prefix"/>
                         </group>
                         <group string="YAML Configuration" col="3" colspan="2">
                             <group string="Live">
