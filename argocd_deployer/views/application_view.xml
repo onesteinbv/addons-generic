@@ -17,7 +17,7 @@
                         type="object"
                         string="Deploy"
                         class="btn-success"
-                        invisible="not is_immediate_repo_action_visible or not application_set_id or not is_application_set_deployed or is_deployed"
+                        invisible="not is_immediate_repo_action_visible or not application_set_id or is_deployed"
                     />
                     <button
                         name="immediate_deploy"
@@ -32,7 +32,7 @@
                         type="object"
                         string="Queue deployment"
                         class="btn-success"
-                        invisible="not application_set_id or not is_application_set_deployed or is_deployed"
+                        invisible="not application_set_id or is_deployed"
                     />
                     <button
                         name="deploy"
@@ -62,24 +62,14 @@
                 </header>
                 <sheet>
                     <field name="is_deployed" invisible="1"/>
-                    <field name="is_application_set_deployed" invisible="1"/>
                     <field name="is_immediate_repo_action_visible" invisible="1"/>
                     <group>
-                        <div
-                            class="jumbotron alert-warning alert text-center"
-                            role="alert" colspan="2"
-                            invisible="not application_set_id or is_application_set_deployed"
-                        >
-                            <h2>Application set not deployed</h2>
-                            <p>The chosen application set was not deployed, so it's not possible to deploy this application.</p>
-                        </div>
                         <group string="General information">
                             <field
                                 name="name"
                                 readonly="is_deployed"
                             />
                             <field name="application_set_id"
-                                   domain="[('is_master', '=', False)]"
                                    readonly="is_deployed"
                             />
                         </group>

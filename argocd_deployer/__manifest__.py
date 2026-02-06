@@ -7,13 +7,10 @@
     "version": "18.0.1.3.0",
     "data": [
         "data/ir_config_parameter_data.xml",
-        "data/application_set_template.xml",
-        "data/application_set.xml",
         "data/ir_cron_data.xml",
         "data/mail_data.xml",
         "views/application_domain_view.xml",
         "views/application_template_view.xml",
-        "views/application_set_template_view.xml",
         "views/application_tag_view.xml",
         "views/application_value_view.xml",
         "views/application_view.xml",
@@ -31,6 +28,7 @@
         "demo/application_template_demo.xml",
         "demo/application_tag_demo.xml",
         "demo/application_stat_type_demo.xml",
+        "demo/application_set_demo.xml",
     ],
     "external_dependencies": {"python": ["GitPython"]},
 }

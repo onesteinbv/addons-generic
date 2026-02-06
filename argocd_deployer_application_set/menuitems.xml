@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem
+        id="application_set_template_menu"
+        action="application_set_template_action"
+        parent="argocd_deployer.config_menu"
+        sequence="40"
+    />
+</odoo>

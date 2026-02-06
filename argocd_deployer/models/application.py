@@ -54,9 +54,6 @@ class Application(models.Model):
     is_deployed = fields.Boolean(
         compute="_compute_is_deployed", search="_search_is_deployed"
     )
-    is_application_set_deployed = fields.Boolean(
-        string="Is App. Set deployed", related="application_set_id.is_deployed"
-    )
     stat_ids = fields.One2many(
         comodel_name="argocd.application.stat",
         inverse_name="application_id",
@@ -93,13 +90,12 @@ class Application(models.Model):
         for app in self:
             app.description = app._render_description()
 
-    @api.depends("application_set_id", "application_set_id.is_deployed")
+    @api.depends("application_set_id", "name")
     def _compute_is_deployed(self):
         for app in self:
-            if not app.is_application_set_deployed:
+            if not app.application_set_id:
                 app.is_deployed = False
                 continue
-
             path = app.application_set_id._get_application_deployment_directory(
                 app.name, "ignore"
             )
@@ -116,7 +112,7 @@ class Application(models.Model):
                 app.config or ""
             ).strip()
 
-    @api.depends("application_set_id", "application_set_id.is_deployed", "name")
+    @api.depends("application_set_id", "name")
     def _compute_config_live(self):
         for app in self:
             config_live = ""
@@ -195,7 +191,7 @@ class Application(models.Model):
     def _constrain_name(self):
         # We actually need to also do this check if `namespace_prefix_id.name` changes, but it never does in practice
         # FIXME: The namespace_prefix is not necessarily part of the app name depends on the application.set.template
-        prefix = self.application_set_id.namespace_prefix_id.name
+        prefix = self.application_set_id.namespace_prefix
         if not re.match(
             "^[a-z0-9-]{1,53}$", prefix + self.name
         ):  # lowercase a to z, 0 to 9 and - (dash) are allowed

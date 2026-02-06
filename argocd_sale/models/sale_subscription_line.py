@@ -34,7 +34,7 @@ class SubscriptionLine(models.Model):
         while "--" in app_name:  # Never 2 dashes after each other
             app_name = app_name.replace("--", "-")
         # FIXME: The namespace_prefix is not necessarily part of the app name depends on the application.set.template
-        prefix = self.product_id.application_set_id.namespace_prefix_id.name
+        prefix = self.product_id.application_set_id.namespace_prefix
         full_app_name = prefix + app_name
         while len(full_app_name) > 53 or app_name[0] == "-":
             app_name = app_name[1:]

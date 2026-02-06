@@ -13,4 +13,5 @@
         "views/application_tag_view.xml",
         "views/application_template_view.xml",
     ],
+    "installable": False,
 }
