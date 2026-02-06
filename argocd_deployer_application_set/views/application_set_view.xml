@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="application_set_form" model="ir.ui.view">
+        <field name="model">argocd.application.set</field>
+        <field name="inherit_id" ref="argocd_deployer.application_set_form"/>
+        <field name="arch" type="xml">
+            <!-- Add deployment buttons to header -->
+            <xpath expr="//form" position="inside">
+                <header>
+                    <button
+                        name="render_config"
+                        type="object"
+                        class="btn-secondary"
+                        icon="fa-refresh"
+                        string="Render Config"
+                    />
+                    <button
+                        name="immediate_deploy"
+                        type="object"
+                        string="Deploy"
+                        class="btn-success"
+                        confirm="Are you sure you want to deploy a new application set?"
+                        invisible="not is_immediate_repo_action_visible or is_deployed"
+                    />
+                    <button
+                        name="deploy"
+                        type="object"
+                        string="Queue deployment"
+                        class="btn-success"
+                        confirm="Are you sure you want to deploy a new application set?"
+                        invisible="is_deployed"
+                    />
+                    <button
+                        name="immediate_deploy"
+                        type="object"
+                        string="Redeploy"
+                        class="btn-warning"
+                        invisible="not is_immediate_repo_action_visible or not is_deployed"
+                        confirm="Are you sure you want to redeploy this application set?"
+                    />
+                    <button
+                        name="deploy"
+                        type="object"
+                        string="Queue Redeployment"
+                        class="btn-success"
+                        confirm="Are you sure you want to redeploy a new application set?"
+                        invisible="not is_deployed"
+                    />
+                    <button
+                        name="immediate_destroy"
+                        type="object"
+                        class="btn-danger"
+                        string="Destroy"
+                        confirm="Are you sure you want to destroy this application set, this can't be undone."
+                        invisible="not is_immediate_repo_action_visible or has_deployed_applications or not is_deployed"
+                    />
+                    <button
+                        name="destroy"
+                        type="object"
+                        class="btn-danger"
+                        string="Queue destruction"
+                        confirm="Are you sure you want to destroy this application set, this can't be undone."
+                        invisible="has_deployed_applications or not is_deployed"
+                    />
+                    <button
+                        name="destroy"
+                        type="object"
+                        class="btn-danger"
+                        string="Queue destruction"
+                        confirm="This application set has deployed applications! Are you sure you want to destroy this application set, this can't be undone."
+                        invisible="not has_deployed_applications or not is_deployed"
+                    />
+                    <button
+                        name="abort_destroy"
+                        type="object"
+                        class="btn-warning"
+                        string="Abort destruction"
+                        invisible="not is_destroying"
+                    />
+                </header>
+            </xpath>
+
+            <!-- Add invisible fields -->
+            <xpath expr="//sheet" position="inside">
+                <field name="is_deployed" invisible="1"/>
+                <field name="has_deployed_applications" invisible="1"/>
+                <field name="is_destroying" invisible="1"/>
+                <field name="is_immediate_repo_action_visible" invisible="1"/>
+                <field name="is_master" invisible="1"/>
+            </xpath>
+
+            <!-- Add destroying alert -->
+            <xpath expr="//sheet/group[1]" position="before">
+                <div
+                    class="jumbotron alert-danger"
+                    role="alert"
+                    colspan="2"
+                    invisible="not is_destroying"
+                >
+                    <h2 class="alert-danger text-center" role="alert">Application set is being destroyed</h2>
+                </div>
+            </xpath>
+
+            <!-- Add template and namespace_prefix to General group -->
+            <xpath expr="//group[@id='group_general']" position="inside">
+                <field name="template_id"/>
+            </xpath>
+
+            <!-- Add master application set fields to Local install group -->
+            <xpath expr="//group[@id='group_local_install']" position="inside">
+                <field name="master_application_set_id"/>
+                <field name="is_master"/>
+            </xpath>
+
+            <!-- Add git deployment overrides group -->
+            <xpath expr="//group[@id='group_local_install']" position="after">
+                <group id="group_git_deployment" string="Git Deployment (Optional Overrides)">
+                    <field name="git_repository_url" placeholder="Leave empty to use Application Repository"/>
+                    <field name="git_branch" placeholder="Leave empty to use Application Branch"/>
+                    <field name="git_deployment_directory" placeholder="Leave empty to use Application Directory"/>
+                </group>
+            </xpath>
+
+            <!-- Add YAML Configuration group -->
+            <xpath expr="//sheet/group[last()]" position="after">
+                <group string="YAML Configuration" col="3" colspan="2">
+                    <group string="Live">
+                        <field name="config_live" widget="ace" nolabel="1" />
+                    </group>
+                    <group string="Desired">
+                        <field name="config" widget="ace" nolabel="1" />
+                    </group>
+                    <group string="Diff">
+                        <field name="config_diff" widget="ace" nolabel="1" />
+                    </group>
+                </group>
+            </xpath>
+
+            <!-- Add domain on application_set_id -->
+            <xpath expr="//field[@name='application_set_id']" position="attributes">
+                <attribute name="domain">[('is_master', '=', False)]</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -4,121 +4,23 @@
         <field name="model">argocd.application.set</field>
         <field name="arch" type="xml">
             <form>
-                <header>
-                    <button
-                        name="render_config"
-                        type="object"
-                        class="btn-secondary"
-                        icon="fa-refresh"
-                        string="Render Config"
-                    />
-                    <button
-                        name="immediate_deploy"
-                        type="object"
-                        string="Deploy"
-                        class="btn-success"
-                        confirm="Are you sure you want to deploy a new application set?"
-                        invisible="not is_immediate_repo_action_visible or is_deployed"
-                    />
-                    <button
-                        name="deploy"
-                        type="object"
-                        string="Queue deployment"
-                        class="btn-success"
-                        confirm="Are you sure you want to deploy a new application set?"
-                        invisible="is_deployed"
-                    />
-                    <button
-                        name="immediate_deploy"
-                        type="object"
-                        string="Redeploy"
-                        class="btn-warning"
-                        invisible="not is_immediate_repo_action_visible or not is_deployed"
-                        confirm="Are you sure you want to redeploy this application set?"
-                    />
-                    <button
-                        name="deploy"
-                        type="object"
-                        string="Queue Redeployment"
-                        class="btn-success"
-                        confirm="Are you sure you want to redeploy a new application set?"
-                        invisible="not is_deployed"
-                    />
-                    <button
-                        name="immediate_destroy"
-                        type="object"
-                        class="btn-danger"
-                        string="Destroy"
-                        confirm="Are you sure you want to destroy this application set, this can't be undone."
-                        invisible="not is_immediate_repo_action_visible or has_deployed_applications or not is_deployed"
-                    />
-                    <button
-                        name="destroy"
-                        type="object"
-                        class="btn-danger"
-                        string="Queue destruction"
-                        confirm="Are you sure you want to destroy this application set, this can't be undone."
-                        invisible="has_deployed_applications or not is_deployed"
-                    />
-                    <button
-                        name="destroy"
-                        type="object"
-                        class="btn-danger"
-                        string="Queue destruction"
-                        confirm="This application set has deployed applications! Are you sure you want to destroy this application set, this can't be undone."
-                        invisible="not has_deployed_applications or not is_deployed"
-                    />
-                    <button
-                        name="abort_destroy"
-                        type="object"
-                        class="btn-warning"
-                        string="Abort destruction"
-                        invisible="not is_destroying"
-                    />
-                </header>
                 <sheet>
-                    <field name="is_deployed" invisible="1"/>
-                    <field name="has_deployed_applications" invisible="1"/>
-                    <field name="is_destroying" invisible="1"/>
-                    <field name="is_immediate_repo_action_visible" invisible="1"/>
                     <group>
-                        <div
-                            class="jumbotron alert-danger"
-                            role="alert"
-                            colspan="2"
-                            invisible="not is_destroying"
-                        >
-                            <h2 class="alert-danger text-center" role="alert">Application set is being destroyed</h2>
-                        </div>
                         <group id="group_general" string="General">
-                            <field name="name" readonly="is_deployed"/>
+                            <field name="name"/>
                             <field name="description"/>
-                            <field name="template_id"/>
-                            <field name="partner_ids" widget="many2many_tags_email" />
-                        </group>
-                        <group  id="group_repository" string="Repository">
-                            <field name="repository_url" readonly="is_deployed"/>
-                            <field name="branch" readonly="is_deployed"/>
-                            <field name="deployment_directory" readonly="is_deployed"/>
-                        </group>
-                        <group id="group_local_install" string="Local install">
-                            <field name="master_application_set_id" readonly="is_deployed"/>
-                            <field name="is_master" />
-                            <field name="repository_directory" readonly="is_deployed"/>
-                        </group>
-                        <group name="group_applications" string="Applications">
                             <field name="namespace_prefix"/>
                         </group>
-                        <group string="YAML Configuration" col="3" colspan="2">
-                            <group string="Live">
-                                <field name="config_live" widget="ace" nolabel="1" />
-                            </group>
-                            <group string="Desired">
-                                <field name="config" widget="ace" nolabel="1" />
-                            </group>
-                            <group string="Diff">
-                                <field name="config_diff" widget="ace" nolabel="1" />
-                            </group>
+                        <group id="group_repository" string="Repository">
+                            <field name="repository_url"/>
+                            <field name="branch"/>
+                            <field name="deployment_directory"/>
+                        </group>
+                        <group id="group_local_install" string="Local">
+                            <field name="repository_directory"/>
+                        </group>
+                        <group id="group_followers" string="Followers">
+                            <field name="partner_ids" widget="many2many_tags_email" />
                         </group>
                     </group>
                 </sheet>
@@ -129,18 +31,12 @@
     <record id="application_set_tree" model="ir.ui.view">
         <field name="model">argocd.application.set</field>
         <field name="arch" type="xml">
-            <list decoration-success="is_deployed"
-                  decoration-primary="is_master and is_deployed"
-                  decoration-warning="not is_deployed"
-                  decoration-danger="is_master and not is_deployed"
-            >
-                <field name="is_master" column_invisible="1"/>
+            <list>
                 <field name="name"/>
                 <field name="description"/>
                 <field name="repository_url"/>
                 <field name="branch"/>
                 <field name="deployment_directory"/>
-                <field name="is_deployed" column_invisible="1"/>
             </list>
         </field>
     </record>

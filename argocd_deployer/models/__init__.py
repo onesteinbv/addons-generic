@@ -1,4 +1,3 @@
-from . import application_set_template
 from . import application_set
 from . import application_template
 from . import application
@@ -8,3 +7,4 @@ from . import application_domain
 from . import application_stat_type
 from . import application_stat
 from . import application_domain_scope
+from . import repository_base

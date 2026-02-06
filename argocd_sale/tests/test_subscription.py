@@ -24,7 +24,7 @@ class TestSubscription(TransactionCase):
         ).product_variant_ids[0]
         # Make sure this still works if the demo data changes
         product.name = "curq"
-        product.application_set_id.namespace_prefix_id.name = prefix
+        product.application_set_id.namespace_prefix = prefix
         sub = self.env["sale.subscription"].create(
             {
                 "partner_id": partner_with_long_name.id,
@@ -58,7 +58,7 @@ class TestSubscription(TransactionCase):
         ).product_variant_ids[0]
         # Make sure this still works if the demo data changes
         product.name = "curq"
-        product.application_set_id.namespace_prefix_id.name = prefix
+        product.application_set_id.namespace_prefix = prefix
         sub = self.env["sale.subscription"].create(
             {
                 "partner_id": partner_with_long_name.id,
@@ -86,7 +86,7 @@ class TestSubscription(TransactionCase):
         ).product_variant_ids[0]
         # Make sure this still works if the demo data changes
         product.name = "curq"
-        product.application_set_id.namespace_prefix_id.name = prefix
+        product.application_set_id.namespace_prefix = prefix
         sub = self.env["sale.subscription"].create(
             {
                 "partner_id": partner_with_long_name.id,
