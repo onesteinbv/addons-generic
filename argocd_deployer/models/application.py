@@ -189,7 +189,7 @@ class Application(models.Model):
 
     @api.constrains("name")
     def _constrain_name(self):
-        # We actually need to also do this check if `namespace_prefix_id.name` changes, but it never does in practice
+        # We actually need to also do this check if `namespace_prefix` changes, but it never does in practice
         # FIXME: The namespace_prefix is not necessarily part of the app name depends on the application.set.template
         prefix = self.application_set_id.namespace_prefix
         if not re.match(
