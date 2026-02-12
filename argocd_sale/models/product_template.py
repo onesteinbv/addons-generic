@@ -13,11 +13,6 @@ class ProductTemplate(models.Model):
         string="Application Template", comodel_name="argocd.application.template"
     )
 
-    application_tag_ids = fields.Many2many(
-        comodel_name="argocd.application.tag",
-        string="Application Tags",
-    )
-
     reseller_partner_ids = fields.Many2many(
         comodel_name="res.partner",
         relation="product_reseller_rel",

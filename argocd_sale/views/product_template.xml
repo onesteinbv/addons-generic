@@ -12,7 +12,6 @@
                     <group name="application_group">
                         <field name="application_set_id"/>
                         <field name="application_template_id" />
-                        <field name="application_tag_ids" widget="many2many_tags"/>
                         <field name="reseller_partner_ids" options="{'no_create_edit': True}" />
                     </group>
                     <group>
