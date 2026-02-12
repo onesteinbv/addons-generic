@@ -8,7 +8,7 @@
                 <field name="argocd_identifier" />
             </xpath>
             <xpath expr="//list/field[@name='name']" position="after">
-                <field name="argocd_name" />
+                <field name="argocd_value" />
             </xpath>
         </field>
     </record>

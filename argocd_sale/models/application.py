@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import UserError
 
 
 class Application(models.Model):
@@ -49,7 +50,9 @@ class Application(models.Model):
         variant_value = self.product_id.product_template_variant_value_ids.filtered(
             lambda kv: kv.attribute_id.argocd_identifier == argocd_identifier
         ).product_attribute_value_id
-        return variant_value.argocd_name or variant_value.name
+        if not variant_value.argocd_value:
+            raise UserError("No ArgoCD value found for attribute %s", argocd_identifier)
+        return variant_value.argocd_value
 
     @api.depends("subscription_line_id", "subscription_line_id.sale_subscription_id")
     def _compute_subscription_id(self):
