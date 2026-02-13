@@ -23,11 +23,11 @@ class Application(models.Model):
     template_id = fields.Many2one(
         comodel_name="argocd.application.template", required=True
     )
-    config_live = fields.Text(compute="_compute_config_live")
+    config_live = fields.Text(compute="_compute_config_diff")
     config = fields.Text()
-    config_diff = fields.Text(compute="_compute_config_live")
+    config_diff = fields.Text(compute="_compute_config_diff")
     config_out_of_sync = fields.Boolean(
-        compute="_compute_config_out_of_sync",
+        compute="_compute_config_diff",
         string="Out of Sync",
         store=True,
         help="Indicates whether the current configuration differs from the live configuration.",
@@ -105,15 +105,8 @@ class Application(models.Model):
             )
             app.is_deployed = os.path.isfile(path)
 
-    @api.depends("config_live", "config")
-    def _compute_config_out_of_sync(self):
-        for app in self:
-            app.config_out_of_sync = (app.config_live or "").strip() != (
-                app.config or ""
-            ).strip()
-
-    @api.depends("application_set_id", "name")
-    def _compute_config_live(self):
+    @api.depends("application_set_id", "name", "config")
+    def _compute_config_diff(self):
         for app in self:
             config_live = ""
             if app.application_set_id and app.name:
@@ -125,12 +118,16 @@ class Application(models.Model):
 
                 if path.is_file():
                     config_live = path.read_text()
+
             # Compute diff
             diff = difflib.ndiff(
                 config_live.splitlines(), (app.config or "").splitlines()
             )
             app.config_diff = "\n".join(diff)
             app.config_live = config_live
+            app.config_out_of_sync = (app.config_live or "").strip() != (
+                app.config or ""
+            ).strip()
 
     def _search_is_deployed(self, operator, value):
         if operator not in ["=", "!="]:
