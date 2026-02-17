@@ -205,24 +205,25 @@ class MainController(Controller):
 
         user = request.env.user
         user_is_public = user._is_public()
+        is_reseller = user.partner_id.is_reseller or (
+            user.partner_id.parent_id and user.partner_id.parent_id.is_reseller
+        )
         render_values = {
             "subscription": subscription,
             "user": user,
             "user_is_public": user_is_public,  # Shortcut
-            "user_is_reseller": user.partner_id.is_reseller,
+            "user_is_reseller": is_reseller,
             "captcha_enabled": captcha_enabled,
         }
 
         if request.httprequest.method == "POST":
-            error = self._validate(
-                post, captcha_enabled, user_is_public, user.partner_id.is_reseller
-            )
+            error = self._validate(post, captcha_enabled, user_is_public, is_reseller)
             render_values.update(default=post, error=error)
             if error:
                 return request.render("argocd_website.signup", render_values)
 
             # Prepare post data for the ORM
-            if user_is_public or user.partner_id.is_reseller:
+            if user_is_public or is_reseller:
                 values = {
                     "street": " ".join(
                         [
@@ -262,11 +263,11 @@ class MainController(Controller):
                 request.update_context(**request.session.context)
                 subscription.user_id = new_user
                 subscription.partner_id = new_user.partner_id
-            elif user.partner_id.is_reseller:
+            elif is_reseller:
                 # Create end customer
                 reselling_partner = user.partner_id.parent_id or user.partner_id
                 partner = request.env["res.partner"].sudo().create(values)
-                partner.parent_id = reselling_partner
+                partner.reseller_id = reselling_partner
 
                 subscription.partner_id = reselling_partner
                 subscription.user_id = user

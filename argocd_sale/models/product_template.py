@@ -19,20 +19,14 @@ class ProductTemplate(models.Model):
         string="Resellers",
         column1="product_template_id",
         column2="partner_id",
-    )
-
-    allowed_reseller_partner_ids = fields.Many2many(
-        comodel_name="res.partner",
-        relation="product_reseller_all_rel",
-        column1="product_template_id",
-        column2="partner_id",
+        domain="[('is_reseller', '=', True)]",
+        help="Resellers allowed to sell this product. If no reseller is added, it's a public product.",
     )
 
     application_stat_type_id = fields.Many2one(
         string="Statistics Type", comodel_name="argocd.application.stat.type"
     )
     stat_threshold = fields.Float(string="Statistics Threshold")
-
     stat_product_ids = fields.Many2many(
         comodel_name="product.product", string="Products on Statistics"
     )

@@ -41,8 +41,9 @@ class Application(models.Model):
 
     def is_created_by_reseller(self):
         self.ensure_one()
-        return self.partner_id.is_reseller or (
-            self.partner_id.parent_id and self.partner_id.parent_id.is_reseller
+        partner = self.partner_id.parent_id or self.partner_id
+        return partner.is_reseller or (
+            partner.reseller_id and partner.reseller_id.is_reseller
         )
 
     def get_attribute(self, argocd_identifier):
@@ -66,11 +67,12 @@ class Application(models.Model):
 
     @api.depends(
         "subscription_id",
-        "subscription_id.partner_id",
+        "subscription_id.main_partner_id",
         "subscription_id.end_partner_id",
     )
     def _compute_partner_id(self):
         for app in self.filtered(lambda a: a.subscription_id):
             app.partner_id = (
-                app.subscription_id.end_partner_id or app.subscription_id.partner_id
+                app.subscription_id.end_partner_id
+                or app.subscription_id.main_partner_id  # We use the end partner if it exists, otherwise we fallback to the main partner NB: not commercial partner
             )
