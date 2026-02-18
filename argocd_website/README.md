@@ -25,3 +25,4 @@ The amount of days can be configured via the `argocd_website.subscription_abando
 
 - Allow resellers to select exising customers when confirming an order on the website. This would allow resellers to place orders on behalf of existing customers and makes an end customer optional (resellers can manage their own applications and of their customers). This would also prevent multiple partners to be created for the same end customer and allow resellers.
 - Allow resellers to view and edit their existing customers in the website portal.
+- Move reseller logic to a separate module to decouple it from argocd
