@@ -47,6 +47,7 @@ class HelpdeskTicket(models.Model):
                 ctx = {
                     "active_model": self._name,
                     "active_ids": tickets_to_send_email_for,
+                    "active_id": False,
                 }
                 server_action.with_context(**ctx).run()
         return tickets
