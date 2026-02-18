@@ -232,7 +232,6 @@ class MainController(Controller):
                             post["street_number2"],
                         ]
                     ),
-                    "type": user_is_public and "invoice" or "other",
                     "company_type": "company",
                     "customer_rank": 1,
                     "lang": request.env.lang,
