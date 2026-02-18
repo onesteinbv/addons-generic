@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="demo_curq_basis_application_template" model="argocd.application.template">
-        <field name="name">Curq Basis</field>
+    <record id="demo_product_basis_application_template" model="argocd.application.template">
+        <field name="name">Product Basis</field>
         <field name="config">
 helm: |
-  domain: {{ create_domain(application.name + ".example.com", scope="Curq") }}
+  domain: {{ create_domain(application.name + ".example.com", scope="Product") }}
 {%- if has_tag('matomo_server') %}
   matomo:
     domain: {{ get_value("domain_matomo", format_domain("matomo")) }}

@@ -22,6 +22,20 @@ class ResPartner(models.Model):
         comodel_name="res.partner", domain="[('is_reseller', '=', True)]"
     )
 
+    @api.constrains("is_reseller", "reselling_product_ids", "reseller_partner_ids")
+    def _check_non_reseller_constraints(self):
+        """If the partner is not a reseller, it should not have any reseller products or reseller partners."""
+        for partner in self:
+            if not partner.is_reseller:
+                if partner.reselling_product_ids:
+                    raise ValidationError(
+                        "A non-reseller partner cannot have reselling products."
+                    )
+                if partner.reseller_partner_ids:
+                    raise ValidationError(
+                        "A non-reseller partner cannot have reseller partners."
+                    )
+
     @api.constrains("is_reseller", "reseller_id", "parent_id")
     def _check_reseller_constraints(self):
         """We're also not trying to create a piramide scheme here where a reseller can have another reseller as a child, so we simply
