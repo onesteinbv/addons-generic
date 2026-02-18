@@ -25,18 +25,42 @@ class CustomerPortalController(CustomerPortal):
         """Check if the current user has access to the specified customer.
         Returns the customer record if access is granted, raises AccessError otherwise.
         """
+        # Check record rules to ensure the user has access to the customer
+        try:
+            self._document_check_access("res.partner", customer_id)
+        except (AccessError, MissingError) as err:
+            raise AccessError(
+                _("You don't have permission to access this partner.")
+            ) from err
+
+        # Additionally, we check if the user is associated with a reseller or is a reseller themselves
         reseller_partner = self._get_reseller_partner()
         if not reseller_partner:
             raise AccessError(_("You don't have permission to access this page."))
 
+        # We can assume the partner exists at this point, since _document_check_access would have raised a MissingError otherwise
         customer = request.env["res.partner"].browse(customer_id)
-        if not customer.exists():
-            raise MissingError(_("Customer not found."))
 
+        # Not strictly necessary as the record rules should already prevent this
         if customer.reseller_id != reseller_partner:
             raise AccessError(_("You don't have permission to access this customer."))
 
         return customer
+
+    def _validate_form_data(self, data):
+        errors = {}
+        required_fields = {
+            "name": _("Company Name"),
+            "email": _("Email"),
+            "street": _("Street"),
+            "city": _("City"),
+            "zip": _("ZIP"),
+            "company_registry": _("Chamber of Commerce number"),
+        }
+        for field, label in required_fields.items():
+            if not data.get(field):
+                errors[field] = _("%s is required.") % label
+        return errors
 
     def _prepare_home_portal_values(self, counters):
         values = super()._prepare_home_portal_values(counters)
@@ -69,6 +93,7 @@ class CustomerPortalController(CustomerPortal):
             sortby = "name"
         order = searchbar_sortings[sortby]["order"]
 
+        # We apply the reseller filter here which is not necessary for access control (as it is already enforced by the record rules), it's just an UX improvement
         domain = [("reseller_id", "=", reseller_partner.id)]
         customer_count = request.env["res.partner"].search_count(domain)
 
@@ -147,21 +172,7 @@ class CustomerPortalController(CustomerPortal):
 
         if request.httprequest.method == "POST":
             # Validate required fields
-            if not post.get("name"):
-                errors["name"] = _("Company Name is required.")
-            if not post.get("email"):
-                errors["email"] = _("Email is required.")
-            if not post.get("street"):
-                errors["street"] = _("Street is required.")
-            if not post.get("city"):
-                errors["city"] = _("City is required.")
-            if not post.get("zip"):
-                errors["zip"] = _("Zip is required.")
-            if not post.get("company_registry"):
-                errors["company_registry"] = _(
-                    "Chamber of Commerce number is required."
-                )
-
+            errors.update(self._validate_form_data(post))
             if errors:
                 return request.render("argocd_website.portal_customer_form", values)
 
@@ -177,7 +188,7 @@ class CustomerPortalController(CustomerPortal):
                     "company_registry": post.get("company_registry"),
                     "reseller_id": reseller_partner.id,
                     "company_type": "company",
-                    "lang": request.env.user.lang,
+                    "lang": request.env.user.lang,  # FIXME: We ussume the customer has the same language as the user (which is not always the case)
                 }
 
                 if post.get("country_id"):
@@ -217,20 +228,7 @@ class CustomerPortalController(CustomerPortal):
             errors = values["errors"]
 
             # Validate required fields
-            if not post.get("name"):
-                errors["name"] = _("Company Name is required.")
-            if not post.get("email"):
-                errors["email"] = _("Email is required.")
-            if not post.get("street"):
-                errors["street"] = _("Street is required.")
-            if not post.get("city"):
-                errors["city"] = _("City is required.")
-            if not post.get("zip"):
-                errors["zip"] = _("Zip is required.")
-            if not post.get("company_registry"):
-                errors["company_registry"] = _(
-                    "Chamber of Commerce number is required."
-                )
+            errors.update(self._validate_form_data(post))
 
             if errors:
                 return request.render("argocd_website.portal_customer_form", values)
