@@ -38,7 +38,7 @@ class ResPartner(models.Model):
 
     @api.constrains("is_reseller", "reseller_id", "parent_id")
     def _check_reseller_constraints(self):
-        """We're also not trying to create a piramide scheme here where a reseller can have another reseller as a child, so we simply
+        """We're also not trying to create a piramide scheme here where a reseller can have another reseller, so we simply
         disallow child partners for resellers.
         """
         for partner in self:

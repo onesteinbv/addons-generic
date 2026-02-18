@@ -22,7 +22,7 @@ class TestSecurity(common.TransactionCase):
             )
             .mapped("product_variant_id")
             .ids
-        )  # Test with product.product
+        )
 
         with self.with_user(reseller.login):
             self.assertEqual(
