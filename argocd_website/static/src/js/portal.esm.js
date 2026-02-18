@@ -40,7 +40,7 @@ publicWidget.registry.PortalHomeCounters.include({
      */
     _getCountersAlwaysDisplayed() {
         // We want to always show the applications entry
-        return this._super(...arguments).concat(["app_count"]);
+        return this._super(...arguments).concat(["app_count", "customer_count"]);
     },
 });
 
