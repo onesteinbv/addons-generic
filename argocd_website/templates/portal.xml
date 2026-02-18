@@ -28,6 +28,7 @@
     >
         <div id="portal_client_category" position="inside">
             <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/argocd_website/static/src/img/application.svg'"/>
                 <t t-set="title">Applications</t>
                 <t t-set="text">Manage your applications</t>
                 <t t-set="url" t-value="'/my/applications'" />
