@@ -46,7 +46,7 @@
                 <i class="fa fa-external-link fa-fw" />
             </a>
         </t>
-        <div t-attf-class="dropdown position-static" t-else="">
+        <div t-attf-class="dropdown position-static" t-elif="len(urls) > 1">
             <button t-attf-class="btn #{class}" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false" aria-haspopup="true">
                 <i class="fa fa-external-link fa-fw" />

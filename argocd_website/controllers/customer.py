@@ -45,7 +45,9 @@ class CustomerPortalController(CustomerPortal):
         if customer.reseller_id != reseller_partner:
             raise AccessError(_("You don't have permission to access this customer."))
 
-        return customer
+        return (
+            customer.sudo()
+        )  # We return sudoed record to bypass access rights in the templates, since we have already checked access
 
     def _validate_form_data(self, data):
         errors = {}
@@ -138,13 +140,23 @@ class CustomerPortalController(CustomerPortal):
 
         # Get subscriptions for this customer
         subscriptions = request.env["sale.subscription"].search(
-            [("end_partner_id", "=", customer_id)]
+            [
+                ("end_partner_id", "=", customer_id),
+                ("stage_id.type", "!=", "draft"),
+                ("stage_id", "!=", False),
+            ]
+        )
+
+        # Get applications for this customer
+        applications = request.env["argocd.application"].search(
+            [("partner_id", "=", customer_id)]
         )
 
         values = {
             "page_name": "Customers",
             "customer": customer,
             "subscriptions": subscriptions,
+            "applications": applications,
             "message": kw.get("message"),
         }
         return request.render("argocd_website.portal_customer_detail", values)
@@ -160,6 +172,9 @@ class CustomerPortalController(CustomerPortal):
         reseller_partner = self._get_reseller_partner()
         if not reseller_partner:
             return request.not_found()
+
+        # Handle return parameter
+        return_param = request.params.get("return")
 
         values = {
             "page_name": "Customers",
@@ -194,7 +209,13 @@ class CustomerPortalController(CustomerPortal):
                 if post.get("country_id"):
                     customer_vals["country_id"] = int(post.get("country_id"))
 
-                customer = request.env["res.partner"].create(customer_vals)
+                customer = request.env["res.partner"].sudo().create(customer_vals)
+
+                # Handle return parameter if provided
+                if return_param == "signup":
+                    return request.redirect(
+                        f"/application/signup?customer_id={customer.id}"
+                    )
 
                 return request.redirect(f"/my/customers/{customer.id}?message=created")
             except (ValidationError, UserError) as e:

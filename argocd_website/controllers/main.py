@@ -6,7 +6,7 @@ from odoo.http import Controller, request, route
 
 
 class MainController(Controller):
-    def _validate(self, post, captcha_enabled, is_public, is_reseller):
+    def _validate(self, post, captcha_enabled, is_public, reselling_partner):
         if captcha_enabled:
             try:
                 request.env["librecaptcha"].answer(
@@ -15,7 +15,7 @@ class MainController(Controller):
             except ValidationError as e:
                 return {"subject": "captcha", "message": str(e)}
 
-        if is_public or is_reseller:
+        if is_public:
             if not post["email"]:
                 return {"subject": "email", "message": _("Email Address is required.")}
             if not post["name"]:
@@ -42,13 +42,6 @@ class MainController(Controller):
             ):
                 return {"subject": "email", "message": _("Invalid email address.")}
 
-        if "terms_of_use" not in post:
-            return {
-                "subject": "terms_of_use",
-                "message": _("Please accept the terms of use."),
-            }
-
-        if is_public:
             existing_users = (
                 request.env["res.users"]
                 .sudo()
@@ -59,6 +52,37 @@ class MainController(Controller):
                     "subject": "email",
                     "message": _("Email address already in use."),
                 }
+
+        # Validate reseller selections
+        if reselling_partner:
+            customer_id = post.get("customer_id", False)
+            target = post.get("target", "self")
+
+            # customer_id is required if target is end_customer
+            if target == "end_customer" and not customer_id:
+                return {
+                    "subject": "customer_id",
+                    "message": _("Please select a customer."),
+                }
+
+            # Check whether the selected customer belongs to the reseller if target is end_customer
+            if target == "end_customer" and customer_id:
+                # Ensure the selected customer belongs to the reseller
+                partner = request.env["res.partner"].browse(int(customer_id))
+
+                # This is already ensured by the record rule
+                if partner.reseller_id != reselling_partner:
+                    return {
+                        "subject": "customer_id",
+                        "message": _("Invalid customer selection."),
+                    }
+
+        if "terms_of_use" not in post:
+            return {
+                "subject": "terms_of_use",
+                "message": _("Please accept the terms of use."),
+            }
+
         return False
 
     @route(
@@ -144,7 +168,7 @@ class MainController(Controller):
         methods=["GET"],
         sitemap=True,
     )
-    def order(self, product=False):
+    def order(self, product=False, customer_id=None):
         main_product_tmpl = request.env["product.template"]
         if product:
             if not product.application_template_id or not product.sale_ok:
@@ -183,6 +207,7 @@ class MainController(Controller):
                 "optional_products": optional_products,
                 "subscription": subscription,
                 "current_step": "configure",
+                "customer_id": customer_id,
             },
         )
 
@@ -208,22 +233,39 @@ class MainController(Controller):
         is_reseller = user.partner_id.is_reseller or (
             user.partner_id.parent_id and user.partner_id.parent_id.is_reseller
         )
+
+        # Fetch existing customers for resellers
+        existing_customers = request.env["res.partner"]
+        customer_id = post.get("customer_id", False)
+        if is_reseller:
+            reselling_partner = user.partner_id.parent_id or user.partner_id
+            existing_customers = request.env["res.partner"].search(
+                [("reseller_id", "=", reselling_partner.id)]
+            )
+
         render_values = {
             "subscription": subscription,
             "user": user,
             "user_is_public": user_is_public,  # Shortcut
             "user_is_reseller": is_reseller,
             "captcha_enabled": captcha_enabled,
+            "existing_customers": existing_customers,
+            "customer_id": customer_id,
+            "target": post.get("target", "end_customer" if customer_id else "self"),
         }
 
         if request.httprequest.method == "POST":
-            error = self._validate(post, captcha_enabled, user_is_public, is_reseller)
-            render_values.update(default=post, error=error)
-            if error:
+            if error := self._validate(
+                post,
+                captcha_enabled,
+                user_is_public,
+                reselling_partner if is_reseller else False,
+            ):
+                render_values.update(default=post, error=error)
                 return request.render("argocd_website.signup", render_values)
 
             # Prepare post data for the ORM
-            if user_is_public or is_reseller:
+            if user_is_public:
                 values = {
                     "street": " ".join(
                         [
@@ -241,8 +283,6 @@ class MainController(Controller):
                     "zip": post["zip"],
                     "city": post["city"],
                 }
-
-            if user_is_public:
                 # Create user
                 users_sudo = request.env["res.users"].sudo()
                 signup_values = values.copy()
@@ -263,14 +303,16 @@ class MainController(Controller):
                 subscription.user_id = new_user
                 subscription.partner_id = new_user.partner_id
             elif is_reseller:
-                # Create end customer
                 reselling_partner = user.partner_id.parent_id or user.partner_id
-                partner = request.env["res.partner"].sudo().create(values)
-                partner.reseller_id = reselling_partner
-
-                subscription.partner_id = reselling_partner
                 subscription.user_id = user
-                subscription.end_partner_id = partner
+                target = post.get("target", "self")
+                if target == "self":  # Reseller ordering for their own company
+                    subscription.partner_id = reselling_partner
+                elif target == "end_customer" and customer_id:
+                    subscription.partner_id = reselling_partner
+                    subscription.end_partner_id = request.env["res.partner"].browse(
+                        int(customer_id)
+                    )
             else:
                 # Link subscription to current user
                 subscription.partner_id = user.partner_id

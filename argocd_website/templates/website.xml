@@ -160,7 +160,10 @@
                         </div>
                         <div class="col-lg-4 col-12 gx-0 px-lg-3">
                             <t t-call="argocd_website.order_details" >
-                                <a href="/application/signup" class="btn btn-primary js_order_app_proceed d-none disabled">Go to payment</a>
+                                <a
+                                    t-att-href="'/application/signup?customer_id=%s' % customer_id if customer_id else '/application/signup'"
+                                    class="btn btn-primary js_order_app_proceed d-none disabled">Go to payment
+                                </a>
                             </t>
                         </div>
                     </div>
@@ -177,11 +180,14 @@
 
     <template id="form">
         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-        <div class="card" >
+
+        <div class="card js_company_details_card">
             <div class="card-header bg-light h3">
                 Company details
             </div>
-            <div class="card-body" t-if="user_is_reseller or user_is_public">
+
+            <!-- Public users -->
+            <div class="card-body" t-if="user_is_public">
                 <div t-attf-class="#{error and error['subject'] == 'email' and 'has-error' or ''} mb-3" >
                     <label for="email" class="form-label">Email Address <span class="text-info">*</span></label>
                     <input type="email"
@@ -294,6 +300,50 @@
                 </div>
             </div>
 
+            <!-- Reseller section -->
+            <div class="card-body" t-elif="user_is_reseller">
+                <p>Specify if you are ordering an application for yourself or on behalf of a customer.</p>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="target" id="target_self" value="self"
+                               t-att-checked="'checked' if target == 'self' else None" />
+                        <label class="form-check-label" for="target_self">
+                            <strong>My company</strong>
+                        </label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="radio" name="target" id="target_end_customer" value="end_customer"
+                               t-att-checked="'checked' if target == 'end_customer' else None" />
+                        <label class="form-check-label" for="target_end_customer">
+                            <strong>My customer</strong>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3 js_customer_selection" style="display: none;">
+                    <label for="customer_id" class="form-label">Customer <span class="text-info">*</span></label>
+                    <select class="form-select" id="customer_id" name="customer_id"
+                            t-attf-class="form-select #{error and error.get('subject') == 'customer_id' and 'is-invalid' or ''}">
+                        <option value="">Select a customer</option>
+                        <t t-foreach="existing_customers" t-as="customer">
+                            <option t-att-value="customer.id"
+                                    t-att-selected="'selected' if customer_id == str(customer.id) else None">
+                                <t t-esc="customer.name" />
+                            </option>
+                        </t>
+                    </select>
+                    <t t-if="error and error.get('subject') == 'customer_id'">
+                        <div class="invalid-feedback d-block">
+                            <t t-esc="error.get('message')" />
+                        </div>
+                    </t>
+                    <div class="form-text">
+                        Or <a href="/my/customers/create?return=signup">create a new customer</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Authenticated users -->
             <div class="card-body d-flex" t-else="">
                 <div class="flex-fill">
                     <strong class="d-block">Address: </strong>
