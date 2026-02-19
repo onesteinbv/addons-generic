@@ -8,7 +8,7 @@ class TestApplicationDomain(TransactionCase):
         super().setUpClass()
         application_set_id = cls.env.ref("argocd_deployer.application_set_default").id
         app_template_id = cls.env.ref(
-            "argocd_deployer.demo_curq_basis_application_template"
+            "argocd_deployer.demo_product_basis_application_template"
         ).id
         cls.app_1 = cls.env["argocd.application"].create(
             {

@@ -20,7 +20,7 @@ class TestSubscription(TransactionCase):
         )
         prefix = "flavoured-odoo-prefix-"  # 22 characters
         product = self.env.ref(
-            "argocd_sale.demo_curq_basis_product_template"
+            "argocd_sale.demo_product_basis_product_template"
         ).product_variant_ids[0]
         # Make sure this still works if the demo data changes
         product.name = "curq"
@@ -54,7 +54,7 @@ class TestSubscription(TransactionCase):
         partner_with_long_name = self.env["res.partner"].create({"name": "short name"})
         prefix = "flavoured-odoo-prefix-"
         product = self.env.ref(
-            "argocd_sale.demo_curq_basis_product_template"
+            "argocd_sale.demo_product_basis_product_template"
         ).product_variant_ids[0]
         # Make sure this still works if the demo data changes
         product.name = "curq"
@@ -82,7 +82,7 @@ class TestSubscription(TransactionCase):
         )
         prefix = "flavoured-odoo-prefix-"
         product = self.env.ref(
-            "argocd_sale.demo_curq_basis_product_template"
+            "argocd_sale.demo_product_basis_product_template"
         ).product_variant_ids[0]
         # Make sure this still works if the demo data changes
         product.name = "curq"

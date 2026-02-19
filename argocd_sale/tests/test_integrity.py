@@ -29,7 +29,7 @@ class TestIntegrity(common.TransactionCase):
         ):
             self.non_reseller.reseller_partner_ids = [self.some_partner.id]
 
-    def test_no_piramid_of_resellers(self):
+    def test_no_pyramid_of_resellers(self):
         """A reseller should not be able to have another reseller as a parent."""
         with self.assertRaises(
             ValidationError,

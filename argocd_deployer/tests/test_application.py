@@ -17,7 +17,7 @@ class TestApplication(TransactionCase):
                 "name": "myapp",
                 "application_set_id": cls.application_set_id,
                 "template_id": cls.env.ref(
-                    "argocd_deployer.demo_curq_basis_application_template"
+                    "argocd_deployer.demo_product_basis_application_template"
                 ).id,
                 "tag_ids": [
                     cls.env.ref(
@@ -111,7 +111,7 @@ class TestApplication(TransactionCase):
                 "name": "myapp2",
                 "application_set_id": self.application_set_id,
                 "template_id": self.env.ref(
-                    "argocd_deployer.demo_curq_basis_application_template"
+                    "argocd_deployer.demo_product_basis_application_template"
                 ).id,
                 "tag_ids": [
                     self.env.ref(

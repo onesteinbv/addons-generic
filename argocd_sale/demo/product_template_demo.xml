@@ -13,14 +13,14 @@
     <record id="demo_pos_product_template" model="product.template">
         <field name="name">Point of Sales</field>
         <field name="subscribable" eval="True" />
+        <field name="application_template_id" ref="argocd_deployer.demo_product_basis_application_template" />
         <field name="subscription_template_id" ref="argocd_sale.demo_subscription_template" />
-        <field name="application_set_id" ref="argocd_deployer.application_set_default"/>
     </record>
     <record id="demo_matomo_server_product_template" model="product.template">
         <field name="name">Matomo Server</field>
         <field name="subscribable" eval="True" />
+        <field name="application_template_id" ref="argocd_deployer.demo_product_basis_application_template" />
         <field name="subscription_template_id" ref="argocd_sale.demo_subscription_template" />
-        <field name="application_set_id" ref="argocd_deployer.application_set_default"/>
     </record>
     <record id="demo_product_premium_product_template" model="product.template">
         <field name="name">Product Premium</field>
