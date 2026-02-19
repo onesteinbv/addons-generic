@@ -203,7 +203,7 @@ class CustomerPortalController(CustomerPortal):
                     "company_registry": post.get("company_registry"),
                     "reseller_id": reseller_partner.id,
                     "company_type": "company",
-                    "lang": request.env.user.lang,  # FIXME: We ussume the customer has the same language as the user (which is not always the case)
+                    "lang": request.env.user.lang,  # FIXME: We assume the customer has the same language as the user (which is not always the case)
                 }
 
                 if post.get("country_id"):

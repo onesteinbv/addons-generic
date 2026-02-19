@@ -52,7 +52,9 @@ class Application(models.Model):
             lambda kv: kv.attribute_id.argocd_identifier == argocd_identifier
         ).product_attribute_value_id
         if not variant_value.argocd_value:
-            raise UserError("No ArgoCD value found for attribute %s", argocd_identifier)
+            raise UserError(
+                "No ArgoCD value found for attribute %s" % argocd_identifier
+            )
         return variant_value.argocd_value
 
     @api.depends("subscription_line_id", "subscription_line_id.sale_subscription_id")

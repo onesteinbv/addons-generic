@@ -55,7 +55,7 @@ class TestIntegrity(common.TransactionCase):
             )
 
     def test_enforces_simple_parent_child_for_resellers(self):
-        """Test wether the reseller can only have one layer of childs"""
+        """Test whether the reseller can only have one layer of children"""
         # First child partner should be created without issues.
         reseller_child = self.env["res.partner"].create(
             {

@@ -4,7 +4,7 @@ def migrate(cr, version):
     cr.execute(
         """
         ALTER TABLE product_attribute_value
-        ADD COLUMN argocd_value VARCHAR
+        ADD COLUMN IF NOT EXISTS argocd_value VARCHAR
     """
     )
 
