@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class ProductTemplate(models.Model):
@@ -30,3 +31,16 @@ class ProductTemplate(models.Model):
     stat_product_ids = fields.Many2many(
         comodel_name="product.product", string="Products on Statistics"
     )
+
+    @api.constrains("application_template_id", "application_set_id")
+    def _constrain_application_template(self):
+        """Ensure that if an application template is set, an application set is also set."""
+        for record in self:
+            if record.application_template_id and not record.application_set_id:
+                raise ValidationError(
+                    "An application set must be set if an application template is set."
+                )
+            elif record.application_set_id and not record.application_template_id:
+                raise ValidationError(
+                    "An application template must be set if an application set is set."
+                )
