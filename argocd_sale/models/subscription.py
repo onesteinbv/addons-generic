@@ -35,7 +35,7 @@ class Subscription(models.Model):
         for sub in self:
             sub.application_count = len(sub.application_ids)
 
-    @api.constrains("end_partner_id", "partner_id")
+    @api.constrains("end_partner_id", "main_partner_id")
     def _check_end_partner_id(self):
         for sub in self:
             if (
