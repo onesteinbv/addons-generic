@@ -4,7 +4,7 @@
     "website": "https://www.onestein.nl",
     "license": "AGPL-3",
     "category": "Sales",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "depends": [
         "sale",
         "subscription_oca",
@@ -16,6 +16,7 @@
         "demo/sale_subscription_template_demo.xml",
         "demo/product_product_demo.xml",
         "demo/product_template_demo.xml",
+        "demo/res_partner_demo.xml",
     ],
     "data": [
         "data/mail_template_data.xml",

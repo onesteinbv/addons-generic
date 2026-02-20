@@ -2,7 +2,8 @@ from datetime import timedelta
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import Command, _, fields, models
+from odoo import Command, _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class Subscription(models.Model):
@@ -11,12 +12,39 @@ class Subscription(models.Model):
     application_ids = fields.One2many(
         comodel_name="argocd.application", inverse_name="subscription_id"
     )
-    end_partner_id = fields.Many2one(comodel_name="res.partner")
+    main_partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        compute="_compute_main_partner_id",
+        store=True,
+        help="The main partner of the reseller, partner can be the commercial entity or the reseller itself if it doesn't have a parent.",
+    )
+    end_partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        domain="[('is_reseller', '=', False), ('reseller_id', '=', main_partner_id)]",
+    )
     application_count = fields.Integer(compute="_compute_application_count")
+
+    @api.depends("partner_id", "partner_id.parent_id")
+    def _compute_main_partner_id(self):
+        for subscription in self:
+            subscription.main_partner_id = (
+                subscription.partner_id.parent_id or subscription.partner_id
+            )
 
     def _compute_application_count(self):
         for sub in self:
             sub.application_count = len(sub.application_ids)
+
+    @api.constrains("end_partner_id", "main_partner_id")
+    def _check_end_partner_id(self):
+        for sub in self:
+            if (
+                sub.end_partner_id
+                and sub.end_partner_id.reseller_id != sub.main_partner_id
+            ):
+                raise ValidationError(
+                    "End customer should be a customer of the reseller."
+                )
 
     def _get_grace_period(self):
         return int(

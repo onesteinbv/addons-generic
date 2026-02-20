@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="demo_curq_basis_product_template" model="product.template">
-        <field name="name">Curq Basis</field>
-        <field name="application_template_id" ref="argocd_deployer.demo_curq_basis_application_template" />
+    <record id="demo_product_basis_product_template" model="product.template">
+        <field name="name">Product Basis</field>
+        <field name="application_template_id" ref="argocd_deployer.demo_product_basis_application_template" />
         <field name="subscribable" eval="True" />
         <field name="subscription_template_id" ref="argocd_sale.demo_subscription_template" />
         <field name="list_price">30.0</field>
@@ -12,16 +12,25 @@
     </record>
     <record id="demo_pos_product_template" model="product.template">
         <field name="name">Point of Sales</field>
-        <field name="application_tag_ids" eval="[Command.set([ref('argocd_deployer.demo_pos_application_tag')])]" />
         <field name="subscribable" eval="True" />
+        <field name="application_template_id" ref="argocd_deployer.demo_product_basis_application_template" />
         <field name="subscription_template_id" ref="argocd_sale.demo_subscription_template" />
-        <field name="application_set_id" ref="argocd_deployer.application_set_default"/>
     </record>
     <record id="demo_matomo_server_product_template" model="product.template">
         <field name="name">Matomo Server</field>
-        <field name="application_tag_ids" eval="[Command.set([ref('argocd_deployer.demo_matomo_server_application_tag')])]" />
+        <field name="subscribable" eval="True" />
+        <field name="application_template_id" ref="argocd_deployer.demo_product_basis_application_template" />
+        <field name="subscription_template_id" ref="argocd_sale.demo_subscription_template" />
+    </record>
+    <record id="demo_product_premium_product_template" model="product.template">
+        <field name="name">Product Premium</field>
+        <field name="application_template_id" ref="argocd_deployer.demo_product_basis_application_template" />
         <field name="subscribable" eval="True" />
         <field name="subscription_template_id" ref="argocd_sale.demo_subscription_template" />
+        <field name="list_price">30.0</field>
+        <field name="invoice_policy">order</field>
         <field name="application_set_id" ref="argocd_deployer.application_set_default"/>
+        <field name="stat_product_ids" eval="[Command.set([ref('argocd_sale.demo_s3_storage_product')])]" />
+        <field name="reseller_partner_ids" eval="[(4, ref('base.res_partner_1'))]" />
     </record>
 </odoo>

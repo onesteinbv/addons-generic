@@ -14,9 +14,15 @@
         sequence="20"
     />
     <menuitem
-        id="config_menu"
+        id="application_domain_menu"
+        action="application_domain_action"
         parent="argocd_root_menu"
         sequence="30"
+    />
+    <menuitem
+        id="config_menu"
+        parent="argocd_root_menu"
+        sequence="40"
         name="Configuration"
     />
     <menuitem

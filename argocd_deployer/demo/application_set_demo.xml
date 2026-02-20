@@ -3,9 +3,9 @@
     <record id="application_set_default" model="argocd.application.set">
         <field name="name">default</field>
         <field name="description">Default application set</field>
-        <field name="repository_url">git@github.com:onesteinbv/flavoured-odoo-k8s.git</field>
+        <field name="repository_url">git@github.com:example/example.git</field>
         <field name="branch">main</field>
-        <field name="repository_directory">/home/tarteo/repo</field>
+        <field name="repository_directory">/somewhere</field>
         <field name="deployment_directory">instances</field>
         <field name="namespace_prefix">flavoured-odoo-</field>
     </record>

@@ -7,12 +7,17 @@
             [
                 ('sale_ok', '=', True),
                 ('application_template_id', '!=', False),
-                '|',
-                ('allowed_reseller_partner_ids', '=', False),
-                ('allowed_reseller_partner_ids', 'in', [user.partner_id.id]),
+                '|', '|',
+                ('reseller_partner_ids', '=', False),
+                ('reseller_partner_ids', 'in', [user.partner_id.id]),
+                ('reseller_partner_ids', 'in', [user.partner_id.parent_id.id]),
             ]
         </field>
         <field name="groups" eval="[Command.link(ref('base.group_portal')), Command.link(ref('base.group_public'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
     </record>
 
     <record id="product_template_portal_public_rule" model="ir.rule">
@@ -22,29 +27,82 @@
             [
                 ('sale_ok', '=', True),
                 ('application_template_id', '!=', False),
-                '|',
-                ('allowed_reseller_partner_ids', '=', False),
-                ('allowed_reseller_partner_ids', 'in', [user.partner_id.id]),
+                '|', '|',
+                ('reseller_partner_ids', '=', False),
+                ('reseller_partner_ids', 'in', [user.partner_id.id]),
+                ('reseller_partner_ids', 'in', [user.partner_id.parent_id.id]),
             ]
         </field>
         <field name="groups" eval="[Command.link(ref('base.group_portal')), Command.link(ref('base.group_public'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
     </record>
 
     <record id="argocd_application_portal_rule" model="ir.rule">
         <field name="name">argocd_application_portal_access</field>
         <field name="model_id" ref="argocd_deployer.model_argocd_application"/>
         <field name="domain_force">
-            ['|', '|', '&amp;', ('partner_id.parent_id', '!=', False), ('partner_id.parent_id', '=', user.partner_id.parent_id.id), ('partner_id', '=', user.partner_id.id), ('partner_id', 'child_of', user.partner_id.id)]
+            [
+                '|', '|', '|',
+                ('partner_id', '=', user.partner_id.id),
+                ('partner_id.reseller_id', '=', user.partner_id.id),
+                '&amp;',
+                ('partner_id', '!=', False),
+                ('partner_id', '=', user.partner_id.parent_id.id),
+                '&amp;',
+                ('partner_id.reseller_id', '!=', False),
+                ('partner_id.reseller_id', '=', user.partner_id.parent_id.id),
+            ]
         </field>
         <field name="groups" eval="[Command.link(ref('base.group_portal'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
     </record>
 
     <record id="argocd_application_domain_portal_rule" model="ir.rule">
         <field name="name">argocd_application_domain_portal_rule</field>
         <field name="model_id" ref="argocd_deployer.model_argocd_application_domain"/>
         <field name="domain_force">
-            ['|', '|', '&amp;', ('application_id.partner_id.parent_id', '!=', False), ('application_id.partner_id.parent_id', '=', user.partner_id.parent_id.id), ('application_id.partner_id', '=', user.partner_id.id), ('application_id.partner_id', 'child_of', user.partner_id.id)]
+            [
+                '|', '|', '|',
+                ('application_id.partner_id', '=', user.partner_id.id),
+                ('application_id.partner_id.reseller_id', '=', user.partner_id.id),
+                '&amp;',
+                ('application_id.partner_id', '!=', False),
+                ('application_id.partner_id', '=', user.partner_id.parent_id.id),
+                '&amp;',
+                ('application_id.partner_id.reseller_id', '!=', False),
+                ('application_id.partner_id.reseller_id', '=', user.partner_id.parent_id.id),
+            ]
         </field>
         <field name="groups" eval="[Command.link(ref('base.group_portal'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
     </record>
+
+    <!-- Reseller customer access rules -->
+    <record id="res_partner_reseller_rule" model="ir.rule">
+        <field name="name">res_partner_reseller_rule</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">
+            [
+                ('reseller_id', '!=', False),
+                '|',
+                ('reseller_id', '=', user.partner_id.id),
+                ('reseller_id', '=', user.partner_id.parent_id.id),
+            ]
+        </field>
+        <field name="groups" eval="[Command.link(ref('base.group_portal'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>  <!-- We limit this rule to read because we want to curate which fields can be modified -->
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
 </odoo>

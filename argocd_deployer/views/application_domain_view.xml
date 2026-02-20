@@ -3,11 +3,31 @@
     <record id="application_domain_tree" model="ir.ui.view">
         <field name="model">argocd.application.domain</field>
         <field name="arch" type="xml">
-            <list editable="bottom">
-                <field name="sequence" widget="handle" />
+            <list editable="bottom" decoration-bf="not application_id" >
+                <field name="application_id" />
                 <field name="scope_id" />
                 <field name="name" />
             </list>
         </field>
+    </record>
+
+    <record id="application_domain_search" model="ir.ui.view">
+        <field name="model">argocd.application.domain</field>
+        <field name="arch" type="xml">
+            <search string="Application Domains">
+                <field name="name" />
+                <field name="application_id" />
+                <field name="scope_id" />
+
+                <filter name="no_application" string="Reserved Domains" domain="[('application_id', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="application_domain_action" model="ir.actions.act_window">
+        <field name="name">Domains</field>
+        <field name="res_model">argocd.application.domain</field>
+        <field name="view_mode">list,form</field>
+        <field name="path">application-domains</field>
     </record>
 </odoo>

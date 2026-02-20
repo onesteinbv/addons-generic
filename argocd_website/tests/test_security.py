@@ -16,13 +16,16 @@ class TestSecurity(common.TransactionCase):
                     "name": "Reseller product",
                     "reseller_partner_ids": reseller.partner_id.ids,
                     "application_template_id": self.ref(
-                        "argocd_deployer.demo_curq_basis_application_template"
+                        "argocd_deployer.demo_product_basis_application_template"
+                    ),
+                    "application_set_id": self.ref(
+                        "argocd_deployer.application_set_default"
                     ),
                 }
             )
             .mapped("product_variant_id")
             .ids
-        )  # Test with product.product
+        )
 
         with self.with_user(reseller.login):
             self.assertEqual(

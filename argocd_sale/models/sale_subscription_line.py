@@ -22,7 +22,10 @@ class SubscriptionLine(models.Model):
         # subscription line because of the sql constraint.
         # Let's assume that here.
         product = self.product_id
-        partner = self.sale_subscription_id.partner_id.commercial_partner_id
+        partner = (
+            self.sale_subscription_id.end_partner_id
+            or self.sale_subscription_id.main_partner_id
+        )
         # Add id to the end to easily ensure uniqueness
         name = "-".join(
             [partner.display_name, product.default_code or product.name, str(self.id)]
@@ -123,7 +126,6 @@ class SubscriptionLine(models.Model):
             {
                 "name": name,
                 "subscription_line_id": self.id,
-                "tag_ids": self.product_id.application_tag_ids.ids,
                 "template_id": self.product_id.application_template_id.id,
                 "application_set_id": self.product_id.application_set_id.id,
             }

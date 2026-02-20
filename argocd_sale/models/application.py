@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import UserError
 
 
 class Application(models.Model):
@@ -40,8 +41,9 @@ class Application(models.Model):
 
     def is_created_by_reseller(self):
         self.ensure_one()
-        return self.partner_id.is_reseller or (
-            self.partner_id.parent_id and self.partner_id.parent_id.is_reseller
+        partner = self.partner_id.parent_id or self.partner_id
+        return partner.is_reseller or (
+            partner.reseller_id and partner.reseller_id.is_reseller
         )
 
     def get_attribute(self, argocd_identifier):
@@ -49,7 +51,11 @@ class Application(models.Model):
         variant_value = self.product_id.product_template_variant_value_ids.filtered(
             lambda kv: kv.attribute_id.argocd_identifier == argocd_identifier
         ).product_attribute_value_id
-        return variant_value.argocd_name or variant_value.name
+        if not variant_value.argocd_value:
+            raise UserError(
+                "No ArgoCD value found for attribute %s" % argocd_identifier
+            )
+        return variant_value.argocd_value
 
     @api.depends("subscription_line_id", "subscription_line_id.sale_subscription_id")
     def _compute_subscription_id(self):
@@ -63,11 +69,12 @@ class Application(models.Model):
 
     @api.depends(
         "subscription_id",
-        "subscription_id.partner_id",
+        "subscription_id.main_partner_id",
         "subscription_id.end_partner_id",
     )
     def _compute_partner_id(self):
         for app in self.filtered(lambda a: a.subscription_id):
             app.partner_id = (
-                app.subscription_id.end_partner_id or app.subscription_id.partner_id
+                app.subscription_id.end_partner_id
+                or app.subscription_id.main_partner_id  # We use the end partner if it exists, otherwise we fallback to the main partner NB: not commercial partner
             )

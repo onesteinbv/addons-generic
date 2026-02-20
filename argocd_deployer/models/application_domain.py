@@ -7,7 +7,7 @@ class ApplicationDomain(models.Model):
     _description = "ArgoCD Application Domain"
     _order = "sequence, id"
 
-    application_id = fields.Many2one(comodel_name="argocd.application", required=True)
+    application_id = fields.Many2one(comodel_name="argocd.application")
     scope_id = fields.Many2one(
         comodel_name="argocd.application.domain.scope", required=True
     )

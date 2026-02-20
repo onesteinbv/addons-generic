@@ -12,7 +12,6 @@
                     <group name="application_group">
                         <field name="application_set_id"/>
                         <field name="application_template_id" />
-                        <field name="application_tag_ids" widget="many2many_tags"/>
                         <field name="reseller_partner_ids" options="{'no_create_edit': True}" />
                     </group>
                     <group>
@@ -23,6 +22,25 @@
                 </page>
             </xpath>
         </field>
-
     </record>
+
+    <record id="product_template_search_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='combo']" position="after">
+                <filter name="is_application" string="Application" domain="[('application_template_id', '!=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="application_products_action" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="product.product_template_search_view"/>
+        <field name="context">{'search_default_is_application': True, 'search_default_filter_to_sell': True}</field>
+    </record>
+
+    <menuitem id="application_menu" parent="argocd_deployer.argocd_root_menu" action="application_products_action" sequence="36"/>
 </odoo>

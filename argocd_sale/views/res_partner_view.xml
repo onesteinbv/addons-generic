@@ -4,8 +4,20 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
+            <!-- Reseller fields -->
             <xpath expr="//field[@name='category_id']" position="after">
-                <field name="is_reseller" />
+                <field name="is_reseller" invisible="reseller_id or parent_id" />
+                <field name="reseller_id" invisible="is_reseller or parent_id" />
+            </xpath>
+
+            <!-- Reseller settings -->
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                <page string="Reseller" name="reseller" invisible="not is_reseller">
+                    <group>
+                        <field name="reseller_partner_ids" />
+                        <field name="reselling_product_ids" widget="many2many_tags" options="{'no_create': True}" />
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>
@@ -19,4 +31,13 @@
             </xpath>
         </field>
     </record>
+
+    <record id="reseller_action" model="ir.actions.act_window">
+        <field name="name">Resellers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="context">{'default_is_reseller': True, 'search_default_resellers': True}</field>
+    </record>
+
+    <menuitem id="reseller_menu" parent="argocd_deployer.argocd_root_menu" action="reseller_action" sequence="35"/>
 </odoo>

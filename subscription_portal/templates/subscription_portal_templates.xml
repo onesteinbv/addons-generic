@@ -36,6 +36,7 @@
         </xpath>
         <div id="portal_client_category" position="inside">
             <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/subscription_portal/static/src/img/subscriptions.svg'" />
                 <t t-set="title">Subscriptions</t>
                 <t t-set="text">Manage your subscriptions</t>
                 <t t-set="url" t-value="'/my/subscriptions'" />

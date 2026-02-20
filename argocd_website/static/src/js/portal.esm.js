@@ -40,7 +40,7 @@ publicWidget.registry.PortalHomeCounters.include({
      */
     _getCountersAlwaysDisplayed() {
         // We want to always show the applications entry
-        return this._super(...arguments).concat(["app_count"]);
+        return this._super(...arguments).concat(["app_count", "customer_count"]);
     },
 });
 
@@ -115,5 +115,42 @@ publicWidget.registry.DomainCNAMECheck = publicWidget.Widget.extend({
             self.$buttonIcon.removeClass("spinner-grow");
             self.$buttonIcon.addClass("fa-check");
         });
+    }
+});
+
+publicWidget.registry.SignupForm = publicWidget.Widget.extend({
+    selector: "form[action='/application/signup']",
+    events: {
+        "change input[name='target']": "_onTargetChange",
+        "change select[name='customer_id']": "_onCustomerChange",
+    },
+
+    start: function () {
+        this._super();
+        this.$targetRadios = this.$el.find("input[name='target']");
+        this.$customerSelection = this.$el.find(".js_customer_selection");
+        this.$customerSelect = this.$el.find("select[name='customer_id']");
+
+        // Initialize visibility based on current selection
+        this._updateVisibility();
+    },
+
+    _onTargetChange: function () {
+        this._updateVisibility();
+    },
+
+    _onCustomerChange: function () {
+        this._updateVisibility();
+    },
+
+    _updateVisibility: function () {
+        var target = this.$targetRadios.filter(":checked").val();
+
+        // Show/hide customer selection dropdown
+        if (target === "end_customer") {
+            this.$customerSelection.show();
+        } else {
+            this.$customerSelection.hide();
+        }
     }
 });

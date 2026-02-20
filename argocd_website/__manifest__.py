@@ -23,6 +23,7 @@
         "security/ir_rule.xml",
         "templates/website.xml",
         "templates/portal.xml",
+        "templates/customer_portal.xml",
     ],
     "demo": ["demo/ir_config_parameter_demo.xml"],
     "assets": {

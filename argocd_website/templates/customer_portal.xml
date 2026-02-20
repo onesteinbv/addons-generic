@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Customer Portal Breadcrumbs -->
+    <template
+        id="customer_portal_breadcrumbs"
+        inherit_id="portal.portal_breadcrumbs"
+    >
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li
+                t-if="page_name == 'Customers'"
+                t-attf-class="breadcrumb-item #{'active ' if not customer else ''}"
+            >
+                <a
+                    t-if="customer or mode in ['create']"
+                    t-attf-href="/my/customers?{{ keep_query() }}"
+                >Customers</a>
+                <t t-else="">Customers</t>
+            </li>
+            <li t-if="customer and mode != 'edit'" class="breadcrumb-item active">
+                <t t-esc="customer.name" />
+            </li>
+            <li t-if="customer and mode == 'edit'" class="breadcrumb-item">
+                <a t-attf-href="/my/customers/{{ customer.id }}">
+                    <t t-esc="customer.name" />
+                </a>
+            </li>
+            <li t-if="mode == 'edit'" class="breadcrumb-item active">
+                Edit
+            </li>
+            <li t-if="mode == 'create'" class="breadcrumb-item active">
+                Create Customer
+            </li>
+        </xpath>
+    </template>
+
+    <!-- Customer Portal Menu Entry -->
+    <template
+        id="customer_portal_my_home"
+        inherit_id="portal.portal_my_home"
+        priority="41"
+    >
+        <div id="portal_client_category" position="inside">
+            <t t-if="request.env.user.partner_id.is_reseller or (request.env.user.partner_id.parent_id and request.env.user.partner_id.parent_id.is_reseller)">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="icon" t-value="'/argocd_website/static/src/img/customer.svg'"/>
+                    <t t-set="title">Customers</t>
+                    <t t-set="text">Manage your customers</t>
+                    <t t-set="url" t-value="'/my/customers'" />
+                    <t t-set="placeholder_count" t-value="'customer_count'" />
+                </t>
+            </t>
+        </div>
+    </template>
+
+    <!-- Customer Portal Templates -->
+    <template id="portal_my_customers" name="My Customers">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Customers</t>
+            </t>
+            <t t-if="customers" t-call="portal.portal_table">
+                <t t-set="classes" t-value="'mb-2'" />
+                <thead>
+                    <tr class="active">
+                        <th>Company Name</th>
+                        <th>Email</th>
+                        <th>City</th>
+                        <th>CoC #</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="customers" t-as="customer">
+                        <tr>
+                            <td>
+                                <a
+                                    t-attf-href="/my/customers/#{customer.id}"
+                                    t-att-title="customer.name"
+                                >
+                                    <t t-esc="customer.name" />
+                                </a>
+                            </td>
+                            <td>
+                                <t t-esc="customer.email" />
+                            </td>
+                            <td>
+                                <t t-esc="customer.city" />
+                            </td>
+                            <td>
+                                <t t-esc="customer.company_registry" />
+                            </td>
+                            <td class="text-end">
+                                <a
+                                    t-attf-href="/my/customers/#{customer.id}/edit"
+                                    class="btn btn-sm btn-secondary"
+                                    title="Edit"
+                                >
+                                    <i class="fa fa-edit" />
+                                </a>
+                                <form
+                                    t-attf-action="/my/customers/#{customer.id}/archive"
+                                    method="post"
+                                    style="display: inline;"
+                                    onsubmit="return confirm('Are you sure you want to archive this customer?');"
+                                >
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Archive">
+                                        <i class="fa fa-archive" />
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+            <t t-else="">
+                <p>You have no customers currently.</p>
+            </t>
+            <div t-if="message == 'archived'" class="alert alert-success mt-3 mb-3">
+                <i class="fa fa-check" /> Customer has been archived successfully.
+            </div>
+            <a href="/my/customers/create" class="btn btn-primary">
+                Create Customer
+            </a>
+        </t>
+    </template>
+
+    <template id="portal_customer_detail" name="Customer Details">
+        <t t-call="portal.portal_layout">
+            <div class="col-12">
+                <div class="d-flex mb-3">
+                    <h2 class="mb-0 flex-fill">
+                        <span t-esc="customer.name" />
+                    </h2>
+                    <div>
+                        <a
+                            t-attf-href="/my/customers/#{customer.id}/edit"
+                            class="btn btn-primary"
+                        >
+                            <i class="fa fa-edit" /> Edit
+                        </a>
+                        <form
+                            t-attf-action="/my/customers/#{customer.id}/archive"
+                            method="post"
+                            style="display: inline;"
+                            onsubmit="return confirm('Are you sure you want to archive this customer?');"
+                        >
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa fa-archive" /> Archive
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div t-if="message == 'created'" class="alert alert-success">
+                    <i class="fa fa-check" /> Customer has been created successfully.
+                </div>
+                <div t-if="message == 'updated'" class="alert alert-success">
+                    <i class="fa fa-check" /> Customer has been updated successfully.
+                </div>
+                <div t-if="message == 'has_active_subscriptions'" class="alert alert-danger">
+                    <i class="fa fa-exclamation-triangle" /> Cannot archive customer with active subscriptions.
+                </div>
+                <div t-if="message == 'archive_error'" class="alert alert-danger">
+                    <i class="fa fa-exclamation-triangle" /> An error occurred while archiving the customer.
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0">Contact Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Company Name:</strong>
+                                <p t-esc="customer.name" />
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Email:</strong>
+                                <p>
+                                    <a t-attf-href="mailto:#{customer.email}" t-esc="customer.email" />
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Phone:</strong>
+                                <p t-esc="customer.phone or '-'" />
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Chamber of Commerce #:</strong>
+                                <p t-esc="customer.company_registry or '-'" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0">Address</h5>
+                    </div>
+                    <div class="card-body">
+                        <address>
+                            <t t-if="customer.street">
+                                <t t-esc="customer.street" /><br/>
+                            </t>
+                            <t t-if="customer.street2">
+                                <t t-esc="customer.street2" /><br/>
+                            </t>
+                            <t t-if="customer.zip or customer.city">
+                                <t t-esc="customer.zip" /> <t t-esc="customer.city" /><br/>
+                            </t>
+                            <t t-if="customer.country_id">
+                                <t t-esc="customer.country_id.name" />
+                            </t>
+                        </address>
+                    </div>
+                </div>
+
+                <div class="card" t-if="subscriptions">
+                    <div class="card-header">
+                        <h5 class="mb-0">Subscriptions</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Stage</th>
+                                    <th>Next Invoice Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="subscriptions" t-as="customer_subscription">
+                                    <tr>
+                                        <td>
+                                            <a t-attf-href="/my/subscriptions/#{customer_subscription.id}" t-esc="customer_subscription.name" />
+                                        </td>
+                                        <td>
+                                            <span t-esc="customer_subscription.stage_id.name" />
+                                        </td>
+                                        <td>
+                                            <span t-field="customer_subscription.recurring_next_date" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Applications</h5>
+                        <a t-attf-href="/application/order?customer_id=#{customer.id}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-plus" /> Order Application
+                        </a>
+                    </div>
+                    <div class="card-body" t-if="applications">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Product</th>
+                                    <th>Health</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="applications" t-as="customer_app">
+                                    <tr>
+                                        <td>
+                                            <a t-attf-href="/my/applications/#{customer_app.id}" t-esc="customer_app.name" />
+                                        </td>
+                                        <td>
+                                            <span t-esc="customer_app.product_id.name or '-'" />
+                                        </td>
+                                        <td>
+                                            <div class="js_health_check" t-att-data-app-id="customer_app.id">
+                                                <i class="fa fa-circle-o-notch fa-spin fa-fw" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body" t-else="">
+                        <p class="text-muted mb-0">No applications found for this customer.</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_customer_form" name="Customer Form">
+        <t t-call="portal.portal_layout">
+            <div class="col-12">
+                <form method="POST" class="needs-validation">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <div t-if="errors and errors.get('general')" class="alert alert-danger">
+                        <t t-esc="errors.get('general')" />
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="mb-0">General Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Company Name <span class="text-info">*</span></label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        t-attf-class="form-control #{errors.get('name') and 'is-invalid' or ''}"
+                                        id="name"
+                                        name="name"
+                                        required="required"
+                                        t-att-value="form_data.get('name', '')"
+                                    />
+                                    <div t-if="errors.get('name')" class="invalid-feedback d-block">
+                                        <t t-esc="errors.get('name')" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email <span class="text-info">*</span></label>
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        t-attf-class="form-control #{errors.get('email') and 'is-invalid' or ''}"
+                                        id="email"
+                                        name="email"
+                                        required="required"
+                                        t-att-value="form_data.get('email', '')"
+                                    />
+                                    <div t-if="errors.get('email')" class="invalid-feedback d-block">
+                                        <t t-esc="errors.get('email')" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="phone"
+                                        name="phone"
+                                        t-att-value="form_data.get('phone', '')"
+                                    />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="company_registry" class="form-label">Chamber of Commerce # <span class="text-info">*</span></label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        t-attf-class="form-control #{errors.get('company_registry') and 'is-invalid' or ''}"
+                                        id="company_registry"
+                                        name="company_registry"
+                                        required="required"
+                                        t-att-value="form_data.get('company_registry', '')"
+                                    />
+                                    <div t-if="errors.get('company_registry')" class="invalid-feedback d-block">
+                                        <t t-esc="errors.get('company_registry')" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="mb-0">Address</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="street" class="form-label">Street <span class="text-info">*</span></label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    t-attf-class="form-control #{errors.get('street') and 'is-invalid' or ''}"
+                                    id="street"
+                                    name="street"
+                                    required="required"
+                                    t-att-value="form_data.get('street', '')"
+                                />
+                                <div t-if="errors.get('street')" class="invalid-feedback d-block">
+                                    <t t-esc="errors.get('street')" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="zip" class="form-label">ZIP <span class="text-info">*</span></label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        t-attf-class="form-control #{errors.get('zip') and 'is-invalid' or ''}"
+                                        id="zip"
+                                        name="zip"
+                                        required="required"
+                                        t-att-value="form_data.get('zip', '')"
+                                    />
+                                    <div t-if="errors.get('zip')" class="invalid-feedback d-block">
+                                        <t t-esc="errors.get('zip')" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="city" class="form-label">City <span class="text-info">*</span></label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        t-attf-class="form-control #{errors.get('city') and 'is-invalid' or ''}"
+                                        id="city"
+                                        name="city"
+                                        required="required"
+                                        t-att-value="form_data.get('city', '')"
+                                    />
+                                    <div t-if="errors.get('city')" class="invalid-feedback d-block">
+                                        <t t-esc="errors.get('city')" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="country_id" class="form-label">Country</label>
+                                    <select class="form-control" id="country_id" name="country_id">
+                                        <option value="">Select a country</option>
+                                        <t t-foreach="countries" t-as="country">
+                                            <option
+                                                t-att-value="country.id"
+                                                t-att-selected="form_data.get('country_id') == country.id and 'selected' or None"
+                                            >
+                                                <t t-esc="country.name" />
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a t-attf-href="/my/customers#{customer and '/' + str(customer.id) or ''}" class="btn btn-secondary">
+                            Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <t t-if="mode == 'create'">Create Customer</t>
+                            <t t-else="">Save Changes</t>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+</odoo>

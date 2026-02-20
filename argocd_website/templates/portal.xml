@@ -28,11 +28,13 @@
     >
         <div id="portal_client_category" position="inside">
             <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/argocd_website/static/src/img/application.svg'"/>
                 <t t-set="title">Applications</t>
                 <t t-set="text">Manage your applications</t>
                 <t t-set="url" t-value="'/my/applications'" />
                 <t t-set="placeholder_count" t-value="'app_count'" />
             </t>
+
         </div>
     </template>
 
@@ -44,7 +46,7 @@
                 <i class="fa fa-external-link fa-fw" />
             </a>
         </t>
-        <div t-attf-class="dropdown position-static" t-else="">
+        <div t-attf-class="dropdown position-static" t-elif="len(urls) > 1">
             <button t-attf-class="btn #{class}" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false" aria-haspopup="true">
                 <i class="fa fa-external-link fa-fw" />
