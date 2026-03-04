@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="membership_group_page" inherit_id="website_membership_group.membership_group_page">
+        <xpath expr="//t[@t-set='current_members']" position="attributes">
+            <attribute name="t-value">membership_group.membership_group_member_ids.filtered(lambda m:m.state=='current' and
+                m.partner_id.website_privacy != 'anonymous')
+            </attribute>
+        </xpath>
+    </template>
+
+</odoo>
