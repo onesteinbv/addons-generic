@@ -57,3 +57,4 @@ Subscription termination actions can be configured in Settings: either destroy t
 - Refactor statistics-based products to be more flexible and support different types of usage metrics and measurement methods
 - Add support to link products to multiple application sets to allow distributed application deployments across multiple clusters
 - Allow a product attribute value to override the application set. E.g. a product could be linked to a default application set, but if a specific attribute value is selected, it could deploy to a different application set/cluster. Use case would be to select different regions for deployment based on the selected attribute value.
+- Implement https://github.com/OCA/commission/tree/18.0/commission_oca to allow automatic commission calculation and invoicing for resellers based on their sales

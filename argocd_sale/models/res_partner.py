@@ -21,6 +21,10 @@ class ResPartner(models.Model):
     reseller_id = fields.Many2one(
         comodel_name="res.partner", domain="[('is_reseller', '=', True)]"
     )
+    reselling_method = fields.Selection(
+        selection=[("direct", "Direct"), ("customer", "Customer")],
+        default="direct",
+    )
 
     @api.constrains("is_reseller", "reselling_product_ids", "reseller_partner_ids")
     def _check_non_reseller_constraints(self):
