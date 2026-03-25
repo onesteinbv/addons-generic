@@ -1,6 +1,6 @@
 # Copyright (C) 2016 Onestein (<http://www.onestein.eu>).
 
-from odoo import _, api, models
+from odoo import Command, _, api, models
 from odoo.exceptions import ValidationError
 
 
@@ -42,20 +42,39 @@ class AccountJournal(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         journals = super().create(vals_list)
-        account_account_obj = self.env["account.account"]
-        for journal in journals:
-            if journal.company_id.chart_template == "nl_rgs":
-                all_accounts = account_account_obj.search(
-                    [
-                        ("company_ids", "in", (journal.company_id.id,)),
-                        ("account_type", "!=", "asset_cash"),
-                    ]
-                )
-                all_bank_accounts = all_accounts.filtered(
-                    lambda a: "bank" in a.allowed_journal_ids.mapped("type")
-                )
-                for account in all_bank_accounts:
-                    account.allowed_journal_ids |= journal
-                if journal.default_account_id:
-                    journal.default_account_id.allowed_journal_ids |= journal
+        # When creating a new journal it should copy the allowed journal configuration from groups.
+        # When loading the chart it is already done in the loading logic
+        if self.env.context.get("chart_template_load"):
+            return journals
+
+        for journal in journals.filtered(
+            lambda j: j.company_id.chart_template == "nl_rgs"
+        ):
+            subtype_code_mapping = {
+                "general_wag": "WAG",
+                "general_depr": "DEPR",
+                "general_fcr": "FCR",
+                "general_stj": "STJ",
+                "general_tax": "TAX",
+                "general_misc": "MISC",
+                "general_exch": "EXCH",
+            }
+            journal_subtype_as_code = subtype_code_mapping.get(journal.subtype)
+            groups = self.env["account.group"].search(
+                [("company_id", "=", journal.company_id.id)]
+            )
+            for group in groups:
+                if (
+                    group.rgs_allowed_journals_type
+                    and journal.type in group.rgs_allowed_journals_type.split(",")
+                ):
+                    group.allowed_journal_ids = [Command.link(journal.id)]
+                if (
+                    group.rgs_allowed_journals_code
+                    and journal_subtype_as_code
+                    in group.rgs_allowed_journals_code.split(",")
+                ):
+                    group.allowed_journal_ids = [Command.link(journal.id)]
+            accounts = groups.mapped("account_ids")
+            accounts.group_set_allowed_journals()
         return journals
