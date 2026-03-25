@@ -28,9 +28,9 @@ class PaymentTransaction(models.Model):
         return mollie_customer_id
 
     def _must_create_mandate(self, payment_data):
-        # This method needs to be extended in each provider module
         if self.provider_code != "mollie":
             return super()._must_create_mandate(payment_data)
+
         payment_status = payment_data.get("status")
         if payment_status == "paid":
             return True

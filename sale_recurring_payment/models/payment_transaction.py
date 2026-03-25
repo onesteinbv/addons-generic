@@ -7,72 +7,19 @@ class PaymentTransaction(models.Model):
 
     payment_provider_mandate_id = fields.Many2one(
         "payment.provider.mandate",
-        string="Payment Provider Mandate",
+        string="Mandate",
         readonly=True,
     )
 
-    def _process_notification_data(self, data):
-        # If the transaction concerns a subscription SO, which was not processed yet and which doesn't have a related subscription yet,
-        # depending on the data we receive (to be interpreted specifically for the provider of the transaction) we may want to
-        # get it confirmed and create a subscription (functionality to create a subscription from the SO is provided in OCA module subscription_oca).
-        self.ensure_one()
-        res = super(PaymentTransaction, self)._process_notification_data(data)
-        create_sub_for_sale_order = (
-            self.sale_order_ids
-            and self.sale_order_ids[0].group_subscription_lines()
-            and not self.sale_order_ids[0].subscriptions_count
-        )
-        create_sub_for_invoice = (
-            self.invoice_ids
-            and self.invoice_ids[0].subscription_id
-            and not self.invoice_ids[0].subscription_id.payment_provider_mandate_id
-        )
-        if not create_sub_for_sale_order and not create_sub_for_invoice:
-            return res
-
-        payment_data = self._provider_get_payment_data()
-        if not self._must_create_mandate(payment_data):
-            return res
-
-        if create_sub_for_sale_order:
-            sale_order = self.sale_order_ids[0]
-            sale_order.action_confirm()
-            subscription = sale_order.subscription_ids[0]
-            invoice = sale_order._create_invoices()
-            subscription.invoice_ids = [(4, invoice.id)]
-            self.invoice_ids = [(6, 0, invoice.ids)]
-        else:  # We are already sure create_sub_for_invoice is truthy because of earlier statements
-            invoice = self.invoice_ids[0]
-            subscription = invoice.subscription_id
-        # pylint: disable=assignment-from-none
-        mandate_for_payment_provider = self._get_mandate_reference_for_payment_provider(
-            payment_data
-        )
-        payment_provider_mandate = self._create_payment_provider_mandate(
-            mandate_for_payment_provider
-        )
-        subscription.payment_provider_mandate_id = payment_provider_mandate.id
-        self.payment_provider_mandate_id = payment_provider_mandate.id
-
-    def _provider_get_payment_data(self):
-        self.ensure_one()
-        return {}
-
-    def _must_create_mandate(self, data):
-        # This method needs to be extended in each provider module
-        self.ensure_one()
-        return False
-
-    def _get_mandate_reference_for_payment_provider(self, payment):
-        # This method needs to be extended in each provider module
-        self.ensure_one()
-        return False
-
-    def _create_payment_provider_mandate(self, mandate_reference):
-        # We expect to receive the payment provider mandate reference;
-        # This method processes them in order to create an Odoo payment.provider.mandate
+    @api.model
+    def _create_payment_provider_mandate(self, reference):
+        """Shortcut to create a mandate"""
         return self.env["payment.provider.mandate"].create(
-            {"reference": mandate_reference, "provider_id": self.provider_id.id}
+            {
+                "reference": reference,
+                "provider_id": self.provider_id.id,
+                "partner_id": self.partner_id.id,
+            }
         )
 
     def _process_payment_provider_recurring_payment(self, subscription, invoice):

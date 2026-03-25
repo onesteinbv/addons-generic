@@ -11,11 +11,6 @@ _logger = logging.getLogger(__name__)
 class SaleSubscription(models.Model):
     _inherit = "sale.subscription"
 
-    payment_provider_mandate_id = fields.Many2one(
-        "payment.provider.mandate",
-        string="Payment Provider Mandate",
-        readonly=True,
-    )
     last_date_invoiced = fields.Date(
         help="Date when last invoice was generated for the mandate",
     )
@@ -77,20 +72,6 @@ class SaleSubscription(models.Model):
     def generate_invoice(self):
         res = super().generate_invoice()
         self.last_date_invoiced = fields.Date.context_today(self)
-        return res
-
-    def write(self, values):
-        res = super().write(values)
-        if "stage_id" not in values:
-            return res
-
-        for record in self.filtered(
-            lambda r: r.stage_id
-            and r.stage_id.type == "post"
-            and r.payment_provider_mandate_id
-            and not r.payment_provider_mandate_id.is_revoked
-        ):
-            record.payment_provider_mandate_id.revoke()
         return res
 
     def _log_provider_exception(self, exception, process):
