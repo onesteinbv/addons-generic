@@ -1,0 +1,90 @@
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">Add Default Website Privacy Levels and Other Settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='companies']" position='after'>
+                <h2>Partner Privacy</h2>
+                <div class="row mt16 o_settings_container" name="partner_privacy">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <div class="row" name="website_privacy">
+                            <label
+                                    for="website_privacy"
+                                    class="col-md-5"
+                                />
+                            <field name="website_privacy" required="1"/>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="show_email"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div class="row" name="show_email">
+                                <label
+                                        for="show_email"
+                                        class="col-md-5"
+                                />
+                                <div class="text-muted">
+                                            Define the default value to show/hide email on website
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="show_address"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div class="row" name="show_address">
+                                <label
+                                        for="show_address"
+                                        class="col-md-5"
+                                />
+                                <div class="text-muted">
+                                            Define the default value to show/hide address on website
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="show_phone"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div class="row" name="show_phone">
+                                <label
+                                        for="show_phone"
+                                        class="col-md-5"
+                                />
+                                <div class="text-muted">
+                                            Define the default value to show/hide phone on website
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="show_website"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div class="row" name="show_website">
+                                <label
+                                        for="show_website"
+                                        class="col-md-5"
+                                />
+                                <div class="text-muted">
+                                            Define the default value to show/hide Website on website
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

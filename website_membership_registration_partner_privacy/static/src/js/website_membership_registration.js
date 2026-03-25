@@ -9,6 +9,14 @@ WebsiteMembershipRegistration.include({
         "change input[name=member_publish]": "_onWebsitePrivacyChange",
     }),
     /**
+    * @override
+    */
+    start() {
+        const res = this._super(...arguments);
+        this._onWebsitePrivacyChange();
+        return res
+    },
+    /**
      * @private
      */
     _onWebsitePrivacyChange: function () {

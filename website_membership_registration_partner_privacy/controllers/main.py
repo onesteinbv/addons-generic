@@ -46,7 +46,8 @@ class MembershipRegistrationControllerPrivacy(MembershipRegistrationController):
             {
                 "website_privacy_levels": request.env[
                     "res.partner"
-                ].website_privacy_selection()
+                ].website_privacy_selection(),
+                "member_website_privacy": request.env.company.default_website_privacy,
             }
         )
         return vals

@@ -6,18 +6,31 @@ class ResPartner(models.Model):
 
     website_privacy = fields.Selection(
         selection="website_privacy_selection",
-        default="name",
-        required=True,
         string="Website Privacy Level",
         help="Select which option to use to display partners on Website",
     )
-    show_email = fields.Boolean(default=False, help="Show/Hide Email On Website")
-    show_address = fields.Boolean(default=False, help="Show/Hide Address On Website")
-    show_phone = fields.Boolean(default=False, help="Show/Hide Phone On Website")
-    show_website = fields.Boolean(default=False, help="Show/Hide Website On Website")
+    show_email = fields.Boolean(help="Show/Hide Email On Website")
+    show_address = fields.Boolean(help="Show/Hide Address On Website")
+    show_phone = fields.Boolean(help="Show/Hide Phone On Website")
+    show_website = fields.Boolean(help="Show/Hide Website On Website")
 
     def website_privacy_selection(self):
         return [("anonymous", "Stay Anonymous"), ("name", "Use Name")]
+
+    @api.model
+    def default_get(self, fields_list):
+        result = super(ResPartner, self).default_get(fields_list)
+        company = self.env.company
+        result.update(
+            {
+                "website_privacy": company.default_website_privacy,
+                "show_email": company.default_show_email,
+                "show_address": company.default_show_address,
+                "show_phone": company.default_show_phone,
+                "show_website": company.default_show_website,
+            }
+        )
+        return result
 
     @api.model_create_multi
     def create(self, values_list):
