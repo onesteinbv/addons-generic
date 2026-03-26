@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_dms_file_kanban" model="ir.ui.view">
+        <field name="model">dms.file</field>
+        <field name="inherit_id" ref="dms.view_dms_file_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='id']" position="after">
+                <field name="attachment_id" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//div[hasclass('o_kanban_manage_actions')]" position="inside">
+                <div
+                    role="menuitem"
+                    t-if="[
+                            'application/vnd.oasis.opendocument.text',
+                            'application/vnd.oasis.opendocument.spreadsheet',
+                            'application/vnd.oasis.opendocument.presentation',
+                            'application/vnd.oasis.opendocument.graphics'
+                        ].includes(record.mimetype.raw_value) and record.attachment_id.raw_value"
+                >
+                    <a t-attf-href="/collabora_odoo/frame/#{record.attachment_id.raw_value}/write" target="_blank">
+                        <i class="fa fa-edit"/> Edit in Collabora
+                    </a>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
