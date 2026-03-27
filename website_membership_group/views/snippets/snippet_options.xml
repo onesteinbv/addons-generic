@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="membership_group_page_options" inherit_id="website.snippet_options">
+                <xpath expr="." position="inside">
+            <div data-js="MembershipGroupPage" data-selector="body:has(#mg_members_row) #wrap" data-page-options="true">
+                <we-title>Visibility</we-title>
+                <we-checkbox string="Show Group Image" data-select-class="mg_show_image"/>
+                <we-checkbox string="Show Top Content" data-select-class="mg_show_top"/>
+                <we-checkbox string="Show Bottom Content" data-select-class="mg_show_bottom"/>
+                <we-checkbox string="Show Committee" data-select-class="mg_show_committee"/>
+                <we-checkbox string="Show Team" data-select-class="mg_show_team"/>
+            </div>
+
+            <div data-js="MemberLayoutOpts" data-selector="#mg_members_row">
+                <we-title>Member Layout and Descriptions</we-title>
+
+                <we-button-group string="Layout">
+                    <we-button data-select-class="mg_layout_grid" data-name="mg_layout_grid" title="Grid">
+                        <i class="fa fa-th-list"/>
+                    </we-button>
+                    <we-button data-select-class="mg_layout_cards" data-name="mg_layout_cards" title="Cards">
+                        <i class="fa fa-th-large"/>
+                    </we-button>
+                    <we-button data-select-class="mg_layout_avatars" data-name="mg_layout_avatars" title="Avatars">
+                        <i class="fa fa-th"/>
+                    </we-button>
+                </we-button-group>
+                <we-checkbox string="Committee Description" data-select-class="mg_show_committee_desc" data-dependencies="mg_layout_cards,mg_layout_avatars"/>
+                <we-checkbox string="Team Description" data-select-class="mg_show_team_desc" data-dependencies="mg_layout_cards,mg_layout_avatars"/>
+                <we-checkbox string="Collapsible" data-select-class="mg_collapse_desc" data-dependencies="mg_layout_cards,mg_layout_avatars"/>
+            </div>
+            <div data-js="MemberColOpts" data-selector="body:has(#mg_members_row) .mg_team_col, .mg_committee_col"/>
+        </xpath>
+    </template>
+</odoo>
