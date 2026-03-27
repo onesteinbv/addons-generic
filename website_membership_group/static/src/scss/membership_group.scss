@@ -1,0 +1,183 @@
+/* =======================================================================
+   VISIBILITY TOGGLES (LAYOUT)
+   Controlled via classes applied to the #wrap element
+   ======================================================================= */
+.mg_wrap {
+    // Default: Hide all optional sections
+    .mg_image_col,
+    .mg_top_block,
+    .mg_bottom_block,
+    .mg_committee_col,
+    .mg_team_col {
+        display: none;
+    }
+
+    // Toggle display based on snippet option classes
+    &.mg_show_image .mg_image_col      { display: block; }
+    &.mg_show_top .mg_top_block        { display: block; }
+    &.mg_show_bottom .mg_bottom_block  { display: block; }
+    &.mg_show_committee .mg_committee_col { display: block; }
+    &.mg_show_team .mg_team_col        { display: block; }
+}
+
+/* =======================================================================
+   MEMBER DESCRIPTION VISIBILITY & COLLAPSIBLE SYSTEM
+   Tied to Committee Desc / Team Desc snippet options
+   ======================================================================= */
+
+/* Default: Hide descriptions and buttons for both sections */
+.mg_member_description,
+.mg_collapse_btn {
+    display: none !important;
+}
+
+// Show descriptions if the respective section toggle is ON
+.mg_show_team_desc .mg_team_col .mg_member_description,
+.mg_show_committee_desc .mg_committee_col .mg_member_description {
+    display: block !important;
+}
+
+/* Hide descriptions if collapsible is active and closed */
+#mg_members_row.mg_collapse_desc .mg_member_description.d-none {
+    display: none !important;
+}
+
+/* Animation for expanding descriptions */
+#mg_members_row.mg_collapse_desc:not(.mg_layout_grid) .mg_member_description:not(.d-none) {
+    display: block !important;
+    animation: slideDown 0.3s ease-in-out;
+}
+
+/* Show buttons ONLY if BOTH Collapsible AND the respective Section Toggle are ON */
+#mg_members_row:not(.mg_layout_grid).mg_collapse_desc.mg_show_committee_desc .mg_collapse_btn,
+#mg_members_row:not(.mg_layout_grid).mg_collapse_desc.mg_show_team_desc .mg_collapse_btn {
+    display: inline-flex !important;
+    padding: 0.25rem 0.5rem;
+    color: #6c757d;
+    font-size: 0.875rem;
+    transition: transform 0.3s ease-in-out, color 0.2s ease-in-out;
+}
+
+#mg_members_row.mg_collapse_desc .mg_collapse_btn:hover {
+    color: $primary;
+}
+
+#mg_members_row.mg_collapse_desc .mg_collapse_btn[aria-expanded="true"] {
+    transform: rotate(180deg);
+}
+
+#mg_members_row.mg_collapse_desc .mg_collapse_btn[aria-expanded="true"] i {
+    color: $primary;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =======================================================================
+   MEMBER LAYOUT VARIANTS
+   ======================================================================= */
+
+/* --- GRID LAYOUT --- */
+#mg_members_row.mg_layout_grid {
+    .mg_member_list {
+        gap: 0;
+    }
+
+    /* 1 Column for Committee Section in Grid */
+    .mg_committee_col .mg_member_item {
+        flex: 0 0 100%;
+    }
+
+    /* 2 Columns for Team Section in Grid */
+    .mg_team_col .mg_member_item {
+        flex: 0 0 50%;
+    }
+
+    /* Force hide description and collapse buttons in Grid Layout */
+    .mg_member_description,
+    .mg_collapse_btn {
+        display: none !important;
+    }
+}
+
+/* --- CARDS LAYOUT --- */
+#mg_members_row.mg_layout_cards {
+    .mg_member_list {
+        gap: 0.75rem;
+        padding: 0.75rem;
+    }
+
+    .mg_member_item {
+        flex: 1 1 100% !important;
+        width: 100%;
+        min-width: 0;
+        border: 1px solid $border-color !important;
+        border-radius: $border-radius !important;
+        background: #fff;
+        box-shadow: $box-shadow-sm;
+        padding: 1rem !important;
+        transition: box-shadow 0.15s ease-in-out;
+
+        &:hover {
+            box-shadow: $box-shadow;
+        }
+    }
+
+    .mg_member_name {
+        text-align: left;
+    }
+}
+
+/* --- AVATARS LAYOUT --- */
+#mg_members_row.mg_layout_avatars {
+    .mg_member_list {
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .mg_member_item {
+        flex: 1 1 100% !important;
+        width: 100%;
+        min-width: 0;
+        border: none !important;
+        border-radius: 0 !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0.5rem 0.25rem !important;
+        background: transparent;
+    }
+
+    .mg_member_name {
+        font-size: 0.8125rem;
+        text-align: center;
+    }
+
+    .mg_collapse_btn {
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+    }
+}
+
+/* =======================================================================
+   STYLING & THEMING
+   ======================================================================= */
+.mg_divider {
+    border-color: $primary;
+}
+
+/* =======================================================================
+   RESPONSIVE BREAKPOINTS
+   ======================================================================= */
+@include media-breakpoint-down(sm) {
+    #mg_members_row.mg_layout_avatars .mg_member_item { flex: 1 1 calc(50% - 0.5rem); }
+}
+
+@include media-breakpoint-down(md) {
+    #mg_members_row.mg_layout_cards .mg_member_item { flex: 1 1 100%; }
+    #mg_members_row.mg_layout_avatars .mg_member_item { flex: 1 1 calc(50% - 1rem); }
+}
