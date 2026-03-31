@@ -12,6 +12,7 @@
                     name="subscription_template_id"
                     attrs="{'invisible': [('subscribable', '=', False)],'required': [('subscribable', '=', True)]}"
                 />
+                <field name="membership_skip_invoice" attrs="{'invisible': [('list_price', '!=', 0)]}" />
             </xpath>
         </field>
     </record>
