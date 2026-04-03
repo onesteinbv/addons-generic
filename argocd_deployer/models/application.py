@@ -118,21 +118,14 @@ class Application(models.Model):
         if not isinstance(value, bool):
             raise NotImplementedError("Value must be boolean")
 
+        all_apps = self.env["argocd.application"].search([])
         if operator == "=" and value or operator == "!=" and not value:
-            apps = (
-                self.env["argocd.application"]
-                .search([])
-                .filtered(
-                    lambda a: (a.config_live or "").strip() != (a.config or "").strip()
-                )
+            apps = all_apps.filtered(
+                lambda a: (a.config_live or "").strip() != (a.config or "").strip()
             )
         else:
-            apps = (
-                self.env["argocd.application"]
-                .search([])
-                .filtered(
-                    lambda a: (a.config_live or "").strip() == (a.config or "").strip()
-                )
+            apps = all_apps.filtered(
+                lambda a: (a.config_live or "").strip() == (a.config or "").strip()
             )
         return [("id", "in", apps.ids)]
 
