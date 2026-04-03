@@ -27,9 +27,9 @@ class Application(models.Model):
     config = fields.Text()
     config_diff = fields.Text(compute="_compute_config_live")
     config_out_of_sync = fields.Boolean(
-        compute="_compute_config_out_of_sync",
         string="Out of Sync",
-        store=True,
+        compute="_compute_config_out_of_sync",
+        search="_search_config_out_of_sync",
         help="Indicates whether the current configuration differs from the live configuration.",
     )
     tag_ids = fields.Many2many(
@@ -111,6 +111,30 @@ class Application(models.Model):
             app.config_out_of_sync = (app.config_live or "").strip() != (
                 app.config or ""
             ).strip()
+
+    def _search_config_out_of_sync(self, operator, value):
+        if operator not in ["=", "!="]:
+            raise NotImplementedError("Operator not supported. Use '=' or '!='.")
+        if not isinstance(value, bool):
+            raise NotImplementedError("Value must be boolean")
+
+        if operator == "=" and value or operator == "!=" and not value:
+            apps = (
+                self.env["argocd.application"]
+                .search([])
+                .filtered(
+                    lambda a: (a.config_live or "").strip() != (a.config or "").strip()
+                )
+            )
+        else:
+            apps = (
+                self.env["argocd.application"]
+                .search([])
+                .filtered(
+                    lambda a: (a.config_live or "").strip() == (a.config or "").strip()
+                )
+            )
+        return [("id", "in", apps.ids)]
 
     @api.depends("application_set_id", "name")
     def _compute_config_live(self):
