@@ -15,10 +15,13 @@ class MembershipActivity(models.Model):
     project_id = fields.Many2one(
         comodel_name="project.project", string="Related Project", ondelete="cascade"
     )
-    date = fields.Datetime(required=True)
-    url = fields.Char()
+    date = fields.Datetime(required=True, index=True)
+    url = fields.Char(
+        index=True
+    )
     type_id = fields.Many2one(
-        comodel_name="membership.activity.type", string="Activity Type"
+        comodel_name="membership.activity.type", string="Activity Type", 
+        index=True
     )
 
     @api.depends("partner_id", "partner_id.display_name")
