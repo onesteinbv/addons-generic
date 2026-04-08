@@ -66,6 +66,11 @@ class Project(models.Model):
         activity_type = self.env.ref("membership_activity_cde.commit")
         vals_list = []
         for commit in commits:
+            # Check if the commit already exists
+            if self.env["membership.activity"].search_count(
+                [("url", "=", commit.web_url)]
+            ):
+                continue
             vals_list.append(
                 {
                     "project_id": self.id,
@@ -111,13 +116,24 @@ class Project(models.Model):
         activity_type = self.env.ref("membership_activity_cde.pr")
         vals_list = []
         for merge_request in merge_requests:
+            date = self._gitlab_datetime_to_odoo(merge_request.created_at)
+            # Check if the merge request already exists
+            if self.env["membership.activity"].search_count(
+                [
+                    ("url", "=", merge_request.web_url),
+                    ("type_id", "=", activity_type.id),
+                    ("gitlab_username", "=", merge_request.author["username"]),
+                    ("date", "=", date)
+                ]
+            ):
+                continue
             vals_list.append(
                 {
                     "project_id": self.id,
                     "gitlab_username": merge_request.author["username"],
                     "type_id": activity_type.id,
                     "url": merge_request.web_url,
-                    "date": self._gitlab_datetime_to_odoo(merge_request.created_at),
+                    "date": date,
                 }
             )
         self.env["membership.activity"].create(vals_list)
@@ -156,13 +172,24 @@ class Project(models.Model):
         activity_type = self.env.ref("membership_activity_cde.issue")
         vals_list = []
         for issue in issues:
+            date = self._gitlab_datetime_to_odoo(issue.created_at)
+            # Check if the issue already exists
+            if self.env["membership.activity"].search_count(
+                [
+                    ("url", "=", issue.web_url), 
+                    ("type_id", "=", activity_type.id),
+                    ("gitlab_username", "=", issue.author["username"]),
+                    ("date", "=", date)
+                ]
+            ):
+                continue
             vals_list.append(
                 {
                     "project_id": self.id,
                     "gitlab_username": issue.author["username"],
                     "type_id": activity_type.id,
                     "url": issue.web_url,
-                    "date": self._gitlab_datetime_to_odoo(issue.created_at),
+                    "date": date,
                 }
             )
         self.env["membership.activity"].create(vals_list)
@@ -203,7 +230,17 @@ class Project(models.Model):
         vals_list = []
         for event in events:
             note = event.note
+            date = self._gitlab_datetime_to_odoo(note["created_at"])
             if note["system"]:  # Exclude system messages
+                continue
+            # Check if the note already exists
+            if self.env["membership.activity"].search_count(
+                [
+                    ("type_id", "=", activity_type.id),
+                    ("gitlab_username", "=", note["author"]["username"]),
+                    ("date", "=", date)
+                ]
+            ):
                 continue
             vals_list.append(
                 {
@@ -211,7 +248,7 @@ class Project(models.Model):
                     "gitlab_username": note["author"]["username"],
                     "type_id": activity_type.id,
                     "url": note["author"]["web_url"],  # No web_url on comments
-                    "date": self._gitlab_datetime_to_odoo(note["created_at"]),
+                    "date": date,
                 }
             )
         self.env["membership.activity"].create(vals_list)
@@ -251,13 +288,23 @@ class Project(models.Model):
         activity_type = self.env.ref("membership_activity_cde.review")
         vals_list = []
         for event in events:
+            # Check if the approval already exists
+            date = self._gitlab_datetime_to_odoo(event.created_at)
+            if self.env["membership.activity"].search_count(
+                [
+                    ("type_id", "=", activity_type.id),
+                    ("gitlab_username", "=", event.author_username),
+                    ("date", "=", date)
+                ]
+            ):
+                continue
             vals_list.append(
                 {
                     "project_id": self.id,
                     "gitlab_username": event.author_username,
                     "type_id": activity_type.id,
                     "url": event.author["web_url"],  # No web_url so use authors web_url
-                    "date": self._gitlab_datetime_to_odoo(event.created_at),
+                    "date": date,
                 }
             )
         self.env["membership.activity"].create(vals_list)
