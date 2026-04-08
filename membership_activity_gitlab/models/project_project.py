@@ -1,9 +1,10 @@
 from datetime import datetime, timezone
+import re
 
 import dateutil
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
+from odoo import api, exceptions, fields, models
 
 
 class Project(models.Model):
@@ -15,6 +16,18 @@ class Project(models.Model):
         string="Gitlab Fullname",
         help="Namespace + project name e.g. 'gitlab-org/gitlab' (for https://gitlab.com/gitlab-org/gitlab)",
     )
+
+    @api.constrains("gitlab_full_name")
+    def _constrain_gitlab_full_name(self):
+        # Checks on format 'namespace/projectname' with any number of subgroups in the namespace but no trailing slash.
+        # When creating a new project trailing _, - are not allowed but there are present in existing projects
+        # We keep the regex expression simple to mainly avoid trailing slashes
+        expression = r"^[^/]+(?:/[^/]+)*$"  
+        for project in self:
+            if project.gitlab_full_name and not re.match(expression, project.gitlab_full_name):
+                raise exceptions.ValidationError(
+                    "Gitlab Fullname must be in the format 'namespace/projectname'"
+                )
 
     @api.model
     def _gitlab_datetime_to_odoo(self, datetime_string):
