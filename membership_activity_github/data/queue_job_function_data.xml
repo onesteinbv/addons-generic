@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="queue_job_function_get_commits" model="queue.job.function">
+        <field name="method">get_github_commits_immediately</field>
+        <field name="model_id" ref="project.model_project_project" />
+        <field name="allow_commit" eval="True" />
+    </record>
+
+    <record id="queue_job_function_get_issues" model="queue.job.function">
+        <field name="method">get_github_issues_immediately</field>
+        <field name="model_id" ref="project.model_project_project" />
+        <field name="allow_commit" eval="True" />
+    </record>
+
+    <record id="queue_job_function_get_comments" model="queue.job.function">
+        <field name="method">get_github_comments_immediately</field>
+        <field name="model_id" ref="project.model_project_project" />
+        <field name="allow_commit" eval="True" />
+    </record>
+</odoo>

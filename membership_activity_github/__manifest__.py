@@ -10,6 +10,7 @@
     "data": [
         "data/ir_cron_data.xml",
         "data/ir_config_parameter_data.xml",
+        "data/queue_job_function_data.xml",
         "views/project_view.xml",
     ],
 }
