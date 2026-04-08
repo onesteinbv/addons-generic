@@ -5,6 +5,16 @@ class MembershipActivity(models.Model):
     _name = "membership.activity"
     _description = "Member Activity"
 
+    def init(self):
+        super().init()
+        # Create an index to speed up searching for duplicate activities
+        self.env.cr.execute(
+            """
+            CREATE INDEX IF NOT EXISTS membership_activity_url_project_type_index
+            ON membership_activity (url, project_id, type_id)
+            """
+        )
+
     partner_id = fields.Many2one(
         comodel_name="res.partner",
         string="Member",
