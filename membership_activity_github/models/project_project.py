@@ -56,6 +56,7 @@ class Project(models.Model):
     )
     github_rate_limiting_resettime = fields.Integer()
 
+
     @api.constrains("github_full_name")
     def _constrain_github_full_name(self):
         for project in self.filtered(lambda p: p.github_full_name):
@@ -125,6 +126,15 @@ class Project(models.Model):
                 login = author_still_exists and commit.author.login
                 if not login:
                     login = commit.commit.author.name
+                # Check if the activity already exists to prevent duplicates
+                exists = self.env["membership.activity"].search_count(
+                    [
+                        ("url", "=", commit.html_url),
+                        ("project_id", "=", self.id),
+                    ]
+                )
+                if exists:
+                    continue
                 vals_list.append(
                     {
                         "project_id": self.id,
@@ -209,12 +219,12 @@ class Project(models.Model):
                     for review in reviews:
                         review_exists = self.env["membership.activity"].search_count(
                             [
+                                ("url", "=", review.html_url),
                                 (
                                     "project_id",
                                     "=",
                                     self.id,
-                                ),  # This leaf is not really required
-                                ("url", "=", review.html_url),
+                                )  # This leaf is not really required
                             ],
                         )
                         if not review_exists:
@@ -263,7 +273,7 @@ class Project(models.Model):
         for page in range(start_page, end_page):
             for comment in comments.get_page(page):
                 comment_exists = self.env["membership.activity"].search_count(
-                    [("project_id", "=", self.id), ("url", "=", comment.html_url)],
+                    [("url", "=", comment.html_url), ("project_id", "=", self.id)],
                 )
                 if comment_exists:
                     continue
