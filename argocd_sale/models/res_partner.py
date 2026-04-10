@@ -22,8 +22,8 @@ class ResPartner(models.Model):
         comodel_name="res.partner", domain="[('is_reseller', '=', True)]"
     )
     reselling_method = fields.Selection(
-        selection=[("direct", "Direct"), ("customer", "Customer")],
-        default="direct",
+        selection=[("reseller", "Reseller"), ("customer", "Customer")],
+        default="reseller",
     )
 
     @api.constrains("is_reseller", "reselling_product_ids", "reseller_partner_ids")

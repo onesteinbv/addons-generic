@@ -141,9 +141,15 @@ class Subscription(models.Model):
 
     def _prepare_account_move(self, line_ids):
         # TODO: Only used in draft, invoice, invoice_send make it also work for sale_and_invoice
+        res = super()._prepare_account_move(line_ids)
+        res["pricelist_id"] = self.pricelist_id.id
+        
+        # When the partner is a  reseller and we are invoicing the customer directly (reselling_method = 'customer'),
+        # we need to invoice the end_partner_id instead of the main partner
+        if self.partner_id.is_reseller and self.partner_id.reselling_method == "customer" and self.end_partner_id:
+            res["partner_id"] = self.end_partner_id.id
+
         if not self.account_invoice_ids_count:  # First time don't invoice stat products
-            res = super()._prepare_account_move(line_ids)
-            res["pricelist_id"] = self.pricelist_id.id
             return res
 
         # TODO: Fix this with a sequence in sale.subscription.line
@@ -179,6 +185,10 @@ class Subscription(models.Model):
                 )
                 additional_invoice_line_ids.append(Command.create(line_values))
         line_ids += additional_invoice_line_ids
-        res = super()._prepare_account_move(line_ids)
-        res["pricelist_id"] = self.pricelist_id.id
+        return res
+
+    def _prepare_sale_order(self):
+        res = super()._prepare_sale_order()
+        if self.partner_id.is_reseller and self.partner_id.reselling_method == "customer" and self.end_partner_id:
+            res["partner_id"] = self.end_partner_id.id
         return res
