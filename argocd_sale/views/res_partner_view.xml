@@ -16,6 +16,7 @@
                     <group>
                         <field name="reseller_partner_ids" />
                         <field name="reselling_product_ids" widget="many2many_tags" options="{'no_create': True}" />
+                        <field name="reselling_method" required="is_reseller" />
                     </group>
                 </page>
             </xpath>
