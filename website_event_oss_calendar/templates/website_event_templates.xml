@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="event_description_dates" inherit_id="website_event.event_description_dates">
+        <xpath expr="//a[hasclass('o_wevent_add_to_ical')]" position="before">
+            <a t-att-href="iCal_url" class="btn btn-light" title="Download ICS">
+                <i class="fa fa-calendar"></i>
+            </a>
+            <a t-att-href="iCal_url" class="btn btn-light o_wevent_add_to_oss" title="Add to Thunderbird">
+                <img src="/website_event_oss_calendar/static/img/thunderbird.svg" alt="Thunderbird" />
+            </a>
+        </xpath>
+    </template>
+</odoo>
