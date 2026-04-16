@@ -1,10 +1,32 @@
-from datetime import datetime, timezone
 import re
+from datetime import datetime, timezone
+from functools import wraps
 
 import dateutil
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, exceptions, fields, models
+
+from odoo.addons.queue_job.exception import RetryableJobError
+
+from gitlab import GitlabError
+
+
+def use_gitlab(method):
+    @wraps(method)
+    def _wrap(self, *args, **kwargs):
+        # Gitlab (gitlab.com) can sometimes return 502 or 504
+        try:
+            return method(self, *args, **kwargs)
+        except GitlabError as e:
+            if e.response_code in (502, 504):  # Bad gateway or Gateway Timeout
+                raise RetryableJobError(
+                    e.error_message,
+                    seconds=60,  # Retry after 1 minute
+                ) from e
+            raise e
+
+    return _wrap
 
 
 class Project(models.Model):
@@ -22,9 +44,11 @@ class Project(models.Model):
         # Checks on format 'namespace/projectname' with any number of subgroups in the namespace but no trailing slash.
         # When creating a new project trailing _, - are not allowed but there are present in existing projects
         # We keep the regex expression simple to mainly avoid trailing slashes
-        expression = r"^[^/]+(?:/[^/]+)*$"  
+        expression = r"^[^/]+(?:/[^/]+)*$"
         for project in self:
-            if project.gitlab_full_name and not re.match(expression, project.gitlab_full_name):
+            if project.gitlab_full_name and not re.match(
+                expression, project.gitlab_full_name
+            ):
                 raise exceptions.ValidationError(
                     "Gitlab Fullname must be in the format 'namespace/projectname'"
                 )
@@ -51,6 +75,7 @@ class Project(models.Model):
                 1, project.gitlab_id.per_page, since, until
             )
 
+    @use_gitlab
     def get_gitlab_commits_iterated(self, page, per_page, since, until):
         self.ensure_one()
         gl = self.gitlab_id.get_server_connection()
@@ -101,6 +126,7 @@ class Project(models.Model):
                 1, project.gitlab_id.per_page, since, until
             )
 
+    @use_gitlab
     def get_gitlab_merge_requests_iterated(self, page, per_page, since, until):
         self.ensure_one()
         gl = self.gitlab_id.get_server_connection()
@@ -123,7 +149,7 @@ class Project(models.Model):
                     ("url", "=", merge_request.web_url),
                     ("type_id", "=", activity_type.id),
                     ("gitlab_username", "=", merge_request.author["username"]),
-                    ("date", "=", date)
+                    ("date", "=", date),
                 ]
             ):
                 continue
@@ -157,6 +183,7 @@ class Project(models.Model):
                 1, project.gitlab_id.per_page, since, until
             )
 
+    @use_gitlab
     def get_gitlab_issues_iterated(self, page, per_page, since, until):
         self.ensure_one()
         gl = self.gitlab_id.get_server_connection()
@@ -176,10 +203,10 @@ class Project(models.Model):
             # Check if the issue already exists
             if self.env["membership.activity"].search_count(
                 [
-                    ("url", "=", issue.web_url), 
+                    ("url", "=", issue.web_url),
                     ("type_id", "=", activity_type.id),
                     ("gitlab_username", "=", issue.author["username"]),
-                    ("date", "=", date)
+                    ("date", "=", date),
                 ]
             ):
                 continue
@@ -213,6 +240,7 @@ class Project(models.Model):
                 1, project.gitlab_id.per_page, since, until
             )
 
+    @use_gitlab
     def get_gitlab_notes_iterated(self, page, per_page, since, until):
         self.ensure_one()
         gl = self.gitlab_id.get_server_connection()
@@ -238,7 +266,7 @@ class Project(models.Model):
                 [
                     ("type_id", "=", activity_type.id),
                     ("gitlab_username", "=", note["author"]["username"]),
-                    ("date", "=", date)
+                    ("date", "=", date),
                 ]
             ):
                 continue
@@ -272,6 +300,7 @@ class Project(models.Model):
                 1, project.gitlab_id.per_page, since, until
             )
 
+    @use_gitlab
     def get_gitlab_approvals_iterated(self, page, per_page, since, until):
         self.ensure_one()
         gl = self.gitlab_id.get_server_connection()
@@ -294,7 +323,7 @@ class Project(models.Model):
                 [
                     ("type_id", "=", activity_type.id),
                     ("gitlab_username", "=", event.author_username),
-                    ("date", "=", date)
+                    ("date", "=", date),
                 ]
             ):
                 continue
