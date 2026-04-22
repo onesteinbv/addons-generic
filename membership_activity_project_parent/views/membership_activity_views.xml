@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_membership_activity_search_inherit_parent" model="ir.ui.view">
+        <field name="name">membership.activity.search.parent.project</field>
+        <field name="model">membership.activity</field>
+        <field name="inherit_id" ref="membership_activity.membership_activity_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_id']" position="after">
+                <field name="parent_project_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='project_group_by']" position="after">
+                <filter name="group_by_parent_project"
+                        string="Parent Project"
+                        context="{'group_by': 'parent_project_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_membership_activity_tree_inherit_parent" model="ir.ui.view">
+        <field name="name">membership.activity.tree.parent.project</field>
+        <field name="model">membership.activity</field>
+        <field name="inherit_id" ref="membership_activity.membership_activity_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_id']" position="after">
+                <field name="parent_project_id" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
