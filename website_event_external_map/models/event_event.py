@@ -9,7 +9,8 @@ class EventEvent(models.Model):
 
     def _map_link(self, zoom=8):
         self.ensure_one()
+        address = self.sudo().address_id
         res = ""
-        if self.address_id:
-            res = self.address_id.open_map()["url"]
+        if address:
+            res = address.open_map()["url"]
         return res

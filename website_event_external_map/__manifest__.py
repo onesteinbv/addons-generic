@@ -13,4 +13,5 @@
     "data": [
         "views/event_event_templates.xml",
     ],
+    "auto_install": True,
 }
