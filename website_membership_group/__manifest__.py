@@ -13,9 +13,14 @@
         "website_membership",
     ],
     "data": [
+        "security/website_membership_group_security.xml",
         "views/membership_group_view.xml",
         "templates/website.xml",
         "views/snippets/snippet_options.xml",
+    ],
+    "demo": [
+        "data/governance_demo.xml",
+        "data/governance_partners_demo.xml",
     ],
     "assets": {
         "web.assets_frontend": [

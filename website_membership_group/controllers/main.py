@@ -1,5 +1,9 @@
+import logging
+
 from odoo import http
 from odoo.http import request
+
+_logger = logging.getLogger(__name__)
 
 
 class MembershipGroupController(http.Controller):
@@ -12,7 +16,7 @@ class MembershipGroupController(http.Controller):
 
     @http.route(
         [
-            """/members/group/<model("membership.group","[('is_published', '=', True)]"):membership_group>"""
+            """/members/group/<model("membership.group"):membership_group>"""
         ],
         type="http",
         methods=["GET"],
@@ -29,9 +33,24 @@ class MembershipGroupController(http.Controller):
         if not membership_group_sudo.is_published and not is_website_designer:
             return request.not_found()
 
-        if membership_group_sudo.page_id:
-            return request.redirect(membership_group_sudo.page_id.url)
+        # Ensure a unique page exists for this group
+        if not membership_group_sudo.page_id:
+            membership_group_sudo._create_membership_page()
+
+        # Sync page publication status with group
+        if membership_group_sudo.page_id.is_published != membership_group_sudo.is_published:
+            membership_group_sudo.page_id.is_published = membership_group_sudo.is_published
 
         vals = self._membership_group_page_render_vals(membership_group_sudo)
 
-        return request.render("website_membership_group.membership_group_page", vals)
+        view_key = membership_group_sudo.page_id.view_id.key
+        if not view_key:
+            return request.not_found()
+
+        try:
+            return request.render(view_key, vals)
+        except ValueError:
+            return request.not_found()
+        except Exception:
+            _logger.exception("Unexpected error rendering membership group page for view %s", view_key)
+            return request.not_found()

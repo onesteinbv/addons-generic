@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="membership_group_public_rule" model="ir.rule">
+        <field name="name">Membership Group: website published only</field>
+        <field name="model_id" ref="membership_group.model_membership_group"/>
+        <field name="domain_force">[('is_published', '=', True)]</field>
+        <field name="groups" eval="[(4, ref('base.group_public')), (4, ref('base.group_portal'))]"/>
+    </record>
+</odoo>
