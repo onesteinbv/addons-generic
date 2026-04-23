@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
 import re
+from datetime import datetime, timezone
 
 import dateutil
 from dateutil.relativedelta import relativedelta
@@ -22,9 +22,11 @@ class Project(models.Model):
         # Checks on format 'namespace/projectname' with any number of subgroups in the namespace but no trailing slash.
         # When creating a new project trailing _, - are not allowed but there are present in existing projects
         # We keep the regex expression simple to mainly avoid trailing slashes
-        expression = r"^[^/]+(?:/[^/]+)*$"  
+        expression = r"^[^/]+(?:/[^/]+)*$"
         for project in self:
-            if project.gitlab_full_name and not re.match(expression, project.gitlab_full_name):
+            if project.gitlab_full_name and not re.match(
+                expression, project.gitlab_full_name
+            ):
                 raise exceptions.ValidationError(
                     "Gitlab Fullname must be in the format 'namespace/projectname'"
                 )
@@ -123,7 +125,7 @@ class Project(models.Model):
                     ("url", "=", merge_request.web_url),
                     ("type_id", "=", activity_type.id),
                     ("gitlab_username", "=", merge_request.author["username"]),
-                    ("date", "=", date)
+                    ("date", "=", date),
                 ]
             ):
                 continue
@@ -176,10 +178,10 @@ class Project(models.Model):
             # Check if the issue already exists
             if self.env["membership.activity"].search_count(
                 [
-                    ("url", "=", issue.web_url), 
+                    ("url", "=", issue.web_url),
                     ("type_id", "=", activity_type.id),
                     ("gitlab_username", "=", issue.author["username"]),
-                    ("date", "=", date)
+                    ("date", "=", date),
                 ]
             ):
                 continue
@@ -238,7 +240,7 @@ class Project(models.Model):
                 [
                     ("type_id", "=", activity_type.id),
                     ("gitlab_username", "=", note["author"]["username"]),
-                    ("date", "=", date)
+                    ("date", "=", date),
                 ]
             ):
                 continue
@@ -294,7 +296,7 @@ class Project(models.Model):
                 [
                     ("type_id", "=", activity_type.id),
                     ("gitlab_username", "=", event.author_username),
-                    ("date", "=", date)
+                    ("date", "=", date),
                 ]
             ):
                 continue

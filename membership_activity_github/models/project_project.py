@@ -56,7 +56,6 @@ class Project(models.Model):
     )
     github_rate_limiting_resettime = fields.Integer()
 
-
     @api.constrains("github_full_name")
     def _constrain_github_full_name(self):
         for project in self.filtered(lambda p: p.github_full_name):
@@ -224,7 +223,7 @@ class Project(models.Model):
                                     "project_id",
                                     "=",
                                     self.id,
-                                )  # This leaf is not really required
+                                ),  # This leaf is not really required
                             ],
                         )
                         if not review_exists:
