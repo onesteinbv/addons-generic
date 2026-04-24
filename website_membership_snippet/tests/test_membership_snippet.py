@@ -3,28 +3,34 @@ from odoo.tests import HttpCase, tagged
 
 @tagged("post_install", "-at_install")
 class TestMembershipSnippet(HttpCase):
-    """Tests for the website membership snippet endpoints."""
+    """Tests for the website membership dynamic snippet."""
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.group = cls.env["membership.group"].create({
-            "name": "Test Group",
-            "is_published": True,
-        })
-        cls.partner = cls.env["res.partner"].create({
-            "name": "Test Member",
-            "website_published": True,
-        })
-        cls.env["membership.group.member"].create({
-            "group_id": cls.group.id,
-            "partner_id": cls.partner.id,
-            "type": "committee",
-            "state": "current",
-        })
+    def test_snippet_filter_exists(self):
+        """The dynamic snippet filter record exists."""
+        filter_record = self.env.ref(
+            "website_membership_snippet.dynamic_filter_membership_members",
+            raise_if_not_found=False,
+        )
+        self.assertTrue(filter_record)
+        self.assertEqual(filter_record.model_name, "res.partner")
+        self.assertEqual(filter_record.limit, 16)
+
+    def test_snippet_templates_exist(self):
+        """All layout templates are registered."""
+        for template_key in [
+            "website_membership_snippet.dynamic_filter_template_res_partner_grid",
+            "website_membership_snippet.dynamic_filter_template_res_partner_list",
+            "website_membership_snippet.dynamic_filter_template_res_partner_avatars",
+        ]:
+            view = self.env.ref(template_key, raise_if_not_found=False)
+            self.assertTrue(view, f"Template {template_key} not found")
 
     def test_snippet_groups_endpoint(self):
         """The /membership/snippet/groups endpoint returns published groups."""
+        group = self.env["membership.group"].create({
+            "name": "Test Group",
+            "is_published": True,
+        })
         result = self.url_open(
             "/membership/snippet/groups",
             data='{"jsonrpc": "2.0", "method": "call", "params": {}, "id": 1}',
@@ -36,39 +42,58 @@ class TestMembershipSnippet(HttpCase):
         group_names = [g["name"] for g in data["result"]]
         self.assertIn("Test Group", group_names)
 
-    def test_snippet_members_endpoint(self):
-        """The /membership/snippet/members endpoint returns group members."""
-        result = self.url_open(
-            "/membership/snippet/members",
-            data='{"jsonrpc": "2.0", "method": "call", "params": {"group_id": %s}, "id": 1}' % self.group.id,
-            headers={"Content-Type": "application/json"},
-        )
-        self.assertEqual(result.status_code, 200)
-        data = result.json()
-        self.assertIn("result", data)
-        member_names = [m["name"] for m in data["result"]]
-        self.assertIn("Test Member", member_names)
+    def test_dynamic_filter_renders_members(self):
+        """The dynamic filter renders members for a published group."""
+        group = self.env["membership.group"].create({
+            "name": "Dynamic Test Group",
+            "is_published": True,
+        })
+        partner = self.env["res.partner"].create({
+            "name": "Dynamic Test Member",
+            "website_published": True,
+        })
+        self.env["membership.group.member"].create({
+            "group_id": group.id,
+            "partner_id": partner.id,
+            "type": "committee",
+            "state": "current",
+        })
 
-    def test_snippet_members_unpublished_group(self):
-        """Unpublished groups are not returned by the groups endpoint."""
-        self.group.is_published = False
-        result = self.url_open(
-            "/membership/snippet/groups",
-            data='{"jsonrpc": "2.0", "method": "call", "params": {}, "id": 1}',
-            headers={"Content-Type": "application/json"},
+        filter_record = self.env.ref(
+            "website_membership_snippet.dynamic_filter_membership_members"
         )
-        data = result.json()
-        group_names = [g["name"] for g in data["result"]]
-        self.assertNotIn("Test Group", group_names)
+        fragments = filter_record._render(
+            "website_membership_snippet.dynamic_filter_template_res_partner_grid",
+            limit=16,
+            search_domain=[("membership_group_member_ids.group_id", "=", group.id)],
+        )
+        self.assertTrue(fragments)
+        self.assertIn("Dynamic Test Member", fragments[0])
 
-    def test_snippet_members_unpublished_partner(self):
-        """Unpublished partners are not included in member results."""
-        self.partner.website_published = False
-        result = self.url_open(
-            "/membership/snippet/members",
-            data='{"jsonrpc": "2.0", "method": "call", "params": {"group_id": %s}, "id": 1}' % self.group.id,
-            headers={"Content-Type": "application/json"},
+    def test_dynamic_filter_hides_unpublished_members(self):
+        """Unpublished partners are not rendered."""
+        group = self.env["membership.group"].create({
+            "name": "Hidden Member Group",
+            "is_published": True,
+        })
+        partner = self.env["res.partner"].create({
+            "name": "Hidden Member",
+            "website_published": False,
+        })
+        self.env["membership.group.member"].create({
+            "group_id": group.id,
+            "partner_id": partner.id,
+            "type": "committee",
+            "state": "current",
+        })
+
+        filter_record = self.env.ref(
+            "website_membership_snippet.dynamic_filter_membership_members"
         )
-        data = result.json()
-        member_names = [m["name"] for m in data["result"]]
-        self.assertNotIn("Test Member", member_names)
+        fragments = filter_record._render(
+            "website_membership_snippet.dynamic_filter_template_res_partner_grid",
+            limit=16,
+            search_domain=[("membership_group_member_ids.group_id", "=", group.id)],
+        )
+        # Should be empty because partner is not website_published
+        self.assertFalse(any("Hidden Member" in f for f in fragments))

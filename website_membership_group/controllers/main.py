@@ -16,7 +16,7 @@ class MembershipGroupController(http.Controller):
 
     @http.route(
         [
-            """/members/group/<model("membership.group"):membership_group>"""
+            """/members/group/<model("membership.group","[('is_published', '=', True)]"):membership_group>"""
         ],
         type="http",
         methods=["GET"],
@@ -32,14 +32,6 @@ class MembershipGroupController(http.Controller):
 
         if not membership_group_sudo.is_published and not is_website_designer:
             return request.not_found()
-
-        # Ensure a unique page exists for this group
-        if not membership_group_sudo.page_id:
-            membership_group_sudo._create_membership_page()
-
-        # Sync page publication status with group
-        if membership_group_sudo.page_id.is_published != membership_group_sudo.is_published:
-            membership_group_sudo.page_id.is_published = membership_group_sudo.is_published
 
         vals = self._membership_group_page_render_vals(membership_group_sudo)
 

@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <!-- Snippet Template -->
+    <!-- Snippet -->
     <template id="s_membership_members" name="Members">
-        <section class="s_membership_members pt32 pb32" data-group-id="">
-            <div class="container">
-                <div class="row s_nb_column_fixed">
-                    <div class="col-12">
-                        <h3 class="mb-3">Members</h3>
-                        <div class="s_membership_members_container">
-                            <div class="text-muted">Select a membership group in the snippet options.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <t t-call="website.s_dynamic_snippet_template">
+            <t t-set="snippet_name" t-value="'s_membership_members'"/>
+            <t t-set="snippet_classes" t-value="'s_dynamic_snippet_members'"/>
+            <t t-set="custom_template_data" t-value="'{}'"/>
+        </t>
     </template>
 
     <!-- Register Snippet in Panel -->
     <template id="snippets" inherit_id="website.snippets">
         <xpath expr="//t[@id='installed_snippets_hook']" position="after">
-            <t t-snippet="website_membership_snippet.s_membership_members" 
-               string="Members" 
+            <t t-snippet="website_membership_snippet.s_membership_members"
+               string="Members"
                t-thumbnail="/website/static/src/img/snippets_thumbs/s_company_team.svg"/>
         </xpath>
     </template>
 
-    <!-- Snippet Options -->
+    <!-- Options -->
     <template id="s_membership_members_options" inherit_id="website.snippet_options">
         <xpath expr="." position="inside">
-            <div data-js="MembershipSnippetOptions" data-selector=".s_membership_members">
-                <we-select string="Membership Group" data-name="group_id_opt" data-attribute-name="groupId" data-no-preview="true">
-                </we-select>
-                <we-select string="Layout" data-name="layout_opt" data-attribute-name="layout" data-no-preview="true">
-                    <we-button data-select-data-attribute="grid" title="Grid">Grid</we-button>
-                    <we-button data-select-data-attribute="list" title="List">List</we-button>
-                    <we-button data-select-data-attribute="avatars" title="Avatars">Avatars</we-button>
-                </we-select>
-            </div>
+            <t t-call="website.s_dynamic_snippet_options_template">
+                <t t-set="snippet_name" t-value="'dynamic_snippet_members'"/>
+                <t t-set="snippet_selector" t-value="'.s_dynamic_snippet_members'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Extra options for membership group selector -->
+    <template id="s_dynamic_snippet_members_options_template" inherit_id="website.s_dynamic_snippet_options_template">
+        <xpath expr="//we-select[@data-name='template_opt']" position="after">
+            <we-select t-if="snippet_name == 'dynamic_snippet_members'"
+                string="Membership Group"
+                data-no-preview="true"
+                data-name="group_opt"
+                data-attribute-name="filterByGroupId">
+                <we-button data-select-data-attribute="-1">All groups</we-button>
+                <!-- group list generated in JS -->
+            </we-select>
         </xpath>
     </template>
 </odoo>

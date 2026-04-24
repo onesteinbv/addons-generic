@@ -12,6 +12,8 @@
         "website_membership_group",
     ],
     "data": [
+        "data/website_snippet_filter_data.xml",
+        "views/snippets/dynamic_templates.xml",
         "views/snippets/snippets.xml",
     ],
     "assets": {

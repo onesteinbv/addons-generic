@@ -19,8 +19,7 @@
         "views/snippets/snippet_options.xml",
     ],
     "demo": [
-        "data/governance_demo.xml",
-        "data/governance_partners_demo.xml",
+        "demo/website_membership_group_demo.xml",
     ],
     "assets": {
         "web.assets_frontend": [

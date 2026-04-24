@@ -104,8 +104,10 @@ options.registry.MemberColOpts = options.Class.extend({
     _saveToDatabase: function () {
         const $row = this.$target.closest('#mg_members_row');
         const id = parseInt($row[0]?.dataset.oeId, 10);
+        // Persist only user-configurable classes; exclude structural mg_*_col classes
+        const structuralClasses = ['mg_committee_col', 'mg_team_col'];
         const classes = this.$target[0].className.split(/\s+/)
-            .filter(cls => cls.startsWith('mg_') || cls.startsWith('col-'))
+            .filter(cls => !structuralClasses.includes(cls) && (cls.startsWith('mg_') || cls.startsWith('col-')))
             .join(' ');
 
         const field = this.$target.hasClass('mg_committee_col')

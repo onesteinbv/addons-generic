@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Filter for Dynamic Snippet -->
+        <record id="dynamic_snippet_membership_members_filter" model="ir.filters">
+            <field name="name">Membership Members</field>
+            <field name="model_id">res.partner</field>
+            <field name="user_id" eval="False"/>
+            <field name="domain">[('website_published', '=', True), ('membership_group_member_ids.state', '=', 'current')]</field>
+            <field name="sort">["name asc"]</field>
+            <field name="action_id" ref="website.action_website"/>
+        </record>
+
+        <!-- Dynamic Filter -->
+        <record id="dynamic_filter_membership_members" model="website.snippet.filter">
+            <field name="name">Membership Members</field>
+            <field name="filter_id" ref="website_membership_snippet.dynamic_snippet_membership_members_filter"/>
+            <field name="field_names">name,image_128,website_description</field>
+            <field name="limit" eval="16"/>
+        </record>
+    </data>
+</odoo>

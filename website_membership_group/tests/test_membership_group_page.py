@@ -37,3 +37,10 @@ class TestMembershipGroupPage(HttpCase):
         self.assertTrue(group2.page_id)
         self.assertNotEqual(self.group.page_id, group2.page_id)
         self.assertNotEqual(self.group.page_id.view_id, group2.page_id.view_id)
+
+    def test_page_unpublish_sync(self):
+        """Unpublishing a group also unpublishes its page."""
+        self.group.write({"is_published": True})
+        self.assertTrue(self.group.page_id.is_published)
+        self.group.write({"is_published": False})
+        self.assertFalse(self.group.page_id.is_published)

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Grid Layout -->
+    <template id="dynamic_filter_template_res_partner_grid" name="Grid">
+        <div t-foreach="records" t-as="data" class="s_membership_members_item w-100"
+             data-extra-classes="g-3" data-column-classes="col-md-4 col-lg-3">
+            <t t-set="record" t-value="data['_record']"/>
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <img class="rounded-circle mb-3"
+                         style="width: 80px; height: 80px; object-fit: cover;"
+                         t-att-src="data['image_128'] or '/web/static/img/user_placeholder.jpg'"
+                         t-att-alt="data['name']"/>
+                    <h5 class="card-title" t-field="record.name"/>
+                    <p t-if="data['website_description']" class="card-text text-muted small"
+                       t-field="record.website_description"/>
+                    <a t-if="data['call_to_action_url']" t-att-href="data['call_to_action_url']"
+                       class="btn btn-sm btn-primary">View Profile</a>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- List Layout -->
+    <template id="dynamic_filter_template_res_partner_list" name="List">
+        <div t-foreach="records" t-as="data" class="s_membership_members_item w-100"
+             data-extra-classes="g-3" data-column-classes="col-12">
+            <t t-set="record" t-value="data['_record']"/>
+            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded">
+                <img class="rounded-circle"
+                     style="width: 60px; height: 60px; object-fit: cover;"
+                     t-att-src="data['image_128'] or '/web/static/img/user_placeholder.jpg'"
+                     t-att-alt="data['name']"/>
+                <div class="flex-grow-1">
+                    <h6 class="mb-0" t-field="record.name"/>
+                    <small t-if="data['website_description']" class="text-muted"
+                           t-field="record.website_description"/>
+                </div>
+                <a t-if="data['call_to_action_url']" t-att-href="data['call_to_action_url']"
+                   class="btn btn-sm btn-outline-primary">View</a>
+            </div>
+        </div>
+    </template>
+
+    <!-- Avatars Layout -->
+    <template id="dynamic_filter_template_res_partner_avatars" name="Avatars">
+        <div t-foreach="records" t-as="data" class="s_membership_members_item w-100"
+             data-extra-classes="g-3" data-column-classes="col-6 col-md-3 col-lg-2">
+            <t t-set="record" t-value="data['_record']"/>
+            <div class="text-center p-2">
+                <img class="rounded-circle mb-2"
+                     style="width: 50px; height: 50px; object-fit: cover;"
+                     t-att-src="data['image_128'] or '/web/static/img/user_placeholder.jpg'"
+                     t-att-alt="data['name']"/>
+                <p class="small mb-0" t-field="record.name"/>
+            </div>
+        </div>
+    </template>
+</odoo>

@@ -1,50 +1,73 @@
 /** @odoo-module **/
 
 import options from "@web_editor/js/editor/snippets.options";
+import dynamicSnippetOptions from "@website/snippets/s_dynamic_snippet/options";
 import { rpc } from "@web/core/network/rpc";
 
-options.registry.MembershipSnippetOptions = options.Class.extend({
+const dynamicSnippetMembersOptions = dynamicSnippetOptions.extend({
     /**
      * @override
      */
-    async _renderCustomXML(uiFragment) {
-        await this._super(...arguments);
-        const groups = await this._fetchGroups();
-        this._renderGroupSelector(uiFragment, groups);
+    init: function () {
+        this._super.apply(this, arguments);
+        this.modelNameFilter = "res.partner";
+        this.groups = {};
     },
 
+    //--------------------------------------------------------------------------
+    // Private
+    //--------------------------------------------------------------------------
+
     /**
+     * @override
      * @private
      */
-    async _fetchGroups() {
-        try {
-            return await rpc("/membership/snippet/groups");
-        } catch (error) {
-            console.error("Failed to fetch groups:", error);
-            return [];
-        }
+    _computeWidgetVisibility: function (widgetName, params) {
+        return this._super.apply(this, arguments);
     },
-
     /**
+     * Fetches published membership groups.
+     * @private
+     * @returns {Promise}
+     */
+    _fetchGroups: function () {
+        return rpc("/membership/snippet/groups");
+    },
+    /**
+     * @override
      * @private
      */
-    _renderGroupSelector(uiFragment, groups) {
-        const selectEl = uiFragment.querySelector('[data-name="group_id_opt"]');
-        if (!selectEl || !groups.length) {
-            return;
+    _renderCustomXML: async function (uiFragment) {
+        await this._super.apply(this, arguments);
+        await this._renderGroupSelector(uiFragment);
+    },
+    /**
+     * Renders the group option selector content into the provided uiFragment.
+     * @private
+     * @param {HTMLElement} uiFragment
+     */
+    _renderGroupSelector: async function (uiFragment) {
+        if (!Object.keys(this.groups).length) {
+            const groupsList = await this._fetchGroups();
+            this.groups = {};
+            for (let index in groupsList) {
+                this.groups[groupsList[index].id] = groupsList[index];
+            }
         }
-
-        // Remove existing buttons
-        selectEl.querySelectorAll('we-button').forEach(btn => btn.remove());
-
-        // Add group options directly to we-select (same pattern as dynamic snippets)
-        groups.forEach(group => {
-            const button = document.createElement('we-button');
-            button.dataset.selectDataAttribute = group.id;
-            button.textContent = group.name;
-            selectEl.appendChild(button);
-        });
+        const groupSelectorEl = uiFragment.querySelector('[data-name="group_opt"]');
+        return this._renderSelectUserValueWidgetButtons(groupSelectorEl, this.groups);
+    },
+    /**
+     * Sets default options values.
+     * @override
+     * @private
+     */
+    _setOptionsDefaultValues: function () {
+        this._setOptionValue("filterByGroupId", -1);
+        this._super.apply(this, arguments);
     },
 });
 
-export default options.registry.MembershipSnippetOptions;
+options.registry.dynamic_snippet_members = dynamicSnippetMembersOptions;
+
+export default dynamicSnippetMembersOptions;

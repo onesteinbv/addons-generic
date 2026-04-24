@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Set website-specific fields on demo groups -->
+    <record id="membership_group.demo_membership_group_board" model="membership.group">
+        <field name="is_published" eval="True"/>
+    </record>
+
+    <record id="membership_group.demo_membership_group_sponsors" model="membership.group">
+        <field name="is_published" eval="True"/>
+    </record>
+
+    <record id="membership_group.demo_membership_group_executive_committee" model="membership.group">
+        <field name="is_published" eval="True"/>
+    </record>
+
+    <record id="membership_group.demo_membership_group_advisory_board" model="membership.group">
+        <field name="is_published" eval="True"/>
+    </record>
+
+    <!-- Set website-specific fields on demo partners -->
+    <record id="membership_group.demo_partner_board_president" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">President of the Board with 15 years of experience in non-profit leadership.</field>
+    </record>
+
+    <record id="membership_group.demo_partner_board_vice_president" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Vice President focusing on strategic partnerships and community outreach.</field>
+    </record>
+
+    <record id="membership_group.demo_partner_board_secretary" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Secretary with expertise in governance and compliance.</field>
+    </record>
+
+    <record id="membership_group.demo_partner_board_treasurer" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Treasurer with 20 years of financial management experience.</field>
+    </record>
+
+    <record id="membership_group.demo_partner_board_member_1" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Board member specializing in marketing and communications.</field>
+    </record>
+
+    <record id="membership_group.demo_partner_board_member_2" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Board member with background in technology and innovation.</field>
+    </record>
+
+    <record id="membership_group.demo_partner_sponsor_gold" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Gold Sponsor - Leading technology solutions provider</field>
+    </record>
+
+    <record id="membership_group.demo_partner_sponsor_silver" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Silver Sponsor - Sustainable energy advocate</field>
+    </record>
+
+    <record id="membership_group.demo_partner_sponsor_bronze" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Bronze Sponsor - Award-winning design agency</field>
+    </record>
+
+    <record id="membership_group.demo_partner_sponsor_startup" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Startup Sponsor - Fostering innovation in the community</field>
+    </record>
+
+    <record id="membership_group.demo_partner_sponsor_individual" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Individual Sponsor - Community advocate and supporter</field>
+    </record>
+
+    <record id="membership_group.demo_partner_exec_chair" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Executive Chair leading organizational strategy</field>
+    </record>
+
+    <record id="membership_group.demo_partner_exec_coordinator" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Program Coordinator managing daily operations</field>
+    </record>
+
+    <record id="membership_group.demo_partner_advisory_1" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Academic advisor with expertise in public policy</field>
+    </record>
+
+    <record id="membership_group.demo_partner_advisory_2" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Legal advisor specializing in non-profit law</field>
+    </record>
+
+    <record id="membership_group.demo_partner_advisory_3" model="res.partner">
+        <field name="website_published" eval="True"/>
+        <field name="website_description">Financial advisor with expertise in investment management</field>
+    </record>
+</odoo>

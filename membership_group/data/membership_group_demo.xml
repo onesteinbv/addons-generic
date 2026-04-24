@@ -22,4 +22,21 @@
             <field name="voting_group" eval="True" />
         </record>
 
+        <record id="demo_membership_group_board" model="membership.group">
+            <field name="name">Board of Directors</field>
+            <field name="voting_group" eval="True"/>
+        </record>
+
+        <record id="demo_membership_group_sponsors" model="membership.group">
+            <field name="name">Sponsors</field>
+        </record>
+
+        <record id="demo_membership_group_executive_committee" model="membership.group">
+            <field name="name">Executive Committee</field>
+        </record>
+
+        <record id="demo_membership_group_advisory_board" model="membership.group">
+            <field name="name">Advisory Board</field>
+        </record>
+
 </odoo>
