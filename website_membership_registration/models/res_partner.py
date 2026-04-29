@@ -71,34 +71,40 @@ class ResPartner(models.Model):
     @api.constrains("email", "membership_state")
     def _check_mail_unique(self):
         for partner in self:
-            if partner.email and partner.membership_state != "none":
-                member_found = self.search(
-                    [
-                        ("email", "=ilike", partner.email),
-                        ("id", "!=", partner.id),
-                        ("membership_state", "!=", "none"),
-                    ],
-                    limit=1,
-                )
-                if member_found:
-                    raise ValidationError(
-                        self.env._(
-                            "Another Member already exists with email %s", partner.email
-                        )
+            if not partner.email or partner.membership_state == "none":
+                continue
+
+            # Use a direct SQL query to avoid triggering recursive Odoo search/constrain loops
+            self.env.cr.execute(
+                """
+                    SELECT id FROM res_partner
+                    WHERE email ILIKE %s
+                    AND id != %s
+                    AND membership_state != 'none'
+                    LIMIT 1
+                """,
+                (partner.email, partner.id),
+            )
+
+            if self.env.cr.fetchone():
+                raise ValidationError(
+                    self.env._(
+                        "Another Member already exists with email %s", partner.email
                     )
-                user_found = self.env["res.users"].search(
-                    [
-                        ("login", "=ilike", partner.email),
-                        ("partner_id", "!=", partner.id),
-                    ],
-                    limit=1,
                 )
-                if user_found:
-                    raise ValidationError(
-                        self.env._(
-                            "Another User already exists with email %s", partner.email
-                        )
+            user_found = self.env["res.users"].search(
+                [
+                    ("login", "=ilike", partner.email),
+                    ("partner_id", "!=", partner.id),
+                ],
+                limit=1,
+            )
+            if user_found:
+                raise ValidationError(
+                    self.env._(
+                        "Another User already exists with email %s", partner.email
                     )
+                )
 
     @api.model
     def cleanup_unverified_members(self):
