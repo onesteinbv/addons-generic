@@ -68,7 +68,7 @@ class ResPartner(models.Model):
             )
         return res
 
-    @api.constrains("email", "membership_state")
+    @api.constrains("email", "membership_state", "active")
     def _check_mail_unique(self):
         for partner in self:
             if not partner.email or partner.membership_state == "none":
@@ -78,9 +78,10 @@ class ResPartner(models.Model):
             self.env.cr.execute(
                 """
                     SELECT id FROM res_partner
-                    WHERE email ILIKE %s
+                    WHERE LOWER(email) = LOWER(%s)
                     AND id != %s
                     AND membership_state != 'none'
+                    AND active = TRUE
                     LIMIT 1
                 """,
                 (partner.email, partner.id),
