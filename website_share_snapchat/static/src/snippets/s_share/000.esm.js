@@ -20,14 +20,6 @@ publicWidget.registry.share.include({
                         });
                     });
                 }
-
-                if ($a.attr('target') && $a.attr('target').match(/_blank/i) && !$a.closest('.o_editable').length) {
-                    $a.on('click', function () {
-                        // eslint-disable-next-line no-undef
-                        window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=550,width=600');
-                        return false;
-                    });
-                }
             });
         },
     });

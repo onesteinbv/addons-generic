@@ -18,11 +18,11 @@ class PaymentPortal(payment_portal):
     def donation_transaction(
         self, amount, currency_id, partner_id, access_token, minimum_amount=0, **kwargs
     ):
-        if request.env.user._is_public():
-            kwargs["donation_partner_details"] = kwargs["partner_details"]
         donation_frequency = kwargs.pop("donation_frequency", False)
         context = request.env.context.copy()
         context.update({"donation_frequency": donation_frequency})
+        if request.env.user._is_public():
+            context.update({"donation_partner_details": kwargs["partner_details"]})
         request.env.context = context
         return super().donation_transaction(
             amount, currency_id, partner_id, access_token, minimum_amount, **kwargs
@@ -71,9 +71,9 @@ class PaymentPortal(payment_portal):
                 custom_create_values["donation_frequency"] = request.env.context.get(
                     "donation_frequency"
                 )
-            if kwargs.get("donation_partner_details"):
+            if request.env.context.get("donation_partner_details", False):
                 res_partner_obj = request.env["res.partner"].sudo()
-                details = kwargs.pop("donation_partner_details")
+                details = request.env.context.get("donation_partner_details")
                 country_id = int(details.get("country_id"))
                 email = details.get("email")
                 partner_id = res_partner_obj.search(

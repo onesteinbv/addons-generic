@@ -5,6 +5,7 @@ class MembershipActivity(models.Model):
     _name = "membership.activity"
     _description = "Member Activity"
 
+    # pylint: disable=missing-return
     def init(self):
         super().init()
         # Create an index to speed up searching for duplicate activities
@@ -26,12 +27,9 @@ class MembershipActivity(models.Model):
         comodel_name="project.project", string="Related Project", ondelete="cascade"
     )
     date = fields.Datetime(required=True, index=True)
-    url = fields.Char(
-        index=True
-    )
+    url = fields.Char(index=True)
     type_id = fields.Many2one(
-        comodel_name="membership.activity.type", string="Activity Type", 
-        index=True
+        comodel_name="membership.activity.type", string="Activity Type", index=True
     )
 
     @api.depends("partner_id", "partner_id.display_name")
