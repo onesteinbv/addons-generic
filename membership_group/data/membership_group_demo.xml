@@ -24,7 +24,6 @@
 
         <record id="demo_membership_group_board" model="membership.group">
             <field name="name">Board of Directors</field>
-            <field name="voting_group" eval="True"/>
         </record>
 
         <record id="demo_membership_group_sponsors" model="membership.group">

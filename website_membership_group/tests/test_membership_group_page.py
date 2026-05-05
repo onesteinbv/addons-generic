@@ -8,9 +8,11 @@ class TestMembershipGroupPage(HttpCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.group = cls.env["membership.group"].create({
-            "name": "Page Test Group",
-        })
+        cls.group = cls.env["membership.group"].create(
+            {
+                "name": "Page Test Group",
+            }
+        )
 
     def test_page_created_on_publish(self):
         """Publishing a group auto-creates a unique website.page."""
@@ -29,9 +31,11 @@ class TestMembershipGroupPage(HttpCase):
     def test_page_is_unique_per_group(self):
         """Each group gets its own page and view."""
         self.group.write({"is_published": True})
-        group2 = self.env["membership.group"].create({
-            "name": "Another Group",
-        })
+        group2 = self.env["membership.group"].create(
+            {
+                "name": "Another Group",
+            }
+        )
         group2.write({"is_published": True})
         self.assertTrue(self.group.page_id)
         self.assertTrue(group2.page_id)

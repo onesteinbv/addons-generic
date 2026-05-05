@@ -1,5 +1,6 @@
 import options from "@web_editor/js/editor/snippets.options";
 import { rpc } from "@web/core/network/rpc";
+/* global MutationObserver */
 /**
  * Helper to filter for module-specific option classes.
  * Excludes base structural classes to prevent duplication in templates.

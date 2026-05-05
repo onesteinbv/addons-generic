@@ -44,5 +44,7 @@ class MembershipGroupController(http.Controller):
         except ValueError:
             return request.not_found()
         except Exception:
-            _logger.exception("Unexpected error rendering membership group page for view %s", view_key)
+            _logger.exception(
+                "Unexpected error rendering membership group page for view %s", view_key
+            )
             return request.not_found()

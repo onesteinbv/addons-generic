@@ -54,19 +54,23 @@ class MembershipGroup(models.Model):
         view_key = "website_membership_group.membership_group_page_custom_%s" % self.id
 
         # Create the view with unique oe_structure IDs
-        view = self.env["ir.ui.view"].create({
-            "name": "Membership Group: %s" % self.name,
-            "key": view_key,
-            "type": "qweb",
-            "arch": self._get_page_arch(),
-        })
+        view = self.env["ir.ui.view"].create(
+            {
+                "name": "Membership Group: %s" % self.name,
+                "key": view_key,
+                "type": "qweb",
+                "arch": self._get_page_arch(),
+            }
+        )
 
         # Create the website page
-        page = self.env["website.page"].create({
-            "url": page_url,
-            "website_published": True,
-            "view_id": view.id,
-        })
+        page = self.env["website.page"].create(
+            {
+                "url": page_url,
+                "website_published": True,
+                "view_id": view.id,
+            }
+        )
 
         self.page_id = page
         return page

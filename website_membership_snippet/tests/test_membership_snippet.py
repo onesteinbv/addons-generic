@@ -27,10 +27,12 @@ class TestMembershipSnippet(HttpCase):
 
     def test_snippet_groups_endpoint(self):
         """The /membership/snippet/groups endpoint returns published groups."""
-        group = self.env["membership.group"].create({
-            "name": "Test Group",
-            "is_published": True,
-        })
+        self.env["membership.group"].create(
+            {
+                "name": "Test Group",
+                "is_published": True,
+            }
+        )
         result = self.url_open(
             "/membership/snippet/groups",
             data='{"jsonrpc": "2.0", "method": "call", "params": {}, "id": 1}',
@@ -44,20 +46,26 @@ class TestMembershipSnippet(HttpCase):
 
     def test_dynamic_filter_renders_members(self):
         """The dynamic filter renders members for a published group."""
-        group = self.env["membership.group"].create({
-            "name": "Dynamic Test Group",
-            "is_published": True,
-        })
-        partner = self.env["res.partner"].create({
-            "name": "Dynamic Test Member",
-            "website_published": True,
-        })
-        self.env["membership.group.member"].create({
-            "group_id": group.id,
-            "partner_id": partner.id,
-            "type": "committee",
-            "state": "current",
-        })
+        group = self.env["membership.group"].create(
+            {
+                "name": "Dynamic Test Group",
+                "is_published": True,
+            }
+        )
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Dynamic Test Member",
+                "website_published": True,
+            }
+        )
+        self.env["membership.group.member"].create(
+            {
+                "group_id": group.id,
+                "partner_id": partner.id,
+                "type": "committee",
+                "state": "current",
+            }
+        )
 
         filter_record = self.env.ref(
             "website_membership_snippet.dynamic_filter_membership_members"
@@ -72,20 +80,26 @@ class TestMembershipSnippet(HttpCase):
 
     def test_dynamic_filter_hides_unpublished_members(self):
         """Unpublished partners are not rendered."""
-        group = self.env["membership.group"].create({
-            "name": "Hidden Member Group",
-            "is_published": True,
-        })
-        partner = self.env["res.partner"].create({
-            "name": "Hidden Member",
-            "website_published": False,
-        })
-        self.env["membership.group.member"].create({
-            "group_id": group.id,
-            "partner_id": partner.id,
-            "type": "committee",
-            "state": "current",
-        })
+        group = self.env["membership.group"].create(
+            {
+                "name": "Hidden Member Group",
+                "is_published": True,
+            }
+        )
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Hidden Member",
+                "website_published": False,
+            }
+        )
+        self.env["membership.group.member"].create(
+            {
+                "group_id": group.id,
+                "partner_id": partner.id,
+                "type": "committee",
+                "state": "current",
+            }
+        )
 
         filter_record = self.env.ref(
             "website_membership_snippet.dynamic_filter_membership_members"

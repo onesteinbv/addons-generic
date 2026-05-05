@@ -18,10 +18,10 @@
     ],
     "assets": {
         "web.assets_frontend": [
-            "website_membership_snippet/static/src/js/membership_snippet.js",
+            "website_membership_snippet/static/src/js/membership_snippet.esm.js",
         ],
         "website.assets_wysiwyg": [
-            "website_membership_snippet/static/src/js/membership_snippet_options.js",
+            "website_membership_snippet/static/src/js/membership_snippet_options.esm.js",
         ],
     },
 }
