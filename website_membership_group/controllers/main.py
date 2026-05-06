@@ -35,3 +35,17 @@ class MembershipGroupController(http.Controller):
         vals = self._membership_group_page_render_vals(membership_group_sudo)
 
         return request.render("website_membership_group.membership_group_page", vals)
+
+    @http.route("/membership/snippet/groups", type="json", auth="public", website=True)
+    def snippet_groups(self):
+        groups = (
+            request.env["membership.group"]
+            .sudo()
+            .search(
+                [
+                    ("is_published", "=", True),
+                ],
+                order="name",
+            )
+        )
+        return [{"id": g.id, "name": g.name} for g in groups]
