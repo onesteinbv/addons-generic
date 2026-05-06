@@ -55,17 +55,17 @@
         <field name="arch" type="xml">
             <search>
                 <filter
-                    name="this_year"
+                    name="last_year"
                     string="Last year"
                     domain="[('date', '&gt;', (context_today() - relativedelta(years=1)).strftime('%Y-%m-%d'))]"
                 />
                 <filter
-                    name="this_month"
+                    name="last_month"
                     string="Last month"
                     domain="[('date', '&gt;', (context_today() - relativedelta(months=1)).strftime('%Y-%m-%d'))]"
                 />
                 <filter
-                    name="this_week"
+                    name="last_week"
                     string="Last week"
                     domain="[('date', '&gt;', (context_today() - relativedelta(weeks=1)).strftime('%Y-%m-%d'))]"
                 />
