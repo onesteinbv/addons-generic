@@ -19,7 +19,11 @@ class Gitlab(models.Model):
 
     def get_server_connection(self):
         self.ensure_one()
-        gl = gitlab.Gitlab(url=self.url, private_token=self.private_token)
+        gl = gitlab.Gitlab(
+            url=self.url,
+            private_token=self.private_token,
+            retry_transient_errors=True,
+        )
         if self.debug:
             gl.enable_debug()
         return gl

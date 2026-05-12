@@ -1,10 +1,32 @@
 import re
 from datetime import datetime, timezone
+from functools import wraps
 
 import dateutil
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, exceptions, fields, models
+
+from odoo.addons.queue_job.exception import RetryableJobError
+
+from gitlab import GitlabError
+
+
+def use_gitlab(method):
+    @wraps(method)
+    def _wrap(self, *args, **kwargs):
+        # Gitlab (gitlab.com) can sometimes return 502 or 504
+        try:
+            return method(self, *args, **kwargs)
+        except GitlabError as e:
+            if e.response_code in (502, 504):  # Bad gateway or Gateway Timeout
+                raise RetryableJobError(
+                    e.error_message,
+                    seconds=60,  # Retry after 1 minute
+                ) from e
+            raise e
+
+    return _wrap
 
 
 class Project(models.Model):
@@ -53,6 +75,7 @@ class Project(models.Model):
                 1, project.gitlab_id.per_page, since, until
             )
 
+    @use_gitlab
     def get_gitlab_commits_iterated(self, page, per_page, since, until):
         self.ensure_one()
         gl = self.gitlab_id.get_server_connection()
@@ -103,6 +126,7 @@ class Project(models.Model):
                 1, project.gitlab_id.per_page, since, until
             )
 
+    @use_gitlab
     def get_gitlab_merge_requests_iterated(self, page, per_page, since, until):
         self.ensure_one()
         gl = self.gitlab_id.get_server_connection()
@@ -159,6 +183,7 @@ class Project(models.Model):
                 1, project.gitlab_id.per_page, since, until
             )
 
+    @use_gitlab
     def get_gitlab_issues_iterated(self, page, per_page, since, until):
         self.ensure_one()
         gl = self.gitlab_id.get_server_connection()
@@ -215,6 +240,7 @@ class Project(models.Model):
                 1, project.gitlab_id.per_page, since, until
             )
 
+    @use_gitlab
     def get_gitlab_notes_iterated(self, page, per_page, since, until):
         self.ensure_one()
         gl = self.gitlab_id.get_server_connection()
@@ -274,6 +300,7 @@ class Project(models.Model):
                 1, project.gitlab_id.per_page, since, until
             )
 
+    @use_gitlab
     def get_gitlab_approvals_iterated(self, page, per_page, since, until):
         self.ensure_one()
         gl = self.gitlab_id.get_server_connection()
