@@ -34,7 +34,7 @@
                              t-att-data-oe-id="membership_group.id"
                         >
                             <t t-set="current_members"
-                                               t-value="membership_group.membership_group_member_ids.filtered(lambda m: m.state == 'current')"/>
+                               t-value="membership_group.membership_group_member_ids.filtered(lambda m: m.state == 'current')"/>
                             <div t-attf-class="mg_committee_col {{membership_group.website_committee_col_classes or 'col-lg-4'}}">
                                 <div class="card h-100 shadow-sm border-0">
                                     <div class="card-header border-0 py-3 bg-primary text-white"
@@ -91,11 +91,13 @@
                 <div class="mg_member_item p-3 border-bottom-0">
                     <div class="d-flex align-items-center gap-3">
                         <img class="rounded-circle shadow-sm object-fit-cover"
-                             t-att-src="image_data_uri(member.image_128 or member.avatar_128)" t-att-alt="member.name"/>
+                             t-att-src="image_data_uri(member.image_128 or member.avatar_128)" t-att-alt="member.name"
+                             style="height:128px"/>
                         <div class="flex-grow-1 min-w-0 mg_member_name">
                             <t t-if="member.website_published">
                                 <a t-attf-href="/members/#{slug(member)}" class="text-decoration-none">
-                                    <span class="fw-bold text-dark d-block text-wrap text-break lh-sm" t-esc="member.name"/>
+                                    <span class="fw-bold text-dark d-block text-wrap text-break lh-sm"
+                                          t-esc="member.name"/>
                                 </a>
                             </t>
                             <t t-else="">

@@ -79,7 +79,7 @@ options.registry.MemberColOpts = options.Class.extend({
     start: function () {
         const self = this;
         this._super(...arguments);
-
+        // eslint-disable-next-line no-undef
         this.observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.attributeName === "class") {
