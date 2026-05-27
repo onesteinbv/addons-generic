@@ -22,6 +22,7 @@ class MembershipGroup(models.Model):
         store=True,
         compute_sudo=True,
     )
+    allow_registration = fields.Boolean(default=False)
 
     @api.depends(
         "membership_group_member_ids",

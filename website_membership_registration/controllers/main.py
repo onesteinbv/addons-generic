@@ -257,7 +257,7 @@ class MembershipRegistrationController(http.Controller):
         ) = address_data["member_state_id"]
 
         membership_group_ids = request.env["membership.group"].search(
-            [("is_published", "=", True)]
+            [("is_published", "=", True), ("allow_registration", "=", True)]
         )
         membership_group_list = {}
         for membership_group in membership_group_ids:
@@ -312,7 +312,7 @@ class MembershipRegistrationController(http.Controller):
 
     def _set_partner_membership_group(self, partner, partner_data):
         membership_groups = request.env["membership.group"].search(
-            [("is_published", "=", True)]
+            [("is_published", "=", True), ("allow_registration", "=", True)]
         )
         membership_group_data = self._get_membership_group_data(
             membership_groups, partner_data["membership_group_data"]
@@ -405,7 +405,7 @@ class MembershipRegistrationController(http.Controller):
         )
 
         membership_groups = request.env["membership.group"].search(
-            [("is_published", "=", True)]
+            [("is_published", "=", True), ("allow_registration", "=", True)]
         )
         membership_groups_follow_checked = {}
         membership_groups_collaborate_checked = {}

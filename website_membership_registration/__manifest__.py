@@ -4,7 +4,7 @@
 {
     "name": "Website Membership Registration",
     "category": "Website",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "author": "Onestein",
     "license": "AGPL-3",
     "website": "https://www.onestein.nl",
@@ -28,6 +28,7 @@
         "views/snippets/snippets.xml",
         "views/hr_applicant_view.xml",
         "views/hr_employee_view.xml",
+        "views/membership_group_view.xml",
         "views/product_template_view.xml",
         "views/res_config_settings_view.xml",
         "views/res_partner_view.xml",
