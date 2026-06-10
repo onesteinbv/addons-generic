@@ -185,12 +185,24 @@ class MembershipRegistrationController(http.Controller):
             error_list.append(error_data["member_state_id"])
         if not validation_data["member_cv"]:
             error_list.append(error_data["member_cv"])
+        if error_data.get("captcha", False):
+            error_list.append(error_data["captcha"])
         return error_list
 
     def _get_partner_and_validation_data(self, post):
         partner_data = {}
         validation_data = {}
         error_data = {}
+
+        # TODO: Can stop validating the form and return immediately if captcha fails
+        try:
+            if not request.env["ir.http"]._verify_request_recaptcha_token(
+                "membership_registration"
+            ):
+                error_data["captcha"] = _("Human verification (CAPTCHA) failed.")
+        except Exception:
+            error_data["captcha"] = _("An error occurred during CAPTCHA verification.")
+
         partner_data["website_description"] = post.get("website_description", "")
         (
             partner_data["member_email"],
