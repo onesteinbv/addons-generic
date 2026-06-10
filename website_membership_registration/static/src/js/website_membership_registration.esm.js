@@ -1,11 +1,25 @@
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { rpc } from "@web/core/network/rpc";
+import {ReCaptcha} from "@google_recaptcha/js/recaptcha";
 
 publicWidget.registry.WebsiteMembershipRegistration = publicWidget.Widget.extend({
     selector: '.oe_website_membership_registration',
     events: {
         "change select[name=member_country_id]": "_onChangeAddressCountry",
         "change select[name=membership_product_id]": "_onChangeProduct",
+        "submit form": "_onSubmit"
+    },
+    tokenName: "membership_registration",
+
+    init: function () {
+        this._super(...arguments);
+        this._recaptcha = new ReCaptcha();
+
+    },
+
+    willStart: async function () {
+        this._recaptcha.loadLibs();
+        return this._super(...arguments);
     },
 
     /**
@@ -16,6 +30,19 @@ publicWidget.registry.WebsiteMembershipRegistration = publicWidget.Widget.extend
         this._changeProduct();
         this._changeAddressCountry();
         return res
+    },
+
+    _onSubmit(ev) {
+        const $form = $(ev.currentTarget);
+        if (this._recaptcha._publicKey && !$form.find("input[name='recaptcha_token_response']").length) {
+            ev.preventDefault();
+            this._recaptcha.getToken(this.tokenName).then((tokenCaptcha) => {
+                $form.append(
+                    `<input name="recaptcha_token_response" type="hidden" value="${tokenCaptcha.token}"/>`,
+                );
+                $form.submit();
+            });
+        }
     },
 
     /**
