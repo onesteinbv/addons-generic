@@ -5,3 +5,4 @@ pyyaml
 dnspython==2.6.1
 PyGithub==1.59.0
 python-gitlab
+altcha
