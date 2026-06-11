@@ -29,9 +29,10 @@ class MembershipGroupController(http.Controller):
         if not membership_group_sudo.is_published and not is_website_designer:
             return request.not_found()
 
-        if membership_group_sudo.page_id:
-            return request.redirect(membership_group_sudo.page_id.url)
-
+        if is_website_designer and not membership_group_sudo.page_id:
+            page = membership_group_sudo._create_unique_website_page()
+            return request.redirect(page.url)
         vals = self._membership_group_page_render_vals(membership_group_sudo)
-
+        if membership_group_sudo.page_id:
+            return request.render(membership_group_sudo.page_id.view_id.id, vals)
         return request.render("website_membership_group.membership_group_page", vals)
