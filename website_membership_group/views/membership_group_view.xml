@@ -20,7 +20,7 @@
             </xpath>
             <xpath expr="//group[@name='form_body']" position="inside">
                 <group name="website_informations" string="Website">
-                    <field name="page_id" domain="[('is_published', '=', True)]" options="{'no_create_edit': True, 'no_create': True}" />
+                    <field name="page_id" options="{'no_create_edit': True, 'no_create': True}" />
                 </group>
             </xpath>
             <xpath expr="//page[@name='membership']" position="after">

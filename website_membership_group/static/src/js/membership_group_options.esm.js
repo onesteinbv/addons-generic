@@ -51,6 +51,34 @@ options.registry.MemberLayoutOpts = options.Class.extend({
      // eslint-disable-next-line no-unused-vars
     selectClass: function (previewMode, value, $li) {
         this._super(...arguments);
+        const cards = this.$target[0].querySelectorAll('.mg_member_item.mg_has_desc');
+        const isCollapsible = this.$target.hasClass('mg_collapse_desc');
+
+        cards.forEach(card => {
+            const descId = card.getAttribute('data-target-desc');
+            const desc = descId ? this.$target[0].querySelector(`#${descId}`) : null;
+            const icon = card.querySelector('.mg_accordion_indicator i');
+
+            // Strip active expansion styles
+            card.classList.remove('mg_accordion_expanded');
+
+            // Reset chevron to point down
+            if (icon) {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+
+            // Instantly hide or show the description blocks based on the checkbox state
+            if (desc) {
+                if (isCollapsible) {
+                    desc.classList.add('d-none');
+                    icon.classList.remove('d-none');
+                } else {
+                    desc.classList.remove('d-none');
+                    icon.classList.add('d-none');
+                }
+            }
+        });
         if (!previewMode) {
             this._saveToDatabase();
         }
@@ -111,6 +139,57 @@ options.registry.MemberColOpts = options.Class.extend({
         const field = this.$target.hasClass('mg_committee_col')
             ? 'website_committee_col_classes'
             : 'website_team_col_classes';
+
+        if (id && field && classes) {
+            if (this.lastSavedColClasses !== classes) {
+                this.lastSavedColClasses = classes;
+                return rpc('/web/dataset/call_kw', {
+                    model: "membership.group",
+                    method: 'write',
+                    args: [[id], {[field]: classes}],
+                    kwargs: {},
+                });
+            }
+        }
+    },
+});
+
+options.registry.MembershipGroupPageHeaderOpts = options.Class.extend({
+    start: function () {
+        const self = this;
+        this._super(...arguments);
+        // eslint-disable-next-line no-undef
+        this.observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === "class") {
+                    self._saveToDatabase();
+                }
+            });
+        });
+
+        this.observer.observe(this.$target[0], {
+            attributes: true,
+            attributeFilter: ["class"],
+        });
+    },
+
+    destroy: function () {
+        if (this.observer) {
+            this.observer.disconnect();
+        }
+        this._super(...arguments);
+    },
+
+    _saveToDatabase: function () {
+        const $row = this.$target.closest('#mg_header_row');
+        const id = parseInt($row[0]?.dataset.oeId, 10);
+        const classes = this.$target[0].className.split(/\s+/)
+            .filter((cls) => cls.startsWith('col-') || cls.startsWith('order-') || cls.startsWith('offset-'))
+            .join(' ');
+
+        const field = this.$target.hasClass('mg_image_col')
+            ? 'website_header_image_col_classes'
+            : 'website_header_desc_col_classes';
 
         if (id && field && classes) {
             if (this.lastSavedColClasses !== classes) {

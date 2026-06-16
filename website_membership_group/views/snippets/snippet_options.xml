@@ -21,15 +21,16 @@
                     <we-button data-select-class="mg_layout_cards" data-name="mg_layout_cards" title="Cards">
                         <i class="fa fa-th-large"/>
                     </we-button>
-                    <we-button data-select-class="mg_layout_avatars" data-name="mg_layout_avatars" title="Avatars">
-                        <i class="fa fa-th"/>
+                    <we-button data-select-class="mg_layout_logos" data-name="mg_layout_logos" title="Logos">
+                        <i class="fa fa-briefcase"/>
                     </we-button>
                 </we-button-group>
-                <we-checkbox string="Committee Description" data-select-class="mg_show_committee_desc" data-dependencies="mg_layout_cards,mg_layout_avatars"/>
-                <we-checkbox string="Team Description" data-select-class="mg_show_team_desc" data-dependencies="mg_layout_cards,mg_layout_avatars"/>
-                <we-checkbox string="Collapsible" data-select-class="mg_collapse_desc" data-dependencies="mg_layout_cards,mg_layout_avatars"/>
+                <we-checkbox string="Committee Description" data-select-class="mg_show_committee_desc" data-dependencies="mg_layout_cards,mg_layout_logos"/>
+                <we-checkbox string="Team Description" data-select-class="mg_show_team_desc" data-dependencies="mg_layout_cards,mg_layout_logos"/>
+                <we-checkbox string="Collapsible" data-select-class="mg_collapse_desc" data-dependencies="mg_layout_cards,mg_layout_logos"/>
             </div>
-            <div data-js="MemberColOpts" data-selector="body:has(#mg_members_row) .mg_team_col, .mg_committee_col"/>
+            <div data-js="MemberColOpts" data-selector="body:has(#mg_members_row) .mg_team_col,body:has(#mg_members_row) .mg_committee_col"/>
+            <div data-js="MembershipGroupPageHeaderOpts" data-selector="body:has(#mg_header_row) .mg_image_col,body:has(#mg_header_row) .mg_desc_col"/>
         </xpath>
     </template>
 </odoo>
