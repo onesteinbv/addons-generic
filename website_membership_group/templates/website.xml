@@ -95,7 +95,7 @@
                     <div class="d-flex align-items-center gap-3">
                         <t t-if="member.website_published">
                             <a t-attf-href="/members/#{slug(member)}" class="text-decoration-none mg_clickable_link">
-                                <img t-attf-class="mg_member_img shadow-sm rounded-1 flex-shrink-0 {{ 'object-fit-contain' if is_logos else 'object-fit-cover' }}"
+                                <img t-attf-class="mg_member_img flex-shrink-0 {{ 'object-fit-contain' if is_logos else 'object-fit-cover shadow-sm rounded-1' }}"
                                      t-att-src="image_data_uri(member.image_128 or member.avatar_128)"
                                      t-att-alt="member.name"
                                      style="height: 60px !important;"
@@ -103,7 +103,7 @@
                             </a>
                         </t>
                         <t t-else="">
-                            <img t-attf-class="mg_member_img shadow-sm rounded-1 flex-shrink-0 {{ 'mg_member_logo object-fit-contain' if is_logos else 'object-fit-cover' }}"
+                            <img t-attf-class="mg_member_img flex-shrink-0 {{ 'mg_member_logo object-fit-contain' if is_logos else 'object-fit-cover shadow-sm rounded-1' }}"
                                  t-att-src="image_data_uri(member.image_128 or member.avatar_128)"
                                  t-att-alt="member.name"
                                  style="height: 60px !important;"
