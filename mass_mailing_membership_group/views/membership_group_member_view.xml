@@ -11,6 +11,16 @@
         </field>
     </record>
 
+    <record id="membership_group_member_view_tree_partner" model="ir.ui.view">
+        <field name="model">membership.group.member</field>
+        <field name="inherit_id" ref="membership_group.membership_group_member_view_tree_partner"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='group_id']" position="after">
+                <field name="on_mailing_list"/>
+            </xpath>
+        </field>
+    </record>
+
      <record id="membership_group_member_view_search" model="ir.ui.view">
         <field name="model">membership.group.member</field>
          <field name="inherit_id" ref="membership_group.membership_group_member_view_search" />

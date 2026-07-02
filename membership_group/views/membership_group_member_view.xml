@@ -40,6 +40,7 @@
                 <field name="state" />
                 <field name="create_date" column_invisible="1" />
                 <field name="group_id" />
+                <field name="wants_to_collaborate" />
                 <field name="date_from" optional="show" />
                 <field name="date_to" optional="show" />
                 <field name="date_end" optional="show" />
@@ -48,7 +49,6 @@
                 <button type="object" name="action_change_type"
                     string="Change Type"
                     invisible="state != 'current' or not create_date" />
-                <field name="wants_to_collaborate" optional="hide" />
                 <button type="object" name="action_revoke_membership"
                     string="Revoke"
                     invisible="state != 'current' or not create_date" />
