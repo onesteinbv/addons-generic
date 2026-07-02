@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo>
-    <data noupdate="1">
-        <record id="membership_group.demo_member_1" model="res.partner">
-            <field
-                name="membership_group_member_ids"
-                eval="[
-                    (5, 0),
-                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_1'), 'on_mailing_list': True, 'wants_to_collaborate': True}),
-                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_2'), 'on_mailing_list': True}),
-                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_3'), 'wants_to_collaborate': True})
-                ]"
-            />
-        </record>
+<odoo noupdate="1">
+    <record id="membership_group.demo_member_1" model="res.partner">
+        <field
+            name="membership_group_member_ids"
+            eval="[
+                (5, 0),
+                (0, 0, {'group_id': ref('membership_group.demo_membership_group_1'), 'on_mailing_list': True, 'wants_to_collaborate': True}),
+                (0, 0, {'group_id': ref('membership_group.demo_membership_group_2'), 'on_mailing_list': True}),
+                (0, 0, {'group_id': ref('membership_group.demo_membership_group_3'), 'wants_to_collaborate': True})
+            ]"
+        />
+    </record>
 
-        <record id="membership_group.demo_member_2" model="res.partner">
-            <field
-                name="membership_group_member_ids"
-                eval="[
-                    (5, 0),
-                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_1'), 'wants_to_collaborate': True}),
-                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_4'), 'on_mailing_list': True, 'wants_to_collaborate': True})
-                ]"
-            />
-        </record>
+    <record id="membership_group.demo_member_2" model="res.partner">
+        <field
+            name="membership_group_member_ids"
+            eval="[
+                (5, 0),
+                (0, 0, {'group_id': ref('membership_group.demo_membership_group_1'), 'wants_to_collaborate': True}),
+                (0, 0, {'group_id': ref('membership_group.demo_membership_group_4'), 'on_mailing_list': True, 'wants_to_collaborate': True})
+            ]"
+        />
+    </record>
 
-        <record id="membership_group.demo_member_3" model="res.partner">
-            <field
-                name="membership_group_member_ids"
-                eval="[
-                    (5, 0),
-                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_2'), 'wants_to_collaborate': True}),
-                    (0, 0, {'group_id': ref('membership_group.demo_membership_group_3'), 'on_mailing_list': True})
-                ]"
-            />
-        </record>
-    </data>
+    <record id="membership_group.demo_member_3" model="res.partner">
+        <field
+            name="membership_group_member_ids"
+            eval="[
+                (5, 0),
+                (0, 0, {'group_id': ref('membership_group.demo_membership_group_2'), 'wants_to_collaborate': True}),
+                (0, 0, {'group_id': ref('membership_group.demo_membership_group_3'), 'on_mailing_list': True})
+            ]"
+        />
+    </record>
 </odoo>

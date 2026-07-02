@@ -235,7 +235,7 @@
         <t t-call="website.layout">
             <div id="wrap">
                 <t t-call="argocd_website.order_progress_bar" />
-                <div class="oe_structure" />
+                <div class="oe_structure" id="oe_structure_" />
                 <section class="container mt32 mb32">
                     <div class="row">
                         <div class="col-lg-8 col-12">
