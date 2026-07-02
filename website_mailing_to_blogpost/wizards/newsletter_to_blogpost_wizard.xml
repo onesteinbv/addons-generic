@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="wizard_newsletter_to_blogpost" model="ir.ui.view">
         <field name="name">wizard_newsletter_to_blogpost</field>
         <field name="model">newsletter.to.blogpost.wizard</field>
@@ -9,14 +8,18 @@
                 <group>
                     <field name="mailing_id" invisible="1" />
                     <field name="blog_id" />
-                     <field name="tag_ids" widget="many2many_tags" />
-                     <field name="publish" />
+                    <field name="tag_ids" widget="many2many_tags" />
+                    <field name="publish" />
                 </group>
                 <footer>
-                    <button name="newsletter_to_blogpost" type="object" class="btn-primary" string="Convert to Blogpost"/>
+                    <button
+                    name="newsletter_to_blogpost"
+                    type="object"
+                    class="btn-primary"
+                    string="Convert to Blogpost"
+                />
                     or
-                    <button special="cancel"
-                            string="Cancel"/>
+                    <button special="cancel" string="Cancel" />
                 </footer>
             </form>
         </field>
@@ -27,7 +30,5 @@
         <field name="res_model">newsletter.to.blogpost.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-
     </record>
-
 </odoo>
