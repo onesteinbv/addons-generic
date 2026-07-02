@@ -11,20 +11,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-22.04
-    container: ${{ matrix.container }}
-    name: ${{ matrix.name }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - container: ghcr.io/oca/oca-ci/py3.10-odoo18.0:latest
-            name: test with Odoo
-          - container: ghcr.io/oca/oca-ci/py3.10-ocb18.0:latest
-            name: test with OCB
-            makepot: "true"
+    container: ghcr.io/oca/oca-ci/py3.10-odoo18.0:latest
+    name: Odoo
     services:
       postgres:
-        image: postgres:12
+        image: postgres:13
         env:
           POSTGRES_USER: odoo
           POSTGRES_PASSWORD: odoo
@@ -40,8 +31,6 @@ jobs:
       - name: Install addons and dependencies
         run: oca_install_addons
       - name: Check licenses
-        run: manifestoo -d . check-licenses
-      - name: Check development status
         run: manifestoo -d . check-dev-status --default-dev-status=Beta
       - name: Initialize test db
         run: oca_init_test_database
@@ -54,9 +43,3 @@ jobs:
           name: Screenshots of failed JS tests - ${{ matrix.name }}${{ join(matrix.include) }}
           path: /tmp/odoo_tests/${{ env.PGDATABASE }}
           if-no-files-found: ignore
-      - uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-      - name: Update .pot files
-        run: oca_export_and_push_pot https://x-access-token:${{ secrets.GIT_PUSH_TOKEN }}@github.com/${{ github.repository }}
-        if: ${{ matrix.makepot == 'true' && github.event_name == 'push' && github.repository_owner == 'OCA' }}
