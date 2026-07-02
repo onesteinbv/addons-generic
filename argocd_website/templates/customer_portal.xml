@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <!-- Customer Portal Breadcrumbs -->
-    <template
-        id="customer_portal_breadcrumbs"
-        inherit_id="portal.portal_breadcrumbs"
-    >
+    <template id="customer_portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
             <li
                 t-if="page_name == 'Customers'"
@@ -40,9 +37,14 @@
         priority="41"
     >
         <div id="portal_client_category" position="inside">
-            <t t-if="request.env.user.partner_id.is_reseller or (request.env.user.partner_id.parent_id and request.env.user.partner_id.parent_id.is_reseller)">
+            <t
+                t-if="request.env.user.partner_id.is_reseller or (request.env.user.partner_id.parent_id and request.env.user.partner_id.parent_id.is_reseller)"
+            >
                 <t t-call="portal.portal_docs_entry">
-                    <t t-set="icon" t-value="'/argocd_website/static/src/img/customer.svg'"/>
+                    <t
+                        t-set="icon"
+                        t-value="'/argocd_website/static/src/img/customer.svg'"
+                    />
                     <t t-set="title">Customers</t>
                     <t t-set="text">Manage your customers</t>
                     <t t-set="url" t-value="'/my/customers'" />
@@ -104,8 +106,16 @@
                                     style="display: inline;"
                                     onsubmit="return confirm('Are you sure you want to archive this customer?');"
                                 >
-                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                    <button type="submit" class="btn btn-sm btn-danger" title="Archive">
+                                    <input
+                                        type="hidden"
+                                        name="csrf_token"
+                                        t-att-value="request.csrf_token()"
+                                    />
+                                    <button
+                                        type="submit"
+                                        class="btn btn-sm btn-danger"
+                                        title="Archive"
+                                    >
                                         <i class="fa fa-archive" />
                                     </button>
                                 </form>
@@ -146,7 +156,11 @@
                             style="display: inline;"
                             onsubmit="return confirm('Are you sure you want to archive this customer?');"
                         >
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input
+                                type="hidden"
+                                name="csrf_token"
+                                t-att-value="request.csrf_token()"
+                            />
                             <button type="submit" class="btn btn-danger">
                                 <i class="fa fa-archive" /> Archive
                             </button>
@@ -160,11 +174,18 @@
                 <div t-if="message == 'updated'" class="alert alert-success">
                     <i class="fa fa-check" /> Customer has been updated successfully.
                 </div>
-                <div t-if="message == 'has_active_subscriptions'" class="alert alert-danger">
-                    <i class="fa fa-exclamation-triangle" /> Cannot archive customer with active subscriptions.
+                <div
+                    t-if="message == 'has_active_subscriptions'"
+                    class="alert alert-danger"
+                >
+                    <i
+                    class="fa fa-exclamation-triangle"
+                /> Cannot archive customer with active subscriptions.
                 </div>
                 <div t-if="message == 'archive_error'" class="alert alert-danger">
-                    <i class="fa fa-exclamation-triangle" /> An error occurred while archiving the customer.
+                    <i
+                    class="fa fa-exclamation-triangle"
+                /> An error occurred while archiving the customer.
                 </div>
 
                 <div class="card mb-3">
@@ -180,7 +201,10 @@
                             <div class="col-md-6">
                                 <strong>Email:</strong>
                                 <p>
-                                    <a t-attf-href="mailto:#{customer.email}" t-esc="customer.email" />
+                                    <a
+                                        t-attf-href="mailto:#{customer.email}"
+                                        t-esc="customer.email"
+                                    />
                                 </p>
                             </div>
                         </div>
@@ -204,13 +228,17 @@
                     <div class="card-body">
                         <address>
                             <t t-if="customer.street">
-                                <t t-esc="customer.street" /><br/>
+                                <t t-esc="customer.street" />
+                                <br />
                             </t>
                             <t t-if="customer.street2">
-                                <t t-esc="customer.street2" /><br/>
+                                <t t-esc="customer.street2" />
+                                <br />
                             </t>
                             <t t-if="customer.zip or customer.city">
-                                <t t-esc="customer.zip" /> <t t-esc="customer.city" /><br/>
+                                <t t-esc="customer.zip" />
+                                <t t-esc="customer.city" />
+                                <br />
                             </t>
                             <t t-if="customer.country_id">
                                 <t t-esc="customer.country_id.name" />
@@ -233,16 +261,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <t t-foreach="subscriptions" t-as="customer_subscription">
+                                <t
+                                    t-foreach="subscriptions"
+                                    t-as="customer_subscription"
+                                >
                                     <tr>
                                         <td>
-                                            <a t-attf-href="/my/subscriptions/#{customer_subscription.id}" t-esc="customer_subscription.name" />
+                                            <a
+                                                t-attf-href="/my/subscriptions/#{customer_subscription.id}"
+                                                t-esc="customer_subscription.name"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-esc="customer_subscription.stage_id.name" />
+                                            <span
+                                                t-esc="customer_subscription.stage_id.name"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-field="customer_subscription.recurring_next_date" />
+                                            <span
+                                                t-field="customer_subscription.recurring_next_date"
+                                            />
                                         </td>
                                     </tr>
                                 </t>
@@ -252,9 +290,14 @@
                 </div>
 
                 <div class="card mt-3">
-                    <div class="card-header d-flex justify-content-between align-items-center">
+                    <div
+                        class="card-header d-flex justify-content-between align-items-center"
+                    >
                         <h5 class="mb-0">Applications</h5>
-                        <a t-attf-href="/application/order?customer_id=#{customer.id}" class="btn btn-sm btn-primary">
+                        <a
+                            t-attf-href="/application/order?customer_id=#{customer.id}"
+                            class="btn btn-sm btn-primary"
+                        >
                             <i class="fa fa-plus" /> Order Application
                         </a>
                     </div>
@@ -271,14 +314,24 @@
                                 <t t-foreach="applications" t-as="customer_app">
                                     <tr>
                                         <td>
-                                            <a t-attf-href="/my/applications/#{customer_app.id}" t-esc="customer_app.name" />
+                                            <a
+                                                t-attf-href="/my/applications/#{customer_app.id}"
+                                                t-esc="customer_app.name"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-esc="customer_app.product_id.name or '-'" />
+                                            <span
+                                                t-esc="customer_app.product_id.name or '-'"
+                                            />
                                         </td>
                                         <td>
-                                            <div class="js_health_check" t-att-data-app-id="customer_app.id">
-                                                <i class="fa fa-circle-o-notch fa-spin fa-fw" />
+                                            <div
+                                                class="js_health_check"
+                                                t-att-data-app-id="customer_app.id"
+                                            >
+                                                <i
+                                                    class="fa fa-circle-o-notch fa-spin fa-fw"
+                                                />
                                             </div>
                                         </td>
                                     </tr>
@@ -287,7 +340,9 @@
                         </table>
                     </div>
                     <div class="card-body" t-else="">
-                        <p class="text-muted mb-0">No applications found for this customer.</p>
+                        <p
+                            class="text-muted mb-0"
+                        >No applications found for this customer.</p>
                     </div>
                 </div>
             </div>
@@ -298,9 +353,16 @@
         <t t-call="portal.portal_layout">
             <div class="col-12">
                 <form method="POST" class="needs-validation">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
 
-                    <div t-if="errors and errors.get('general')" class="alert alert-danger">
+                    <div
+                        t-if="errors and errors.get('general')"
+                        class="alert alert-danger"
+                    >
                         <t t-esc="errors.get('general')" />
                     </div>
 
@@ -311,7 +373,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="name" class="form-label">Company Name <span class="text-info">*</span></label>
+                                    <label
+                                        for="name"
+                                        class="form-label"
+                                    >Company Name <span
+                                        class="text-info"
+                                    >*</span></label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -321,12 +388,17 @@
                                         required="required"
                                         t-att-value="form_data.get('name', '')"
                                     />
-                                    <div t-if="errors.get('name')" class="invalid-feedback d-block">
+                                    <div
+                                        t-if="errors.get('name')"
+                                        class="invalid-feedback d-block"
+                                    >
                                         <t t-esc="errors.get('name')" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="email" class="form-label">Email <span class="text-info">*</span></label>
+                                    <label for="email" class="form-label">Email <span
+                                        class="text-info"
+                                    >*</span></label>
                                     <input
                                         type="email"
                                         class="form-control"
@@ -336,7 +408,10 @@
                                         required="required"
                                         t-att-value="form_data.get('email', '')"
                                     />
-                                    <div t-if="errors.get('email')" class="invalid-feedback d-block">
+                                    <div
+                                        t-if="errors.get('email')"
+                                        class="invalid-feedback d-block"
+                                    >
                                         <t t-esc="errors.get('email')" />
                                     </div>
                                 </div>
@@ -353,7 +428,12 @@
                                     />
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="company_registry" class="form-label">Chamber of Commerce # <span class="text-info">*</span></label>
+                                    <label
+                                        for="company_registry"
+                                        class="form-label"
+                                    >Chamber of Commerce # <span
+                                        class="text-info"
+                                    >*</span></label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -363,7 +443,10 @@
                                         required="required"
                                         t-att-value="form_data.get('company_registry', '')"
                                     />
-                                    <div t-if="errors.get('company_registry')" class="invalid-feedback d-block">
+                                    <div
+                                        t-if="errors.get('company_registry')"
+                                        class="invalid-feedback d-block"
+                                    >
                                         <t t-esc="errors.get('company_registry')" />
                                     </div>
                                 </div>
@@ -377,7 +460,9 @@
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label for="street" class="form-label">Street <span class="text-info">*</span></label>
+                                <label for="street" class="form-label">Street <span
+                                    class="text-info"
+                                >*</span></label>
                                 <input
                                     type="text"
                                     class="form-control"
@@ -387,13 +472,18 @@
                                     required="required"
                                     t-att-value="form_data.get('street', '')"
                                 />
-                                <div t-if="errors.get('street')" class="invalid-feedback d-block">
+                                <div
+                                    t-if="errors.get('street')"
+                                    class="invalid-feedback d-block"
+                                >
                                     <t t-esc="errors.get('street')" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <label for="zip" class="form-label">ZIP <span class="text-info">*</span></label>
+                                    <label for="zip" class="form-label">ZIP <span
+                                        class="text-info"
+                                    >*</span></label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -403,12 +493,17 @@
                                         required="required"
                                         t-att-value="form_data.get('zip', '')"
                                     />
-                                    <div t-if="errors.get('zip')" class="invalid-feedback d-block">
+                                    <div
+                                        t-if="errors.get('zip')"
+                                        class="invalid-feedback d-block"
+                                    >
                                         <t t-esc="errors.get('zip')" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label for="city" class="form-label">City <span class="text-info">*</span></label>
+                                    <label for="city" class="form-label">City <span
+                                        class="text-info"
+                                    >*</span></label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -418,13 +513,23 @@
                                         required="required"
                                         t-att-value="form_data.get('city', '')"
                                     />
-                                    <div t-if="errors.get('city')" class="invalid-feedback d-block">
+                                    <div
+                                        t-if="errors.get('city')"
+                                        class="invalid-feedback d-block"
+                                    >
                                         <t t-esc="errors.get('city')" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label for="country_id" class="form-label">Country</label>
-                                    <select class="form-control" id="country_id" name="country_id">
+                                    <label
+                                        for="country_id"
+                                        class="form-label"
+                                    >Country</label>
+                                    <select
+                                        class="form-control"
+                                        id="country_id"
+                                        name="country_id"
+                                    >
                                         <option value="">Select a country</option>
                                         <t t-foreach="countries" t-as="country">
                                             <option
@@ -441,7 +546,10 @@
                     </div>
 
                     <div class="d-flex justify-content-between">
-                        <a t-attf-href="/my/customers#{customer and '/' + str(customer.id) or ''}" class="btn btn-secondary">
+                        <a
+                            t-attf-href="/my/customers#{customer and '/' + str(customer.id) or ''}"
+                            class="btn btn-secondary"
+                        >
                             Cancel
                         </a>
                         <button type="submit" class="btn btn-primary">
@@ -453,5 +561,4 @@
             </div>
         </t>
     </template>
-
 </odoo>

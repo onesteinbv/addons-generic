@@ -22,7 +22,7 @@ class Application(models.Model):
 
     def _compute_access_url(self):
         for record in self:
-            record.access_url = "/my/applications/{}".format(record.id)
+            record.access_url = f"/my/applications/{record.id}"
 
     def check_health(self):
         self.ensure_one()
