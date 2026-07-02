@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="s_share" name="Share" inherit_id="website.s_share">
+    <template id="s_share" name="Share" inherit_id="website.s_share" priority="99">
         <xpath
             expr="//a[@t-attf-class='s_share_facebook #{_link_classes}']/i"
             position="replace"

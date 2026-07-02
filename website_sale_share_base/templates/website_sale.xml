@@ -3,6 +3,7 @@
     <template
         id="product_share_buttons"
         inherit_id="website_sale.product_share_buttons"
+        priority="99"
     >
         <xpath expr="//a[hasclass('s_share_facebook')]/i" position="replace">
             <img

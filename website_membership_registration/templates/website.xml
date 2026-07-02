@@ -695,6 +695,7 @@
         id="ask_login_for_membership"
         inherit_id="website_sale.checkout_layout"
         name="Ask for login for membership purchase"
+        priority="99"
     >
         <xpath expr="//t[@t-call='payment.express_checkout']" position="replace">
             <t

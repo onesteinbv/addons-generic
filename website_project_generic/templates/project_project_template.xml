@@ -4,7 +4,10 @@
         <t t-call="website.layout">
             <t t-set="additional_title">Projects</t>
             <div id="wrap">
-                <div class="oe_structure" id="oe_structure_project_generic_project_list_top" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_project_generic_project_list_top"
+                />
                 <div class="container mt16 o_web_project_list_container">
                     <div class="row">
                         <t t-foreach="project_categories" t-as="category">
@@ -66,7 +69,10 @@
                         </t>
                     </div>
                 </div>
-                <div class="oe_structure" id="oe_structure_project_generic_project_list_bottom" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_project_generic_project_list_bottom"
+                />
             </div>
         </t>
     </template>
