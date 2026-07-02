@@ -30,6 +30,7 @@ class LibreCaptcha(models.AbstractModel):
                 "input_type": input_type,
                 "size": "350x100",
             },
+            timeout=10,
         )
 
         if resp.ok:
@@ -47,6 +48,7 @@ class LibreCaptcha(models.AbstractModel):
             params={
                 "id": captcha_id,
             },
+            timeout=10,
         )
 
         if resp.ok:
@@ -60,6 +62,7 @@ class LibreCaptcha(models.AbstractModel):
                 "id": captcha_id,
                 "answer": answer,
             },
+            timeout=10,
         )
 
         if resp.ok:
