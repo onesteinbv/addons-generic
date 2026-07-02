@@ -1,20 +1,19 @@
 import publicWidget from "@web/legacy/js/public/public_widget";
-import { rpc } from "@web/core/network/rpc";
+import {rpc} from "@web/core/network/rpc";
 import {ReCaptcha} from "@google_recaptcha/js/recaptcha";
 
 publicWidget.registry.WebsiteMembershipRegistration = publicWidget.Widget.extend({
-    selector: '.oe_website_membership_registration',
+    selector: ".oe_website_membership_registration",
     events: {
         "change select[name=member_country_id]": "_onChangeAddressCountry",
         "change select[name=membership_product_id]": "_onChangeProduct",
-        "submit form": "_onSubmit"
+        "submit form": "_onSubmit",
     },
     tokenName: "membership_registration",
 
     init: function () {
         this._super(...arguments);
         this._recaptcha = new ReCaptcha();
-
     },
 
     willStart: async function () {
@@ -29,16 +28,19 @@ publicWidget.registry.WebsiteMembershipRegistration = publicWidget.Widget.extend
         const res = this._super(...arguments);
         this._changeProduct();
         this._changeAddressCountry();
-        return res
+        return res;
     },
 
     _onSubmit(ev) {
         const $form = $(ev.currentTarget);
-        if (this._recaptcha._publicKey && !$form.find("input[name='recaptcha_token_response']").length) {
+        if (
+            this._recaptcha._publicKey &&
+            !$form.find("input[name='recaptcha_token_response']").length
+        ) {
             ev.preventDefault();
             this._recaptcha.getToken(this.tokenName).then((tokenCaptcha) => {
                 $form.append(
-                    `<input name="recaptcha_token_response" type="hidden" value="${tokenCaptcha.token}"/>`,
+                    `<input name="recaptcha_token_response" type="hidden" value="${tokenCaptcha.token}"/>`
                 );
                 $form.submit();
             });
@@ -77,33 +79,35 @@ publicWidget.registry.WebsiteMembershipRegistration = publicWidget.Widget.extend
         var inputZip = $("input[name='member_zip']");
         var selectCountries = $("select[name='member_country_id']");
         var selectStates = $("select[name='member_state_id']");
-        if (!product_el.selectedOptions[0] || !product_el.selectedOptions[0].getAttribute("data-is_paid")) {
+        if (
+            !product_el.selectedOptions[0] ||
+            !product_el.selectedOptions[0].getAttribute("data-is_paid")
+        ) {
             // Empty all address fields, make address fields non required, then hide the whole address block
-            inputStreet.val('')
-            inputStreet2.val('')
-            inputCity.val('')
-            inputZip.val('')
-            selectCountries.data('init', 0);
-            selectCountries.val('')
-            selectStates.data('init', 0);
-            selectStates.val('')
+            inputStreet.val("");
+            inputStreet2.val("");
+            inputCity.val("");
+            inputZip.val("");
+            selectCountries.data("init", 0);
+            selectCountries.val("");
+            selectStates.data("init", 0);
+            selectStates.val("");
             this._changeAddressCountry();
             divAddress.hide();
-            inputStreet.get(0).toggleAttribute('required', false);
-            inputCity.get(0).toggleAttribute('required', false);
-            inputZip.get(0).toggleAttribute('required', false);
-            selectCountries.get(0).toggleAttribute('required', false);
+            inputStreet.get(0).toggleAttribute("required", false);
+            inputCity.get(0).toggleAttribute("required", false);
+            inputZip.get(0).toggleAttribute("required", false);
+            selectCountries.get(0).toggleAttribute("required", false);
             return;
         }
 
-            // Display address block + make street, city and country required, then invoke onchange country
-            divAddress.show();
-            inputStreet.get(0).toggleAttribute('required', true);
-            inputCity.get(0).toggleAttribute('required', true);
-            inputZip.get(0).toggleAttribute('required', true);
-            selectCountries.get(0).toggleAttribute('required', true);
-            this._changeAddressCountry();
-
+        // Display address block + make street, city and country required, then invoke onchange country
+        divAddress.show();
+        inputStreet.get(0).toggleAttribute("required", true);
+        inputCity.get(0).toggleAttribute("required", true);
+        inputZip.get(0).toggleAttribute("required", true);
+        selectCountries.get(0).toggleAttribute("required", true);
+        this._changeAddressCountry();
     },
 
     /**
@@ -113,68 +117,89 @@ publicWidget.registry.WebsiteMembershipRegistration = publicWidget.Widget.extend
         if (!$("#country_id").val()) {
             // If country is empty, also empty state and set zip and state non mandatory
             var selectStates = $("select[name='member_state_id']");
-            selectStates.val('').parent('div').hide();
-            selectStates.data('init', 0);
-            selectStates.html('');
+            selectStates.val("").parent("div").hide();
+            selectStates.data("init", 0);
+            selectStates.html("");
             if ($("input[name='member_zip']").length) {
-                $("input[name='member_zip']").get(0).toggleAttribute('required', false);
+                $("input[name='member_zip']").get(0).toggleAttribute("required", false);
                 if ($("label[for='member_zip'] > span.s_website_form_mark").length) {
-                    $("label[for='member_zip'] > span.s_website_form_mark").attr('style', 'display: none');
+                    $("label[for='member_zip'] > span.s_website_form_mark").attr(
+                        "style",
+                        "display: none"
+                    );
                 }
             }
             if ($("input[name='member_state_id']").length) {
-                $("select[name='member_state_id']").get(0).toggleAttribute('required', false);
-                if ($("label[for='member_state_id'] > span.s_website_form_mark").length) {
-                    $("label[for='member_state_id'] > span.s_website_form_mark").attr('style', 'display: none');
+                $("select[name='member_state_id']")
+                    .get(0)
+                    .toggleAttribute("required", false);
+                if (
+                    $("label[for='member_state_id'] > span.s_website_form_mark").length
+                ) {
+                    $("label[for='member_state_id'] > span.s_website_form_mark").attr(
+                        "style",
+                        "display: none"
+                    );
                 }
             }
             return;
         }
-        const data = await rpc("/shop/country_info/" + $("#country_id").val(),
-            {
-                address_type: 'billing',
-            },
-        )
+        const data = await rpc("/shop/country_info/" + $("#country_id").val(), {
+            address_type: "billing",
+        });
         // Populate states and display
         var $selectStates = $("select[name='member_state_id']");
         // Dont reload state at first loading (done in qweb)
-        if ($selectStates.data('init')===0 || $selectStates.find('option').length===1) {
-            if (data.states.length || data.required_fields.includes('state_id')) {
+        if (
+            $selectStates.data("init") === 0 ||
+            $selectStates.find("option").length === 1
+        ) {
+            if (data.states.length || data.required_fields.includes("state_id")) {
                 $("select[name='member_state_id'] option:not(:first)").remove();
                 data.states.forEach((x) => {
-                    var opt = $('<option>').text(x[1])
-                        .attr('value', x[0])
-                        .attr('data-code', x[2]);
+                    var opt = $("<option>")
+                        .text(x[1])
+                        .attr("value", x[0])
+                        .attr("data-code", x[2]);
                     $selectStates.append(opt);
                 });
-                $selectStates.parent('div').show();
+                $selectStates.parent("div").show();
             } else {
-                $selectStates.val('').parent('div').hide();
+                $selectStates.val("").parent("div").hide();
             }
         }
-        $selectStates.data('init', 0);
+        $selectStates.data("init", 0);
         this._setZipAndStatefields(data);
     },
 
     _setZipAndStatefields(data) {
-        var zip_required = data.required_fields.includes('zip');
-        var state_required = data.required_fields.includes('state_id');
-        var zip_style = zip_required ? '' : 'display: none';
-        var state_style = state_required ? '' : 'display: none';
+        var zip_required = data.required_fields.includes("zip");
+        var state_required = data.required_fields.includes("state_id");
+        var zip_style = zip_required ? "" : "display: none";
+        var state_style = state_required ? "" : "display: none";
         if ($("input[name='member_zip']").length) {
-            $("input[name='member_zip']").get(0).toggleAttribute('required', zip_required);
+            $("input[name='member_zip']")
+                .get(0)
+                .toggleAttribute("required", zip_required);
             if ($("label[for='member_zip'] > span.s_website_form_mark").length) {
-                $("label[for='member_zip'] > span.s_website_form_mark").attr('style', zip_style);
+                $("label[for='member_zip'] > span.s_website_form_mark").attr(
+                    "style",
+                    zip_style
+                );
             }
         }
         if ($("select[name='member_state_id']").length) {
-            $("select[name='member_state_id']").get(0).toggleAttribute('required', state_required);
+            $("select[name='member_state_id']")
+                .get(0)
+                .toggleAttribute("required", state_required);
             if ($("label[for='member_state_id'] > span.s_website_form_mark").length) {
-                $("label[for='member_state_id'] > span.s_website_form_mark").attr('style', state_style);
+                $("label[for='member_state_id'] > span.s_website_form_mark").attr(
+                    "style",
+                    state_style
+                );
             }
         }
-    }
-
+    },
 });
 
 export default publicWidget.registry.WebsiteMembershipRegistration;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
     <record id="cleanup_unverified_members_cron" model="ir.cron">
         <field name="name">Membership: Cleanup Unverified (email) members</field>
