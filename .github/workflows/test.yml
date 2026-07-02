@@ -28,8 +28,19 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Install addons and dependencies
-        run: oca_install_addons
+      - name: Aggregate repos.yaml
+        run: |
+          set -x
+          pip install git-aggregator
+          gitaggregate -c repos.yaml
+          addons_path=$ADDONS_PATH,$(find $(pwd)/* -name .git -exec dirname {} \; | uniq | tr '\n' ',' | sed 's/,$//'),.
+          echo "addons_path=${addons_path}" >> ${ODOO_RC}
+          echo "ADDONS_PATH=$addons_path" >> $GITHUB_ENV
+      - name: Install external dependencies
+        run: |
+          selection_flags=$(echo $ADDONS_PATH | sed 's/,/ -d /g' | sed 's/^/-d /')
+          external_deps=$(manifestoo $selection_flags --exclude-core-addons list-external-dependencies python --transitive --separator ' ')
+          pip3 install $external_deps pdfminer.six==20220319
       - name: Check licenses
         run: manifestoo -d . check-dev-status --default-dev-status=Beta
       - name: Initialize test db
