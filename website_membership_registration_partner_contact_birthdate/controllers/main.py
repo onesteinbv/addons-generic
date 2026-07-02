@@ -19,17 +19,15 @@ class MembershipRegistrationControllerBirthDate(MembershipRegistrationController
         return birthdate, birthdate_valid, error_message
 
     def _get_error_message_list(self, validation_data, error_data):
-        error_list = super(
-            MembershipRegistrationControllerBirthDate, self
-        )._get_error_message_list(validation_data, error_data)
+        error_list = super()._get_error_message_list(validation_data, error_data)
         if not validation_data["member_birthdate_date"]:
             error_list.append(error_data["member_birthdate_date"])
         return error_list
 
     def _get_partner_and_validation_data(self, post):
-        partner_data, validation_data, error_data = super(
-            MembershipRegistrationControllerBirthDate, self
-        )._get_partner_and_validation_data(post)
+        partner_data, validation_data, error_data = (
+            super()._get_partner_and_validation_data(post)
+        )
         (
             partner_data["member_birthdate_date"],
             validation_data["member_birthdate_date"],
@@ -38,9 +36,7 @@ class MembershipRegistrationControllerBirthDate(MembershipRegistrationController
         return partner_data, validation_data, error_data
 
     def _get_new_member_vals_dict(self, partner_data):
-        vals = super(
-            MembershipRegistrationControllerBirthDate, self
-        )._get_new_member_vals_dict(partner_data)
+        vals = super()._get_new_member_vals_dict(partner_data)
         if partner_data.get("member_birthdate_date"):
             vals["birthdate_date"] = partner_data["member_birthdate_date"]
         return vals

@@ -13,9 +13,9 @@ class CustomerPortalMembership(CustomerPortal):
         return optional_fields
 
     def details_form_validate(self, data, partner_creation=False):
-        error, error_message = super(
-            CustomerPortalMembership, self
-        ).details_form_validate(data, partner_creation=partner_creation)
+        error, error_message = super().details_form_validate(
+            data, partner_creation=partner_creation
+        )
         if data.get("birthdate_date"):
             try:
                 datetime.datetime.strptime(data.get("birthdate_date"), "%Y-%m-%d")
