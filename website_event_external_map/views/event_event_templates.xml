@@ -1,16 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
-    <template id="event_description_full" inherit_id="website_event.event_description_full">
+    <template
+        id="event_description_full"
+        inherit_id="website_event.event_description_full"
+    >
         <xpath expr="//a[@t-att-href='event._google_map_link()']" position="attributes">
             <attribute name="t-att-href">event._map_link()</attribute>
         </xpath>
     </template>
 
-    <template id="registration_complete" inherit_id="website_event.registration_complete">
+    <template
+        id="registration_complete"
+        inherit_id="website_event.registration_complete"
+    >
         <xpath expr="//a[@t-att-href='event.google_map_link()']" position="attributes">
             <attribute name="t-att-href">event._map_link()</attribute>
         </xpath>
     </template>
-
 </odoo>
