@@ -3,7 +3,7 @@
     "summary": "Adds an option to define website privacy options for partners",
     "version": "18.0.1.0.0",
     "author": "Onestein",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "license": "AGPL-3",
     "category": "Website",
     "depends": ["website_partner"],
