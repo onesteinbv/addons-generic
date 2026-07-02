@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 class TestFields(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestFields, cls).setUpClass()
+        super().setUpClass()
         cls.sub_product = cls.env.ref("product.product_product_12")
         cls.sub_tmpl = cls.env["sale.subscription.template"].create(
             {
