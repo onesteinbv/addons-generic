@@ -5,7 +5,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     def action_post(self):
-        res = super(AccountMove, self).action_post()
+        res = super().action_post()
         for move in self.filtered(
             lambda x: x.line_ids.filtered(
                 lambda y: y.product_id

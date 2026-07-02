@@ -47,9 +47,7 @@ class MembershipRegistrationController(http.Controller):
                 not request.website.membership_registration_cv_file_formats_supported
                 == "*"
             ):
-                for (
-                    file_format
-                ) in request.website.membership_registration_cv_file_formats_supported.split(
+                for file_format in request.website.membership_registration_cv_file_formats_supported.split(
                     ","
                 ):
                     if not cv.filename.endswith(file_format):
