@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-
 <odoo>
     <data>
         <record id="mis_report_style_l10n_nl_rgs_base" model="mis.report.style">
