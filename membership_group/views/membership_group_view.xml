@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="membership_group_view_tree" model="ir.ui.view">
         <field name="model">membership.group</field>
         <field name="arch" type="xml">
@@ -51,9 +50,15 @@
                     <notebook>
                         <page string="Membership" name="membership">
                             <field name="membership_group_member_ids">
-                                <list editable="top" decoration-muted="state != 'current'">
+                                <list
+                                    editable="top"
+                                    decoration-muted="state != 'current'"
+                                >
                                     <control>
-                                        <create name="add_member" string="Add a member" />
+                                        <create
+                                            name="add_member"
+                                            string="Add a member"
+                                        />
                                     </control>
                                     <field name="state" />
                                     <field name="create_date" column_invisible="1" />
@@ -65,16 +70,21 @@
                                     <field name="date_from" optional="show" />
                                     <field name="date_to" optional="show" />
                                     <field name="date_end" optional="show" />
-                                    <field name="type"
-                                        readonly="create_date" />
-                                    <button type="object" name="action_change_type"
-                                            string="Change Type"
-                                            invisible="state != 'current' or not create_date"/>
+                                    <field name="type" readonly="create_date" />
+                                    <button
+                                        type="object"
+                                        name="action_change_type"
+                                        string="Change Type"
+                                        invisible="state != 'current' or not create_date"
+                                    />
                                     <field name="wants_to_collaborate" />
-                                    <button type="object" name="action_revoke_membership"
+                                    <button
+                                        type="object"
+                                        name="action_revoke_membership"
                                         string="Revoke"
                                         icon="fa-trash"
-                                        invisible="state != 'current' or not create_date" />
+                                        invisible="state != 'current' or not create_date"
+                                    />
                                 </list>
                             </field>
                         </page>
@@ -98,8 +108,11 @@
         <field name="arch" type="xml">
             <search string="Membership Groups">
                 <field name="name" />
-                <filter name="filter_voting_group" string="Voting Group"
-                    domain="[('voting_group', '=', True)]" />
+                <filter
+                    name="filter_voting_group"
+                    string="Voting Group"
+                    domain="[('voting_group', '=', True)]"
+                />
             </search>
         </field>
     </record>
@@ -115,5 +128,4 @@
             </p>
         </field>
     </record>
-
 </odoo>
