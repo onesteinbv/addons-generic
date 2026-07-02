@@ -1,2 +1,6 @@
-
-$o-social-colors: map-merge(('mastodon': #6364FF), $o-social-colors);
+$o-social-colors: map-merge(
+    (
+        "mastodon": #6364ff,
+    ),
+    $o-social-colors
+);
