@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -53,7 +53,7 @@ class Application(models.Model):
         ).product_attribute_value_id
         if not variant_value.argocd_value:
             raise UserError(
-                "No ArgoCD value found for attribute %s" % argocd_identifier
+                _("No ArgoCD value found for attribute %s") % argocd_identifier
             )
         return variant_value.argocd_value
 
