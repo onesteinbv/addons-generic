@@ -2,7 +2,7 @@
 <odoo>
     <template id="membership_registration_form" name="Membership Registration Form">
         <section
-            class="s_cover parallax s_parallax_is_fixed oe_structure o_editable o_colored_level oe_img_bg o_bg_img_center"
+            class="s_cover parallax s_parallax_is_fixed o_editable o_colored_level oe_img_bg o_bg_img_center"
             data-name="Membership Registration Page"
         >
             <div class="container pt32 pb32">
@@ -564,7 +564,7 @@
 
     <template id="membership_registration_page">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure">
+            <div id="wrap">
                 <div
                     class="oe_structure oe_empty"
                     id="oe_structure_membership_registration_page_1"
@@ -597,7 +597,10 @@
     <template id="membership_registration_success_page">
         <t t-call="website.layout">
             <div id="wrap">
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_success_page_top"
+                />
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -616,7 +619,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_success_page_bottom"
+                />
             </div>
         </t>
     </template>
@@ -624,7 +630,10 @@
     <template id="membership_registration_verify_success_page">
         <t t-call="website.layout">
             <div id="wrap">
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_verify_success_page_top"
+                />
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -642,7 +651,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_verify_success_page_bottom"
+                />
             </div>
         </t>
     </template>
@@ -650,7 +662,10 @@
     <template id="membership_registration_verify_error_page">
         <t t-call="website.layout">
             <div id="wrap">
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_verify_error_page_top"
+                />
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -668,7 +683,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_verify_error_page_bottom"
+                />
             </div>
         </t>
     </template>
@@ -694,7 +712,10 @@
     <template id="membership_already_exists_page">
         <t t-call="website.layout">
             <div id="wrap">
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_already_exists_page_top"
+                />
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -714,7 +735,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_already_exists_page_bottom"
+                />
             </div>
         </t>
     </template>

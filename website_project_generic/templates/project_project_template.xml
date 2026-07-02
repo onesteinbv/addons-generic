@@ -4,7 +4,7 @@
         <t t-call="website.layout">
             <t t-set="additional_title">Projects</t>
             <div id="wrap">
-                <div class="oe_structure" />
+                <div class="oe_structure" id="oe_structure_project_generic_project_list_top" />
                 <div class="container mt16 o_web_project_list_container">
                     <div class="row">
                         <t t-foreach="project_categories" t-as="category">
@@ -66,7 +66,7 @@
                         </t>
                     </div>
                 </div>
-                <div class="oe_structure" />
+                <div class="oe_structure" id="oe_structure_project_generic_project_list_bottom" />
             </div>
         </t>
     </template>
@@ -77,7 +77,10 @@
                 <t t-esc="category.name" />
             </t>
             <div id="wrap">
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_website_project_generic_category_top"
+                />
                 <div class="container mt16 o_web_project_list_container">
                     <div class="row">
                         <t
@@ -137,7 +140,10 @@
                         </t>
                     </div>
                 </div>
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_website_project_generic_category_bottom"
+                />
             </div>
         </t>
     </template>
@@ -148,7 +154,10 @@
                 <t t-esc="project.name" />
             </t>
             <div id="wrap">
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_website_project_generic_details_top"
+                />
                 <div class="card card-body bg-light mb48">
                     <div class="container">
                         <div class="row">
@@ -173,7 +182,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_website_project_generic_details_bottom"
+                />
             </div>
         </t>
     </template>

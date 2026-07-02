@@ -7,7 +7,10 @@
             <t t-set="no_navbar" t-value="True" />
             <t t-set="no_livechat" t-value="True" />
             <div id="wrap">
-                <div class="oe_structure" />
+                <div
+                    class="oe_structure"
+                    id="oe_structure_two_steps_share_technical_top"
+                />
                 <form action="/share/confirm" method="GET">
                     <input
                         type="hidden"
@@ -74,6 +77,10 @@
                         </div>
                     </div>
                 </form>
+                <div
+                    class="oe_structure"
+                    id="oe_structure_two_steps_share_technical_bottom"
+                />
             </div>
         </t>
     </template>
