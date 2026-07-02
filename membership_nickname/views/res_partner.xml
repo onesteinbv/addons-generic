@@ -4,7 +4,7 @@
         <field name="inherit_id" ref="membership.membership_members_tree" />
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="nickname" optional="hidden"/>
+                <field name="nickname" optional="hidden" />
             </field>
         </field>
     </record>
@@ -12,10 +12,10 @@
     <record id="view_res_partner_member_filter" model="ir.ui.view">
         <field name="name">res.partner.select.inherit</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="membership.view_res_partner_member_filter"/>
+        <field name="inherit_id" ref="membership.view_res_partner_member_filter" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="nickname"/>
+                <field name="nickname" />
             </xpath>
         </field>
     </record>
