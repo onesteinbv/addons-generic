@@ -8,13 +8,27 @@
                 <field name="github_full_name" />
             </xpath>
             <xpath expr="//notebook" position="inside">
-                <page name="github" string="Github"
-                      invisible="not github_full_name"
-                      groups="base.group_system"
+                <page
+                    name="github"
+                    string="Github"
+                    invisible="not github_full_name"
+                    groups="base.group_system"
                 >
-                    <button name="get_github_commits" type="object" string="Get Commits" />
-                    <button name="get_github_issues" type="object" string="Get Issues" />
-                    <button name="get_github_comments" type="object" string="Get Comments" />
+                    <button
+                        name="get_github_commits"
+                        type="object"
+                        string="Get Commits"
+                    />
+                    <button
+                        name="get_github_issues"
+                        type="object"
+                        string="Get Issues"
+                    />
+                    <button
+                        name="get_github_comments"
+                        type="object"
+                        string="Get Comments"
+                    />
                 </page>
             </xpath>
         </field>

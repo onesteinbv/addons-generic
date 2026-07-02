@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="queue_job_function_get_commits" model="queue.job.function">
         <field name="method">get_github_commits_immediately</field>

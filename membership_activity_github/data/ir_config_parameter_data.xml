@@ -2,6 +2,6 @@
 <odoo noupdate="1">
     <record id="github_access_token" model="ir.config_parameter">
         <field name="key">membership_activity_github.access_token</field>
-        <field name="value"></field>
+        <field name="value" />
     </record>
 </odoo>
