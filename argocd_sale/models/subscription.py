@@ -43,7 +43,7 @@ class Subscription(models.Model):
                 and sub.end_partner_id.reseller_id != sub.main_partner_id
             ):
                 raise ValidationError(
-                    "End customer should be a customer of the reseller."
+                    _("End customer should be a customer of the reseller.")
                 )
 
     def _get_grace_period(self):
@@ -164,9 +164,7 @@ class Subscription(models.Model):
         ):
             corresponding_invoice_line = list(
                 filter(lambda l: l[2]["product_id"] == line.product_id.id, line_ids)
-            )[0][
-                2
-            ]  # TODO: Add field subscription_line_id to account.move.line
+            )[0][2]  # TODO: Add field subscription_line_id to account.move.line
             sequence = corresponding_invoice_line["sequence"] + 1
             app = line.application_ids
             for stat_product in line.product_id.stat_product_ids:

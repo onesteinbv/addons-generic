@@ -4,7 +4,7 @@
     <record id="base.res_partner_1" model="res.partner">
         <field name="is_reseller" eval="True" />
     </record>
-     <!-- Azure Interior -->
+    <!-- Azure Interior -->
     <record id="base.res_partner_12" model="res.partner">
         <field name="reseller_id" ref="base.res_partner_1" />
     </record>

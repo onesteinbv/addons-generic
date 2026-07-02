@@ -8,22 +8,32 @@
                 <block title="Applications" name="applications_container">
                     <setting id="grace_period_settings">
                         <div class="content-group">
-                            <label string="Termination" for="subscription_grace_period" /><div class="text-muted">
+                            <label
+                                string="Termination"
+                                for="subscription_grace_period"
+                            />
+                            <div class="text-muted">
                                 Confihgure what happens to applications when the related subscription is expired or ended.
                             </div>
                             <div class="content-group">
-                                <span class="fw-bold">Grace period: </span><field name="subscription_grace_period" class="oe_inline" /> days
+                                <span class="fw-bold">Grace period: </span><field
+                                name="subscription_grace_period"
+                                class="oe_inline"
+                            /> days
                                 <span class="text-muted">
                                     (set to 0 to disable it)
                                 </span>
 
-                                <span class="fw-bold">Action: </span><field name="subscription_termination_action" class="oe_inline" />
+                                <span class="fw-bold">Action: </span><field
+                                name="subscription_termination_action"
+                                class="oe_inline"
+                            />
                                 <field
-                                    name="subscription_termination_tag_id"
-                                    options="{'no_create':True}"
-                                    invisible="subscription_termination_action != 'add_tag'"
-                                    class="oe_inline ml4"
-                                />
+                                name="subscription_termination_tag_id"
+                                options="{'no_create':True}"
+                                invisible="subscription_termination_action != 'add_tag'"
+                                class="oe_inline ml4"
+                            />
                             </div>
                         </div>
                     </setting>
