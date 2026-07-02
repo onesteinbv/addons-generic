@@ -38,4 +38,4 @@ class SaleOrder(models.Model):
                     next_date = next_date.replace(day=1, month=1)
 
                 return next_date
-        return super(SaleOrder, self).get_next_interval(type_interval, interval)
+        return super().get_next_interval(type_interval, interval)
