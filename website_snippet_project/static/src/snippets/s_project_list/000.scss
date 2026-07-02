@@ -66,7 +66,7 @@ img.o_img_project_square {
         padding-right: $grid-gutter-width / 2;
         > div {
             padding: 0 !important;
-            &:first-child > .o_carousel_project_card{
+            &:first-child > .o_carousel_project_card {
                 border-left: $card-border-width solid $card-border-color !important;
             }
         }
