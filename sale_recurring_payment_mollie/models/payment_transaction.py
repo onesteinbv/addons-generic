@@ -53,12 +53,10 @@ class PaymentTransaction(models.Model):
             )._mollie_create_payment_record("payment")
             return result
         else:
-            return super(PaymentTransaction, self)._create_mollie_order_or_payment()
+            return super()._create_mollie_order_or_payment()
 
     def _mollie_prepare_payment_payload(self, api_type):
-        payment_data, params = super(
-            PaymentTransaction, self
-        )._mollie_prepare_payment_payload(api_type)
+        payment_data, params = super()._mollie_prepare_payment_payload(api_type)
 
         if self._context.get("first_mollie_payment"):
             name = (
