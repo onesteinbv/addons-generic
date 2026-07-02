@@ -4,7 +4,7 @@
 {
     "name": "Partner Country Default NL",
     "author": "Onestein",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "category": "Other",
