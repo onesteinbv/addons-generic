@@ -1,2 +1,6 @@
-
-$o-social-colors: map-merge(('snapchat': #FFFC00), $o-social-colors);
+$o-social-colors: map-merge(
+    (
+        "snapchat": #fffc00,
+    ),
+    $o-social-colors
+);
