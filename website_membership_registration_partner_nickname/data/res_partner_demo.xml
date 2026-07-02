@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data noupdate="1">
-
         <record id="membership_group.demo_member_1" model="res.partner">
             <field name="nickname">Spiderman</field>
         </record>
@@ -13,6 +12,5 @@
         <record id="membership_group.demo_member_3" model="res.partner">
             <field name="nickname">Singing in the Rain</field>
         </record>
-
     </data>
 </odoo>
