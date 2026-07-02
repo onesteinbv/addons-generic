@@ -29,8 +29,17 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button class="oe_stat_button" type="object" name="open_membership_activity" icon="fa-list">
-                    <field string="Activities" name="membership_activity_count" widget="statinfo"/>
+                <button
+                    class="oe_stat_button"
+                    type="object"
+                    name="open_membership_activity"
+                    icon="fa-list"
+                >
+                    <field
+                        string="Activities"
+                        name="membership_activity_count"
+                        widget="statinfo"
+                    />
                 </button>
             </xpath>
         </field>
