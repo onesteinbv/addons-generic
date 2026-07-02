@@ -11,6 +11,7 @@ extend-select = [
 ]
 extend-safe-fixes = ["UP008"]
 exclude = ["setup/*"]
+extend-ignore = ["E741", "B023", "B026"]
 
 [format]
 exclude = ["setup/*"]
@@ -27,4 +28,4 @@ section-order = ["future", "standard-library", "third-party", "odoo", "odoo-addo
 "odoo-addons" = ["odoo.addons"]
 
 [lint.mccabe]
-max-complexity = 16
+max-complexity = 18

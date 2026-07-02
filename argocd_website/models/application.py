@@ -30,7 +30,7 @@ class Application(models.Model):
         urls = self.get_urls()
         for url in urls:
             try:
-                response = requests.get(url[0])
+                response = requests.get(url[0], timeout=10)
                 statuses.append(response.ok)
             except Exception:
                 statuses.append(False)
