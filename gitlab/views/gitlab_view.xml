@@ -33,5 +33,4 @@
         <field name="res_model">gitlab</field>
         <field name="view_mode">list,form</field>
     </record>
-
 </odoo>
