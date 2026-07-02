@@ -5,7 +5,7 @@ class WebsitePage(models.Model):
     _inherit = "website.page"
 
     def write(self, vals):
-        res = super(WebsitePage, self).write(vals)
+        res = super().write(vals)
         if "is_published" in vals:
             for page in self:
                 linked_groups = (
