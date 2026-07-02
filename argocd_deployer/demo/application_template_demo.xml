@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="demo_product_basis_application_template" model="argocd.application.template">
+    <record
+        id="demo_product_basis_application_template"
+        model="argocd.application.template"
+    >
         <field name="name">Product Basis</field>
         <field name="config">
 helm: |

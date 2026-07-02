@@ -7,17 +7,17 @@
                 <sheet>
                     <group>
                         <group id="group_general" string="General">
-                            <field name="name"/>
-                            <field name="description"/>
-                            <field name="namespace_prefix"/>
+                            <field name="name" />
+                            <field name="description" />
+                            <field name="namespace_prefix" />
                         </group>
                         <group id="group_repository" string="Repository">
-                            <field name="repository_url"/>
-                            <field name="branch"/>
-                            <field name="deployment_directory"/>
+                            <field name="repository_url" />
+                            <field name="branch" />
+                            <field name="deployment_directory" />
                         </group>
                         <group id="group_local_install" string="Local">
-                            <field name="repository_directory"/>
+                            <field name="repository_directory" />
                         </group>
                         <group id="group_followers" string="Followers">
                             <field name="partner_ids" widget="many2many_tags_email" />
@@ -32,11 +32,11 @@
         <field name="model">argocd.application.set</field>
         <field name="arch" type="xml">
             <list>
-                <field name="name"/>
-                <field name="description"/>
-                <field name="repository_url"/>
-                <field name="branch"/>
-                <field name="deployment_directory"/>
+                <field name="name" />
+                <field name="description" />
+                <field name="repository_url" />
+                <field name="branch" />
+                <field name="deployment_directory" />
             </list>
         </field>
     </record>

@@ -58,24 +58,24 @@
                         confirm="Are you sure you want to destroy this application? This can't be undone."
                         invisible="not application_set_id or not is_deployed"
                     />
-                    <field name="description" class="pull-right"/> <!-- Move when this field is used for more than only urls -->
+                    <field name="description" class="pull-right" />
+                    <!-- Move when this field is used for more than only urls -->
                 </header>
                 <sheet>
-                    <field name="is_deployed" invisible="1"/>
-                    <field name="is_immediate_repo_action_visible" invisible="1"/>
+                    <field name="is_deployed" invisible="1" />
+                    <field name="is_immediate_repo_action_visible" invisible="1" />
                     <group>
                         <group string="General information">
-                            <field
-                                name="name"
-                                readonly="is_deployed"
-                            />
-                            <field name="application_set_id"
-                                   readonly="is_deployed"
-                            />
+                            <field name="name" readonly="is_deployed" />
+                            <field name="application_set_id" readonly="is_deployed" />
                         </group>
                         <group string="Customizations">
                             <field name="template_id" />
-                            <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                            <field
+                                name="tag_ids"
+                                widget="many2many_tags"
+                                options="{'no_create_edit': True}"
+                            />
                             <field name="value_ids" />
                             <field name="domain_ids">
                                 <list editable="bottom">
@@ -115,9 +115,21 @@
                 <field name="template_id" />
                 <field name="tag_ids" />
 
-                <filter name="deployed_applications" string="Deployed" domain="[('is_deployed', '=', True)]"/>
-                <filter name="not_deployed_applications" string="Not Deployed" domain="[('is_deployed', '!=', True)]"/>
-                <filter name="out_of_sync_applications" string="Out of Sync" domain="[('config_out_of_sync', '=', True)]"/>
+                <filter
+                    name="deployed_applications"
+                    string="Deployed"
+                    domain="[('is_deployed', '=', True)]"
+                />
+                <filter
+                    name="not_deployed_applications"
+                    string="Not Deployed"
+                    domain="[('is_deployed', '!=', True)]"
+                />
+                <filter
+                    name="out_of_sync_applications"
+                    string="Out of Sync"
+                    domain="[('config_out_of_sync', '=', True)]"
+                />
             </search>
         </field>
     </record>
@@ -125,9 +137,7 @@
     <record id="application_tree" model="ir.ui.view">
         <field name="model">argocd.application</field>
         <field name="arch" type="xml">
-            <list decoration-success="is_deployed"
-                  decoration-warning="not is_deployed"
-            >
+            <list decoration-success="is_deployed" decoration-warning="not is_deployed">
                 <field
                     name="config_diff"
                     widget="popover"
@@ -136,7 +146,7 @@
                     invisible="not config_out_of_sync"
                     nolabel="1"
                 />
-                <field name="is_deployed" column_invisible="1"/>
+                <field name="is_deployed" column_invisible="1" />
                 <field name="name" />
                 <field name="application_set_id" />
                 <field name="template_id" />
@@ -157,8 +167,8 @@
 
     <record id="application_render_config_action" model="ir.actions.server">
         <field name="name">Render Config</field>
-        <field name="model_id" ref="argocd_deployer.model_argocd_application"/>
-        <field name="binding_model_id" ref="argocd_deployer.model_argocd_application"/>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application" />
+        <field name="binding_model_id" ref="argocd_deployer.model_argocd_application" />
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">action = records.render_config()</field>
@@ -166,8 +176,8 @@
 
     <record id="application_queue_redeployment_action" model="ir.actions.server">
         <field name="name">Queue Deployment / Redeployment</field>
-        <field name="model_id" ref="argocd_deployer.model_argocd_application"/>
-        <field name="binding_model_id" ref="argocd_deployer.model_argocd_application"/>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application" />
+        <field name="binding_model_id" ref="argocd_deployer.model_argocd_application" />
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">action = records.deploy()</field>

@@ -55,9 +55,9 @@ class ApplicationSet(models.Model):
     @api.constrains("deployment_directory")
     def _check_deployment_directory(self):
         if not self.deployment_directory:
-            raise ValidationError("Deployment directory is required.")
+            raise ValidationError(_("Deployment directory is required."))
         if self.deployment_directory[-1] == "/":
-            raise ValidationError("Deployment directories should not end with '/'.")
+            raise ValidationError(_("Deployment directories should not end with '/'."))
 
     @api.constrains("name")
     def _constrain_name(self):
