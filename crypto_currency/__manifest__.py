@@ -3,8 +3,8 @@
 {
     "name": "Crypto Currency",
     "version": "18.0.1.0.0",
-    "author": "Onestein BV",
-    "website": "https://www.onestein.nl",
+    "author": "Onestein",
+    "website": "https://onestein.nl",
     "license": "AGPL-3",
     "category": "Financial Management/Configuration",
     "summary": "Allow more characters for currency name and more digits for rounding",
