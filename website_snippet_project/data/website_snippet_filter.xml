@@ -2,8 +2,8 @@
     <!-- Dynamic Filter -->
     <record id="dynamic_filter_projects" model="website.snippet.filter">
         <field name="name">Projects</field>
-        <field name="filter_id" ref="dynamic_snippet_projects"/>
+        <field name="filter_id" ref="dynamic_snippet_projects" />
         <field name="field_names">name,description,image_512,slug</field>
-        <field name="limit" eval="16"/>
+        <field name="limit" eval="16" />
     </record>
 </odoo>
