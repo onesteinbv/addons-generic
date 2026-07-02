@@ -2,7 +2,8 @@ from odoo import _, fields, http
 from odoo.exceptions import AccessError, MissingError, ValidationError
 from odoo.http import request
 
-from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
+from odoo.addons.portal.controllers.portal import CustomerPortal
+from odoo.addons.portal.controllers.portal import pager as portal_pager
 
 
 class PortalSubscription(CustomerPortal):
@@ -29,7 +30,7 @@ class PortalSubscription(CustomerPortal):
             values,
             "my_subscriptions_history",
             False,
-            **kwargs
+            **kwargs,
         )
 
     def _get_filter_domain(self, kw):

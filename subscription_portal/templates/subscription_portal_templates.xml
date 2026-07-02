@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <template
         id="portal_my_home_menu_subscription"
         name="Portal layout : Subscription menu entries"
@@ -32,11 +31,14 @@
         priority="30"
     >
         <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
-            <t t-set="portal_client_category_enable" t-value="True"/>
+            <t t-set="portal_client_category_enable" t-value="True" />
         </xpath>
         <div id="portal_client_category" position="inside">
             <t t-call="portal.portal_docs_entry">
-                <t t-set="icon" t-value="'/subscription_portal/static/src/img/subscriptions.svg'" />
+                <t
+                    t-set="icon"
+                    t-value="'/subscription_portal/static/src/img/subscriptions.svg'"
+                />
                 <t t-set="title">Subscriptions</t>
                 <t t-set="text">Manage your subscriptions</t>
                 <t t-set="url" t-value="'/my/subscriptions'" />
@@ -79,7 +81,10 @@
                                 <span t-field="subscription.code" />
                             </td>
                             <td class="text-right">
-                                <span class="badge rounded-pill text-bg-secondary" t-field="subscription.stage_id.name" />
+                                <span
+                                    class="badge rounded-pill text-bg-secondary"
+                                    t-field="subscription.stage_id.name"
+                                />
                             </td>
                         </tr>
                     </t>
@@ -89,12 +94,22 @@
     </template>
 
     <template id="portal_subscription_cancel_modal">
-        <div class="modal fade" tabindex="-1" role="dialog" t-att-id="modalId or 'modalCancelSub'">
+        <div
+            class="modal fade"
+            tabindex="-1"
+            role="dialog"
+            t-att-id="modalId or 'modalCancelSub'"
+        >
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Cancel Subscription</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        />
                     </div>
                     <div class="modal-body">
                         <p>
@@ -104,10 +119,18 @@
                         </p>
                     </div>
                     <div class="modal-footer justify-content-start">
-                        <a type="action" class="btn btn-danger" t-attf-href="/my/subscriptions/#{subscription.id}/start-cancellation">
+                        <a
+                            type="action"
+                            class="btn btn-danger"
+                            t-attf-href="/my/subscriptions/#{subscription.id}/start-cancellation"
+                        >
                             Cancel Subscription
                         </a>
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Go back</button>
+                        <button
+                            type="button"
+                            class="btn btn-light"
+                            data-bs-dismiss="modal"
+                        >Go back</button>
                     </div>
                 </div>
             </div>
@@ -131,7 +154,10 @@
                             <span>
                                 Subscription - <span t-field="subscription.name" />
                             </span>
-                            <span class="badge rounded-pill text-bg-secondary" t-field="subscription.stage_id.name" />
+                            <span
+                                class="badge rounded-pill text-bg-secondary"
+                                t-field="subscription.stage_id.name"
+                            />
                         </h5>
                         <div>
                             <button
@@ -146,8 +172,13 @@
                     </div>
                 </div>
                 <div>
-                    <div class="alert alert-info mt-2" t-if="success == 'start_cancellation'">
-                        <i class="fa fa-fw fa-info" /> Please check your email to confirm the cancellation.
+                    <div
+                        class="alert alert-info mt-2"
+                        t-if="success == 'start_cancellation'"
+                    >
+                        <i
+                        class="fa fa-fw fa-info"
+                    /> Please check your email to confirm the cancellation.
                     </div>
                     <div id="general_information">
                         <div class="row mt4">
@@ -233,7 +264,10 @@
                                         />
                                     </div>
                                 </div>
-                                <div t-if="subscription.date_stop" class="row mb-2 mb-sm-1">
+                                <div
+                                    t-if="subscription.date_stop"
+                                    class="row mb-2 mb-sm-1"
+                                >
                                     <div class="col-12 col-sm-4">
                                         <strong>Last date of service</strong>
                                     </div>
@@ -278,25 +312,16 @@
                                             <td name="td_name">
                                                 <span t-field="line.name" />
                                             </td>
-                                            <td
-                                                name="td_quantity"
-                                                class="text-right"
-                                            >
+                                            <td name="td_quantity" class="text-right">
                                                 <span t-field="line.product_uom_qty" />
                                             </td>
-                                            <td
-                                                name="td_price_unit"
-                                                class="text-right"
-                                            >
+                                            <td name="td_price_unit" class="text-right">
                                                 <span
                                                     t-field="line.price_unit"
                                                     t-options='{"widget": "monetary", "display_currency": subscription.currency_id}'
                                                 />
                                             </td>
-                                            <td
-                                                name="td_discount"
-                                                class="text-right"
-                                            >
+                                            <td name="td_discount" class="text-right">
                                                 <span t-field="line.discount" />
                                             </td>
                                             <td
@@ -340,7 +365,10 @@
         </t>
     </template>
 
-    <template id="portal_subscription_confirm_cancellation_page" name="Cancel Subscription">
+    <template
+        id="portal_subscription_confirm_cancellation_page"
+        name="Cancel Subscription"
+    >
         <t t-call="portal.portal_layout">
             <div class="col-12">
                 <div class="d-flex">
@@ -353,18 +381,32 @@
             </div>
             <div>
                 <p class="mb16">
-                    Are you sure you want to cancel this subscription (<i><t t-esc="subscription.name" /></i>)?
+                    Are you sure you want to cancel this subscription (<i>
+                    <t t-esc="subscription.name" />
+                </i>)?
                     <!-- TODO: Make reversible? -->
-                    <strong class="text-danger">This action is irreversible! You cannot reactivate your subscription after cancelling it.</strong>
+                    <strong
+                    class="text-danger"
+                >This action is irreversible! You cannot reactivate your subscription after cancelling it.</strong>
                 </p>
                 <form method="POST">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                    <input type="hidden" name="token" t-att-value="subscription.cancellation_token" />
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
+                    <input
+                        type="hidden"
+                        name="token"
+                        t-att-value="subscription.cancellation_token"
+                    />
                     <button class="btn btn-danger">Confirm Cancellation</button>
-                    <a class="btn btn-link" t-attf-href="/my/subscriptions/#{subscription.id}">Keep subscription</a>
+                    <a
+                        class="btn btn-link"
+                        t-attf-href="/my/subscriptions/#{subscription.id}"
+                    >Keep subscription</a>
                 </form>
             </div>
         </t>
     </template>
-
 </odoo>
