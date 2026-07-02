@@ -1,30 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
-    <template id="product_share_buttons" inherit_id="website_sale.product_share_buttons">
+    <template
+        id="product_share_buttons"
+        inherit_id="website_sale.product_share_buttons"
+        priority="99"
+    >
         <xpath expr="//a[hasclass('s_share_facebook')]/i" position="replace">
-            <img src="/website_sale_share_base/static/img/icons/facebook.svg" class="fa social-media-icon rounded shadow-sm" alt="social-media-icon"/>
+            <img
+                src="/website_sale_share_base/static/img/icons/facebook.svg"
+                class="fa social-media-icon rounded shadow-sm"
+                alt="social-media-icon"
+            />
         </xpath>
 
         <xpath expr="//a[hasclass('s_share_twitter')]/i" position="replace">
-            <img src="/website_sale_share_base/static/img/icons/twitter.svg" class="fa social-media-icon rounded shadow-sm" alt="social-media-icon"/>
+            <img
+                src="/website_sale_share_base/static/img/icons/twitter.svg"
+                class="fa social-media-icon rounded shadow-sm"
+                alt="social-media-icon"
+            />
         </xpath>
 
         <xpath expr="//a[hasclass('s_share_linkedin')]/i" position="replace">
-            <img src="/website_sale_share_base/static/img/icons/linkedin.svg" class="fa social-media-icon rounded shadow-sm" alt="social-media-icon"/>
+            <img
+                src="/website_sale_share_base/static/img/icons/linkedin.svg"
+                class="fa social-media-icon rounded shadow-sm"
+                alt="social-media-icon"
+            />
         </xpath>
 
         <xpath expr="//a[hasclass('s_share_whatsapp')]/i" position="replace">
-            <img src="/website_sale_share_base/static/img/icons/whatsapp.svg" class="fa social-media-icon rounded shadow-sm" alt="social-media-icon"/>
+            <img
+                src="/website_sale_share_base/static/img/icons/whatsapp.svg"
+                class="fa social-media-icon rounded shadow-sm"
+                alt="social-media-icon"
+            />
         </xpath>
 
         <xpath expr="//a[hasclass('s_share_pinterest')]/i" position="replace">
-            <img src="/website_sale_share_base/static/img/icons/pinterest.svg" class="fa social-media-icon rounded shadow-sm" alt="social-media-icon"/>
+            <img
+                src="/website_sale_share_base/static/img/icons/pinterest.svg"
+                class="fa social-media-icon rounded shadow-sm"
+                alt="social-media-icon"
+            />
         </xpath>
 
         <xpath expr="//a[hasclass('s_share_email')]/i" position="replace">
-            <img src="/website_sale_share_base/static/img/icons/envelope.svg" class="fa social-media-icon rounded shadow-sm" alt="social-media-icon"/>
+            <img
+                src="/website_sale_share_base/static/img/icons/envelope.svg"
+                class="fa social-media-icon rounded shadow-sm"
+                alt="social-media-icon"
+            />
         </xpath>
     </template>
-
 </odoo>
