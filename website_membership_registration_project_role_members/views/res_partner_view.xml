@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="website_membership_registration_view_partner_form" model="ir.ui.view" >
+    <record id="website_membership_registration_view_partner_form" model="ir.ui.view">
         <field
             name="inherit_id"
             ref="website_membership_registration.view_partner_form"
