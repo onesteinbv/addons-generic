@@ -5,7 +5,7 @@
     "category": "Project",
     "license": "AGPL-3",
     "author": "Onestein",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "depends": [
         "membership_activity",
         "project_parent",
