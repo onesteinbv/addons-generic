@@ -1,5 +1,5 @@
 .s_donation:not([data-vcss]) {
-    .donation_frequency{
+    .donation_frequency {
         position: absolute;
         width: 1px;
         height: 1px;
@@ -11,6 +11,6 @@
     }
 }
 
-.o_donation_payment_form{
+.o_donation_payment_form {
     @include o-input-number-no-arrows();
 }
