@@ -9,7 +9,7 @@ class HREmployee(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        employees = super(HREmployee, self).create(vals_list)
+        employees = super().create(vals_list)
         to_update = employees.sudo().filtered(
             lambda e: e.employee_type == "member" and e.user_id
         )

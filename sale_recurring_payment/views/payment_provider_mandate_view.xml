@@ -29,7 +29,11 @@
                     </group>
                     <notebook>
                         <page string="Transactions">
-                            <field name="payment_transaction_ids" colspan="4" nolabel="1" />
+                            <field
+                                name="payment_transaction_ids"
+                                colspan="4"
+                                nolabel="1"
+                            />
                         </page>
                     </notebook>
                 </sheet>

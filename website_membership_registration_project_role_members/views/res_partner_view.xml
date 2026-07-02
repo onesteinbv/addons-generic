@@ -1,15 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="website_membership_registration_view_partner_form" model="ir.ui.view">
-        <field name="inherit_id" ref="website_membership_registration.view_partner_form" />
+        <field
+            name="inherit_id"
+            ref="website_membership_registration.view_partner_form"
+        />
         <field name="model">res.partner</field>
+        <field name="priority" eval="99" />
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='website_description']" position="replace"/>
+            <xpath expr="//group[@name='website_description']" position="replace" />
         </field>
     </record>
 
     <record id="view_partner_form" model="ir.ui.view">
-        <field name="inherit_id" ref="website_project_generic_role_members.view_partner_form" />
+        <field
+            name="inherit_id"
+            ref="website_project_generic_role_members.view_partner_form"
+        />
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='website_description']" position="attributes">

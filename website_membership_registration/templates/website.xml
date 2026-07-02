@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
     <template id="membership_registration_form" name="Membership Registration Form">
-        <section class="s_cover parallax s_parallax_is_fixed oe_structure o_editable o_colored_level oe_img_bg o_bg_img_center" data-name="Membership Registration Page">
+        <section
+            class="s_cover parallax s_parallax_is_fixed o_editable o_colored_level oe_img_bg o_bg_img_center"
+            data-name="Membership Registration Page"
+        >
             <div class="container pt32 pb32">
                 <div class="row">
                     <div class="col-md-12 pb32">
@@ -10,19 +12,52 @@
                         <p class="text-center">
                             Please, fill the following form to finalize your registration.
                         </p>
-                        <section class="o_not_editable oe_website_membership_registration" data-name="Registration Form" data-anchor="true">
+                        <section
+                            class="o_not_editable oe_website_membership_registration"
+                            data-name="Registration Form"
+                            data-anchor="true"
+                        >
                             <div class="container">
-                                <form action="/apply-for-membership/" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" t-att-data-membership_group-style="website.membership_registration_page_membership_group_style" t-att-data-max-cv-file-size="website.membership_registration_max_cv_file_size" t-att-data-cv-file-formats="website.membership_registration_cv_file_formats_supported">
+                                <form
+                                    action="/apply-for-membership/"
+                                    method="post"
+                                    enctype="multipart/form-data"
+                                    class="o_mark_required"
+                                    data-mark="*"
+                                    t-att-data-membership_group-style="website.membership_registration_page_membership_group_style"
+                                    t-att-data-max-cv-file-size="website.membership_registration_max_cv_file_size"
+                                    t-att-data-cv-file-formats="website.membership_registration_cv_file_formats_supported"
+                                >
                                     <div class="row">
-                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                                        <input type="hidden" name="is_logged" t-att-value="is_logged" />
+                                        <input
+                                            type="hidden"
+                                            name="csrf_token"
+                                            t-att-value="request.csrf_token()"
+                                        />
+                                        <input
+                                            type="hidden"
+                                            name="is_logged"
+                                            t-att-value="is_logged"
+                                        />
 
-                                        <div class="row" style="padding-bottom: 20px;" id="error_message" t-if="error_message">
+                                        <div
+                                            class="row"
+                                            style="padding-bottom: 20px;"
+                                            id="error_message"
+                                            t-if="error_message"
+                                        >
                                             <div class="col-12">
-                                                <div class="s_alert s_alert_md alert-danger w-100 clearfix" data-name="Alert">
-                                                    <i class="fa fa-2x fa-info-circle s_alert_icon"></i>
+                                                <div
+                                                    class="s_alert s_alert_md alert-danger w-100 clearfix"
+                                                    data-name="Alert"
+                                                >
+                                                    <i
+                                                        class="fa fa-2x fa-info-circle s_alert_icon"
+                                                    />
                                                     <div class="s_alert_content">
-                                                        <p class="o_default_snippet_text">
+                                                        <p
+                                                            class="o_default_snippet_text"
+                                                        >
                                                             <t t-out="error_message" />
                                                         </p>
                                                     </div>
@@ -30,93 +65,185 @@
                                             </div>
                                         </div>
 
-                                        <div class="row" style="padding-bottom: 20px;" id="personal_data">
-                                            <div class="mb-3 col-12" data-type="char" data-name="Field">
-                                                <div class="row s_col_no_resize s_col_no_bgcolor" id="div_name">
-                                                    <label class="col-form-label col-sm-auto" style="width: 200px" for="member_name">
+                                        <div
+                                            class="row"
+                                            style="padding-bottom: 20px;"
+                                            id="personal_data"
+                                        >
+                                            <div
+                                                class="mb-3 col-12"
+                                                data-type="char"
+                                                data-name="Field"
+                                            >
+                                                <div
+                                                    class="row s_col_no_resize s_col_no_bgcolor"
+                                                    id="div_name"
+                                                >
+                                                    <label
+                                                        class="col-form-label col-sm-auto"
+                                                        style="width: 200px"
+                                                        for="member_name"
+                                                    >
                                                         <span>Name</span>
-                                                        <span class="s_website_form_mark"> *</span>
+                                                        <span
+                                                            class="s_website_form_mark"
+                                                        > *</span>
                                                     </label>
                                                     <div class="col-sm">
-                                                        <input class="form-control" type="text" name="member_name" t-att-value="member_name" required="" />
+                                                        <input
+                                                            class="form-control"
+                                                            type="text"
+                                                            name="member_name"
+                                                            t-att-value="member_name"
+                                                            required=""
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="mb-3 col-12" data-type="email" data-name="Field">
-                                                <div class="row s_col_no_resize s_col_no_bgcolor" id="div_email">
-                                                    <label class="col-form-label col-sm-auto" style="width: 200px" for="member_email">
+                                            <div
+                                                class="mb-3 col-12"
+                                                data-type="email"
+                                                data-name="Field"
+                                            >
+                                                <div
+                                                    class="row s_col_no_resize s_col_no_bgcolor"
+                                                    id="div_email"
+                                                >
+                                                    <label
+                                                        class="col-form-label col-sm-auto"
+                                                        style="width: 200px"
+                                                        for="member_email"
+                                                    >
                                                         <span>Your Email</span>
-                                                        <span class="s_website_form_mark"> *</span>
+                                                        <span
+                                                            class="s_website_form_mark"
+                                                        > *</span>
                                                     </label>
                                                     <div class="col-sm">
-                                                        <input class="form-control" type="email" name="member_email" t-att-value="member_email" required="" />
-                                                        <div class="small form-text text-muted">
+                                                        <input
+                                                            class="form-control"
+                                                            type="email"
+                                                            name="member_email"
+                                                            t-att-value="member_email"
+                                                            required=""
+                                                        />
+                                                        <div
+                                                            class="small form-text text-muted"
+                                                        >
                                                             We'll need your email to verify your registration.
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="mb-3 col-12" data-type="tel" data-name="Field">
-                                                <div class="row s_col_no_resize s_col_no_bgcolor" id="div_phone">
-                                                    <label class="col-form-label col-sm-auto" style="width: 200px" for="member_phone">
+                                            <div
+                                                class="mb-3 col-12"
+                                                data-type="tel"
+                                                data-name="Field"
+                                            >
+                                                <div
+                                                    class="row s_col_no_resize s_col_no_bgcolor"
+                                                    id="div_phone"
+                                                >
+                                                    <label
+                                                        class="col-form-label col-sm-auto"
+                                                        style="width: 200px"
+                                                        for="member_phone"
+                                                    >
                                                         <span>Phone</span>
                                                     </label>
                                                     <div class="col-sm">
-                                                        <input class="form-control" type="tel" name="member_phone" t-att-value="member_phone"/>
+                                                        <input
+                                                            class="form-control"
+                                                            type="tel"
+                                                            name="member_phone"
+                                                            t-att-value="member_phone"
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <t t-if="membership_groups">
-                                            <t t-if="not membership_group_style or membership_group_style == 'list'">
-                                                <div class="row col-12"
-                                                     style="padding: 0px; padding-bottom: 20px; padding-left: 20px"
-                                                     id="membership_group_data">
+                                            <t
+                                                t-if="not membership_group_style or membership_group_style == 'list'"
+                                            >
+                                                <div
+                                                    class="row col-12"
+                                                    style="padding: 0px; padding-bottom: 20px; padding-left: 20px"
+                                                    id="membership_group_data"
+                                                >
                                                     <table style="width:100%">
                                                         <tr>
-                                                            <td colspan="4">
+                                                            <td colspan="4" />
+                                                            <td colspan="1">Follow<i
+                                                                class="fa fa-question-circle-o"
+                                                                title="Allows to follow membership group"
+                                                            />
                                                             </td>
-                                                            <td colspan="1">Follow<i class="fa fa-question-circle-o" title="Allows to follow membership group"/>
-                                                            </td>
-                                                            <td colspan="1">Contribute<i class="fa fa-question-circle-o" title="Allows to contribute to membership group"/>
+                                                            <td colspan="1">Contribute<i
+                                                                class="fa fa-question-circle-o"
+                                                                title="Allows to contribute to membership group"
+                                                            />
                                                             </td>
                                                         </tr>
-                                                        <tr t-foreach="membership_groups" t-as="membership_group">
+                                                        <tr
+                                                            t-foreach="membership_groups"
+                                                            t-as="membership_group"
+                                                        >
                                                             <td colspan="4">
-                                                                <a t-attf-target="#{membership_group.website_url and '_blank' or ''}"
-                                                                   t-attf-href="#{membership_group.website_url or '#'}"
-                                                                   t-attf-alt="#{membership_group.name}"
-                                                                   t-attf-title="#{membership_group.name}">
-                                                                    <img t-attf-src="/web/image/membership.group/#{membership_group.id}/icon"
-                                                                         style="object-fit: cover; height: 25px; width: 25px;"/>
+                                                                <a
+                                                                    t-attf-target="#{membership_group.website_url and '_blank' or ''}"
+                                                                    t-attf-href="#{membership_group.website_url or '#'}"
+                                                                    t-attf-alt="#{membership_group.name}"
+                                                                    t-attf-title="#{membership_group.name}"
+                                                                >
+                                                                    <img
+                                                                        t-attf-src="/web/image/membership.group/#{membership_group.id}/icon"
+                                                                        style="object-fit: cover; height: 25px; width: 25px;"
+                                                                    />
                                                                 </a>
-                                                                <label class="form-check-label s_website_form_check_label"
-                                                                       t-attf-for="membership_group_#{membership_group.id}_follow">
-                                                                    <t t-esc="membership_group.display_name"/>
+                                                                <label
+                                                                    class="form-check-label s_website_form_check_label"
+                                                                    t-attf-for="membership_group_#{membership_group.id}_follow"
+                                                                >
+                                                                    <t
+                                                                        t-esc="membership_group.display_name"
+                                                                    />
                                                                 </label>
                                                             </td>
                                                             <td colspan="1">
-                                                                <div t-attf-class="checkbox col-12">
-                                                                    <div class="form-check">
-                                                                        <input type="checkbox"
-                                                                               class="s_website_form_input form-check-input"
-                                                                               style="margin-top:0.3rem;margin-left:-0.5rem"
-                                                                               t-attf-id="membership_group_#{membership_group.id}_follow"
-                                                                               t-attf-name="membership_group_#{membership_group.id}_follow"
-                                                                               t-att-checked="'checked' if membership_groups_follow_checked[membership_group.id] else None"/>
+                                                                <div
+                                                                    t-attf-class="checkbox col-12"
+                                                                >
+                                                                    <div
+                                                                        class="form-check"
+                                                                    >
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            class="s_website_form_input form-check-input"
+                                                                            style="margin-top:0.3rem;margin-left:-0.5rem"
+                                                                            t-attf-id="membership_group_#{membership_group.id}_follow"
+                                                                            t-attf-name="membership_group_#{membership_group.id}_follow"
+                                                                            t-att-checked="'checked' if membership_groups_follow_checked[membership_group.id] else None"
+                                                                        />
                                                                     </div>
                                                                 </div>
                                                             </td>
                                                             <td colspan="1">
-                                                                <div t-attf-class="checkbox col-12">
-                                                                    <div class="form-check">
-                                                                        <input type="checkbox"
-                                                                               class="s_website_form_input form-check-input"
-                                                                               style="margin-top:0.3rem;margin-left:0.5rem"
-                                                                               t-attf-id="membership_group_#{membership_group.id}_collaborate"
-                                                                               t-attf-name="membership_group_#{membership_group.id}_collaborate"
-                                                                               t-att-checked="'checked' if membership_groups_collaborate_checked[membership_group.id] else None"/>
+                                                                <div
+                                                                    t-attf-class="checkbox col-12"
+                                                                >
+                                                                    <div
+                                                                        class="form-check"
+                                                                    >
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            class="s_website_form_input form-check-input"
+                                                                            style="margin-top:0.3rem;margin-left:0.5rem"
+                                                                            t-attf-id="membership_group_#{membership_group.id}_collaborate"
+                                                                            t-attf-name="membership_group_#{membership_group.id}_collaborate"
+                                                                            t-att-checked="'checked' if membership_groups_collaborate_checked[membership_group.id] else None"
+                                                                        />
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -125,52 +252,95 @@
                                                 </div>
                                             </t>
                                             <t t-else="">
-                                                <div class="row col-12" style="padding: 0px; padding-bottom: 20px;"
-                                                     id="membership_group_data">
-                                                    <div class="mb-3 s_website_form_field col-12">
-                                                        <div class="row s_col_no_resize s_col_no_bgcolor s_website_form_multiple"
-                                                             data-display="vertical">
-                                                            <t t-foreach="membership_groups" t-as="membership_group">
-                                                                <div class="form-group col-12 col-sm-6 col-md-4 col-lg-4"
-                                                                     style="margin-bottom: 1rem">
+                                                <div
+                                                    class="row col-12"
+                                                    style="padding: 0px; padding-bottom: 20px;"
+                                                    id="membership_group_data"
+                                                >
+                                                    <div
+                                                        class="mb-3 s_website_form_field col-12"
+                                                    >
+                                                        <div
+                                                            class="row s_col_no_resize s_col_no_bgcolor s_website_form_multiple"
+                                                            data-display="vertical"
+                                                        >
+                                                            <t
+                                                                t-foreach="membership_groups"
+                                                                t-as="membership_group"
+                                                            >
+                                                                <div
+                                                                    class="form-group col-12 col-sm-6 col-md-4 col-lg-4"
+                                                                    style="margin-bottom: 1rem"
+                                                                >
                                                                     <div class="row">
-                                                                        <a t-attf-target="#{membership_group.website_url and '_blank' or ''}"
-                                                                           t-attf-href="#{membership_group.website_url or '#'}"
-                                                                           t-attf-alt="#{membership_group.name}"
-                                                                           t-attf-title="#{membership_group.name}" class="col-6">
-                                                                            <img t-attf-src="/web/image/membership.group/#{membership_group.id}/icon"
-                                                                                 style="width: 160px;height:160px"/>
+                                                                        <a
+                                                                            t-attf-target="#{membership_group.website_url and '_blank' or ''}"
+                                                                            t-attf-href="#{membership_group.website_url or '#'}"
+                                                                            t-attf-alt="#{membership_group.name}"
+                                                                            t-attf-title="#{membership_group.name}"
+                                                                            class="col-6"
+                                                                        >
+                                                                            <img
+                                                                                t-attf-src="/web/image/membership.group/#{membership_group.id}/icon"
+                                                                                style="width: 160px;height:160px"
+                                                                            />
                                                                         </a>
-                                                                        <div class="form-check col-6">
-                                                                            <a t-attf-target="#{membership_group.website_url and '_blank' or ''}"
-                                                                               t-attf-href="#{membership_group.website_url or '#'}"
-                                                                               t-attf-alt="#{membership_group.name}"
-                                                                               t-attf-title="#{membership_group.name}">
-                                                                                <h6 style="margin-left:-1.25rem">
-                                                                                    <t t-esc="membership_group.display_name"/>
+                                                                        <div
+                                                                            class="form-check col-6"
+                                                                        >
+                                                                            <a
+                                                                                t-attf-target="#{membership_group.website_url and '_blank' or ''}"
+                                                                                t-attf-href="#{membership_group.website_url or '#'}"
+                                                                                t-attf-alt="#{membership_group.name}"
+                                                                                t-attf-title="#{membership_group.name}"
+                                                                            >
+                                                                                <h6
+                                                                                    style="margin-left:-1.25rem"
+                                                                                >
+                                                                                    <t
+                                                                                        t-esc="membership_group.display_name"
+                                                                                    />
                                                                                 </h6>
                                                                             </a>
-                                                                            <br/>
-                                                                            <div class="mb-0">
-                                                                                <input type="checkbox"
-                                                                                       class="s_website_form_input form-check-input"
-                                                                                       t-attf-id="membership_group_#{membership_group.id}_follow"
-                                                                                       t-attf-name="membership_group_#{membership_group.id}_follow"
-                                                                                       t-att-checked="'checked' if membership_groups_follow_checked[membership_group.id] else None"/>
-                                                                                <label class="form-check-label s_website_form_check_label"
-                                                                                       t-attf-for="membership_group_#{membership_group.id}_follow">
-                                                                                    Follow<i class="fa fa-question-circle-o" title="Allows to follow this membership group"/>
+                                                                            <br />
+                                                                            <div
+                                                                                class="mb-0"
+                                                                            >
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    class="s_website_form_input form-check-input"
+                                                                                    t-attf-id="membership_group_#{membership_group.id}_follow"
+                                                                                    t-attf-name="membership_group_#{membership_group.id}_follow"
+                                                                                    t-att-checked="'checked' if membership_groups_follow_checked[membership_group.id] else None"
+                                                                                />
+                                                                                <label
+                                                                                    class="form-check-label s_website_form_check_label"
+                                                                                    t-attf-for="membership_group_#{membership_group.id}_follow"
+                                                                                >
+                                                                                    Follow<i
+                                                                                    class="fa fa-question-circle-o"
+                                                                                    title="Allows to follow this membership group"
+                                                                                />
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="mb-0">
-                                                                                <input type="checkbox"
-                                                                                       class="s_website_form_input form-check-input"
-                                                                                       t-attf-id="membership_group_#{membership_group.id}_collaborate"
-                                                                                       t-attf-name="membership_group_#{membership_group.id}_collaborate"
-                                                                                       t-att-checked="'checked' if membership_groups_collaborate_checked[membership_group.id] else None"/>
-                                                                                <label class="form-check-label s_website_form_check_label"
-                                                                                       t-attf-for="membership_group_#{membership_group.id}_collaborate">
-                                                                                    Collaborate<i class="fa fa-question-circle-o" title="Allows to contribute to this membership group"/>
+                                                                            <div
+                                                                                class="mb-0"
+                                                                            >
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    class="s_website_form_input form-check-input"
+                                                                                    t-attf-id="membership_group_#{membership_group.id}_collaborate"
+                                                                                    t-attf-name="membership_group_#{membership_group.id}_collaborate"
+                                                                                    t-att-checked="'checked' if membership_groups_collaborate_checked[membership_group.id] else None"
+                                                                                />
+                                                                                <label
+                                                                                    class="form-check-label s_website_form_check_label"
+                                                                                    t-attf-for="membership_group_#{membership_group.id}_collaborate"
+                                                                                >
+                                                                                    Collaborate<i
+                                                                                    class="fa fa-question-circle-o"
+                                                                                    title="Allows to contribute to this membership group"
+                                                                                />
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -183,17 +353,45 @@
                                             </t>
                                         </t>
 
-                                        <div class="row" id="membership_data" style="padding-bottom: 20px;">
-                                            <div class="mb-3 col-12 s_website_form_required" data-type="many2one">
-                                                <div class="row s_col_no_resize s_col_no_bgcolor">
-                                                    <label class="col-form-label col-sm-auto" style="width: 200px" for="membership_product_id">
+                                        <div
+                                            class="row"
+                                            id="membership_data"
+                                            style="padding-bottom: 20px;"
+                                        >
+                                            <div
+                                                class="mb-3 col-12 s_website_form_required"
+                                                data-type="many2one"
+                                            >
+                                                <div
+                                                    class="row s_col_no_resize s_col_no_bgcolor"
+                                                >
+                                                    <label
+                                                        class="col-form-label col-sm-auto"
+                                                        style="width: 200px"
+                                                        for="membership_product_id"
+                                                    >
                                                         <span>Membership Level</span>
-                                                        <span class="s_website_form_mark"> *</span>
+                                                        <span
+                                                            class="s_website_form_mark"
+                                                        > *</span>
                                                     </label>
                                                     <div class="col-sm">
-                                                        <select id="product_id" class="form-control s_website_form_input" name="membership_product_id" required="">
-                                                            <t t-foreach="membership_products" t-as="record">
-                                                                <option t-esc="record.display_name" t-att-selected="record.id == (membership_product_id and int(membership_product_id) or -1)" t-att-value="record.id" t-att-data-is_paid="record.list_price and True or False"/>
+                                                        <select
+                                                            id="product_id"
+                                                            class="form-control s_website_form_input"
+                                                            name="membership_product_id"
+                                                            required=""
+                                                        >
+                                                            <t
+                                                                t-foreach="membership_products"
+                                                                t-as="record"
+                                                            >
+                                                                <option
+                                                                    t-esc="record.display_name"
+                                                                    t-att-selected="record.id == (membership_product_id and int(membership_product_id) or -1)"
+                                                                    t-att-value="record.id"
+                                                                    t-att-data-is_paid="record.list_price and True or False"
+                                                                />
                                                             </t>
                                                         </select>
                                                     </div>
@@ -201,59 +399,143 @@
                                             </div>
                                         </div>
 
-                                        <div class="row" id="address_data" t-att-style="show_address_div and 'padding-bottom: 20px;' or 'display:none;padding-bottom: 20px;'">
-                                            <div t-attf-class="mb-3 #{error.get('member_street') and 'o_has_error' or ''} col-lg-12 div_street">
-                                                <label class="col-form-label" for="member_street">
+                                        <div
+                                            class="row"
+                                            id="address_data"
+                                            t-att-style="show_address_div and 'padding-bottom: 20px;' or 'display:none;padding-bottom: 20px;'"
+                                        >
+                                            <div
+                                                t-attf-class="mb-3 #{error.get('member_street') and 'o_has_error' or ''} col-lg-12 div_street"
+                                            >
+                                                <label
+                                                    class="col-form-label"
+                                                    for="member_street"
+                                                >
                                                     <span>Street and Number</span>
-                                                    <span class="s_website_form_mark"> *</span>
+                                                    <span
+                                                        class="s_website_form_mark"
+                                                    > *</span>
                                                 </label>
-                                                <input type="text" name="member_street" t-attf-class="form-control #{error.get('street') and 'is-invalid' or ''}" t-att-value="member_street" />
+                                                <input
+                                                    type="text"
+                                                    name="member_street"
+                                                    t-attf-class="form-control #{error.get('street') and 'is-invalid' or ''}"
+                                                    t-att-value="member_street"
+                                                />
                                             </div>
-                                            <div t-attf-class="mb-3 #{error.get('member_street2') and 'o_has_error' or ''} col-lg-12 div_street2">
-                                                <label class="col-form-label" for="member_street2">
+                                            <div
+                                                t-attf-class="mb-3 #{error.get('member_street2') and 'o_has_error' or ''} col-lg-12 div_street2"
+                                            >
+                                                <label
+                                                    class="col-form-label"
+                                                    for="member_street2"
+                                                >
                                                     <span>Street 2</span>
                                                 </label>
-                                                <input type="text" name="member_street2" t-attf-class="form-control #{error.get('street2') and 'is-invalid' or ''}" t-att-value="member_street2" />
+                                                <input
+                                                    type="text"
+                                                    name="member_street2"
+                                                    t-attf-class="form-control #{error.get('street2') and 'is-invalid' or ''}"
+                                                    t-att-value="member_street2"
+                                                />
                                             </div>
-                                            <div class="w-100"/>
-                                            <div t-attf-class="mb-3 #{error.get('member_zip') and 'o_has_error' or ''} col-md-4 div_zip">
-                                                <label class="col-form-label" for="member_zip">
+                                            <div class="w-100" />
+                                            <div
+                                                t-attf-class="mb-3 #{error.get('member_zip') and 'o_has_error' or ''} col-md-4 div_zip"
+                                            >
+                                                <label
+                                                    class="col-form-label"
+                                                    for="member_zip"
+                                                >
                                                     <span>Zip Code</span>
-                                                    <span class="s_website_form_mark"> *</span>
+                                                    <span
+                                                        class="s_website_form_mark"
+                                                    > *</span>
                                                 </label>
-                                                <input type="text" name="member_zip" t-attf-class="form-control #{error.get('member_zip') and 'is-invalid' or ''}" t-att-value="member_zip" />
+                                                <input
+                                                    type="text"
+                                                    name="member_zip"
+                                                    t-attf-class="form-control #{error.get('member_zip') and 'is-invalid' or ''}"
+                                                    t-att-value="member_zip"
+                                                />
                                             </div>
-                                            <div t-attf-class="mb-3 #{error.get('member_city') and 'o_has_error' or ''} col-md-8 div_city">
-                                                <label class="col-form-label" for="member_city">
+                                            <div
+                                                t-attf-class="mb-3 #{error.get('member_city') and 'o_has_error' or ''} col-md-8 div_city"
+                                            >
+                                                <label
+                                                    class="col-form-label"
+                                                    for="member_city"
+                                                >
                                                     <span>City</span>
-                                                    <span class="s_website_form_mark"> *</span>
+                                                    <span
+                                                        class="s_website_form_mark"
+                                                    > *</span>
                                                 </label>
-                                                <input type="text" name="member_city" t-attf-class="form-control #{error.get('member_city') and 'is-invalid' or ''}" t-att-value="member_city" />
+                                                <input
+                                                    type="text"
+                                                    name="member_city"
+                                                    t-attf-class="form-control #{error.get('member_city') and 'is-invalid' or ''}"
+                                                    t-att-value="member_city"
+                                                />
                                             </div>
-                                            <div class="w-100"/>
-                                            <div t-attf-class="mb-3 #{error.get('member_country_id') and 'o_has_error' or ''} col-lg-6 div_country">
-                                                <label class="col-form-label" for="member_country_id">
+                                            <div class="w-100" />
+                                            <div
+                                                t-attf-class="mb-3 #{error.get('member_country_id') and 'o_has_error' or ''} col-lg-6 div_country"
+                                            >
+                                                <label
+                                                    class="col-form-label"
+                                                    for="member_country_id"
+                                                >
                                                     <span>Country</span>
-                                                    <span class="s_website_form_mark"> *</span>
+                                                    <span
+                                                        class="s_website_form_mark"
+                                                    > *</span>
                                                 </label>
-                                                <select id="country_id" name="member_country_id" t-attf-class="form-control #{error.get('member_country_id') and 'is-invalid' or ''}">
+                                                <select
+                                                    id="country_id"
+                                                    name="member_country_id"
+                                                    t-attf-class="form-control #{error.get('member_country_id') and 'is-invalid' or ''}"
+                                                >
                                                     <option value="">Country...</option>
                                                     <t t-foreach="countries" t-as="c">
-                                                        <option t-att-value="c.id" t-att-selected="c.id == (member_country_id and int(member_country_id) or -1)">
+                                                        <option
+                                                            t-att-value="c.id"
+                                                            t-att-selected="c.id == (member_country_id and int(member_country_id) or -1)"
+                                                        >
                                                             <t t-esc="c.name" />
                                                         </option>
                                                     </t>
                                                 </select>
                                             </div>
-                                            <div t-attf-class="mb-3 #{error.get('member_state_id') and 'o_has_error' or ''} col-lg-6 div_state" t-att-style="(not country_id or not country_id.state_ids) and 'display: none'">
-                                                <label class="col-form-label" for="member_state_id">
+                                            <div
+                                                t-attf-class="mb-3 #{error.get('member_state_id') and 'o_has_error' or ''} col-lg-6 div_state"
+                                                t-att-style="(not country_id or not country_id.state_ids) and 'display: none'"
+                                            >
+                                                <label
+                                                    class="col-form-label"
+                                                    for="member_state_id"
+                                                >
                                                     <span>State / Province</span>
-                                                    <span class="s_website_form_mark"> *</span>
+                                                    <span
+                                                        class="s_website_form_mark"
+                                                    > *</span>
                                                 </label>
-                                                <select id="state_id" name="member_state_id" t-attf-class="form-control #{error.get('member_state_id') and 'is-invalid' or ''}">
-                                                    <option value="">State / Province...</option>
-                                                    <t t-foreach="country_id.state_ids" t-as="s">
-                                                        <option t-att-value="s.id" t-att-selected="s.id == (member_state_id and int(member_state_id) or -1)">
+                                                <select
+                                                    id="state_id"
+                                                    name="member_state_id"
+                                                    t-attf-class="form-control #{error.get('member_state_id') and 'is-invalid' or ''}"
+                                                >
+                                                    <option
+                                                        value=""
+                                                    >State / Province...</option>
+                                                    <t
+                                                        t-foreach="country_id.state_ids"
+                                                        t-as="s"
+                                                    >
+                                                        <option
+                                                            t-att-value="s.id"
+                                                            t-att-selected="s.id == (member_state_id and int(member_state_id) or -1)"
+                                                        >
                                                             <t t-esc="s.name" />
                                                         </option>
                                                     </t>
@@ -262,8 +544,11 @@
                                         </div>
 
                                         <div class="mb-3 col-12">
-                                            <div style="width: 200px;"/>
-                                            <button class="btn btn-primary btn-lg" style="position: relative; overflow: hidden;">
+                                            <div style="width: 200px;" />
+                                            <button
+                                                class="btn btn-primary btn-lg"
+                                                style="position: relative; overflow: hidden;"
+                                            >
                                                 Send
                                             </button>
                                         </div>
@@ -279,18 +564,32 @@
 
     <template id="membership_registration_page">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure">
-                <div class="oe_structure oe_empty" id="oe_structure_membership_registration_page_1"/>
-                <t t-call="website_membership_registration.membership_registration_form" />
-                <div class="oe_structure oe_empty" id="oe_structure_membership_registration_page_2"/>
+            <div id="wrap">
+                <div
+                    class="oe_structure oe_empty"
+                    id="oe_structure_membership_registration_page_1"
+                />
+                <t
+                    t-call="website_membership_registration.membership_registration_form"
+                />
+                <div
+                    class="oe_structure oe_empty"
+                    id="oe_structure_membership_registration_page_2"
+                />
             </div>
         </t>
     </template>
 
     <template id="website_layout" inherit_id="website.layout">
         <xpath expr="//meta[@name='default_title']" position="before">
-            <t t-if="not (main_object and 'website_indexed' in main_object and not main_object.website_indexed) and apply_for_membership_success" >
-                <meta t-if="not (main_object and 'website_indexed' in main_object and not main_object.website_indexed) and apply_for_membership_success" name="robots" content="noindex"/>
+            <t
+                t-if="not (main_object and 'website_indexed' in main_object and not main_object.website_indexed) and apply_for_membership_success"
+            >
+                <meta
+                    t-if="not (main_object and 'website_indexed' in main_object and not main_object.website_indexed) and apply_for_membership_success"
+                    name="robots"
+                    content="noindex"
+                />
             </t>
         </xpath>
     </template>
@@ -298,12 +597,18 @@
     <template id="membership_registration_success_page">
         <t t-call="website.layout">
             <div id="wrap">
-                <div class="oe_structure"/>
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_success_page_top"
+                />
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="s_alert s_alert_md alert-success w-100 clearfix" data-name="Alert">
-                                <i class="fa fa-2x fa-info-circle s_alert_icon"></i>
+                            <div
+                                class="s_alert s_alert_md alert-success w-100 clearfix"
+                                data-name="Alert"
+                            >
+                                <i class="fa fa-2x fa-info-circle s_alert_icon" />
                                 <div class="s_alert_content">
                                     <p class="o_default_snippet_text">
                                         Your request was successful!
@@ -314,7 +619,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="oe_structure"/>
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_success_page_bottom"
+                />
             </div>
         </t>
     </template>
@@ -322,12 +630,18 @@
     <template id="membership_registration_verify_success_page">
         <t t-call="website.layout">
             <div id="wrap">
-                <div class="oe_structure"/>
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_verify_success_page_top"
+                />
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="s_alert s_alert_md alert-success w-100 clearfix" data-name="Alert">
-                                <i class="fa fa-2x fa-info-circle s_alert_icon"></i>
+                            <div
+                                class="s_alert s_alert_md alert-success w-100 clearfix"
+                                data-name="Alert"
+                            >
+                                <i class="fa fa-2x fa-info-circle s_alert_icon" />
                                 <div class="s_alert_content">
                                     <p class="o_default_snippet_text">
                                         Email address verified!
@@ -337,7 +651,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="oe_structure"/>
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_verify_success_page_bottom"
+                />
             </div>
         </t>
     </template>
@@ -345,12 +662,18 @@
     <template id="membership_registration_verify_error_page">
         <t t-call="website.layout">
             <div id="wrap">
-                <div class="oe_structure"/>
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_verify_error_page_top"
+                />
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="s_alert s_alert_md alert-danger w-100 clearfix" data-name="Alert">
-                                <i class="fa fa-2x fa-info-circle s_alert_icon"></i>
+                            <div
+                                class="s_alert s_alert_md alert-danger w-100 clearfix"
+                                data-name="Alert"
+                            >
+                                <i class="fa fa-2x fa-info-circle s_alert_icon" />
                                 <div class="s_alert_content">
                                     <p class="o_default_snippet_text">
                                         <t t-esc="error" />
@@ -360,20 +683,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="oe_structure"/>
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_registration_verify_error_page_bottom"
+                />
             </div>
         </t>
     </template>
 
-    <template id="ask_login_for_membership" inherit_id="website_sale.checkout_layout"
-              name="Ask for login for membership purchase">
+    <template
+        id="ask_login_for_membership"
+        inherit_id="website_sale.checkout_layout"
+        name="Ask for login for membership purchase"
+        priority="99"
+    >
         <xpath expr="//t[@t-call='payment.express_checkout']" position="replace">
-            <t t-set="requires_login_for_membership_product"
-               t-value="website_sale_order and website_sale_order.website_order_line and website_sale_order.website_order_line.product_id.filtered(lambda p: p.membership)"/>
             <t
-                    t-if="(not requires_login_for_membership_product and website.account_on_checkout != 'mandatory') or
+                t-set="requires_login_for_membership_product"
+                t-value="website_sale_order and website_sale_order.website_order_line and website_sale_order.website_order_line.product_id.filtered(lambda p: p.membership)"
+            />
+            <t
+                t-if="(not requires_login_for_membership_product and website.account_on_checkout != 'mandatory') or
                                               not website.is_public_user()"
-                    t-call="payment.express_checkout"
+                t-call="payment.express_checkout"
             />
         </xpath>
     </template>
@@ -381,44 +713,75 @@
     <template id="membership_already_exists_page">
         <t t-call="website.layout">
             <div id="wrap">
-                <div class="oe_structure"/>
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_already_exists_page_top"
+                />
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="s_alert s_alert_md alert-success w-100 clearfix" data-name="Alert">
-                                <i class="fa fa-2x fa-info-circle s_alert_icon"></i>
+                            <div
+                                class="s_alert s_alert_md alert-success w-100 clearfix"
+                                data-name="Alert"
+                            >
+                                <i class="fa fa-2x fa-info-circle s_alert_icon" />
                                 <div class="s_alert_content">
                                     <p class="o_default_snippet_text">
-                                        You are already a Member, go to web <a href="/shop">shop</a> for upgrading
+                                        You are already a Member, go to web <a
+                                        href="/shop"
+                                    >shop</a> for upgrading
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="oe_structure"/>
+                <div
+                    class="oe_structure"
+                    id="oe_structure_membership_already_exists_page_bottom"
+                />
             </div>
         </t>
     </template>
 
-    <template id="bio" inherit_id="website_membership_registration.membership_registration_form" active="False" name="Bio on membership registration" priority="17">
+    <template
+        id="bio"
+        inherit_id="website_membership_registration.membership_registration_form"
+        active="False"
+        name="Bio on membership registration"
+        priority="17"
+    >
         <xpath expr="//div[@id='personal_data']" position="inside">
             <div class="mb-3 col-12" data-type="text" data-name="Field">
                 <div class="row s_col_no_resize s_col_no_bgcolor" id="div_bio">
-                    <label class="col-form-label col-sm-auto" style="width: 200px" for="website_description">
+                    <label
+                        class="col-form-label col-sm-auto"
+                        style="width: 200px"
+                        for="website_description"
+                    >
                         <span>Bio</span>
                     </label>
                     <div class="col-sm">
-                        <textarea rows="2" class="form-control" name="website_description" placeholder="Your bio..."
-                                  t-att-value="website_description"/>
+                        <textarea
+                            rows="2"
+                            class="form-control"
+                            name="website_description"
+                            placeholder="Your bio..."
+                            t-att-value="website_description"
+                        />
                     </div>
                 </div>
             </div>
         </xpath>
     </template>
 
-    <template id="cv" inherit_id="website_membership_registration.membership_registration_form" active="False"
-              name="CV on membership registration" priority="18">
+    <template
+        id="cv"
+        inherit_id="website_membership_registration.membership_registration_form"
+        active="False"
+        name="CV on membership registration"
+        priority="18"
+    >
         <xpath expr="//div[@id='personal_data']" position="inside">
             <div class="mb-3 col-12" data-type="text" data-name="Field">
                 <div class="row s_col_no_resize s_col_no_bgcolor" id="div_cv">
@@ -426,20 +789,30 @@
                         <span>CV/Resume</span>
                     </label>
                     <div class="col-sm">
-                        <input type="file" name="member_cv" class="form-control s_website_form_input" id="file_cv"
-                               t-att-accept="website.membership_registration_cv_file_formats_supported"/>
+                        <input
+                            type="file"
+                            name="member_cv"
+                            class="form-control s_website_form_input"
+                            id="file_cv"
+                            t-att-accept="website.membership_registration_cv_file_formats_supported"
+                        />
                     </div>
                     <small class="form-text text-muted">
-                        <t t-if="website.membership_registration_cv_file_formats_supported =='*'">
+                        <t
+                        t-if="website.membership_registration_cv_file_formats_supported =='*'"
+                    >
                                 All
                         </t>
                         <t t-else="">
-                            Only <span t-out="website.membership_registration_cv_file_formats_supported"/>
+                            Only <span
+                        t-out="website.membership_registration_cv_file_formats_supported"
+                    />
                         </t>
-                         files are accepted (max. <span t-out="website.membership_registration_max_cv_file_size"/> MB).</small>
+                         files are accepted (max. <span
+                        t-out="website.membership_registration_max_cv_file_size"
+                    /> MB).</small>
                 </div>
             </div>
         </xpath>
     </template>
-
 </odoo>

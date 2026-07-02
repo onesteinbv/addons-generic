@@ -6,8 +6,8 @@
     "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "category": "After-Sales",
-    "author": "Onestein BV",
-    "website": "https://www.onestein.nl",
+    "author": "Onestein",
+    "website": "https://onestein.nl",
     "depends": ["helpdesk_mgmt"],
     "data": [
         "data/mail_template.xml",

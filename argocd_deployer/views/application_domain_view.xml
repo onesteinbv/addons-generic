@@ -3,7 +3,7 @@
     <record id="application_domain_tree" model="ir.ui.view">
         <field name="model">argocd.application.domain</field>
         <field name="arch" type="xml">
-            <list editable="bottom" decoration-bf="not application_id" >
+            <list editable="bottom" decoration-bf="not application_id">
                 <field name="application_id" />
                 <field name="scope_id" />
                 <field name="name" />
@@ -19,7 +19,11 @@
                 <field name="application_id" />
                 <field name="scope_id" />
 
-                <filter name="no_application" string="Reserved Domains" domain="[('application_id', '=', False)]"/>
+                <filter
+                    name="no_application"
+                    string="Reserved Domains"
+                    domain="[('application_id', '=', False)]"
+                />
             </search>
         </field>
     </record>

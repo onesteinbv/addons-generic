@@ -227,9 +227,7 @@ class AccountChartTemplate(models.AbstractModel):
         }
         return data
 
-    def _post_load_data(
-        self, template_code, company, template_data
-    ):  # pylint: disable=missing-return
+    def _post_load_data(self, template_code, company, template_data):  # pylint: disable=missing-return
         super()._post_load_data(template_code, company, template_data)
         if template_code != "nl_rgs":
             return

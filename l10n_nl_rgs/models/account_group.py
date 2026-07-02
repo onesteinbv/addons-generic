@@ -53,7 +53,7 @@ class AccountGroup(models.Model):
     def _adapt_parent_account_group(self, company=None):
         company = company if company else self.company_id
         if company.chart_template != "nl_rgs":
-            return super(AccountGroup, self)._adapt_parent_account_group()
+            return super()._adapt_parent_account_group()
 
     def write(self, vals):
         ret = super().write(vals)

@@ -15,7 +15,11 @@
                 <page string="Reseller" name="reseller" invisible="not is_reseller">
                     <group>
                         <field name="reseller_partner_ids" />
-                        <field name="reselling_product_ids" widget="many2many_tags" options="{'no_create': True}" />
+                        <field
+                            name="reselling_product_ids"
+                            widget="many2many_tags"
+                            options="{'no_create': True}"
+                        />
                     </group>
                 </page>
             </xpath>
@@ -27,7 +31,11 @@
         <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='type_company']" position="after">
-                <filter string="Resellers" name="resellers" domain="[('is_reseller', '=', True)]"/>
+                <filter
+                    string="Resellers"
+                    name="resellers"
+                    domain="[('is_reseller', '=', True)]"
+                />
             </xpath>
         </field>
     </record>
@@ -36,8 +44,15 @@
         <field name="name">Resellers</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">kanban,list,form</field>
-        <field name="context">{'default_is_reseller': True, 'search_default_resellers': True}</field>
+        <field
+            name="context"
+        >{'default_is_reseller': True, 'search_default_resellers': True}</field>
     </record>
 
-    <menuitem id="reseller_menu" parent="argocd_deployer.argocd_root_menu" action="reseller_action" sequence="35"/>
+    <menuitem
+        id="reseller_menu"
+        parent="argocd_deployer.argocd_root_menu"
+        action="reseller_action"
+        sequence="35"
+    />
 </odoo>

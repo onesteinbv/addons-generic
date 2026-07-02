@@ -4,7 +4,7 @@
     "category": "Website",
     "version": "18.0.1.0.0",
     "author": "Onestein",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "license": "AGPL-3",
     "depends": ["website_project_generic_role_members", "website_partner_privacy"],
     "data": [

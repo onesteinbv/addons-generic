@@ -4,7 +4,7 @@
     "version": "18.0.1.0.0",
     "author": "Onestein",
     "license": "AGPL-3",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "depends": ["website_event", "website_altcha"],
     "assets": {
         "web.assets_frontend": [

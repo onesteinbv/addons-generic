@@ -1,10 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
-    <template id="product_share_buttons" inherit_id="website_sale.product_share_buttons">
+    <template
+        id="product_share_buttons"
+        inherit_id="website_sale.product_share_buttons"
+    >
         <xpath expr="//a[hasclass('s_share_email')]" position="before">
-            <a t-if="not _exclude_share_links or not 'reddit' in _exclude_share_links" href="https://reddit.com/submit?url={url}&amp;title={title}" class="s_share_reddit" target="_blank" aria-label="Reddit">
-                <img src="/website_sale_share_reddit/static/img/icons/reddit.svg" class="fa social-media-icon rounded shadow-sm" alt="social-media-icon"/>
+            <a
+                t-if="not _exclude_share_links or not 'reddit' in _exclude_share_links"
+                href="https://reddit.com/submit?url={url}&amp;title={title}"
+                class="s_share_reddit"
+                target="_blank"
+                aria-label="Reddit"
+            >
+                <img
+                    src="/website_sale_share_reddit/static/img/icons/reddit.svg"
+                    class="fa social-media-icon rounded shadow-sm"
+                    alt="social-media-icon"
+                />
             </a>
         </xpath>
     </template>
@@ -12,7 +24,8 @@
     <record id="s_share_000_scss" model="ir.asset">
         <field name="name">Share Reddit 000 SCSS</field>
         <field name="bundle">web.assets_frontend</field>
-        <field name="path">website_sale_share_reddit/static/src/snippets/s_share/000.scss</field>
+        <field
+            name="path"
+        >website_sale_share_reddit/static/src/snippets/s_share/000.scss</field>
     </record>
-
 </odoo>

@@ -8,4 +8,4 @@ class AccountMove(models.Model):
         self.filtered(lambda i: i.subscription_id).mapped(
             "subscription_id"
         )._invoice_paid_hook()
-        return super(AccountMove, self)._invoice_paid_hook()
+        return super()._invoice_paid_hook()

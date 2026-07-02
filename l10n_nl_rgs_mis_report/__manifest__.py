@@ -6,7 +6,7 @@
     "version": "18.0.1.0.0",
     "category": "Accounting/Localizations/Account Charts",
     "author": "Onestein",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "depends": ["l10n_nl_rgs", "mis_builder"],
     "countries": ["nl"],
     "data": [

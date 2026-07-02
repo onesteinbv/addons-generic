@@ -5,7 +5,7 @@
     "summary": "Manage municipality informations on contacts",
     "version": "18.0.1.0.0",
     "category": "Partner Management",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "author": "Onestein",
     "license": "AGPL-3",
     "depends": [

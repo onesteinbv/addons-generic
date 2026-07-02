@@ -13,11 +13,21 @@
     }
 
     // Toggle display based on snippet option classes
-    &.mg_show_image .mg_image_col      { display: block; }
-    &.mg_show_top .mg_top_block        { display: block; }
-    &.mg_show_bottom .mg_bottom_block  { display: block; }
-    &.mg_show_committee .mg_committee_col { display: block; }
-    &.mg_show_team .mg_team_col        { display: block; }
+    &.mg_show_image .mg_image_col {
+        display: block;
+    }
+    &.mg_show_top .mg_top_block {
+        display: block;
+    }
+    &.mg_show_bottom .mg_bottom_block {
+        display: block;
+    }
+    &.mg_show_committee .mg_committee_col {
+        display: block;
+    }
+    &.mg_show_team .mg_team_col {
+        display: block;
+    }
 }
 
 /* =======================================================================
@@ -59,19 +69,27 @@
 }
 
 /* Animation for expanding descriptions */
-#mg_members_row.mg_collapse_desc:not(.mg_layout_grid) .mg_member_description:not(.d-none) {
+#mg_members_row.mg_collapse_desc:not(.mg_layout_grid)
+    .mg_member_description:not(.d-none) {
     display: block !important;
     animation: slideDown 0.3s ease-in-out;
 }
 
-
 @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .mg_accordion_indicator i {
-    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    transition:
+        transform 0.2s ease-in-out,
+        color 0.2s ease-in-out;
     display: inline-block;
 }
 
@@ -122,7 +140,8 @@
 
 /* --- CARDS * LOGOS LAYOUT --- */
 #mg_members_row {
-    &.mg_layout_cards, &.mg_layout_logos {
+    &.mg_layout_cards,
+    &.mg_layout_logos {
         .mg_member_list {
             gap: 0.75rem;
             padding: 0.75rem;
@@ -150,7 +169,8 @@
     }
 
     &.mg_layout_logos {
-        img, .mg_member_img {
+        img,
+        .mg_member_img {
             width: auto !important;
             max-width: 200px !important;
         }
@@ -174,10 +194,16 @@
    RESPONSIVE BREAKPOINTS
    ======================================================================= */
 @include media-breakpoint-down(sm) {
-    #mg_members_row.mg_layout_logos .mg_member_item { flex: 1 1 calc(50% - 0.5rem); }
+    #mg_members_row.mg_layout_logos .mg_member_item {
+        flex: 1 1 calc(50% - 0.5rem);
+    }
 }
 
 @include media-breakpoint-down(md) {
-    #mg_members_row.mg_layout_cards .mg_member_item { flex: 1 1 100%; }
-    #mg_members_row.mg_layout_logos .mg_member_item { flex: 1 1 calc(50% - 1rem); }
+    #mg_members_row.mg_layout_cards .mg_member_item {
+        flex: 1 1 100%;
+    }
+    #mg_members_row.mg_layout_logos .mg_member_item {
+        flex: 1 1 calc(50% - 1rem);
+    }
 }

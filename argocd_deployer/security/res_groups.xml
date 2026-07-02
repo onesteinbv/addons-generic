@@ -2,6 +2,6 @@
 <odoo>
     <record id="group_report_stats" model="res.groups">
         <field name="name">Application Statistics Reporter</field>
-        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="category_id" ref="base.module_category_hidden" />
     </record>
 </odoo>

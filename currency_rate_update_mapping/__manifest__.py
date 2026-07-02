@@ -3,8 +3,8 @@
 {
     "name": "Currency Rate Update Mapping",
     "version": "18.0.1.0.0",
-    "author": "Onestein BV",
-    "website": "https://www.onestein.nl",
+    "author": "Onestein",
+    "website": "https://onestein.nl",
     "license": "AGPL-3",
     "category": "Financial Management/Configuration",
     "summary": "Allows to add mappings for currency rate providers",

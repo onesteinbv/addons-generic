@@ -4,8 +4,8 @@
         <t t-set="head_web" position="inside">
             <script type="text/javascript">
                 odoo.auto_attachment_preview = "<t
-                    t-out="request.env.user.auto_attachment_preview"
-                />";
+                t-out="request.env.user.auto_attachment_preview"
+            />";
             </script>
         </t>
     </template>

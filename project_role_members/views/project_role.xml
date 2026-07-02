@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="project_role.project_role_view_tree" />
         <field name="arch" type="xml">
             <field name="complete_name" position="after">
-                <field name="is_manager"/>
+                <field name="is_manager" />
             </field>
         </field>
     </record>
@@ -16,7 +16,7 @@
         <field name="inherit_id" ref="project_role.project_role_view_form" />
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="is_manager"/>
+                <field name="is_manager" />
             </field>
         </field>
     </record>

@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import MissingError
 
 
@@ -43,7 +43,7 @@ class ApplicationStat(models.Model):
         )  # sudo so we don't have to give access to argocd.application which can contain sensitive information
         if not application:
             raise MissingError(
-                "Application with name `%s` doesn't exist" % application_name
+                _("Application with name `%s` doesn't exist") % application_name
             )
         type_ids = {}
         to_create = []
@@ -55,7 +55,7 @@ class ApplicationStat(models.Model):
                 )
                 if not stat_type:
                     raise MissingError(
-                        "Statistics Type with key `%s` doesn't exist" % stat_type_key
+                        _("Statistics Type with key `%s` doesn't exist") % stat_type_key
                     )
                 type_ids[stat_type_key] = stat_type.id
             type_id = type_ids[stat_type_key]

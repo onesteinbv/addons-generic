@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_partner_form" model="ir.ui.view">
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='email']" position="after">
-                <field name="membership_email_verification_status" readonly="1"/>
+                <field name="membership_email_verification_status" readonly="1" />
             </xpath>
             <xpath expr="//field[@name='free_member']" position="after">
-                <field name="membership_application_date"/>
+                <field name="membership_application_date" />
             </xpath>
             <xpath expr="//field[@name='member_lines']" position="before">
                 <group name="website_description">
-                    <field name="website_description" string="Bio"/>
+                    <field name="website_description" string="Bio" />
                 </group>
             </xpath>
         </field>
@@ -36,7 +36,9 @@
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="attributes">
-                <attribute name="filter_domain">['|', '|', '|', '|', '|',('name', 'ilike', self), ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self), ('vat', 'ilike', self), ('company_registry', 'ilike', self)]</attribute>
+                <attribute
+                    name="filter_domain"
+                >['|', '|', '|', '|', '|',('name', 'ilike', self), ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self), ('vat', 'ilike', self), ('company_registry', 'ilike', self)]</attribute>
             </xpath>
         </field>
     </record>
@@ -46,9 +48,10 @@
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="attributes">
-                <attribute name="filter_domain">['|', '|', '|', '|', '|',('name', 'ilike', self), ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self), ('vat', 'ilike', self), ('company_registry', 'ilike', self)]</attribute>
+                <attribute
+                    name="filter_domain"
+                >['|', '|', '|', '|', '|',('name', 'ilike', self), ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self), ('vat', 'ilike', self), ('company_registry', 'ilike', self)]</attribute>
             </xpath>
         </field>
     </record>
-
 </odoo>

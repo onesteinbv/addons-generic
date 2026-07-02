@@ -1,7 +1,7 @@
 {
     "name": "Mass mailing help",
     "author": "Onestein",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "category": "Email Marketing",
     "version": "18.0.1.0.0",
     "license": "AGPL-3",

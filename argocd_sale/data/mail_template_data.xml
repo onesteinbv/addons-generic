@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
     <record id="deployment_notification_mail_template" model="mail.template">
         <field name="name">ArgoCD: Deployment Notification (for partner)</field>

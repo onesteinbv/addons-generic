@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
     <menuitem
         name="Applications"
         parent="membership.menu_marketing_config_association"
-        id="menu_applications" action="hr_recruitment.crm_case_categ0_act_job" />
-
+        id="menu_applications"
+        action="hr_recruitment.crm_case_categ0_act_job"
+    />
 </odoo>

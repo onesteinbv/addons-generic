@@ -33,7 +33,7 @@ class PaymentPortal(payment_portal):
         donation_options=None,
         donation_descriptions=None,
         is_donation=False,
-        **kwargs
+        **kwargs,
     ):
         donation_frequency = kwargs.pop("donation_frequency", False)
         if donation_frequency:
@@ -42,7 +42,7 @@ class PaymentPortal(payment_portal):
             donation_options=donation_options,
             donation_descriptions=donation_descriptions,
             is_donation=is_donation,
-            **kwargs
+            **kwargs,
         )
         if is_donation:
             if donation_frequency and donation_frequency == "monthly":
@@ -92,5 +92,5 @@ class PaymentPortal(payment_portal):
             partner_id=partner_id,
             *args,
             custom_create_values=custom_create_values,
-            **kwargs
+            **kwargs,
         )

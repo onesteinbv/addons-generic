@@ -13,7 +13,9 @@
                         </div>
                         <div class="o_setting_right_pane">
                             <label for="helpdesk_mgmt_send_email_on_ticket_creation" />
-                            <div class="text-muted">Send email on ticket creation to contact</div>
+                            <div
+                                class="text-muted"
+                            >Send email on ticket creation to contact</div>
                         </div>
                     </div>
                 </div>

@@ -4,11 +4,10 @@
     "name": "Recurring donations",
     "version": "18.0.1.0.0",
     "author": "Onestein",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "category": "Website",
     "license": "LGPL-3",
     "summary": "Recurring donations",
-    "description": """Recurring donations""",
     "depends": ["website_payment"],
     "data": [
         "data/donation_data.xml",

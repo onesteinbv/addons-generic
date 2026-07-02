@@ -23,7 +23,7 @@ class SaleSubscription(models.Model):
 
     def _compute_access_url(self):
         for record in self:
-            record.access_url = "/my/subscriptions/{}".format(record.id)
+            record.access_url = f"/my/subscriptions/{record.id}"
 
     def action_start_subscription(self):
         self.date_stop = False

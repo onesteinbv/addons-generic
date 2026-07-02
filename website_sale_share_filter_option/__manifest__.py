@@ -5,7 +5,7 @@
     "version": "18.0.1.0.0",
     "author": "Onestein",
     "license": "AGPL-3",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "depends": [
         "website_sale",
         "website_share_filter_option_technical",
