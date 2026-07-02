@@ -16,7 +16,7 @@ class PaymentTransaction(models.Model):
         # depending on the data we receive (to be interpreted specifically for the provider of the transaction) we may want to
         # get it confirmed and create a subscription (functionality to create a subscription from the SO is provided in OCA module subscription_oca).
         self.ensure_one()
-        res = super(PaymentTransaction, self)._process_notification_data(data)
+        res = super()._process_notification_data(data)
         create_sub_for_sale_order = (
             self.sale_order_ids
             and self.sale_order_ids[0].group_subscription_lines()
