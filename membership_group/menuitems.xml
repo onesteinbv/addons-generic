@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
     <menuitem
         id="membership_group_top_menu"
         name="Groups"
@@ -36,5 +35,4 @@
         action="action_membership_group_voting_member"
         parent="membership_group.membership_group_reporting_menu"
     />
-
 </odoo>
