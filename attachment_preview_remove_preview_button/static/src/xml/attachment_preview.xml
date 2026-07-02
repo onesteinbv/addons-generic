@@ -6,7 +6,9 @@
         t-inherit-mode="extension"
         owl="1"
     >
-        <xpath expr="//button[@t-if='this._canPreviewAttachment(attachment)'][1]" position="replace">
-        </xpath>
+        <xpath
+            expr="//button[@t-if='this._canPreviewAttachment(attachment)'][1]"
+            position="replace"
+        />
     </t>
 </templates>
