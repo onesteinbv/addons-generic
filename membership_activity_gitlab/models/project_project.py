@@ -5,7 +5,7 @@ from functools import wraps
 import dateutil
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, exceptions, fields, models
+from odoo import _, api, exceptions, fields, models
 
 from odoo.addons.queue_job.exception import RetryableJobError
 
@@ -50,7 +50,7 @@ class Project(models.Model):
                 expression, project.gitlab_full_name
             ):
                 raise exceptions.ValidationError(
-                    "Gitlab Fullname must be in the format 'namespace/projectname'"
+                    _("Gitlab Fullname must be in the format 'namespace/projectname'")
                 )
 
     @api.model
