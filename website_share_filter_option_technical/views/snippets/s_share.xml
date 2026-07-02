@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <template id="s_share" name="Share" inherit_id="website.s_share">
         <xpath expr="//h4" position="before">
-            <t t-set="_exclude_share_links" t-value="env['website'].get_current_website().get_exclude_share_links()"/>
+            <t
+                t-set="_exclude_share_links"
+                t-value="env['website'].get_current_website().get_exclude_share_links()"
+            />
         </xpath>
     </template>
-
 </odoo>
