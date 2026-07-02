@@ -1,5 +1,4 @@
-Netherlands - RGS Accounting
-============================
+# Netherlands - RGS Accounting
 
 This module contains the Dutch Chart of Accounts: “Referentie GrootboekSchema” (RGS).
 
