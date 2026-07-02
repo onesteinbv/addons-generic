@@ -4,7 +4,8 @@ from odoo import _, http
 from odoo.exceptions import AccessError, MissingError, UserError, ValidationError
 from odoo.http import request
 
-from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
+from odoo.addons.portal.controllers.portal import CustomerPortal
+from odoo.addons.portal.controllers.portal import pager as portal_pager
 
 _logger = logging.getLogger(__name__)
 
@@ -45,9 +46,7 @@ class CustomerPortalController(CustomerPortal):
         if customer.reseller_id != reseller_partner:
             raise AccessError(_("You don't have permission to access this customer."))
 
-        return (
-            customer.sudo()
-        )  # We return sudoed record to bypass access rights in the templates, since we have already checked access
+        return customer.sudo()  # We return sudoed record to bypass access rights in the templates, since we have already checked access
 
     def _validate_form_data(self, data):
         errors = {}
