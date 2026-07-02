@@ -9,10 +9,9 @@ WebsiteMembershipRegistration.include({
      */
     _onWebsitePrivacyChange: function () {
         var $website_privacy = this.$('select[name="member_website_privacy"]');
-        var website_privacy = ($website_privacy.val() || "");
-        if(website_privacy === "anonymous"){
-            this.$('input[name="member_publish"]').prop('checked', false);
+        var website_privacy = $website_privacy.val() || "";
+        if (website_privacy === "anonymous") {
+            this.$('input[name="member_publish"]').prop("checked", false);
         }
     },
-
 });
