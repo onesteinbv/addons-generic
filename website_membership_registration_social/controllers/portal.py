@@ -11,9 +11,9 @@ class CustomerPortalMembership(CustomerPortal):
         return optional_fields
 
     def details_form_validate(self, data, partner_creation=False):
-        error, error_message = super(
-            CustomerPortalMembership, self
-        ).details_form_validate(data, partner_creation=partner_creation)
+        error, error_message = super().details_form_validate(
+            data, partner_creation=partner_creation
+        )
         if data.get("telegram") and not (
             all(c.isalnum() or c in ["_", "@"] for c in data["telegram"])
         ):
