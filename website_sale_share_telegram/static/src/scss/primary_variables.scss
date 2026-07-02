@@ -1,2 +1,6 @@
-
-$o-social-colors: map-merge(('telegram': #32a9df), $o-social-colors);
+$o-social-colors: map-merge(
+    (
+        "telegram": #32a9df,
+    ),
+    $o-social-colors
+);
