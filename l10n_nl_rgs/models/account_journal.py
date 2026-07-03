@@ -51,6 +51,7 @@ class AccountJournal(models.Model):
             lambda j: j.company_id.chart_template == "nl_rgs"
         ):
             subtype_code_mapping = {
+                "general_accr": "ACCR",
                 "general_wag": "WAG",
                 "general_depr": "DEPR",
                 "general_fcr": "FCR",

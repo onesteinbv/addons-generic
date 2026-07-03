@@ -248,6 +248,7 @@ class AccountChartTemplate(models.AbstractModel):
         """Set the allowed journals for the group"""
         # NOTE: Migrated from 16 not sure why the subtype is not used directly like rgs_allowed_journals_subtype
         code_subtype_mapping = {
+            "ACCR": "general_accr",
             "WAG": "general_wag",
             "DEPR": "general_depr",
             "FCR": "general_fcr",
