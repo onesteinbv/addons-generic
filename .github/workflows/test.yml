@@ -24,6 +24,7 @@ jobs:
           - 5432:5432
     env:
       OCA_ENABLE_CHECKLOG_ODOO: "1"
+      EXCLUDE: "mail_raise_log_level"
     steps:
       - uses: actions/checkout@v4
         with:

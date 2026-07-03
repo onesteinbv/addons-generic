@@ -33,7 +33,10 @@
             name="subscription_template_id"
             ref="argocd_sale.demo_subscription_template"
         />
-        <field name="application_set_id" ref="argocd_deployer.application_set_default" />
+        <field
+            name="application_set_id"
+            ref="argocd_deployer.application_set_default"
+        />
     </record>
     <record id="demo_product_premium_product_template" model="product.template">
         <field name="name">Product Premium</field>

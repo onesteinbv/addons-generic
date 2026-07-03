@@ -67,9 +67,7 @@ class TestApplicationDomain(TransactionCase):
 
     def test_create_domain(self):
         argocd_application_domain = self.env["argocd.application.domain"]
-        argocd_application_domain.create_domain(
-            self.app_1, "myapp", scope="dn"
-        )
+        argocd_application_domain.create_domain(self.app_1, "myapp", scope="dn")
         domain = argocd_application_domain.create_domain(
             self.app_1, "myapp", scope="odoo"
         )
