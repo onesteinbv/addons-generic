@@ -24,6 +24,13 @@ class TestApplicationDomain(TransactionCase):
                 "application_set_id": application_set_id,
             }
         )
+        cls.app_3 = cls.env["argocd.application"].create(
+            {
+                "name": "myapp3",
+                "template_id": app_template_id,
+                "application_set_id": application_set_id,
+            }
+        )
 
     def test_uniqueness(self):
         argocd_application_domain = self.env["argocd.application.domain"]
@@ -61,7 +68,7 @@ class TestApplicationDomain(TransactionCase):
     def test_create_domain(self):
         argocd_application_domain = self.env["argocd.application.domain"]
         argocd_application_domain.create_domain(
-            self.app_1, "myapp", scope="dn", scope_unique=True
+            self.app_1, "myapp", scope="dn"
         )
         domain = argocd_application_domain.create_domain(
             self.app_1, "myapp", scope="odoo"
@@ -74,22 +81,13 @@ class TestApplicationDomain(TransactionCase):
         domain = argocd_application_domain.create_domain(
             self.app_1, "myapp", scope="nc"
         )
-        self.assertEqual(
-            domain,
-            "myapp1",
-            "Same application but different scope should make unique domain",
-        )
-
+        self.assertEqual(domain, "myapp", "Domain should not bother with other scopes")
         domain = argocd_application_domain.create_domain(
-            self.app_2, "myapp", scope="nc"
-        )
-        self.assertEqual(domain, "myapp2")
-        domain = argocd_application_domain.create_domain(
-            self.app_2, "myapp", "customerx", scope="otherscope"
+            self.app_2, "myapp", "customerx", scope="nc"
         )
         self.assertEqual(domain, "customerx", "Alternative should have been used")
         domain = argocd_application_domain.create_domain(
-            self.app_2, "myapp", "customerx", "another", scope="anotherscope"
+            self.app_3, "myapp", "customerx", "another", scope="nc"
         )
         self.assertEqual(domain, "another", "Second alternative should have been used")
 
@@ -132,7 +130,7 @@ class TestApplicationDomain(TransactionCase):
         self.assertEqual(domain, "myapp1.saas.com", "it should change the subdomain")
 
         domain = argocd_application_domain.create_domain(
-            self.app_1, "myapp.saas.com", scope="matomo"
+            self.app_3, "myapp.saas.com", scope="website"
         )
         self.assertEqual(domain, "myapp2.saas.com", "it should change the subdomain")
 

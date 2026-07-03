@@ -75,9 +75,6 @@ class TestApplication(TransactionCase):
             mock_get_repository.assert_called_once()
             mock_remote.pull.assert_called_once()
             mock_deploy_files.assert_called_once()
-            mock_repository.commit.called_once_with(
-                mock_repository, "Added `test-set`", ["application_set.yaml"]
-            )
             mock_remote.push.assert_called_once()
 
     def test_immediate_destroy(self):
@@ -100,9 +97,6 @@ class TestApplication(TransactionCase):
             mock_get_repository.assert_called_once()
             mock_remote.pull.assert_called_once()
             mock_destroy_files.assert_called_once()
-            mock_repository.commit.called_once_with(
-                mock_repository, "Removed `test-set`", ["application_set.yaml"]
-            )
             mock_remote.push.assert_called_once()
 
     def test_search_is_deployed(self):
