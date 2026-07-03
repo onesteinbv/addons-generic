@@ -12,30 +12,11 @@ class TestApplicationSet(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.application_set_template = cls.env[
-            "argocd.application.set.template"
-        ].create(
-            {
-                "name": "test-template",
-                "yaml": """
-apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
-metadata:
-  repoURL: {{.config.repository_url}}
-  revision: {{.config.branch}}
-  path: {{.config.deployment_directory}}
-  template-path: {{.path.path}}
-  destination:
-    namespace: {{.application_set.namespace_prefix}}{{.path.basename}}
-""",
-            }
-        )
         cls.application_set = cls.env["argocd.application.set"].create(
             {
                 "name": "test-set",
                 "repository_url": "git@github.com:odoo/odoo.git",
                 "branch": "Olive",
-                "template_id": cls.application_set_template.id,
                 "repository_directory": "/home/test",
                 "deployment_directory": "instances",
                 "namespace_prefix": "app-",
@@ -68,9 +49,3 @@ metadata:
                 self.application_set._get_application_deployment_directory(
                     "john", "error"
                 )
-
-    def test_get_argocd_template(self):
-        """Test that the template is rendered correctly"""
-        yaml = self.application_set._get_argocd_template()
-        self.assertIn("Olive", yaml)
-        self.assertIn("app-", yaml)
