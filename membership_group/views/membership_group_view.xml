@@ -67,6 +67,7 @@
                                         domain="[('membership_state', 'in', ['invoiced', 'paid', 'free'])]"
                                     />
                                     <field name="group_id" optional="hide" />
+                                    <field name="wants_to_collaborate" />
                                     <field name="date_from" optional="show" />
                                     <field name="date_to" optional="show" />
                                     <field name="date_end" optional="show" />
@@ -77,7 +78,6 @@
                                         string="Change Type"
                                         invisible="state != 'current' or not create_date"
                                     />
-                                    <field name="wants_to_collaborate" />
                                     <button
                                         type="object"
                                         name="action_revoke_membership"
