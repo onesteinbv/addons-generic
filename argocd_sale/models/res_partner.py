@@ -61,7 +61,7 @@ class ResPartner(models.Model):
                     )
                 )
 
-    @api.constrains("child_ids", "parent_id", "parent_id.is_reseller")
+    @api.constrains("child_ids", "parent_id")
     def _check_reseller_partner_ids(self):
         """
         If the parent is a reseller we won't allow child partners, this enforces a simple hierarchy and avoids misconfiguration.
