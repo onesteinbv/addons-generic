@@ -28,7 +28,7 @@
 "account_group_95","Mutatie fiscale oudedagsreserve","95","WMfo","Z.09","MISC",,"account_group_W",,
 "account_group_90","Nettoresultaat","90","WNer","Z.08","MISC",,"account_group_W",,
 "account_group_80_5","Netto resultaat overige activiteiten","80.5","WNoa","O.N","MISC","bank,sale","account_group_W",,
-"account_group_80","Netto-omzet","80","WOmz","O",,"sale","account_group_W",,
+"account_group_80","Netto-omzet","80","WOmz","O","MISC","sale","account_group_W",,
 "account_group_44","Overige organisatiekosten","44","WOok","O.O","MISC","purchase","account_group_W",,
 "account_group_82","Overige bedrijfsopbrengsten","82","WOvb","R","MISC","bank,sale","account_group_W",,
 "account_group_45","Opbrengst van vorderingen die tot de vaste activa behoren en van effecten","45","WOvt","X","MISC","bank,sale","account_group_W",,
