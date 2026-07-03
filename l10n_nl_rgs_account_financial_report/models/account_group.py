@@ -15,14 +15,14 @@ class AccountGroup(models.Model):
     @api.depends("name", "parent_id.complete_name")
     def _compute_complete_name(self):
         if self.company_id.chart_template != "nl_rgs":
-            return super(AccountGroup, self)._compute_complete_name()
+            return super()._compute_complete_name()
         for group in self:
             group.complete_name = group.name
 
     @api.depends("code_prefix_start", "parent_id.complete_code", "code")
     def _compute_complete_code(self):
         if self.company_id.chart_template != "nl_rgs":
-            return super(AccountGroup, self)._compute_complete_code()
+            return super()._compute_complete_code()
         for group in self:
             group.complete_code = group.code
 
@@ -36,7 +36,7 @@ class AccountGroup(models.Model):
     )
     def _compute_group_accounts(self):
         if self.company_id.chart_template != "nl_rgs":
-            return super(AccountGroup, self)._compute_group_accounts()
+            return super()._compute_group_accounts()
         for group in self:
             gr_accounts = group.get_all_account_ids()
             group.compute_account_ids = [(6, 0, gr_accounts.ids)]

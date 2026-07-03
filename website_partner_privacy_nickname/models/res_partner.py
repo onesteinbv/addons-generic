@@ -40,7 +40,7 @@ class ResPartner(models.Model):
         return super().write(vals)
 
     def _get_complete_name(self):
-        name = super(ResPartner, self)._get_complete_name()
+        name = super()._get_complete_name()
         if self._context.get("website_id"):
             if (
                 self.website_privacy

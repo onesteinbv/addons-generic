@@ -33,6 +33,4 @@ class SaleSubscription(models.Model):
                     next_date = next_date.replace(day=1, month=1)
                 self.recurring_next_date = next_date
             else:
-                return super(SaleSubscription, self).calculate_recurring_next_date(
-                    start_date
-                )
+                return super().calculate_recurring_next_date(start_date)

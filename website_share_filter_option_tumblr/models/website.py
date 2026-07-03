@@ -8,7 +8,7 @@ class Website(models.Model):
 
     def get_exclude_share_links(self, default=None):
         self.ensure_one()
-        res = super(Website, self).get_exclude_share_links(default=default or [])
+        res = super().get_exclude_share_links(default=default or [])
         if not self.share_tumblr:
             res.append("tumblr")
         return res

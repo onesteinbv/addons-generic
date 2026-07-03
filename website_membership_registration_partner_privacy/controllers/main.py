@@ -7,9 +7,9 @@ from odoo.addons.website_membership_registration.controllers.main import (
 
 class MembershipRegistrationControllerPrivacy(MembershipRegistrationController):
     def _get_partner_and_validation_data(self, post):
-        partner_data, validation_data, error_data = super(
-            MembershipRegistrationControllerPrivacy, self
-        )._get_partner_and_validation_data(post)
+        partner_data, validation_data, error_data = (
+            super()._get_partner_and_validation_data(post)
+        )
         (
             partner_data["member_publish"],
             validation_data["member_publish"],
@@ -23,9 +23,7 @@ class MembershipRegistrationControllerPrivacy(MembershipRegistrationController):
         return partner_data, validation_data, error_data
 
     def _get_new_member_vals_dict(self, partner_data):
-        vals = super(
-            MembershipRegistrationControllerPrivacy, self
-        )._get_new_member_vals_dict(partner_data)
+        vals = super()._get_new_member_vals_dict(partner_data)
         vals["is_published"] = partner_data["member_publish"]
         vals["website_privacy"] = partner_data["member_website_privacy"]
         return vals
@@ -33,9 +31,7 @@ class MembershipRegistrationControllerPrivacy(MembershipRegistrationController):
     def _get_membership_form_page_vals(
         self, is_logged, product, old_data=None, error_message="", errors=None
     ):
-        vals = super(
-            MembershipRegistrationControllerPrivacy, self
-        )._get_membership_form_page_vals(
+        vals = super()._get_membership_form_page_vals(
             is_logged,
             product,
             old_data=old_data,

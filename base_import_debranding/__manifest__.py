@@ -4,7 +4,7 @@
     "summary": "Debrands import module (base_import)",
     "author": "Onestein",
     "license": "AGPL-3",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "category": "Technical Settings",
     "version": "18.0.1.0.0",
     "depends": ["base_import"],

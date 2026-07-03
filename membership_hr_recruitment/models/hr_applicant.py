@@ -12,7 +12,7 @@ class HRApplicant(models.Model):
     )
 
     def create_employee_from_applicant(self):
-        res = super(HRApplicant, self).create_employee_from_applicant()
+        res = super().create_employee_from_applicant()
         if self.membership_applicant:
             if "context" in res and isinstance(res["context"], str):
                 context = ast.literal_eval(res["context"])

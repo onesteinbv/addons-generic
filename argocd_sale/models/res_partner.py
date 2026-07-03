@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -29,11 +29,11 @@ class ResPartner(models.Model):
             if not partner.is_reseller:
                 if partner.reselling_product_ids:
                     raise ValidationError(
-                        "A non-reseller partner cannot have reselling products."
+                        _("A non-reseller partner cannot have reselling products.")
                     )
                 if partner.reseller_partner_ids:
                     raise ValidationError(
-                        "A non-reseller partner cannot have reseller partners."
+                        _("A non-reseller partner cannot have reseller partners.")
                     )
 
     @api.constrains("is_reseller", "reseller_id", "parent_id")
@@ -44,15 +44,21 @@ class ResPartner(models.Model):
         for partner in self:
             if partner.is_reseller and partner.reseller_id:
                 raise ValidationError(
-                    "A partner cannot be a reseller and have a reseller at the same time."
+                    _(
+                        "A partner cannot be a reseller and have a reseller at the same time."
+                    )
                 )
             if partner.is_reseller and partner.parent_id:
                 raise ValidationError(
-                    "A partner cannot be a reseller and have a parent at the same time."
+                    _(
+                        "A partner cannot be a reseller and have a parent at the same time."
+                    )
                 )
             if partner.reseller_id and partner.parent_id:
                 raise ValidationError(
-                    "A partner with a parent cannot have a reseller. Configure the reseller on the parent partner instead."
+                    _(
+                        "A partner with a parent cannot have a reseller. Configure the reseller on the parent partner instead."
+                    )
                 )
 
     @api.constrains("child_ids", "parent_id", "parent_id.is_reseller")
@@ -68,7 +74,7 @@ class ResPartner(models.Model):
                 and partner.child_ids
             ):
                 raise ValidationError(
-                    "A partner with a reseller parent cannot have child partners."
+                    _("A partner with a reseller parent cannot have child partners.")
                 )
 
     def to_valid_subdomain(self):

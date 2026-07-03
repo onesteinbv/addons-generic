@@ -1,12 +1,11 @@
 import publicWidget from "@web/legacy/js/public/public_widget";
 
-
 // Simple health check good enough for simple users (use argocd for better insight)
 publicWidget.registry.HealthCheck = publicWidget.Widget.extend({
     selector: ".o_portal_wrap .js_health_check",
 
     init: function () {
-        this._super(...arguments)
+        this._super(...arguments);
         this.orm = this.bindService("orm");
     },
 
@@ -19,19 +18,21 @@ publicWidget.registry.HealthCheck = publicWidget.Widget.extend({
         var $el = this.$el;
         var appId = $el.attr("data-app-id");
 
-        this.orm.call("argocd.application", "check_health", [[parseInt(appId, 10)]]).then(function (healthStatuses) {
-            $el.html("");
-            for (var i in healthStatuses) {
-                var $statusEl = $("<i class='fa fa-fw' />");
-                if (healthStatuses[i]) {
-                    $statusEl.addClass(["fa-heart", "text-success"]);
-                } else {
-                    $statusEl.addClass(["fa-times", "text-danger"]);
+        this.orm
+            .call("argocd.application", "check_health", [[parseInt(appId, 10)]])
+            .then(function (healthStatuses) {
+                $el.html("");
+                for (var i in healthStatuses) {
+                    var $statusEl = $("<i class='fa fa-fw' />");
+                    if (healthStatuses[i]) {
+                        $statusEl.addClass(["fa-heart", "text-success"]);
+                    } else {
+                        $statusEl.addClass(["fa-times", "text-danger"]);
+                    }
+                    $el.append($statusEl);
                 }
-                $el.append($statusEl);
-            }
-        });
-    }
+            });
+    },
 });
 
 publicWidget.registry.PortalHomeCounters.include({
@@ -52,7 +53,7 @@ publicWidget.registry.DomainCNAMECheck = publicWidget.Widget.extend({
     },
 
     init: function () {
-        this._super(...arguments)
+        this._super(...arguments);
         this.orm = this.bindService("orm");
     },
 
@@ -95,27 +96,34 @@ publicWidget.registry.DomainCNAMECheck = publicWidget.Widget.extend({
         this.$buttonIcon.removeClass("fa-check");
         this.$buttonIcon.addClass("spinner-grow");
 
-        return this.orm.call(
-            "argocd.application", "dns_cname_check", [this.appId, domain, this.tagId]
-        ).then(function (res) {
-            self.$validFeedback.toggleClass("d-none", !res);
-            self.$invalidFeedback.toggleClass("d-none", res);
-            self.$input.toggleClass("is-invalid", !res);
-            self.$input.toggleClass("is-valid", res);
-            self.$button.removeAttr("disabled");
-            self.$buttonIcon.removeClass("spinner-grow");
-            self.$buttonIcon.addClass("fa-check");
-        }, function (err) {
-            self.$invalidFeedback.html(err.message.data.message);
-            self.$validFeedback.addClass("d-none");
-            self.$invalidFeedback.removeClass("d-none");
-            self.$input.removeClass("is-valid");
-            self.$input.addClass("is-invalid");
-            self.$button.removeAttr("disabled");
-            self.$buttonIcon.removeClass("spinner-grow");
-            self.$buttonIcon.addClass("fa-check");
-        });
-    }
+        return this.orm
+            .call("argocd.application", "dns_cname_check", [
+                this.appId,
+                domain,
+                this.tagId,
+            ])
+            .then(
+                function (res) {
+                    self.$validFeedback.toggleClass("d-none", !res);
+                    self.$invalidFeedback.toggleClass("d-none", res);
+                    self.$input.toggleClass("is-invalid", !res);
+                    self.$input.toggleClass("is-valid", res);
+                    self.$button.removeAttr("disabled");
+                    self.$buttonIcon.removeClass("spinner-grow");
+                    self.$buttonIcon.addClass("fa-check");
+                },
+                function (err) {
+                    self.$invalidFeedback.html(err.message.data.message);
+                    self.$validFeedback.addClass("d-none");
+                    self.$invalidFeedback.removeClass("d-none");
+                    self.$input.removeClass("is-valid");
+                    self.$input.addClass("is-invalid");
+                    self.$button.removeAttr("disabled");
+                    self.$buttonIcon.removeClass("spinner-grow");
+                    self.$buttonIcon.addClass("fa-check");
+                }
+            );
+    },
 });
 
 publicWidget.registry.SignupForm = publicWidget.Widget.extend({
@@ -152,5 +160,5 @@ publicWidget.registry.SignupForm = publicWidget.Widget.extend({
         } else {
             this.$customerSelection.hide();
         }
-    }
+    },
 });

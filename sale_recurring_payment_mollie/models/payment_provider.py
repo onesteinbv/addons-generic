@@ -18,7 +18,7 @@ class PaymentAcquirerMollie(models.Model):
             return self._mollie_make_request(
                 "/customers", data=customer_data, method="POST"
             )
-        return super(PaymentAcquirerMollie, self)._api_mollie_create_customer_id()
+        return super()._api_mollie_create_customer_id()
 
     def _mollie_get_supported_methods(
         self, order, invoice, amount, currency, partner_id
@@ -26,7 +26,7 @@ class PaymentAcquirerMollie(models.Model):
         """
         Show only credit card payment method when checkout subscriptions type products
         """
-        methods = super(PaymentAcquirerMollie, self)._mollie_get_supported_methods(
+        methods = super()._mollie_get_supported_methods(
             order, invoice, amount, currency, partner_id
         )
         if (order and order.group_subscription_lines()) or (

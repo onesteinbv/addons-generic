@@ -82,7 +82,7 @@ class PaymentTransaction(models.Model):
             "currency": self.currency_id.name,
             "value": "%.2f" % (self.amount),
         }
-        interval = "{} {}".format(1, DONATION_FREQUENCY_MAP[self.donation_frequency])
+        interval = f"{1} {DONATION_FREQUENCY_MAP[self.donation_frequency]}"
         description = "{} - {}".format(
             self.partner_id.name + "Donation", self.reference
         )
@@ -127,9 +127,7 @@ class PaymentTransaction(models.Model):
         return super()._create_mollie_order_or_payment()
 
     def _mollie_prepare_payment_payload(self, api_type):
-        payment_data, params = super(
-            PaymentTransaction, self
-        )._mollie_prepare_payment_payload(api_type)
+        payment_data, params = super()._mollie_prepare_payment_payload(api_type)
 
         if self._context.get("first_mollie_donation_payment"):
             payment_data.update(

@@ -1,7 +1,7 @@
 {
     "name": "ArgoCD Deployer",
     "author": "Onestein",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "license": "AGPL-3",
     "category": "Tools",
     "version": "18.0.1.3.0",

@@ -1,70 +1,123 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="membership_group_page">
         <t t-call="website.layout">
-            <t t-set="additional_title" t-value="title"/>
-            <div id="wrap"
-                 t-att-data-oe-id="membership_group.id"
-                 t-attf-class="mg_wrap o_editable {{membership_group.website_snippet_wrap_classes or 'mg_show_image mg_show_top mg_show_bottom mg_show_committee mg_show_team'}}">
-                <div class="oe_structure" id="oe_structure_website_membership_group_1"/>
+            <t t-set="additional_title" t-value="title" />
+            <div
+                id="wrap"
+                t-att-data-oe-id="membership_group.id"
+                t-attf-class="mg_wrap o_editable {{membership_group.website_snippet_wrap_classes or 'mg_show_image mg_show_top mg_show_bottom mg_show_committee mg_show_team'}}"
+            >
+                <div
+                    class="oe_structure"
+                    id="oe_structure_website_membership_group_1"
+                />
                 <section class="mg_header_section pt-5 pb-4">
                     <div class="container" name="membership_page">
                         <div class="row" name="description_row">
                             <div class="col-12 text-center mb-4">
-                                <h2 class="fw-bold text-primary" t-field="membership_group.name"/>
-                                <hr class="w-25 mx-auto mt-2 mb-0 mg_divider opacity-50"/>
+                                <h2
+                                    class="fw-bold text-primary"
+                                    t-field="membership_group.name"
+                                />
+                                <hr
+                                    class="w-25 mx-auto mt-2 mb-0 mg_divider opacity-50"
+                                />
                             </div>
                         </div>
-                        <div class="row align-items-start g-4" id="mg_header_row" t-att-data-oe-id="membership_group.id">
-                            <div t-attf-class="text-center mg_image_col {{membership_group.website_header_image_col_classes or 'col-lg-4'}}">
-                                <div t-field="membership_group.image"
-                                     t-options='{"widget": "image", "class": "img-fluid rounded shadow"}'/>
+                        <div
+                            class="row align-items-start g-4"
+                            id="mg_header_row"
+                            t-att-data-oe-id="membership_group.id"
+                        >
+                            <div
+                                t-attf-class="text-center mg_image_col {{membership_group.website_header_image_col_classes or 'col-lg-4'}}"
+                            >
+                                <div
+                                    t-field="membership_group.image"
+                                    t-options='{"widget": "image", "class": "img-fluid rounded shadow"}'
+                                />
                             </div>
-                            <div t-attf-class="mg_desc_col {{membership_group.website_header_desc_col_classes or 'col-lg-8'}} col-12">
-                                <div class="mg_top_block" t-field="membership_group.website_top"/>
+                            <div
+                                t-attf-class="mg_desc_col {{membership_group.website_header_desc_col_classes or 'col-lg-8'}} col-12"
+                            >
+                                <div
+                                    class="mg_top_block"
+                                    t-field="membership_group.website_top"
+                                />
                             </div>
                         </div>
                     </div>
                 </section>
-                <div class="oe_structure" id="oe_structure_website_membership_group_2"/>
+                <div
+                    class="oe_structure"
+                    id="oe_structure_website_membership_group_2"
+                />
                 <section class="mg_members_section py-5">
                     <div class="container">
-                        <div t-attf-class="row g-4 mg_members_row {{membership_group.website_snippet_members_classes or 'mg_layout_grid mg_show_committee_desc mg_show_team_desc'}}"
-                             id="mg_members_row"
-                             t-att-data-oe-id="membership_group.id"
+                        <div
+                            t-attf-class="row g-4 mg_members_row {{membership_group.website_snippet_members_classes or 'mg_layout_grid mg_show_committee_desc mg_show_team_desc'}}"
+                            id="mg_members_row"
+                            t-att-data-oe-id="membership_group.id"
                         >
-                            <t t-set="current_members"
-                               t-value="membership_group.membership_group_member_ids.filtered(lambda m: m.state == 'current')"/>
-                            <div t-attf-class="mg_committee_col {{membership_group.website_committee_col_classes or 'col-lg-4'}}">
+                            <t
+                                t-set="current_members"
+                                t-value="membership_group.membership_group_member_ids.filtered(lambda m: m.state == 'current')"
+                            />
+                            <div
+                                t-attf-class="mg_committee_col {{membership_group.website_committee_col_classes or 'col-lg-4'}}"
+                            >
                                 <div class="card h-100 shadow-sm border-0">
-                                    <div class="card-header border-0 py-3 bg-primary text-white"
-                                         data-name="Committee Header">
-                                        <h5 class="mb-0 fw-semibold">Committee Members</h5>
+                                    <div
+                                        class="card-header border-0 py-3 bg-primary text-white"
+                                        data-name="Committee Header"
+                                    >
+                                        <h5
+                                            class="mb-0 fw-semibold"
+                                        >Committee Members</h5>
                                     </div>
                                     <div class="card-body p-0">
                                         <div>
-                                            <t t-set="committee_members"
-                                               t-value="current_members.filtered(lambda m: m.type == 'committee').mapped('partner_id')"/>
-                                            <t t-call="website_membership_group.membership_group_member_list">
-                                                <t t-set="members" t-value="committee_members"/>
+                                            <t
+                                                t-set="committee_members"
+                                                t-value="current_members.filtered(lambda m: m.type == 'committee').mapped('partner_id')"
+                                            />
+                                            <t
+                                                t-call="website_membership_group.membership_group_member_list"
+                                            >
+                                                <t
+                                                    t-set="members"
+                                                    t-value="committee_members"
+                                                />
                                             </t>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div t-attf-class="mg_team_col {{membership_group.website_team_col_classes or 'col-lg-8'}}">
+                            <div
+                                t-attf-class="mg_team_col {{membership_group.website_team_col_classes or 'col-lg-8'}}"
+                            >
                                 <div class="card h-100 shadow-sm border-0">
-                                    <div class="card-header border-0 py-3 bg-primary text-white"
-                                         data-name="Team Header">
+                                    <div
+                                        class="card-header border-0 py-3 bg-primary text-white"
+                                        data-name="Team Header"
+                                    >
                                         <h5 class="mb-0 fw-semibold">Team Members</h5>
                                     </div>
                                     <div class="card-body p-0">
                                         <div>
-                                            <t t-set="team_members"
-                                               t-value="current_members.filtered(lambda m: m.type != 'committee').mapped('partner_id')"/>
-                                            <t t-call="website_membership_group.membership_group_member_list">
-                                                <t t-set="members" t-value="team_members"/>
+                                            <t
+                                                t-set="team_members"
+                                                t-value="current_members.filtered(lambda m: m.type != 'committee').mapped('partner_id')"
+                                            />
+                                            <t
+                                                t-call="website_membership_group.membership_group_member_list"
+                                            >
+                                                <t
+                                                    t-set="members"
+                                                    t-value="team_members"
+                                                />
                                             </t>
                                         </div>
                                     </div>
@@ -76,59 +129,87 @@
                 <section class="mg_bottom_block pt-3">
                     <div class="container">
                         <div class="row">
-                            <div class="mt-3" t-field="membership_group.website_bottom"/>
+                            <div
+                                class="mt-3"
+                                t-field="membership_group.website_bottom"
+                            />
                         </div>
                     </div>
                 </section>
-                <div class="oe_structure" id="oe_structure_website_membership_group_3"/>
+                <div
+                    class="oe_structure"
+                    id="oe_structure_website_membership_group_3"
+                />
             </div>
         </t>
     </template>
 
     <template id="membership_group_member_list">
-        <t t-set="layout_classes" t-value="membership_group.website_snippet_members_classes if membership_group and membership_group.website_snippet_members_classes else 'mg_layout_grid'"/>
-        <t t-set="is_logos" t-value="'mg_layout_logos' in layout_classes"/>
+        <t
+            t-set="layout_classes"
+            t-value="membership_group.website_snippet_members_classes if membership_group and membership_group.website_snippet_members_classes else 'mg_layout_grid'"
+        />
+        <t t-set="is_logos" t-value="'mg_layout_logos' in layout_classes" />
         <div class="mg_member_list d-flex flex-wrap">
             <t t-foreach="members" t-as="member">
-                <div t-attf-class="mg_member_item p-3 border-bottom-0 #{'mg_has_desc' if not is_html_empty(member.website_description) else ''}"
-                 t-att-data-target-desc="not is_html_empty(member.website_description) and ('mg_desc_%s' % member.id)">
+                <div
+                    t-attf-class="mg_member_item p-3 border-bottom-0 #{'mg_has_desc' if not is_html_empty(member.website_description) else ''}"
+                    t-att-data-target-desc="not is_html_empty(member.website_description) and ('mg_desc_%s' % member.id)"
+                >
                     <div class="d-flex align-items-center gap-3">
                         <t t-if="member.website_published">
-                            <a t-attf-href="/members/#{slug(member)}" class="text-decoration-none mg_clickable_link">
-                                <img t-attf-class="mg_member_img flex-shrink-0 {{ 'object-fit-contain' if is_logos else 'object-fit-cover shadow-sm rounded-1' }}"
-                                     t-att-src="image_data_uri(member.image_128 or member.avatar_128)"
-                                     t-att-alt="member.name"
-                                     style="height: 60px !important;"
-                                     />
+                            <a
+                                t-attf-href="/members/#{slug(member)}"
+                                class="text-decoration-none mg_clickable_link"
+                            >
+                                <img
+                                    t-attf-class="mg_member_img flex-shrink-0 {{ 'object-fit-contain' if is_logos else 'object-fit-cover shadow-sm rounded-1' }}"
+                                    t-att-src="image_data_uri(member.image_128 or member.avatar_128)"
+                                    t-att-alt="member.name"
+                                    style="height: 60px !important;"
+                                />
                             </a>
                         </t>
                         <t t-else="">
-                            <img t-attf-class="mg_member_img flex-shrink-0 {{ 'mg_member_logo object-fit-contain' if is_logos else 'object-fit-cover shadow-sm rounded-1' }}"
-                                 t-att-src="image_data_uri(member.image_128 or member.avatar_128)"
-                                 t-att-alt="member.name"
-                                 style="height: 60px !important;"
-                                 />
+                            <img
+                                t-attf-class="mg_member_img flex-shrink-0 {{ 'mg_member_logo object-fit-contain' if is_logos else 'object-fit-cover shadow-sm rounded-1' }}"
+                                t-att-src="image_data_uri(member.image_128 or member.avatar_128)"
+                                t-att-alt="member.name"
+                                style="height: 60px !important;"
+                            />
                         </t>
                         <div class="flex-grow-1 min-w-0 mg_member_name">
                             <t t-if="member.website_published">
-                                <a t-attf-href="/members/#{slug(member)}"
-                                   class="text-decoration-none mg_clickable_link">
-                                    <span class="fw-bold text-dark text-wrap text-break lh-sm" t-esc="member.name"/>
+                                <a
+                                    t-attf-href="/members/#{slug(member)}"
+                                    class="text-decoration-none mg_clickable_link"
+                                >
+                                    <span
+                                        class="fw-bold text-dark text-wrap text-break lh-sm"
+                                        t-esc="member.name"
+                                    />
                                 </a>
                             </t>
                             <t t-else="">
-                                <span class="fw-bold text-dark text-wrap text-break lh-sm" t-esc="member.name"/>
+                                <span
+                                    class="fw-bold text-dark text-wrap text-break lh-sm"
+                                    t-esc="member.name"
+                                />
                             </t>
                         </div>
-                        <div t-if="not is_html_empty(member.website_description)"
-                             class="mg_accordion_indicator text-muted ms-auto">
-                            <i class="fa fa-chevron-down transition-transform"></i>
+                        <div
+                            t-if="not is_html_empty(member.website_description)"
+                            class="mg_accordion_indicator text-muted ms-auto"
+                        >
+                            <i class="fa fa-chevron-down transition-transform" />
                         </div>
                     </div>
                     <t t-if="not is_html_empty(member.website_description)">
-                        <div t-attf-class="mg_member_description overflow-hidden lh-base w-100 mt-2 pt-2 border-top small text-muted d-none"
-                             t-attf-id="mg_desc_{{member.id}}">
-                            <t t-esc="member.website_description"/>
+                        <div
+                            t-attf-class="mg_member_description overflow-hidden lh-base w-100 mt-2 pt-2 border-top small text-muted d-none"
+                            t-attf-id="mg_desc_{{member.id}}"
+                        >
+                            <t t-esc="member.website_description" />
                         </div>
                     </t>
                 </div>

@@ -6,18 +6,40 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='tag_ids']" position="after">
                 <field name="gitlab_id" />
-                <field name="gitlab_full_name" required="gitlab_id" invisible="not gitlab_id" />
+                <field
+                    name="gitlab_full_name"
+                    required="gitlab_id"
+                    invisible="not gitlab_id"
+                />
             </xpath>
             <xpath expr="//notebook" position="inside">
-                <page name="gitlab" string="Gitlab"
-                      invisible="not gitlab_id or not gitlab_full_name"
-                      groups="base.group_system"
+                <page
+                    name="gitlab"
+                    string="Gitlab"
+                    invisible="not gitlab_id or not gitlab_full_name"
+                    groups="base.group_system"
                 >
-                    <button name="get_gitlab_commits" type="object" string="Get Commits" />
-                    <button name="get_gitlab_merge_requests" type="object" string="Get Merge Requests" />
-                    <button name="get_gitlab_issues" type="object" string="Get Issues" />
+                    <button
+                        name="get_gitlab_commits"
+                        type="object"
+                        string="Get Commits"
+                    />
+                    <button
+                        name="get_gitlab_merge_requests"
+                        type="object"
+                        string="Get Merge Requests"
+                    />
+                    <button
+                        name="get_gitlab_issues"
+                        type="object"
+                        string="Get Issues"
+                    />
                     <button name="get_gitlab_notes" type="object" string="Get Notes" />
-                    <button name="get_gitlab_approvals" type="object" string="Get Approvals" />
+                    <button
+                        name="get_gitlab_approvals"
+                        type="object"
+                        string="Get Approvals"
+                    />
                 </page>
             </xpath>
         </field>

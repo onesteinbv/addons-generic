@@ -2,172 +2,175 @@
 <odoo>
     <record id="product_public_access" model="ir.model.access">
         <field name="name">product_public_access</field>
-        <field name="model_id" ref="product.model_product_product"/>
-        <field name="group_id" ref="base.group_public"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_product" />
+        <field name="group_id" ref="base.group_public" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="product_template_public_access" model="ir.model.access">
         <field name="name">product_template_public_access</field>
-        <field name="model_id" ref="product.model_product_template"/>
-        <field name="group_id" ref="base.group_public"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_template" />
+        <field name="group_id" ref="base.group_public" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="product_template_attribute_line_public_access" model="ir.model.access">
         <field name="name">product_template_attribute_line_public_access</field>
-        <field name="model_id" ref="product.model_product_template_attribute_line"/>
-        <field name="group_id" ref="base.group_public"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_template_attribute_line" />
+        <field name="group_id" ref="base.group_public" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="product_attribute_public_access" model="ir.model.access">
         <field name="name">product_attribute_public_access</field>
-        <field name="model_id" ref="product.model_product_attribute"/>
-        <field name="group_id" ref="base.group_public"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_attribute" />
+        <field name="group_id" ref="base.group_public" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="product_template_attribute_value_public_access" model="ir.model.access">
         <field name="name">product_template_attribute_value_public_access</field>
-        <field name="model_id" ref="product.model_product_template_attribute_value"/>
-        <field name="group_id" ref="base.group_public"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_template_attribute_value" />
+        <field name="group_id" ref="base.group_public" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="product_attribute_value_public_access" model="ir.model.access">
         <field name="name">product_attribute_value_public_access</field>
-        <field name="model_id" ref="product.model_product_attribute_value"/>
-        <field name="group_id" ref="base.group_public"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_attribute_value" />
+        <field name="group_id" ref="base.group_public" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="product_portal_access" model="ir.model.access">
         <field name="name">product_portal_access</field>
-        <field name="model_id" ref="product.model_product_product"/>
-        <field name="group_id" ref="base.group_portal"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_product" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="product_template_portal_access" model="ir.model.access">
         <field name="name">product_template_portal_access</field>
-        <field name="model_id" ref="product.model_product_template"/>
-        <field name="group_id" ref="base.group_portal"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_template" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="product_template_attribute_line_portal_access" model="ir.model.access">
         <field name="name">product_template_attribute_line_portal_access</field>
-        <field name="model_id" ref="product.model_product_template_attribute_line"/>
-        <field name="group_id" ref="base.group_portal"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_template_attribute_line" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="product_attribute_portal_access" model="ir.model.access">
         <field name="name">product_attribute_portal_access</field>
-        <field name="model_id" ref="product.model_product_attribute"/>
-        <field name="group_id" ref="base.group_portal"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_attribute" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="product_template_attribute_value_portal_access" model="ir.model.access">
         <field name="name">product_template_attribute_value_portal_access</field>
-        <field name="model_id" ref="product.model_product_template_attribute_value"/>
-        <field name="group_id" ref="base.group_portal"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_template_attribute_value" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="argocd_application_portal_access" model="ir.model.access">
         <field name="name">argocd_application_portal_access</field>
-        <field name="model_id" ref="argocd_deployer.model_argocd_application"/>
-        <field name="group_id" ref="base.group_portal"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="argocd_application_domain_portal_access" model="ir.model.access">
         <field name="name">argocd_application_domain_portal_access</field>
-        <field name="model_id" ref="argocd_deployer.model_argocd_application_domain"/>
-        <field name="group_id" ref="base.group_portal"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="argocd_deployer.model_argocd_application_domain" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="argocd_application_domain_scope_portal_access" model="ir.model.access">
         <field name="name">argocd_application_domain_scope_portal_access</field>
-        <field name="model_id" ref="argocd_deployer.model_argocd_application_domain_scope"/>
-        <field name="group_id" ref="base.group_portal"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field
+            name="model_id"
+            ref="argocd_deployer.model_argocd_application_domain_scope"
+        />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="product_attribute_value_portal_access" model="ir.model.access">
         <field name="name">product_attribute_value_portal_access</field>
-        <field name="model_id" ref="product.model_product_attribute_value"/>
-        <field name="group_id" ref="base.group_portal"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="product.model_product_attribute_value" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <!-- Reseller customer management access -->
     <record id="res_partner_portal_access" model="ir.model.access">
         <field name="name">res_partner_portal_access</field>
-        <field name="model_id" ref="base.model_res_partner"/>
-        <field name="group_id" ref="base.group_portal"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="base.model_res_partner" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 
     <record id="res_country_portal_access" model="ir.model.access">
         <field name="name">res_country_portal_access</field>
-        <field name="model_id" ref="base.model_res_country"/>
-        <field name="group_id" ref="base.group_portal"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="model_id" ref="base.model_res_country" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 </odoo>

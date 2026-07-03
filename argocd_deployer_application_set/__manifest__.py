@@ -1,7 +1,7 @@
 {
     "name": "ArgoCD Deployer Application Set Management",
     "author": "Onestein",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "license": "AGPL-3",
     "category": "Tools",
     "version": "18.0.1.0.0",

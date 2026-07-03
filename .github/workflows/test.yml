@@ -15,28 +15,31 @@ jobs:
     name: Odoo
     services:
       postgres:
-        image: postgres:13.0
+        image: postgres:13
         env:
           POSTGRES_USER: odoo
           POSTGRES_PASSWORD: odoo
           POSTGRES_DB: odoo
         ports:
           - 5432:5432
+    env:
+      OCA_ENABLE_CHECKLOG_ODOO: "1"
     steps:
-      - uses: actions/checkout@v3
-      - name: Install external dependencies
-        run: |
-          pip3 install -r requirements.txt
-          pip3 install odoo_test_helper
-      - name: Aggregate repos.yaml
-        run: |
-          set -x
-          pip install git-aggregator
-          gitaggregate -c repos.yaml
-          echo "ADDONS_PATH=$ADDONS_PATH,$(find $(pwd)/* -name .git -exec dirname {} \; | uniq | tr '\n' ',' | sed 's/,$//')" >> $GITHUB_ENV
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Install addons and dependencies
         run: oca_install_addons
+      - name: Check licenses
+        run: manifestoo -d . check-dev-status --default-dev-status=Beta
       - name: Initialize test db
         run: oca_init_test_database
       - name: Run tests
         run: oca_run_tests
+      - name: Upload screenshots from JS tests
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: Screenshots of failed JS tests - ${{ matrix.name }}${{ join(matrix.include) }}
+          path: /tmp/odoo_tests/${{ env.PGDATABASE }}
+          if-no-files-found: ignore

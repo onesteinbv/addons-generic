@@ -12,7 +12,11 @@
                 />
             </xpath>
             <xpath expr="//filter[@name='project_group_by']" position="after">
-                <filter name="project_type_group_by" string="Project Type" context="{'group_by':'project_type_id'}"/>
+                <filter
+                    name="project_type_group_by"
+                    string="Project Type"
+                    context="{'group_by':'project_type_id'}"
+                />
             </xpath>
         </field>
     </record>

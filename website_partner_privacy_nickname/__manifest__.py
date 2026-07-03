@@ -3,7 +3,7 @@
     "summary": "Adds an option to define nickname as one of the options for website privacy setting for partners",
     "version": "18.0.1.0.0",
     "author": "Onestein",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "license": "AGPL-3",
     "category": "Website",
     "depends": ["website_partner_privacy", "partner_nickname"],

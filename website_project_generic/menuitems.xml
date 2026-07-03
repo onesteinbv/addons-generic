@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <menuitem
         id="project_project_category_menu"
         name="Project Categories"
@@ -8,5 +7,4 @@
         sequence="100"
         action="project_project_category_action"
     />
-
 </odoo>

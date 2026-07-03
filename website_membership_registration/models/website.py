@@ -48,7 +48,7 @@ class Website(models.Model):
                     for step in steps:
                         if "website_sale.cart" in step[0]:
                             step[1]["main_button"] = _lt("Sign In")
-                            step[1][
-                                "main_button_href"
-                            ] = "/web/login?redirect=/shop/checkout?try_skip_step=true"
+                            step[1]["main_button_href"] = (
+                                "/web/login?redirect=/shop/checkout?try_skip_step=true"
+                            )
         return steps

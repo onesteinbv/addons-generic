@@ -1,7 +1,7 @@
-import { SIZES, utils as uiUtils } from "@web/core/ui/ui_service";
+import {SIZES, utils as uiUtils} from "@web/core/ui/ui_service";
 import publicWidget from "@web/legacy/js/public/public_widget";
-import { renderToElement } from "@web/core/utils/render";
-import { rpc } from "@web/core/network/rpc";
+import {renderToElement} from "@web/core/utils/render";
+import {rpc} from "@web/core/network/rpc";
 
 // Require("website.content.menu");
 
@@ -11,7 +11,7 @@ publicWidget.registry.OrderAppProductConfigurator = publicWidget.Widget.extend({
         "change select.js_order_app_attribute": "_onAttributeChange",
         "change .js_order_app_attribute input": "_onAttributeChange",
         "change .js_order_app_toggle": "_onToggleChange",
-        "click .js_order_app_product_header": "_onClickHeader"
+        "click .js_order_app_product_header": "_onClickHeader",
     },
 
     init: function (websiteRoot) {
@@ -55,31 +55,37 @@ publicWidget.registry.OrderAppProductConfigurator = publicWidget.Widget.extend({
 
     _removeSubscriptionProduct: function () {
         return rpc("/application/remove_subscription_product", {
-            product_template_id: this.productTemplateId
-        }).then(function () {
-            this._websiteRoot.trigger("refreshSubscription");
-        }.bind(this));
+            product_template_id: this.productTemplateId,
+        }).then(
+            function () {
+                this._websiteRoot.trigger("refreshSubscription");
+            }.bind(this)
+        );
     },
 
-    _updateSubscriptionProduct: function() {
-        var combination = this.$attributes.map(function () {
-            var $el = $(this);
-            var valueId = null;
-            if ($el.is("select")) {
-                valueId = $el.val();
-            } else {
-                valueId = $el.find(":checked").val();
-            }
-            return parseInt(valueId, 10);
-        }).get();
+    _updateSubscriptionProduct: function () {
+        var combination = this.$attributes
+            .map(function () {
+                var $el = $(this);
+                var valueId = null;
+                if ($el.is("select")) {
+                    valueId = $el.val();
+                } else {
+                    valueId = $el.find(":checked").val();
+                }
+                return parseInt(valueId, 10);
+            })
+            .get();
 
         return rpc("/application/update_subscription_product", {
             product_template_id: this.productTemplateId,
-            combination: combination
-        }).then(function () {
-            this._websiteRoot.trigger("refreshSubscription");
-        }.bind(this));
-    }
+            combination: combination,
+        }).then(
+            function () {
+                this._websiteRoot.trigger("refreshSubscription");
+            }.bind(this)
+        );
+    },
 });
 
 publicWidget.registry.OrderAppDetails = publicWidget.Widget.extend({
@@ -105,20 +111,22 @@ publicWidget.registry.OrderAppDetails = publicWidget.Widget.extend({
         this.$proceedBtn.addClass("d-none");
         this.$list.addClass("d-none");
 
-        rpc("/application/get_subscription_details").then(function (data) {
-            var details = $(renderToElement(
-                "argo_website.List", {
-                    sub: data
-                }
-            ));
-            this.$list.html(details);
+        rpc("/application/get_subscription_details").then(
+            function (data) {
+                var details = $(
+                    renderToElement("argo_website.List", {
+                        sub: data,
+                    })
+                );
+                this.$list.html(details);
 
-            this.$loader.addClass("d-none");
-            this.$proceedBtn.removeClass("d-none");
-            this.$list.removeClass("d-none");
-            this.$proceedBtn.toggleClass("disabled", !data.lines.length);
-        }.bind(this));
-    }
+                this.$loader.addClass("d-none");
+                this.$proceedBtn.removeClass("d-none");
+                this.$list.removeClass("d-none");
+                this.$proceedBtn.toggleClass("disabled", !data.lines.length);
+            }.bind(this)
+        );
+    },
 });
 
 var UpdateOrderDetailsPaddingMixin = {
@@ -130,11 +138,14 @@ var UpdateOrderDetailsPaddingMixin = {
 
     _updateMainPaddingTop: function () {
         var isLarge = uiUtils.getSize() >= SIZES.LG;
-        this.$orderDetails.css("padding-top", this.fixedHeader && this._isShown() && isLarge ? this.headerHeight : "");
+        this.$orderDetails.css(
+            "padding-top",
+            this.fixedHeader && this._isShown() && isLarge ? this.headerHeight : ""
+        );
         return this._super(...arguments);
-    }
+    },
 };
 
-publicWidget.registry.StandardAffixedHeader.include(UpdateOrderDetailsPaddingMixin)
+publicWidget.registry.StandardAffixedHeader.include(UpdateOrderDetailsPaddingMixin);
 
 publicWidget.registry.FixedHeader.include(UpdateOrderDetailsPaddingMixin);

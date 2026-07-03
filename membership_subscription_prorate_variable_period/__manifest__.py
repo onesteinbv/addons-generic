@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "category": "Association",
     "author": "Onestein",
-    "website": "https://www.onestein.nl",
+    "website": "https://onestein.nl",
     "depends": [
         "membership_subscription",
         "membership_prorate",

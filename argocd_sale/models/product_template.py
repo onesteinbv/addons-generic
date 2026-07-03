@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -38,9 +38,13 @@ class ProductTemplate(models.Model):
         for record in self:
             if record.application_template_id and not record.application_set_id:
                 raise ValidationError(
-                    "An application set must be set if an application template is set."
+                    _(
+                        "An application set must be set if an application template is set."
+                    )
                 )
             elif record.application_set_id and not record.application_template_id:
                 raise ValidationError(
-                    "An application template must be set if an application set is set."
+                    _(
+                        "An application template must be set if an application set is set."
+                    )
                 )

@@ -60,14 +60,14 @@ class MembershipGroup(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        groups = super(MembershipGroup, self).create(vals_list)
+        groups = super().create(vals_list)
         for group in groups:
             if group.page_id and group.page_id.is_published != group.is_published:
                 group.page_id.sudo().write({"is_published": group.is_published})
         return groups
 
     def write(self, vals):
-        res = super(MembershipGroup, self).write(vals)
+        res = super().write(vals)
         if "is_published" in vals or "page_id" in vals:
             for group in self:
                 if group.page_id and group.page_id.is_published != group.is_published:

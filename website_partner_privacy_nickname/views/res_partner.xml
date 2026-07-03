@@ -1,7 +1,7 @@
 <odoo>
     <record id="view_partner_simple_form" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="partner_nickname.view_partner_simple_form"/>
+        <field name="inherit_id" ref="partner_nickname.view_partner_simple_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='nickname']" position="attributes">
                 <attribute name="required">website_privacy == 'nickname'</attribute>

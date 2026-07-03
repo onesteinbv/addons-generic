@@ -1,6 +1,5 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <odoo>
-
     <record id="membership_group_view_tree" model="ir.ui.view">
         <field name="model">membership.group</field>
         <field name="inherit_id" ref="membership_group.membership_group_view_tree" />
@@ -20,10 +19,12 @@
                     <field name="mailing_list_id" />
                 </group>
             </xpath>
-            <xpath expr="//field[@name='membership_group_member_ids']//field[@name='partner_id']" position="after">
+            <xpath
+                expr="//field[@name='membership_group_member_ids']//field[@name='partner_id']"
+                position="after"
+            >
                 <field name="on_mailing_list" />
             </xpath>
         </field>
     </record>
-
 </odoo>

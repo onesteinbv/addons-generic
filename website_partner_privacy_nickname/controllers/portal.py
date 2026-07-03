@@ -5,9 +5,9 @@ from odoo.addons.portal.controllers.portal import CustomerPortal
 
 class CustomerPortalWebsitePrivacyNickname(CustomerPortal):
     def details_form_validate(self, data, partner_creation=False):
-        error, error_message = super(
-            CustomerPortalWebsitePrivacyNickname, self
-        ).details_form_validate(data, partner_creation=partner_creation)
+        error, error_message = super().details_form_validate(
+            data, partner_creation=partner_creation
+        )
         if (
             data.get("website_privacy")
             and data["website_privacy"] == "nickname"

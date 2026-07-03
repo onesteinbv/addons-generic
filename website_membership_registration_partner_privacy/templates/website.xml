@@ -1,22 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="website_privacy" inherit_id="website_membership_registration.membership_registration_form" name="Website Privacy Setting On Registration Page" priority="20">
-        <xpath expr="//div[@id='personal_data']/div[@data-type='char']" position="after">
+    <template
+        id="website_privacy"
+        inherit_id="website_membership_registration.membership_registration_form"
+        name="Website Privacy Setting On Registration Page"
+        priority="20"
+    >
+        <xpath
+            expr="//div[@id='personal_data']/div[@data-type='char']"
+            position="after"
+        >
             <div class="mb-3 col-6" data-type="char" data-name="Field">
-                <div class="row s_col_no_resize s_col_no_bgcolor" id="div_website_privacy">
-                    <label class="col-form-label col-sm-auto" style="width: 200px" for="member_website_privacy">
+                <div
+                    class="row s_col_no_resize s_col_no_bgcolor"
+                    id="div_website_privacy"
+                >
+                    <label
+                        class="col-form-label col-sm-auto"
+                        style="width: 200px"
+                        for="member_website_privacy"
+                    >
                         <span>Website Privacy
-                            <i class="fa fa-question-circle-o" title="1.Stay Anonymous - Hides you on the website and shows your name as Anonymous
+                            <i
+                            class="fa fa-question-circle-o"
+                            title="1.Stay Anonymous - Hides you on the website and shows your name as Anonymous
                             2.Use Name - Shows your name
-                            3.Use Nickname - Shows your nickname"/>
+                            3.Use Nickname - Shows your nickname"
+                        />
                         </span>
                     </label>
                     <div class="col-sm">
-                        <select name="member_website_privacy" class="form-control s_website_form_input">
+                        <select
+                            name="member_website_privacy"
+                            class="form-control s_website_form_input"
+                        >
                             <t t-foreach="website_privacy_levels" t-as="privacy_option">
-                                <option t-att-value="privacy_option[0]"
-                                        t-att-selected="privacy_option[0] == member_website_privacy">
-                                    <t t-esc="privacy_option[1]"/>
+                                <option
+                                    t-att-value="privacy_option[0]"
+                                    t-att-selected="privacy_option[0] == member_website_privacy"
+                                >
+                                    <t t-esc="privacy_option[1]" />
                                 </option>
                             </t>
                         </select>
@@ -27,12 +50,19 @@
                 <div class="row" id="div_publish">
                     <label class="col-form-label col-sm-auto" for="member_publish">
                         <span>Publish me as a member
-                            <i class="fa fa-question-circle-o" title="Lets you have your own dedicated website page"/>
+                            <i
+                            class="fa fa-question-circle-o"
+                            title="Lets you have your own dedicated website page"
+                        />
                         </span>
                     </label>
                     <div class="col-sm">
-                        <input style="margin-top:13px;height:13px;box-shadow: none;" type="checkbox"
-                               name="member_publish" t-att-checked="'checked' if member_publish else None"/>
+                        <input
+                            style="margin-top:13px;height:13px;box-shadow: none;"
+                            type="checkbox"
+                            name="member_publish"
+                            t-att-checked="'checked' if member_publish else None"
+                        />
                     </div>
                 </div>
             </div>

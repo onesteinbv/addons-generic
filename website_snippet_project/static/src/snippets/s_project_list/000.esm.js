@@ -2,7 +2,7 @@ import DynamicSnippetCarousel from "@website/snippets/s_dynamic_snippet_carousel
 import publicWidget from "@web/legacy/js/public/public_widget";
 
 publicWidget.registry.dynamic_project_list = DynamicSnippetCarousel.extend({
-    selector: '.s_dynamic_project_list',
+    selector: ".s_dynamic_project_list",
     /**
      * Gets the category search domain
      *
@@ -11,9 +11,15 @@ publicWidget.registry.dynamic_project_list = DynamicSnippetCarousel.extend({
      */
     _getCategorySearchDomain() {
         const searchDomain = [];
-        const filterByCategoryIds = JSON.parse(this.$el.get(0).dataset.filterByCategoryIds || '[]');
+        const filterByCategoryIds = JSON.parse(
+            this.$el.get(0).dataset.filterByCategoryIds || "[]"
+        );
         if (filterByCategoryIds.length) {
-            searchDomain.push(['category_id', 'in', filterByCategoryIds.map(projectCategory => projectCategory.id)]);
+            searchDomain.push([
+                "category_id",
+                "in",
+                filterByCategoryIds.map((projectCategory) => projectCategory.id),
+            ]);
         }
         return searchDomain;
     },
@@ -29,7 +35,7 @@ publicWidget.registry.dynamic_project_list = DynamicSnippetCarousel.extend({
         searchDomain.push(...this._getCategorySearchDomain());
         return searchDomain;
     },
-})
+});
 
 export default {
     DynamicProjectList: publicWidget.registry.dynamic_project_list,

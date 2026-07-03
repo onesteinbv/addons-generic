@@ -46,7 +46,7 @@ class ShareController(http.Controller):
     def share_redirect(self, **kwargs):
         def formaturl(url):
             if not re.match("(?:http|ftp|https)://", url):
-                return "https://{}".format(url)
+                return f"https://{url}"
             return url
 
         kwargs["domain"] = formaturl(kwargs["domain"])

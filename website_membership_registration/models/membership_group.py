@@ -29,7 +29,7 @@ class MembershipGroup(models.Model):
         "membership_group_member_ids.type",
     )
     def _compute_partner_ids(self):
-        res = super(MembershipGroup, self)._compute_partner_ids()
+        res = super()._compute_partner_ids()
         for membership_group in self:
             membership_group.follower_partner_count = len(
                 membership_group.membership_group_member_ids.filtered(

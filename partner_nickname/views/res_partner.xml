@@ -4,10 +4,7 @@
         <field name="inherit_id" ref="base.view_partner_simple_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='function']" position="before">
-                <field
-                    name="nickname"
-                    invisible="is_company"
-                />
+                <field name="nickname" invisible="is_company" />
             </xpath>
         </field>
     </record>
@@ -16,14 +13,14 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//span[@name='address_name']" position="before">
-                <field name="nickname" invisible="is_company"/>
+                <field name="nickname" invisible="is_company" />
             </xpath>
             <xpath
                 expr="//field[@name='child_ids']/form//field[@name='name']"
                 position="after"
             >
-                <field name="is_company" invisible="True"/>
-                <field name="nickname" invisible="is_company"/>
+                <field name="is_company" invisible="True" />
+                <field name="nickname" invisible="is_company" />
             </xpath>
         </field>
     </record>
@@ -33,7 +30,7 @@
         <field name="inherit_id" ref="base.view_partner_tree" />
         <field name="arch" type="xml">
             <field name="complete_name" position="after">
-                <field name="nickname" optional="hidden"/>
+                <field name="nickname" optional="hidden" />
             </field>
         </field>
     </record>
@@ -41,10 +38,10 @@
     <record id="res_partner_view_search" model="ir.ui.view">
         <field name="name">res.partner.view.search.inherit</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="nickname"/>
+                <field name="nickname" />
             </xpath>
         </field>
     </record>
