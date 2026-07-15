@@ -7,9 +7,11 @@
             <app name="helpdesk_mgmt" position="inside">
                 <block title="Email" name="helpdesk_mgmt_email_settings">
                     <setting
-                        name="helpdesk_mgmt_send_email_on_ticket_creation"
+                        id="helpdesk_mgmt_send_email_on_ticket_creation"
                         help="Send email on ticket creation to contact"
-                    />
+                    >
+                        <field name="helpdesk_mgmt_send_email_on_ticket_creation" />
+                    </setting>
                 </block>
             </app>
         </field>
