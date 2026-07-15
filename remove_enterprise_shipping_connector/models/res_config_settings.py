@@ -17,10 +17,21 @@ class ResConfigSettings(models.TransientModel):
         doc = etree.XML(ret_val["views"]["form"]["arch"])
 
         query = (
+            # stock
             "//setting[@id='compute_shipping_costs_usps'] | "
             "//setting[@id='compute_shipping_costs_fedex'] | "
             "//setting[@id='compute_shipping_costs_dhl'] | "
-            "//setting[@id='compute_shipping_costs_ups']"
+            "//setting[@id='compute_shipping_costs_ups'] | "
+            # sale
+            "//setting[@id='shipping_costs_usps'] | "
+            "//setting[@id='shipping_costs_fedex'] | "
+            "//setting[@id='shipping_costs_dhl'] | "
+            "//setting[@id='ups'] | "
+            # website_sale
+            "//setting[@id='shipping_provider_usps_setting'] | "
+            "//setting[@id='shipping_provider_fedex_setting'] | "
+            "//setting[@id='shipping_provider_dhl_setting'] | "
+            "//setting[@id='shipping_provider_ups_setting']"
         )
 
         for item in doc.xpath(query):
