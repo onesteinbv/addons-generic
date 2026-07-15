@@ -5,20 +5,12 @@
         <field name="inherit_id" ref="helpdesk_mgmt.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <app name="helpdesk_mgmt" position="inside">
-                <h2>Email</h2>
-                <div class="row mt16 o_settings_container">
-                    <div class="col-12 col-lg-6 o_setting_box">
-                        <div class="o_setting_left_pane">
-                            <field name="helpdesk_mgmt_send_email_on_ticket_creation" />
-                        </div>
-                        <div class="o_setting_right_pane">
-                            <label for="helpdesk_mgmt_send_email_on_ticket_creation" />
-                            <div
-                                class="text-muted"
-                            >Send email on ticket creation to contact</div>
-                        </div>
-                    </div>
-                </div>
+                <block title="Email" name="helpdesk_mgmt_email_settings">
+                    <setting
+                        name="helpdesk_mgmt_send_email_on_ticket_creation"
+                        help="Send email on ticket creation to contact"
+                    />
+                </block>
             </app>
         </field>
     </record>
