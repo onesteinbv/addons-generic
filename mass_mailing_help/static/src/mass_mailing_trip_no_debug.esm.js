@@ -47,10 +47,15 @@ registry.category("trips").add("mass_mailing_no_debug_trip", {
     Trip: MassMailingTripNoDebug,
     selector: async (model, viewType) => {
         const isErpManager = await user.hasGroup("base.group_erp_manager");
+        const technicalFeaturesWithoutDebug = await user.hasGroup(
+            "base_technical_features.group_technical_features"
+        );
+        const isDebugMode = odoo.debug || technicalFeaturesWithoutDebug;
+
         return (
             model === "mailing.mailing" &&
             ["list", "kanban"].includes(viewType) &&
-            !odoo.debug &&
+            !isDebugMode &&
             isErpManager
         );
     },

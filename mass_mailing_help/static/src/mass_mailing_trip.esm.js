@@ -188,10 +188,17 @@ registry.category("trips").add("mass_mailing_trip", {
     Trip: MassMailingTrip,
     selector: async (model, viewType) => {
         const isErpManager = await user.hasGroup("base.group_erp_manager");
+        // This will return false even if the external ID doesn't exist, so we can safely use it to check
+        // if the user has the group or not without an extra dependency in the manifest.
+        const technicalFeaturesWithoutDebug = await user.hasGroup(
+            "base_technical_features.group_technical_features"
+        );
+        const isDebugMode = odoo.debug || technicalFeaturesWithoutDebug;
+
         return (
             model === "mailing.mailing" &&
             ["list", "kanban"].includes(viewType) &&
-            ((odoo.debug && isErpManager) || !isErpManager)
+            ((isDebugMode && isErpManager) || !isErpManager)
         );
     },
 });
