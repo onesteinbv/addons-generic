@@ -25,16 +25,6 @@
                     />
                 </group>
             </xpath>
-            <xpath expr="//page[@name='membership']" position="after">
-                <page string='Website Description' name='website_description'>
-                    <group>
-                        <field name="icon" widget="image" />
-                        <field name="image" widget="image" invisible="page_id" />
-                        <field name="website_top" type="html" invisible="page_id" />
-                        <field name="website_bottom" type="html" invisible="page_id" />
-                    </group>
-                </page>
-            </xpath>
         </field>
     </record>
 </odoo>

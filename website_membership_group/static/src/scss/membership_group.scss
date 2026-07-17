@@ -5,24 +5,12 @@
 .mg_wrap {
     // Default: Hide all optional sections
     .mg_image_col,
-    .mg_top_block,
-    .mg_bottom_block,
-    .mg_committee_col,
     .mg_team_col {
         display: none;
     }
 
     // Toggle display based on snippet option classes
     &.mg_show_image .mg_image_col {
-        display: block;
-    }
-    &.mg_show_top .mg_top_block {
-        display: block;
-    }
-    &.mg_show_bottom .mg_bottom_block {
-        display: block;
-    }
-    &.mg_show_committee .mg_committee_col {
         display: block;
     }
     &.mg_show_team .mg_team_col {
@@ -42,8 +30,7 @@
 }
 
 // Show descriptions if the respective section toggle is ON
-.mg_show_team_desc .mg_team_col .mg_member_description,
-.mg_show_committee_desc .mg_committee_col .mg_member_description {
+.mg_show_team_desc .mg_team_col .mg_member_description {
     display: block !important;
 }
 
@@ -115,18 +102,35 @@
    MEMBER LAYOUT VARIANTS
    ======================================================================= */
 
+/* --- SINGLE LIST VS GROUPED LIST --- */
+#mg_members_row {
+    // Default: Grouped list is visible, Single list is hidden
+    .mg_single_list_wrapper {
+        display: none;
+    }
+    .mg_grouped_list_wrapper {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    // Toggled: Single list is visible, Grouped list is hidden
+    &.mg_members_single_list {
+        .mg_single_list_wrapper {
+            display: block;
+        }
+        .mg_grouped_list_wrapper {
+            display: none;
+        }
+    }
+}
+
 /* --- GRID LAYOUT --- */
 #mg_members_row.mg_layout_grid {
     .mg_member_list {
         gap: 0;
     }
 
-    /* 1 Column for Committee Section in Grid */
-    .mg_committee_col .mg_member_item {
-        flex: 0 0 100%;
-    }
-
-    /* 2 Columns for Team Section in Grid */
+    /* Columns for Team Section in Grid */
     .mg_team_col .mg_member_item {
         flex: 0 0 50%;
     }
@@ -138,10 +142,9 @@
     }
 }
 
-/* --- CARDS * LOGOS LAYOUT --- */
+/* --- CARDS --- */
 #mg_members_row {
-    &.mg_layout_cards,
-    &.mg_layout_logos {
+    &.mg_layout_cards {
         .mg_member_list {
             gap: 0.75rem;
             padding: 0.75rem;
@@ -167,19 +170,55 @@
             text-align: left;
         }
     }
-
-    &.mg_layout_logos {
-        img,
-        .mg_member_img {
-            width: auto !important;
-            max-width: 200px !important;
-        }
-    }
 }
 
-#mg_members_row:not(.mg_layout_logos) {
+#mg_members_row {
+    /* --- Wrapper Visibility Toggles --- */
+    // Default: Show standard images, hide logos
+    .mg_standard_img_wrapper {
+        display: block;
+    }
+    .mg_logo_img_wrapper {
+        display: none;
+    }
+
+    // Toggled: Show logos, hide standard images
+    &.mg_img_logos_layout {
+        .mg_standard_img_wrapper {
+            display: none;
+        }
+        .mg_logo_img_wrapper {
+            display: block;
+        }
+    }
+
+    /* --- Common Image Dimensions --- */
     .mg_member_img {
-        width: 60px !important;
+        height: 60px !important;
+        transition: all 0.3s ease;
+    }
+
+    /* --- Standard Layout (Photos) --- */
+    &:not(.mg_img_logos_layout) {
+        .mg_member_img,
+        .mg_standard_img {
+            width: 60px !important;
+            object-fit: cover !important;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important; /* Bootstrap shadow-sm */
+            border-radius: 0.25rem !important; /* Bootstrap rounded-1 */
+        }
+    }
+
+    /* --- Logos Layout --- */
+    &.mg_img_logos_layout {
+        .mg_member_img,
+        .mg_logo_img {
+            width: 100px !important;
+            object-fit: contain !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            padding: 2px;
+        }
     }
 }
 
@@ -194,7 +233,7 @@
    RESPONSIVE BREAKPOINTS
    ======================================================================= */
 @include media-breakpoint-down(sm) {
-    #mg_members_row.mg_layout_logos .mg_member_item {
+    #mg_members_row.mg_img_logos_layout .mg_member_item {
         flex: 1 1 calc(50% - 0.5rem);
     }
 }
@@ -203,7 +242,7 @@
     #mg_members_row.mg_layout_cards .mg_member_item {
         flex: 1 1 100%;
     }
-    #mg_members_row.mg_layout_logos .mg_member_item {
+    #mg_members_row.mg_img_logos_layout .mg_member_item {
         flex: 1 1 calc(50% - 1rem);
     }
 }
