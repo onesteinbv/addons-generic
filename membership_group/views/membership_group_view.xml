@@ -70,7 +70,13 @@
                                     <field name="date_from" optional="show" />
                                     <field name="date_to" optional="show" />
                                     <field name="date_end" optional="show" />
-                                    <field name="type" readonly="create_date" />
+                                    <field
+                                        name="type_ids"
+                                        widget="many2many_tags"
+                                        options="{'no_create': True}"
+                                        domain="['|', ('group_ids', '=', False), ('group_ids', 'in', group_id)]"
+                                        readonly="create_date"
+                                    />
                                     <button
                                         type="object"
                                         name="action_change_type"

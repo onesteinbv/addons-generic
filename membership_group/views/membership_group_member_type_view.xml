@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="membership_group_member_type_view_list" model="ir.ui.view">
+        <field name="name">membership.group.member.type.list</field>
+        <field name="model">membership.group.member.type</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field
+                    name="group_ids"
+                    widget="many2many_tags"
+                    placeholder="Leave empty to allow in all groups..."
+                />
+            </list>
+        </field>
+    </record>
+
+    <record id="action_membership_group_member_type" model="ir.actions.act_window">
+        <field name="name">Member Types</field>
+        <field name="res_model">membership.group.member.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_membership_group_member_type"
+        name="Membership Group Member Type"
+        parent="membership.menu_marketing_config_association"
+        action="action_membership_group_member_type"
+        sequence="30"
+    />
+</odoo>

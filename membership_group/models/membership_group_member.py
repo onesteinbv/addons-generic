@@ -1,15 +1,6 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-MEMBER_TYPE = [
-    ("follower", "Follower"),
-    ("applicant", "Applicant"),
-    ("applicant_follower", "Applicant / Follower"),
-    ("collaborator_follower", "Collaborator / Follower"),
-    ("collaborator", "Collaborator"),
-    ("committee", "Committee"),
-]
-
 
 class MembershipGroupMember(models.Model):
     _name = "membership.group.member"
@@ -36,7 +27,10 @@ class MembershipGroupMember(models.Model):
     )
     group_id = fields.Many2one("membership.group", required=True, ondelete="cascade")
     wants_to_collaborate = fields.Boolean()
-    type = fields.Selection(MEMBER_TYPE)
+    type_ids = fields.Many2many(
+        comodel_name="membership.group.member.type",
+        string="Types",
+    )
     date_from = fields.Date(
         string="From",
         required=True,
@@ -177,6 +171,7 @@ class MembershipGroupMember(models.Model):
                 {
                     "member_id": self.id,
                     "date_from": fields.Date.today(),
+                    "type_ids": [(6, 0, self.type_ids.ids)],
                 }
             ]
         )

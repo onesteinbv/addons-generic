@@ -1,8 +1,6 @@
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
-from ..models.membership_group_member import MEMBER_TYPE
-
 
 class MembershipTypeWizard(models.TransientModel):
     _name = "membership.type.wizard"
@@ -15,15 +13,19 @@ class MembershipTypeWizard(models.TransientModel):
         ondelete="cascade",
     )
     member_state = fields.Selection(related="member_id.state")
-    member_current_type = fields.Selection(
-        related="member_id.type",
-        string="Current Type",
+    member_group_id = fields.Many2one(related="member_id.group_id")
+    member_current_type_ids = fields.Many2many(
+        related="member_id.type_ids",
+        string="Current Types",
     )
     member_date_to = fields.Date(
         compute="_compute_member_date_to",
     )
-
-    type = fields.Selection(MEMBER_TYPE)
+    type_ids = fields.Many2many(
+        comodel_name="membership.group.member.type",
+        string="New Types",
+        required=True,
+    )
     date_from = fields.Date(
         string="From",
         help="Start date of the membership",
@@ -40,7 +42,7 @@ class MembershipTypeWizard(models.TransientModel):
         return {
             "partner_id": self.member_id.partner_id.id,
             "group_id": self.member_id.group_id.id,
-            "type": self.type,
+            "type_ids": [(6, 0, self.type_ids.ids)],
             "date_from": self.date_from,
             "date_to": self.member_id.date_to,
         }
