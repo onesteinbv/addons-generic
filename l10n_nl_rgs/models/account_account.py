@@ -4,7 +4,6 @@ from odoo import api, fields, models
 
 class AccountAccount(models.Model):
     _inherit = "account.account"
-    _order = "sort_code, code, placeholder_code"
 
     referentiecode = fields.Char()
     sort_code = fields.Char(string="Sorting code")
