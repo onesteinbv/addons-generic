@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template
-        id="membership_group_page"
-        inherit_id="website_membership_group.membership_group_page"
+        id="membership_group_header_section"
+        inherit_id="website_membership_group.membership_group_header_section"
     >
         <xpath expr="//div[@name='description_row']">
             <div t-if="mailing_list" class="row" name="mass_mailing_row">
