@@ -48,7 +48,6 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
         current_date = date_from
         api_key = self.env["ir.config_parameter"].get_param("X-CG_PRO_API_KEY")
         while current_date <= date_to:
-            content[current_date] = {}
             for (
                 currency
             ) in self.currency_ids.res_currency_rate_provider_mapping_ids.filtered(
@@ -86,6 +85,8 @@ class ResCurrencyRateProviderCoinGecko(models.Model):
                         .get(base_currency.lower(), 0)
                     )
                     if rate:
+                        if current_date not in content:
+                            content[current_date] = {}
                         content[current_date].update(
                             {currency.currency_id.name: 1 / rate}
                         )
