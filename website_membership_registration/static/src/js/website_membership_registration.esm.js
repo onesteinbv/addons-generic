@@ -1,6 +1,6 @@
+import {ReCaptcha} from "@google_recaptcha/js/recaptcha";
 import publicWidget from "@web/legacy/js/public/public_widget";
 import {rpc} from "@web/core/network/rpc";
-import {ReCaptcha} from "@google_recaptcha/js/recaptcha";
 
 publicWidget.registry.WebsiteMembershipRegistration = publicWidget.Widget.extend({
     selector: ".oe_website_membership_registration",
