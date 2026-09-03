@@ -585,6 +585,7 @@ class MembershipRegistrationController(http.Controller):
                     product, product.list_price
                 )
             except Exception as e:
+                request.env.cr.rollback()
                 error_message = str(e)
                 return self._handle_errors(partner_data, error_message, errors)
             if request.session.get("old_registration_data", {}):
