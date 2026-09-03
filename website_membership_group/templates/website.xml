@@ -3,139 +3,27 @@
     <template id="membership_group_page">
         <t t-call="website.layout">
             <t t-set="additional_title" t-value="title" />
+            <t
+                t-set="wrap_classes"
+                t-value="membership_group.website_snippet_wrap_classes or ''"
+            />
+            <t t-set="show_image" t-value="'mg_show_image' in wrap_classes" />
+            <t t-set="show_team" t-value="'mg_show_team' in wrap_classes" />
             <div
                 id="wrap"
                 t-att-data-oe-id="membership_group.id"
-                t-attf-class="mg_wrap o_editable {{membership_group.website_snippet_wrap_classes or 'mg_show_image mg_show_top mg_show_bottom mg_show_committee mg_show_team'}}"
+                t-attf-class="mg_wrap o_editable {{wrap_classes or 'mg_show_image mg_show_team'}}"
             >
                 <div
                     class="oe_structure"
                     id="oe_structure_website_membership_group_1"
                 />
-                <section class="mg_header_section pt-5 pb-4">
-                    <div class="container" name="membership_page">
-                        <div class="row" name="description_row">
-                            <div class="col-12 text-center mb-4">
-                                <h2
-                                    class="fw-bold text-primary"
-                                    t-field="membership_group.name"
-                                />
-                                <hr
-                                    class="w-25 mx-auto mt-2 mb-0 mg_divider opacity-50"
-                                />
-                            </div>
-                        </div>
-                        <div
-                            class="row align-items-start g-4"
-                            id="mg_header_row"
-                            t-att-data-oe-id="membership_group.id"
-                        >
-                            <div
-                                t-attf-class="text-center mg_image_col {{membership_group.website_header_image_col_classes or 'col-lg-4'}}"
-                            >
-                                <div
-                                    t-field="membership_group.image"
-                                    t-options='{"widget": "image", "class": "img-fluid rounded shadow"}'
-                                />
-                            </div>
-                            <div
-                                t-attf-class="mg_desc_col {{membership_group.website_header_desc_col_classes or 'col-lg-8'}} col-12"
-                            >
-                                <div
-                                    class="mg_top_block"
-                                    t-field="membership_group.website_top"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <t t-call="website_membership_group.membership_group_header_section" />
                 <div
                     class="oe_structure"
                     id="oe_structure_website_membership_group_2"
                 />
-                <section class="mg_members_section py-5">
-                    <div class="container">
-                        <div
-                            t-attf-class="row g-4 mg_members_row {{membership_group.website_snippet_members_classes or 'mg_layout_grid mg_show_committee_desc mg_show_team_desc'}}"
-                            id="mg_members_row"
-                            t-att-data-oe-id="membership_group.id"
-                        >
-                            <t
-                                t-set="current_members"
-                                t-value="membership_group.membership_group_member_ids.filtered(lambda m: m.state == 'current')"
-                            />
-                            <div
-                                t-attf-class="mg_committee_col {{membership_group.website_committee_col_classes or 'col-lg-4'}}"
-                            >
-                                <div class="card h-100 shadow-sm border-0">
-                                    <div
-                                        class="card-header border-0 py-3 bg-primary text-white"
-                                        data-name="Committee Header"
-                                    >
-                                        <h5
-                                            class="mb-0 fw-semibold"
-                                        >Committee Members</h5>
-                                    </div>
-                                    <div class="card-body p-0">
-                                        <div>
-                                            <t
-                                                t-set="committee_members"
-                                                t-value="current_members.filtered(lambda m: m.type == 'committee').mapped('partner_id')"
-                                            />
-                                            <t
-                                                t-call="website_membership_group.membership_group_member_list"
-                                            >
-                                                <t
-                                                    t-set="members"
-                                                    t-value="committee_members"
-                                                />
-                                            </t>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div
-                                t-attf-class="mg_team_col {{membership_group.website_team_col_classes or 'col-lg-8'}}"
-                            >
-                                <div class="card h-100 shadow-sm border-0">
-                                    <div
-                                        class="card-header border-0 py-3 bg-primary text-white"
-                                        data-name="Team Header"
-                                    >
-                                        <h5 class="mb-0 fw-semibold">Team Members</h5>
-                                    </div>
-                                    <div class="card-body p-0">
-                                        <div>
-                                            <t
-                                                t-set="team_members"
-                                                t-value="current_members.filtered(lambda m: m.type != 'committee').mapped('partner_id')"
-                                            />
-                                            <t
-                                                t-call="website_membership_group.membership_group_member_list"
-                                            >
-                                                <t
-                                                    t-set="members"
-                                                    t-value="team_members"
-                                                />
-                                            </t>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="mg_bottom_block pt-3">
-                    <div class="container">
-                        <div class="row">
-                            <div
-                                class="mt-3"
-                                t-field="membership_group.website_bottom"
-                            />
-                        </div>
-                    </div>
-                </section>
+                <t t-call="website_membership_group.membership_group_members_section" />
                 <div
                     class="oe_structure"
                     id="oe_structure_website_membership_group_3"
@@ -144,73 +32,287 @@
         </t>
     </template>
 
-    <template id="membership_group_member_list">
+    <template id="membership_group_header_section">
+        <section class="mg_header_section pt-5 pb-4">
+            <div class="container" name="membership_page">
+                <div class="row" name="description_row">
+                    <div class="col-12 text-center mb-4">
+                        <h2
+                            class="fw-bold text-primary"
+                            t-field="membership_group.name"
+                        />
+                        <hr class="w-25 mx-auto mt-2 mb-0 mg_divider opacity-50" />
+                    </div>
+                </div>
+                <div
+                    class="row align-items-start g-4"
+                    id="mg_header_row"
+                    t-att-data-oe-id="membership_group.id"
+                >
+                    <t t-if="editable or show_image">
+                        <div
+                            t-attf-class="text-center mg_image_col {{membership_group.website_header_image_col_classes or 'col-lg-4'}}"
+                        >
+                            <div
+                                t-field="membership_group.image"
+                                t-options='{"widget": "image", "class": "img-fluid rounded shadow"}'
+                            />
+                        </div>
+                    </t>
+                    <div
+                        t-attf-class="mg_desc_col {{membership_group.website_header_desc_col_classes or 'col-lg-8'}}"
+                    />
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="membership_group_members_section">
         <t
-            t-set="layout_classes"
-            t-value="membership_group.website_snippet_members_classes if membership_group and membership_group.website_snippet_members_classes else 'mg_layout_grid'"
+            t-set="mem_classes"
+            t-value="membership_group.website_snippet_members_classes or ''"
         />
-        <t t-set="is_logos" t-value="'mg_layout_logos' in layout_classes" />
+        <t t-if="editable or show_team">
+            <section class="mg_members_section py-5">
+                <div class="container">
+                    <div
+                        t-attf-class="row g-4 mg_members_row {{mem_classes or 'mg_layout_grid mg_show_team_desc'}}"
+                        id="mg_members_row"
+                        t-att-data-oe-id="membership_group.id"
+                    >
+                        <t
+                            t-set="current_members"
+                            t-value="membership_group.membership_group_member_ids.filtered(lambda m: m.state == 'current')"
+                        />
+                        <t
+                            t-set="member_types_to_show"
+                            t-value="current_members.mapped('type_ids') - membership_group.website_hide_member_type_ids"
+                        />
+                        <t
+                            t-set="is_single_list"
+                            t-value="'mg_members_single_list' in mem_classes"
+                        />
+                        <t t-if="editable or is_single_list">
+                            <div class="mg_single_list_wrapper col-12">
+                                <t
+                                    t-set="single_list_members"
+                                    t-value="current_members.filtered(lambda m: ((m.type_ids &amp; member_types_to_show) or not m.type_ids))"
+                                />
+                                <t t-if="single_list_members">
+                                    <div
+                                        t-attf-class="mg_team_col pb-3 {{membership_group.website_team_col_classes or 'col-lg-12'}}"
+                                    >
+                                        <div class="card h-100 shadow-sm border-0">
+                                            <div
+                                                class="card-header border-0 py-3 bg-primary text-white"
+                                                data-name="Team Header"
+                                            >
+                                                <h5
+                                                    class="mb-0 fw-semibold"
+                                                >Team Members
+                                                </h5>
+                                            </div>
+                                            <div class="card-body p-0">
+                                                <div>
+                                                    <t
+                                                        t-call="website_membership_group.membership_group_member_list"
+                                                    >
+                                                        <t
+                                                            t-set="members"
+                                                            t-value="single_list_members"
+                                                        />
+                                                        <t
+                                                            t-set="desc_prefix"
+                                                            t-value="'single'"
+                                                        />
+                                                        <t
+                                                            t-set="show_types"
+                                                            t-value="True"
+                                                        />
+                                                        <t
+                                                            t-set="mem_classes"
+                                                            t-value="mem_classes"
+                                                        />
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                        <t t-if="editable or not is_single_list">
+                            <div class="mg_grouped_list_wrapper col-12 row m-0 p-0">
+                                <t t-foreach="member_types_to_show" t-as="member_type">
+                                    <t
+                                        t-set="current_members_of_member_type"
+                                        t-value="current_members.filtered(lambda m: member_type in m.type_ids)"
+                                    />
+                                    <t t-if="current_members_of_member_type">
+                                        <div
+                                            t-attf-class="mg_team_col pb-3 {{membership_group.website_team_col_classes or 'col-lg-12'}}"
+                                        >
+                                            <div class="card h-100 shadow-sm border-0">
+                                                <div
+                                                    class="card-header border-0 py-3 bg-primary text-white"
+                                                    data-name="Team Header"
+                                                >
+                                                    <h5 class="mb-0 fw-semibold">
+                                                        <t t-esc="member_type.name" />
+                                                    </h5>
+                                                </div>
+                                                <div class="card-body p-0">
+                                                    <div>
+                                                        <t
+                                                            t-call="website_membership_group.membership_group_member_list"
+                                                        >
+                                                            <t
+                                                                t-set="members"
+                                                                t-value="current_members_of_member_type"
+                                                            />
+                                                            <t
+                                                                t-set="desc_prefix"
+                                                                t-value="str(member_type.id)"
+                                                            />
+                                                            <t
+                                                                t-set="show_types"
+                                                                t-value="False"
+                                                            />
+                                                            <t
+                                                                t-set="mem_classes"
+                                                                t-value="mem_classes"
+                                                            />
+                                                        </t>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </t>
+                            </div>
+                        </t>
+                        <t
+                            t-if="editable and show_team and not is_single_list and not member_types_to_show"
+                        >
+                            <div data-name="Team Header">
+                                <h5 class="mb-0 fw-semibold text-center">
+                                    There are no Member types to show, select single list by clicking here or
+                                    define types on members
+                                </h5>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <template id="membership_group_member_list">
+        <t t-set="show_desc" t-value="'mg_show_team_desc' in mem_classes" />
+        <t t-set="is_logos" t-value="'mg_img_logos_layout' in mem_classes" />
         <div class="mg_member_list d-flex flex-wrap">
             <t t-foreach="members" t-as="member">
+                <t t-set="member_partner" t-value="member.partner_id" />
                 <div
-                    t-attf-class="mg_member_item p-3 border-bottom-0 #{'mg_has_desc' if not is_html_empty(member.website_description) else ''}"
-                    t-att-data-target-desc="not is_html_empty(member.website_description) and ('mg_desc_%s' % member.id)"
+                    t-attf-class="mg_member_item p-3 border-bottom-0 #{'mg_has_desc' if not is_html_empty(member_partner.website_description) else ''}"
+                    t-att-data-target-desc="not is_html_empty(member_partner.website_description) and 'mg_desc_%s_%s' % (desc_prefix, member_partner.id)"
                 >
                     <div class="d-flex align-items-center gap-3">
-                        <t t-if="member.website_published">
-                            <a
-                                t-attf-href="/members/#{slug(member)}"
-                                class="text-decoration-none mg_clickable_link"
-                            >
-                                <img
-                                    t-attf-class="mg_member_img flex-shrink-0 {{ 'object-fit-contain' if is_logos else 'object-fit-cover shadow-sm rounded-1' }}"
-                                    t-att-src="image_data_uri(member.image_128 or member.avatar_128)"
-                                    t-att-alt="member.name"
-                                    style="height: 60px !important;"
-                                />
-                            </a>
+                        <t t-if="editable or not is_logos">
+                            <div class="mg_standard_img_wrapper">
+                                <t t-if="member_partner.website_published">
+                                    <a
+                                        t-attf-href="/members/#{slug(member_partner)}"
+                                        class="text-decoration-none mg_clickable_link"
+                                    >
+                                        <img
+                                            class="mg_member_img mg_standard_img flex-shrink-0"
+                                            t-att-src="image_data_uri(member_partner.image_128 or member_partner.avatar_128)"
+                                            t-att-alt="member_partner.name"
+                                        />
+                                    </a>
+                                </t>
+                                <t t-else="">
+                                    <img
+                                        class="mg_member_img mg_standard_img flex-shrink-0"
+                                        t-att-src="image_data_uri(member_partner.image_128 or member_partner.avatar_128)"
+                                        t-att-alt="member_partner.name"
+                                    />
+                                </t>
+                            </div>
                         </t>
-                        <t t-else="">
-                            <img
-                                t-attf-class="mg_member_img flex-shrink-0 {{ 'mg_member_logo object-fit-contain' if is_logos else 'object-fit-cover shadow-sm rounded-1' }}"
-                                t-att-src="image_data_uri(member.image_128 or member.avatar_128)"
-                                t-att-alt="member.name"
-                                style="height: 60px !important;"
-                            />
+
+                        <t t-if="editable or is_logos">
+                            <div class="mg_logo_img_wrapper">
+                                <t t-if="member_partner.website_published">
+                                    <a
+                                        t-attf-href="/members/#{slug(member_partner)}"
+                                        class="text-decoration-none mg_clickable_link"
+                                    >
+                                        <img
+                                            class="mg_member_img mg_logo_img flex-shrink-0"
+                                            t-att-src="image_data_uri(member_partner.image_128 or member_partner.avatar_128)"
+                                            t-att-alt="member_partner.name"
+                                        />
+                                    </a>
+                                </t>
+                                <t t-else="">
+                                    <img
+                                        class="mg_member_img mg_logo_img flex-shrink-0"
+                                        t-att-src="image_data_uri(member_partner.image_128 or member_partner.avatar_128)"
+                                        t-att-alt="member_partner.name"
+                                    />
+                                </t>
+                            </div>
                         </t>
                         <div class="flex-grow-1 min-w-0 mg_member_name">
-                            <t t-if="member.website_published">
+                            <t t-if="member_partner.website_published">
                                 <a
-                                    t-attf-href="/members/#{slug(member)}"
+                                    t-attf-href="/members/#{slug(member_partner)}"
                                     class="text-decoration-none mg_clickable_link"
                                 >
                                     <span
                                         class="fw-bold text-dark text-wrap text-break lh-sm"
-                                        t-esc="member.name"
+                                        t-esc="member_partner.name"
                                     />
                                 </a>
                             </t>
                             <t t-else="">
                                 <span
                                     class="fw-bold text-dark text-wrap text-break lh-sm"
-                                    t-esc="member.name"
+                                    t-esc="member_partner.name"
                                 />
                             </t>
+                            <t t-if="show_types">
+                                <div class="text-muted small mt-1">
+                                    <t
+                                        t-foreach="member.type_ids.filtered(lambda t: t in member_types_to_show)"
+                                        t-as="m_type"
+                                    >
+                                        <span class="d-block" t-esc="m_type.name" />
+                                    </t>
+                                </div>
+                            </t>
                         </div>
-                        <div
-                            t-if="not is_html_empty(member.website_description)"
-                            class="mg_accordion_indicator text-muted ms-auto"
-                        >
-                            <i class="fa fa-chevron-down transition-transform" />
-                        </div>
+                        <t t-if="not is_html_empty(member_partner.website_description)">
+                            <t t-if="editable or show_desc">
+                                <div class="mg_accordion_indicator text-muted ms-auto">
+                                    <i
+                                        class="fa fa-chevron-down transition-transform"
+                                    />
+                                </div>
+                            </t>
+                        </t>
                     </div>
-                    <t t-if="not is_html_empty(member.website_description)">
-                        <div
-                            t-attf-class="mg_member_description overflow-hidden lh-base w-100 mt-2 pt-2 border-top small text-muted d-none"
-                            t-attf-id="mg_desc_{{member.id}}"
-                        >
-                            <t t-esc="member.website_description" />
-                        </div>
+                    <t t-if="not is_html_empty(member_partner.website_description)">
+                        <t t-if="editable or show_desc">
+                            <div
+                                class="mg_member_description overflow-hidden lh-base w-100 mt-2 pt-2 border-top small text-muted d-none"
+                                t-att-id="'mg_desc_%s_%s' % (desc_prefix, member_partner.id)"
+                            >
+                                <t t-esc="member_partner.website_description" />
+                            </div>
+                        </t>
                     </t>
                 </div>
             </t>

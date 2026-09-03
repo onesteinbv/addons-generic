@@ -1,3 +1,5 @@
+import werkzeug
+
 from odoo import http
 from odoo.http import request
 
@@ -11,9 +13,7 @@ class MembershipGroupController(http.Controller):
         }
 
     @http.route(
-        [
-            """/members/group/<model("membership.group","[('is_published', '=', True)]"):membership_group>"""
-        ],
+        ["""/members/group/<model("membership.group"):membership_group>"""],
         type="http",
         methods=["GET"],
         auth="public",
@@ -27,7 +27,7 @@ class MembershipGroupController(http.Controller):
         )
 
         if not membership_group_sudo.is_published and not is_website_designer:
-            return request.not_found()
+            raise werkzeug.exceptions.NotFound()
 
         if is_website_designer and not membership_group_sudo.page_id:
             page = membership_group_sudo._create_unique_website_page()

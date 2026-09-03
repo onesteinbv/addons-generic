@@ -19,7 +19,13 @@
                 <field name="date_from" optional="show" />
                 <field name="date_to" optional="show" />
                 <field name="date_end" optional="show" />
-                <field name="type" readonly="create_date" />
+                <field
+                    name="type_ids"
+                    widget="many2many_tags"
+                    options="{'no_create': True}"
+                    domain="['|', ('group_ids', '=', False), ('group_ids', 'in', group_id)]"
+                    readonly="create_date"
+                />
                 <button
                     type="object"
                     name="action_change_type"
@@ -54,7 +60,13 @@
                 <field name="date_from" optional="show" />
                 <field name="date_to" optional="show" />
                 <field name="date_end" optional="show" />
-                <field name="type" readonly="create_date" />
+                <field
+                    name="type_ids"
+                    widget="many2many_tags"
+                    options="{'no_create': True}"
+                    domain="['|', ('group_ids', '=', False), ('group_ids', 'in', group_id)]"
+                    readonly="create_date"
+                />
                 <button
                     type="object"
                     name="action_change_type"
@@ -85,7 +97,7 @@
                 <field name="date_from" />
                 <field name="date_to" />
                 <field name="date_end" />
-                <field name="type" />
+                <field name="type_ids" />
             </list>
         </field>
     </record>
@@ -96,7 +108,7 @@
             <pivot string="Membership Group Members" disable_linking="True">
                 <field name="partner_id" type="row" />
                 <field name="group_id" type="row" />
-                <field name="type" type="col" />
+                <field name="type_ids" type="col" />
             </pivot>
         </field>
     </record>
@@ -107,7 +119,7 @@
             <search>
                 <field name="partner_id" />
                 <field name="group_id" />
-                <field name="type" />
+                <field name="type_ids" />
                 <separator />
                 <filter
                     name="filter_current"
@@ -161,10 +173,10 @@
                     />
                     <filter
                         string="Type"
-                        name="groupby_type"
+                        name="groupby_type_ids"
                         domain="[]"
-                        help="Group"
-                        context="{'group_by':'type'}"
+                        help="Types"
+                        context="{'group_by':'type_ids'}"
                     />
                 </group>
             </search>

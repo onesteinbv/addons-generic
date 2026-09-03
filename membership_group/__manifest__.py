@@ -3,7 +3,7 @@
 {
     "name": "Membership Group",
     "category": "Membership",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "author": "Onestein, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://onestein.nl",
@@ -14,7 +14,9 @@
     "data": [
         "data/ir_actions_server_data.xml",
         "data/ir_cron_data.xml",
+        "data/membership_group_member_type_data.xml",
         "security/ir.model.access.csv",
+        "views/membership_group_member_type_view.xml",
         "views/membership_group_member_view.xml",
         "views/membership_group_view.xml",
         "views/res_partner_view.xml",

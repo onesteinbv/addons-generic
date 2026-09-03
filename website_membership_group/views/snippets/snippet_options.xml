@@ -4,7 +4,7 @@
         <xpath expr="." position="inside">
             <div
                 data-js="MembershipGroupPage"
-                data-selector="body:has(#mg_members_row) #wrap"
+                data-selector="#wrap.mg_wrap"
                 data-page-options="true"
             >
                 <we-title>Visibility</we-title>
@@ -13,23 +13,25 @@
                     data-select-class="mg_show_image"
                 />
                 <we-checkbox
-                    string="Show Top Content"
-                    data-select-class="mg_show_top"
+                    string="Show Team"
+                    data-select-class="mg_show_team"
+                    data-name="show_team"
                 />
-                <we-checkbox
-                    string="Show Bottom Content"
-                    data-select-class="mg_show_bottom"
+                <we-many2many
+                    string="Hidden Member Types"
+                    data-model="membership.group"
+                    data-m2o-field="website_hide_member_type_ids"
+                    data-dependencies="show_team"
+                    data-set-hidden-types="true"
+                    data-no-preview="true"
                 />
-                <we-checkbox
-                    string="Show Committee"
-                    data-select-class="mg_show_committee"
-                />
-                <we-checkbox string="Show Team" data-select-class="mg_show_team" />
             </div>
-
             <div data-js="MemberLayoutOpts" data-selector="#mg_members_row">
                 <we-title>Member Layout and Descriptions</we-title>
-
+                <we-checkbox
+                    string="Single List"
+                    data-select-class="mg_members_single_list"
+                />
                 <we-button-group string="Layout">
                     <we-button
                         data-select-class="mg_layout_grid"
@@ -45,38 +47,19 @@
                     >
                         <i class="fa fa-th-large" />
                     </we-button>
-                    <we-button
-                        data-select-class="mg_layout_logos"
-                        data-name="mg_layout_logos"
-                        title="Logos"
-                    >
-                        <i class="fa fa-briefcase" />
-                    </we-button>
                 </we-button-group>
-                <we-checkbox
-                    string="Committee Description"
-                    data-select-class="mg_show_committee_desc"
-                    data-dependencies="mg_layout_cards,mg_layout_logos"
-                />
                 <we-checkbox
                     string="Team Description"
                     data-select-class="mg_show_team_desc"
-                    data-dependencies="mg_layout_cards,mg_layout_logos"
+                    data-dependencies="mg_layout_cards"
                 />
                 <we-checkbox
                     string="Collapsible"
                     data-select-class="mg_collapse_desc"
-                    data-dependencies="mg_layout_cards,mg_layout_logos"
+                    data-dependencies="mg_layout_cards"
                 />
+                <we-checkbox string="Logos" data-select-class="mg_img_logos_layout" />
             </div>
-            <div
-                data-js="MemberColOpts"
-                data-selector="body:has(#mg_members_row) .mg_team_col,body:has(#mg_members_row) .mg_committee_col"
-            />
-            <div
-                data-js="MembershipGroupPageHeaderOpts"
-                data-selector="body:has(#mg_header_row) .mg_image_col,body:has(#mg_header_row) .mg_desc_col"
-            />
         </xpath>
     </template>
 </odoo>

@@ -21,52 +21,8 @@ class ResPartner(models.Model):
         [("verified", "Verified"), ("unverified", "Unverified"), ("ignore", "Ignore")],
         default="ignore",
     )
-
     membership_application_date = fields.Date()
-
     applicant_ids = fields.One2many("hr.applicant", "partner_id")
-
-    follower_membership_groups_count = fields.Integer(
-        string="Following # Membership Groups",
-        compute="_compute_membership_group_ids",
-        store=True,
-    )
-    applicant_membership_groups_count = fields.Integer(
-        string="Applicant to # Membership Groups",
-        compute="_compute_membership_group_ids",
-        store=True,
-    )
-    collaborator_membership_groups_count = fields.Integer(
-        string="Collaborating to # Membership Group",
-        compute="_compute_membership_group_ids",
-        store=True,
-    )
-
-    @api.depends(
-        "membership_group_member_ids",
-        "membership_group_member_ids.group_id",
-        "membership_group_member_ids.type",
-    )
-    def _compute_membership_group_ids(self):
-        res = super()._compute_membership_group_ids()
-        for partner in self:
-            partner.follower_membership_groups_count = len(
-                partner.membership_group_member_ids.filtered(
-                    lambda x: x.type
-                    in ("follower", "applicant_follower", "collaborator_follower")
-                ).mapped("group_id")
-            )
-            partner.applicant_membership_groups_count = len(
-                partner.membership_group_member_ids.filtered(
-                    lambda x: x.type in ("applicant", "applicant_follower")
-                ).mapped("group_id")
-            )
-            partner.collaborator_membership_groups_count = len(
-                partner.membership_group_member_ids.filtered(
-                    lambda x: x.type in ("collaborator", "collaborator_follower")
-                ).mapped("group_id")
-            )
-        return res
 
     @api.constrains("email", "membership_state", "active")
     def _check_mail_unique(self):
