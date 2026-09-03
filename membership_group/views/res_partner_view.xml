@@ -23,11 +23,11 @@
                 <field name="member_can_vote" />
             </field>
             <xpath expr="//field[@name='member_lines']" position="after">
-                <group>
+                <group col="1">
+                    <label string="Groups" for="membership_group_member_ids" />
                     <field
                         name="membership_group_member_ids"
-                        string="Groups"
-                        colspan="2"
+                        nolabel="1"
                         context="{'list_view_ref': 'membership_group.membership_group_member_view_tree_partner'}"
                     />
                 </group>
