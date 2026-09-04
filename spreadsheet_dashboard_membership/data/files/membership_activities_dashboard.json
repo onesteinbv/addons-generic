@@ -334,7 +334,7 @@
                 "chain": "type_id",
                 "type": "many2one"
               },
-              "new-project-filter": {
+              "d0709831-1587-4a9e-8add-39c6b16c7088": {
                 "chain": "project_id",
                 "type": "many2one"
               }
@@ -758,7 +758,7 @@
           "chain": "type_id",
           "type": "many2one"
         },
-        "new-project-filter": {
+        "d0709831-1587-4a9e-8add-39c6b16c7088": {
           "chain": "project_id",
           "type": "many2one"
         }
@@ -809,7 +809,7 @@
           "chain": "type_id",
           "type": "many2one"
         },
-        "new-project-filter": {
+        "d0709831-1587-4a9e-8add-39c6b16c7088": {
           "chain": "project_id",
           "type": "many2one"
         }
@@ -907,7 +907,7 @@
       "rangeType": "year"
     },
     {
-      "id": "new-project-filter",
+      "id": "d0709831-1587-4a9e-8add-39c6b16c7088",
       "type": "relation",
       "label": "Project",
       "modelName": "project.project",
