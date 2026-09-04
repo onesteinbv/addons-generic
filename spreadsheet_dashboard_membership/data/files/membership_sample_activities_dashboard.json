@@ -85,67 +85,67 @@
           "content": "=_t(\"Member\")"
         },
         "A25": {
-          "content": "=PIVOT.HEADER(1,\"#partner_id\",1)"
+          "content": "=Data!A25"
         },
         "A26": {
-          "content": "=PIVOT.HEADER(1,\"#partner_id\",2)"
+          "content": "=Data!A26"
         },
         "A27": {
-          "content": "=PIVOT.HEADER(1,\"#partner_id\",3)"
+          "content": "=Data!A27"
         },
         "A28": {
-          "content": "=PIVOT.HEADER(1,\"#partner_id\",4)"
+          "content": "=Data!A28"
         },
         "A29": {
-          "content": "=PIVOT.HEADER(1,\"#partner_id\",5)"
+          "content": "=Data!A29"
         },
         "A30": {
-          "content": "=PIVOT.HEADER(1,\"#partner_id\",6)"
+          "content": "=Data!A30"
         },
         "A31": {
-          "content": "=PIVOT.HEADER(1,\"#partner_id\",7)"
+          "content": "=Data!A31"
         },
         "A32": {
-          "content": "=PIVOT.HEADER(1,\"#partner_id\",8)"
+          "content": "=Data!A32"
         },
         "A33": {
-          "content": "=PIVOT.HEADER(1,\"#partner_id\",9)"
+          "content": "=Data!A33"
         },
         "A34": {
-          "content": "=PIVOT.HEADER(1,\"#partner_id\",10)"
+          "content": "=Data!A34"
         },
         "B24": {
           "content": "=_t(\"Activities\")"
         },
         "B25": {
-          "content": "=PIVOT.VALUE(1,\"__count\",\"#partner_id\",1)"
+          "content": "=Data!B25"
         },
         "B26": {
-          "content": "=PIVOT.VALUE(1,\"__count\",\"#partner_id\",2)"
+          "content": "=Data!B26"
         },
         "B27": {
-          "content": "=PIVOT.VALUE(1,\"__count\",\"#partner_id\",3)"
+          "content": "=Data!B27"
         },
         "B28": {
-          "content": "=PIVOT.VALUE(1,\"__count\",\"#partner_id\",4)"
+          "content": "=Data!B28"
         },
         "B29": {
-          "content": "=PIVOT.VALUE(1,\"__count\",\"#partner_id\",5)"
+          "content": "=Data!B29"
         },
         "B30": {
-          "content": "=PIVOT.VALUE(1,\"__count\",\"#partner_id\",6)"
+          "content": "=Data!B30"
         },
         "B31": {
-          "content": "=PIVOT.VALUE(1,\"__count\",\"#partner_id\",7)"
+          "content": "=Data!B31"
         },
         "B32": {
-          "content": "=PIVOT.VALUE(1,\"__count\",\"#partner_id\",8)"
+          "content": "=Data!B32"
         },
         "B33": {
-          "content": "=PIVOT.VALUE(1,\"__count\",\"#partner_id\",9)"
+          "content": "=Data!B33"
         },
         "B34": {
-          "content": "=PIVOT.VALUE(1,\"__count\",\"#partner_id\",10)"
+          "content": "=Data!B34"
         },
         "E23": {
           "content": "[Most Active Projects](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[],\"context\":{\"group_by\":[\"project_id\"],\"pivot_measures\":[\"__count\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"project_id\"]},\"modelName\":\"membership.activity\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"list\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Member Activities\"})"
@@ -154,67 +154,67 @@
           "content": "=_t(\"Project\")"
         },
         "E25": {
-          "content": "=PIVOT.HEADER(2,\"#project_id\",1)"
+          "content": "=Data!E25"
         },
         "E26": {
-          "content": "=PIVOT.HEADER(2,\"#project_id\",2)"
+          "content": "=Data!E26"
         },
         "E27": {
-          "content": "=PIVOT.HEADER(2,\"#project_id\",3)"
+          "content": "=Data!E27"
         },
         "E28": {
-          "content": "=PIVOT.HEADER(2,\"#project_id\",4)"
+          "content": "=Data!E28"
         },
         "E29": {
-          "content": "=PIVOT.HEADER(2,\"#project_id\",5)"
+          "content": "=Data!E29"
         },
         "E30": {
-          "content": "=PIVOT.HEADER(2,\"#project_id\",6)"
+          "content": "=Data!E30"
         },
         "E31": {
-          "content": "=PIVOT.HEADER(2,\"#project_id\",7)"
+          "content": "=Data!E31"
         },
         "E32": {
-          "content": "=PIVOT.HEADER(2,\"#project_id\",8)"
+          "content": "=Data!E32"
         },
         "E33": {
-          "content": "=PIVOT.HEADER(2,\"#project_id\",9)"
+          "content": "=Data!E33"
         },
         "E34": {
-          "content": "=PIVOT.HEADER(2,\"#project_id\",10)"
+          "content": "=Data!E34"
         },
         "F24": {
           "content": "=_t(\"Activities\")"
         },
         "F25": {
-          "content": "=PIVOT.VALUE(2,\"__count\",\"#project_id\",1)"
+          "content": "=Data!F25"
         },
         "F26": {
-          "content": "=PIVOT.VALUE(2,\"__count\",\"#project_id\",2)"
+          "content": "=Data!F26"
         },
         "F27": {
-          "content": "=PIVOT.VALUE(2,\"__count\",\"#project_id\",3)"
+          "content": "=Data!F27"
         },
         "F28": {
-          "content": "=PIVOT.VALUE(2,\"__count\",\"#project_id\",4)"
+          "content": "=Data!F28"
         },
         "F29": {
-          "content": "=PIVOT.VALUE(2,\"__count\",\"#project_id\",5)"
+          "content": "=Data!F29"
         },
         "F30": {
-          "content": "=PIVOT.VALUE(2,\"__count\",\"#project_id\",6)"
+          "content": "=Data!F30"
         },
         "F31": {
-          "content": "=PIVOT.VALUE(2,\"__count\",\"#project_id\",7)"
+          "content": "=Data!F31"
         },
         "F32": {
-          "content": "=PIVOT.VALUE(2,\"__count\",\"#project_id\",8)"
+          "content": "=Data!F32"
         },
         "F33": {
-          "content": "=PIVOT.VALUE(2,\"__count\",\"#project_id\",9)"
+          "content": "=Data!F33"
         },
         "F34": {
-          "content": "=PIVOT.VALUE(2,\"__count\",\"#project_id\",10)"
+          "content": "=Data!F34"
         }
       },
       "styles": {
@@ -296,49 +296,20 @@
             },
             "background": "#FFFFFF",
             "legendPosition": "none",
-            "metaData": {
-              "groupBy": ["date:month"],
-              "measure": "__count",
-              "order": null,
-              "resModel": "membership.activity",
-              "mode": "line"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {
-                "group_by": []
-              },
-              "domain": [],
-              "groupBy": ["date:month"],
-              "orderBy": []
-            },
-            "type": "odoo_line",
-            "verticalAxisPosition": "left",
-            "stacked": false,
-            "fillArea": true,
-            "fieldMatching": {
-              "13d30fda-b14d-4a56-b186-25468af3b1e9": {
-                "chain": "date",
-                "type": "date",
-                "offset": 0
-              },
-              "e6db018b-19ec-42c3-b29e-11b1e3910916": {
-                "chain": "partner_id.country_id",
-                "type": "many2one"
-              },
-              "7d95fe28-fd13-4805-948c-95742e7d6733": {
-                "chain": "partner_id",
-                "type": "many2one"
-              },
-              "77e2858c-2615-4e38-9f6a-c4b7d6345873": {
-                "chain": "type_id",
-                "type": "many2one"
-              },
-              "new-project-filter": {
-                "chain": "project_id",
-                "type": "many2one"
+            "type": "line",
+            "dataSetsHaveTitle": false,
+            "dataSets": [
+              {
+                "dataRange": "Data!C11:C16",
+                "yAxisId": "y"
               }
-            }
+            ],
+            "labelRange": "Data!A11:A16",
+            "labelsAsText": true,
+            "stacked": false,
+            "aggregated": false,
+            "cumulative": false,
+            "fillArea": true
           }
         }
       ],
@@ -376,9 +347,201 @@
         }
       },
       "merges": [],
-      "cells": {},
+      "cells": {
+        "A10": {
+          "content": "=_t(\"Monthly Activities\")"
+        },
+        "A11": {
+          "content": "=EDATE(TODAY(), -B11)"
+        },
+        "B11": {
+          "content": "5"
+        },
+        "C11": {
+          "content": "34"
+        },
+        "A12": {
+          "content": "=EDATE(TODAY(), -B12)"
+        },
+        "B12": {
+          "content": "4"
+        },
+        "C12": {
+          "content": "52"
+        },
+        "A13": {
+          "content": "=EDATE(TODAY(), -B13)"
+        },
+        "B13": {
+          "content": "3"
+        },
+        "C13": {
+          "content": "78"
+        },
+        "A14": {
+          "content": "=EDATE(TODAY(), -B14)"
+        },
+        "B14": {
+          "content": "2"
+        },
+        "C14": {
+          "content": "115"
+        },
+        "A15": {
+          "content": "=EDATE(TODAY(), -B15)"
+        },
+        "B15": {
+          "content": "1"
+        },
+        "C15": {
+          "content": "142"
+        },
+        "A16": {
+          "content": "=EDATE(TODAY(), -B16)"
+        },
+        "B16": {
+          "content": "0"
+        },
+        "C16": {
+          "content": "180"
+        },
+        "A24": {
+          "content": "=_t(\"Member\")"
+        },
+        "B24": {
+          "content": "=_t(\"Activities\")"
+        },
+        "A25": {
+          "content": "=_t(\"Marc Demo\")"
+        },
+        "B25": {
+          "content": "45"
+        },
+        "A26": {
+          "content": "=_t(\"Joel Willis\")"
+        },
+        "B26": {
+          "content": "38"
+        },
+        "A27": {
+          "content": "=_t(\"Colleen Diaz\")"
+        },
+        "B27": {
+          "content": "31"
+        },
+        "A28": {
+          "content": "=_t(\"Mitchell Admin\")"
+        },
+        "B28": {
+          "content": "27"
+        },
+        "A29": {
+          "content": "=_t(\"Anita Oliver\")"
+        },
+        "B29": {
+          "content": "22"
+        },
+        "A30": {
+          "content": "=_t(\"Nicole Ford\")"
+        },
+        "B30": {
+          "content": "18"
+        },
+        "A31": {
+          "content": "=_t(\"Brandon Freeman\")"
+        },
+        "B31": {
+          "content": "15"
+        },
+        "A32": {
+          "content": "=_t(\"Beth Evans\")"
+        },
+        "B32": {
+          "content": "12"
+        },
+        "A33": {
+          "content": "=_t(\"Jeffrey Kelly\")"
+        },
+        "B33": {
+          "content": "9"
+        },
+        "A34": {
+          "content": "=_t(\"Billy Fox\")"
+        },
+        "B34": {
+          "content": "6"
+        },
+        "E24": {
+          "content": "=_t(\"Project\")"
+        },
+        "F24": {
+          "content": "=_t(\"Activities\")"
+        },
+        "E25": {
+          "content": "=_t(\"Internal\")"
+        },
+        "F25": {
+          "content": "64"
+        },
+        "E26": {
+          "content": "=_t(\"Community Outreach\")"
+        },
+        "F26": {
+          "content": "52"
+        },
+        "E27": {
+          "content": "=_t(\"Website Redesign\")"
+        },
+        "F27": {
+          "content": "41"
+        },
+        "E28": {
+          "content": "=_t(\"Event Management\")"
+        },
+        "F28": {
+          "content": "35"
+        },
+        "E29": {
+          "content": "=_t(\"Fundraising\")"
+        },
+        "F29": {
+          "content": "28"
+        },
+        "E30": {
+          "content": "=_t(\"Member Support\")"
+        },
+        "F30": {
+          "content": "22"
+        },
+        "E31": {
+          "content": "=_t(\"Newsletter\")"
+        },
+        "F31": {
+          "content": "17"
+        },
+        "E32": {
+          "content": "=_t(\"Workshops\")"
+        },
+        "F32": {
+          "content": "13"
+        },
+        "E33": {
+          "content": "=_t(\"Volunteer Training\")"
+        },
+        "F33": {
+          "content": "10"
+        },
+        "E34": {
+          "content": "=_t(\"Annual Conference\")"
+        },
+        "F34": {
+          "content": "7"
+        }
+      },
       "styles": {},
-      "formats": {},
+      "formats": {
+        "A11:A16": 1
+      },
       "borders": {},
       "conditionalFormats": [],
       "figures": [],
@@ -438,7 +601,9 @@
       "fillColor": "#f2f2f2"
     }
   },
-  "formats": {},
+  "formats": {
+    "1": "mmmm yyyy"
+  },
   "borders": {
     "1": {
       "bottom": {
@@ -737,110 +902,7 @@
       "weekStart": 7
     }
   },
-  "pivots": {
-    "1": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "13d30fda-b14d-4a56-b186-25468af3b1e9": {
-          "chain": "date",
-          "type": "date",
-          "offset": 0
-        },
-        "e6db018b-19ec-42c3-b29e-11b1e3910916": {
-          "chain": "partner_id.country_id",
-          "type": "many2one"
-        },
-        "7d95fe28-fd13-4805-948c-95742e7d6733": {
-          "chain": "partner_id",
-          "type": "many2one"
-        },
-        "77e2858c-2615-4e38-9f6a-c4b7d6345873": {
-          "chain": "type_id",
-          "type": "many2one"
-        },
-        "new-project-filter": {
-          "chain": "project_id",
-          "type": "many2one"
-        }
-      },
-      "context": {
-        "group_by": []
-      },
-      "domain": [],
-      "id": "1",
-      "measures": [
-        {
-          "id": "__count",
-          "fieldName": "__count"
-        }
-      ],
-      "model": "membership.activity",
-      "name": "Most Active Members",
-      "sortedColumn": {
-        "groupId": [[], []],
-        "measure": "__count",
-        "order": "desc"
-      },
-      "formulaId": "1",
-      "columns": [],
-      "rows": [
-        {
-          "fieldName": "partner_id"
-        }
-      ]
-    },
-    "2": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "13d30fda-b14d-4a56-b186-25468af3b1e9": {
-          "chain": "date",
-          "type": "date",
-          "offset": 0
-        },
-        "e6db018b-19ec-42c3-b29e-11b1e3910916": {
-          "chain": "partner_id.country_id",
-          "type": "many2one"
-        },
-        "7d95fe28-fd13-4805-948c-95742e7d6733": {
-          "chain": "partner_id",
-          "type": "many2one"
-        },
-        "77e2858c-2615-4e38-9f6a-c4b7d6345873": {
-          "chain": "type_id",
-          "type": "many2one"
-        },
-        "new-project-filter": {
-          "chain": "project_id",
-          "type": "many2one"
-        }
-      },
-      "context": {
-        "group_by": []
-      },
-      "domain": [],
-      "id": "2",
-      "measures": [
-        {
-          "id": "__count",
-          "fieldName": "__count"
-        }
-      ],
-      "model": "membership.activity",
-      "name": "Most Active Projects",
-      "sortedColumn": {
-        "groupId": [[], []],
-        "measure": "__count",
-        "order": "desc"
-      },
-      "formulaId": "2",
-      "columns": [],
-      "rows": [
-        {
-          "fieldName": "project_id"
-        }
-      ]
-    }
-  },
+  "pivots": {},
   "pivotNextId": 13,
   "customTableStyles": {},
   "odooVersion": 12,
@@ -907,7 +969,7 @@
       "rangeType": "year"
     },
     {
-      "id": "new-project-filter",
+      "id": "d0709831-1587-4a9e-8add-39c6b16c7088",
       "type": "relation",
       "label": "Project",
       "modelName": "project.project",

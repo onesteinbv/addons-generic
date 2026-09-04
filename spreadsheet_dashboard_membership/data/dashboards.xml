@@ -39,7 +39,7 @@
         />
         <field
             name="main_data_model_ids"
-            eval="[(4, ref('membership.model_membership_membership_line'))]"
+            eval="[(4, ref('membership_activity.model_membership_activity'))]"
         />
         <field
             name="sample_dashboard_file_path"

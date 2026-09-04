@@ -158,53 +158,20 @@
             },
             "background": "#FFFFFF",
             "legendPosition": "none",
-            "metaData": {
-              "groupBy": ["date:month"],
-              "measure": "__count",
-              "order": null,
-              "resModel": "membership.membership_line",
-              "mode": "line"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {
-                "group_by": []
-              },
-              "domain": [["state", "in", ["paid", "invoiced", "waiting", "free"]]],
-              "groupBy": ["date:month"],
-              "orderBy": []
-            },
-            "type": "odoo_line",
-            "verticalAxisPosition": "left",
-            "stacked": false,
-            "fillArea": true,
-            "fieldMatching": {
-              "13d30fda-b14d-4a56-b186-25468af3b1e9": {
-                "chain": "date",
-                "type": "date",
-                "offset": 0
-              },
-              "e6db018b-19ec-42c3-b29e-11b1e3910916": {
-                "chain": "partner.country_id",
-                "type": "many2one"
-              },
-              "dbb716a1-5977-47ee-a53e-ca5716303433": {
-                "chain": "membership_id",
-                "type": "many2one"
-              },
-              "7d95fe28-fd13-4805-948c-95742e7d6733": {
-                "chain": "partner",
-                "type": "many2one"
-              },
-              "27e323f4-cd70-4345-82fa-dfc855707bc1": {
-                "chain": "membership_id.categ_id",
-                "type": "many2one"
-              },
-              "4181e8e3-2e7e-42be-a88b-f24acb7d03e7": {
-                "chain": "account_invoice_id.user_id",
-                "type": "many2one"
+            "type": "line",
+            "dataSetsHaveTitle": false,
+            "dataSets": [
+              {
+                "dataRange": "Data!C11:C16",
+                "yAxisId": "y"
               }
-            }
+            ],
+            "labelRange": "Data!A11:A16",
+            "labelsAsText": true,
+            "stacked": false,
+            "aggregated": false,
+            "cumulative": false,
+            "fillArea": true
           }
         }
       ],
@@ -271,22 +238,22 @@
           "content": "=_t(\"Current\")"
         },
         "B2": {
-          "content": "=PIVOT.VALUE(11,\"order_reference\",\"state\",\"waiting\")"
+          "content": "14"
         },
         "B3": {
-          "content": "=PIVOT.VALUE(11,\"order_reference\",\"state\",\"invoiced\")"
+          "content": "28"
         },
         "B4": {
           "content": "=B2+B3"
         },
         "B5": {
-          "content": "=PIVOT.VALUE(11,\"order_reference\",\"state\",\"paid\")"
+          "content": "156"
         },
         "B6": {
-          "content": "=PIVOT.VALUE(11,\"order_reference\",\"state\",\"paid\")"
+          "content": "156"
         },
         "B7": {
-          "content": "=PIVOT.VALUE(11,\"price_subtotal\",\"state\",\"paid\")"
+          "content": "39000"
         },
         "B8": {
           "content": "=IFERROR(B7/B6)"
@@ -295,22 +262,22 @@
           "content": "=_t(\"Previous\")"
         },
         "C2": {
-          "content": "=PIVOT.VALUE(12,\"order_reference\",\"state\",\"waiting\")"
+          "content": "10"
         },
         "C3": {
-          "content": "=PIVOT.VALUE(12,\"order_reference\",\"state\",\"invoiced\")"
+          "content": "22"
         },
         "C4": {
           "content": "=C2+C3"
         },
         "C5": {
-          "content": "=PIVOT.VALUE(12,\"order_reference\",\"state\",\"paid\")"
+          "content": "130"
         },
         "C6": {
-          "content": "=PIVOT.VALUE(12,\"order_reference\",\"state\",\"paid\")"
+          "content": "130"
         },
         "C7": {
-          "content": "=PIVOT.VALUE(12,\"price_subtotal\",\"state\",\"paid\")"
+          "content": "31200"
         },
         "C8": {
           "content": "=IFERROR(C7/C6)"
@@ -362,13 +329,76 @@
         },
         "E8": {
           "content": "=FORMAT.LARGE.NUMBER(C8)"
+        },
+        "A10": {
+          "content": "=_t(\"Monthly Memberships\")"
+        },
+        "A11": {
+          "content": "=EDATE(TODAY(), -B11)"
+        },
+        "B11": {
+          "content": "5"
+        },
+        "C11": {
+          "content": "110"
+        },
+        "A12": {
+          "content": "=EDATE(TODAY(), -B12)"
+        },
+        "B12": {
+          "content": "4"
+        },
+        "C12": {
+          "content": "125"
+        },
+        "A13": {
+          "content": "=EDATE(TODAY(), -B13)"
+        },
+        "B13": {
+          "content": "3"
+        },
+        "C13": {
+          "content": "138"
+        },
+        "A14": {
+          "content": "=EDATE(TODAY(), -B14)"
+        },
+        "B14": {
+          "content": "2"
+        },
+        "C14": {
+          "content": "145"
+        },
+        "A15": {
+          "content": "=EDATE(TODAY(), -B15)"
+        },
+        "B15": {
+          "content": "1"
+        },
+        "C15": {
+          "content": "162"
+        },
+        "A16": {
+          "content": "=EDATE(TODAY(), -B16)"
+        },
+        "B16": {
+          "content": "0"
+        },
+        "C16": {
+          "content": "198"
         }
       },
       "styles": {
         "A1:E1": 8,
         "D2:E8": 9
       },
-      "formats": {},
+      "formats": {
+        "A11:A16": 1,
+        "B7:C7": 2,
+        "B8:C8": 2,
+        "D7:E7": 2,
+        "D8:E8": 2
+      },
       "borders": {},
       "conditionalFormats": [],
       "figures": [],
@@ -428,7 +458,10 @@
       "fillColor": "#f2f2f2"
     }
   },
-  "formats": {},
+  "formats": {
+    "1": "mmmm yyyy",
+    "2": "[$$]#,##0"
+  },
   "borders": {
     "1": {
       "bottom": {
@@ -727,114 +760,7 @@
       "weekStart": 7
     }
   },
-  "pivots": {
-    "11": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "13d30fda-b14d-4a56-b186-25468af3b1e9": {
-          "chain": "date",
-          "type": "date",
-          "offset": 0
-        },
-        "e6db018b-19ec-42c3-b29e-11b1e3910916": {
-          "chain": "partner.country_id",
-          "type": "many2one"
-        },
-        "dbb716a1-5977-47ee-a53e-ca5716303433": {
-          "chain": "membership_id",
-          "type": "many2one"
-        },
-        "7d95fe28-fd13-4805-948c-95742e7d6733": {
-          "chain": "partner",
-          "type": "many2one"
-        },
-        "27e323f4-cd70-4345-82fa-dfc855707bc1": {
-          "chain": "membership_id.categ_id",
-          "type": "many2one"
-        },
-        "4181e8e3-2e7e-42be-a88b-f24acb7d03e7": {
-          "chain": "account_invoice_id.user_id",
-          "type": "many2one"
-        }
-      },
-      "context": {},
-      "domain": [["state", "in", ["paid", "invoiced", "waiting", "free"]]],
-      "id": "11",
-      "measures": [
-        {
-          "id": "order_reference",
-          "fieldName": "__count"
-        },
-        {
-          "id": "price_subtotal",
-          "fieldName": "member_price"
-        }
-      ],
-      "model": "membership.membership_line",
-      "name": "membership stats - current",
-      "sortedColumn": null,
-      "formulaId": "11",
-      "columns": [],
-      "rows": [
-        {
-          "fieldName": "state"
-        }
-      ]
-    },
-    "12": {
-      "type": "ODOO",
-      "fieldMatching": {
-        "13d30fda-b14d-4a56-b186-25468af3b1e9": {
-          "chain": "date",
-          "type": "date",
-          "offset": -1
-        },
-        "e6db018b-19ec-42c3-b29e-11b1e3910916": {
-          "chain": "partner.country_id",
-          "type": "many2one"
-        },
-        "dbb716a1-5977-47ee-a53e-ca5716303433": {
-          "chain": "membership_id",
-          "type": "many2one"
-        },
-        "7d95fe28-fd13-4805-948c-95742e7d6733": {
-          "chain": "partner",
-          "type": "many2one"
-        },
-        "27e323f4-cd70-4345-82fa-dfc855707bc1": {
-          "chain": "membership_id.categ_id",
-          "type": "many2one"
-        },
-        "4181e8e3-2e7e-42be-a88b-f24acb7d03e7": {
-          "chain": "account_invoice_id.user_id",
-          "type": "many2one"
-        }
-      },
-      "context": {},
-      "domain": [["state", "in", ["paid", "invoiced", "waiting", "free"]]],
-      "id": "12",
-      "measures": [
-        {
-          "id": "order_reference",
-          "fieldName": "__count"
-        },
-        {
-          "id": "price_subtotal",
-          "fieldName": "member_price"
-        }
-      ],
-      "model": "membership.membership_line",
-      "name": "membership stats - previous",
-      "sortedColumn": null,
-      "formulaId": "12",
-      "columns": [],
-      "rows": [
-        {
-          "fieldName": "state"
-        }
-      ]
-    }
-  },
+  "pivots": {},
   "pivotNextId": 13,
   "customTableStyles": {},
   "odooVersion": 12,

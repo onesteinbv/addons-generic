@@ -6,7 +6,7 @@
     "author": "CIT-Services, Onestein",
     "website": "https://onestein.nl",
     "summary": "Spreadsheet",
-    "depends": ["spreadsheet_dashboard", "membership"],
+    "depends": ["spreadsheet_dashboard", "membership", "membership_activity"],
     "data": [
         "data/dashboards.xml",
     ],
