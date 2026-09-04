@@ -1,0 +1,905 @@
+{
+  "version": 21,
+  "sheets": [
+    {
+      "id": "sheet1",
+      "name": "Dashboard",
+      "colNumber": 7,
+      "rowNumber": 22,
+      "rows": {
+        "5": {
+          "size": 40
+        }
+      },
+      "cols": {
+        "0": {
+          "size": 349
+        },
+        "1": {
+          "size": 95
+        },
+        "2": {
+          "size": 80
+        },
+        "3": {
+          "size": 50
+        },
+        "4": {
+          "size": 323
+        },
+        "5": {
+          "size": 100
+        },
+        "6": {
+          "size": 100
+        }
+      },
+      "merges": [],
+      "cells": {
+        "A6": {
+          "content": "[Monthly Memberships](odoo://view/{\"viewType\":\"graph\",\"action\":{\"domain\":[[\"state\",\"in\",[\"paid\",\"invoiced\",\"waiting\",\"free\"]]],\"context\":{\"group_by\":[\"date:month\"],\"graph_measure\":\"__count\",\"graph_mode\":\"line\",\"graph_groupbys\":[\"date:month\"]},\"modelName\":\"membership.membership_line\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Membership Analysis\"})"
+        }
+      },
+      "styles": {
+        "A6": 1
+      },
+      "formats": {},
+      "borders": {},
+      "conditionalFormats": [],
+      "figures": [
+        {
+          "id": "51823220-f22b-4359-8711-579a249c91bb",
+          "x": 0,
+          "y": 11,
+          "width": 213,
+          "height": 101,
+          "tag": "chart",
+          "data": {
+            "baselineColorDown": "#DC6965",
+            "baselineColorUp": "#00A04A",
+            "baselineMode": "percentage",
+            "title": {
+              "text": "New Members",
+              "bold": true,
+              "color": "#434343"
+            },
+            "type": "scorecard",
+            "background": "#EFF6FF",
+            "baseline": "Data!E4",
+            "baselineDescr": "since last period",
+            "keyValue": "Data!D4",
+            "humanize": false
+          }
+        },
+        {
+          "id": "9a38934c-b454-4a4b-88aa-17d1b80dbf5f",
+          "x": 223,
+          "y": 11,
+          "width": 211,
+          "height": 101,
+          "tag": "chart",
+          "data": {
+            "baselineColorDown": "#DC6965",
+            "baselineColorUp": "#00A04A",
+            "baselineMode": "percentage",
+            "title": {
+              "text": "Paid Members",
+              "color": "#434343",
+              "bold": true
+            },
+            "type": "scorecard",
+            "background": "#EFF6FF",
+            "baseline": "Data!E5",
+            "baselineDescr": "since last period",
+            "keyValue": "Data!D5",
+            "humanize": false
+          }
+        },
+        {
+          "id": "67858d0e-b5ba-4a3c-bf9e-c0fceaeedf65",
+          "x": 444,
+          "y": 11,
+          "width": 218,
+          "height": 101,
+          "tag": "chart",
+          "data": {
+            "baselineColorDown": "#DC6965",
+            "baselineColorUp": "#00A04A",
+            "baselineMode": "percentage",
+            "title": {
+              "text": "Membership Revenue",
+              "color": "#434343",
+              "bold": true
+            },
+            "type": "scorecard",
+            "background": "#FFF7ED",
+            "baseline": "Data!E7",
+            "baselineDescr": "since last period",
+            "keyValue": "Data!D7",
+            "humanize": false
+          }
+        },
+        {
+          "id": "d43375c1-73a6-42a2-8dbd-0f13c285824f",
+          "x": 672,
+          "y": 11,
+          "width": 213,
+          "height": 101,
+          "tag": "chart",
+          "data": {
+            "baselineColorDown": "#DC6965",
+            "baselineColorUp": "#00A04A",
+            "baselineMode": "percentage",
+            "title": {
+              "text": "Avg Membership Fee",
+              "color": "#434343",
+              "bold": true
+            },
+            "type": "scorecard",
+            "background": "#FFF7ED",
+            "baseline": "Data!E8",
+            "baselineDescr": "since last period",
+            "keyValue": "Data!D8",
+            "humanize": false
+          }
+        },
+        {
+          "id": "a527960b-0812-4291-baba-f6b4b5280a0d",
+          "x": 0,
+          "y": 165,
+          "width": 1095,
+          "height": 350,
+          "tag": "chart",
+          "data": {
+            "title": {
+              "text": ""
+            },
+            "background": "#FFFFFF",
+            "legendPosition": "none",
+            "metaData": {
+              "groupBy": ["date:month"],
+              "measure": "__count",
+              "order": null,
+              "resModel": "membership.membership_line",
+              "mode": "line"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {
+                "group_by": []
+              },
+              "domain": [["state", "in", ["paid", "invoiced", "waiting", "free"]]],
+              "groupBy": ["date:month"],
+              "orderBy": []
+            },
+            "type": "odoo_line",
+            "verticalAxisPosition": "left",
+            "stacked": false,
+            "fillArea": true,
+            "fieldMatching": {
+              "13d30fda-b14d-4a56-b186-25468af3b1e9": {
+                "chain": "date",
+                "type": "date",
+                "offset": 0
+              },
+
+              "e6db018b-19ec-42c3-b29e-11b1e3910916": {
+                "chain": "partner.country_id",
+                "type": "many2one"
+              },
+              "dbb716a1-5977-47ee-a53e-ca5716303433": {
+                "chain": "membership_id",
+                "type": "many2one"
+              },
+              "7d95fe28-fd13-4805-948c-95742e7d6733": {
+                "chain": "partner",
+                "type": "many2one"
+              },
+              "27e323f4-cd70-4345-82fa-dfc855707bc1": {
+                "chain": "membership_id.categ_id",
+                "type": "many2one"
+              },
+              "4181e8e3-2e7e-42be-a88b-f24acb7d03e7": {
+                "chain": "account_invoice_id.user_id",
+                "type": "many2one"
+              }
+            }
+          }
+        }
+      ],
+      "tables": [],
+      "areGridLinesVisible": true,
+      "isVisible": true,
+      "headerGroups": {
+        "ROW": [],
+        "COL": []
+      },
+      "dataValidationRules": [],
+      "comments": {}
+    },
+    {
+      "id": "eae01f9c-c461-4489-ade4-957ef2459d40",
+      "name": "Data",
+      "colNumber": 26,
+      "rowNumber": 103,
+      "rows": {},
+      "cols": {
+        "0": {
+          "size": 160
+        },
+        "1": {
+          "size": 89
+        },
+        "2": {
+          "size": 89
+        },
+        "3": {
+          "size": 89
+        },
+        "4": {
+          "size": 89
+        }
+      },
+      "merges": [],
+      "cells": {
+        "A1": {
+          "content": "=_t(\"KPI\")"
+        },
+        "A2": {
+          "content": "=_t(\"Waiting members\")"
+        },
+        "A3": {
+          "content": "=_t(\"Invoiced members\")"
+        },
+        "A4": {
+          "content": "=_t(\"Total new members\")"
+        },
+        "A5": {
+          "content": "=_t(\"Paid members\")"
+        },
+        "A6": {
+          "content": "=_t(\"Total paid members\")"
+        },
+        "A7": {
+          "content": "=_t(\"Membership revenue\")"
+        },
+        "A8": {
+          "content": "=_t(\"Average membership fee\")"
+        },
+        "B1": {
+          "content": "=_t(\"Current\")"
+        },
+        "B2": {
+          "content": "=PIVOT.VALUE(11,\"order_reference\",\"state\",\"waiting\")"
+        },
+        "B3": {
+          "content": "=PIVOT.VALUE(11,\"order_reference\",\"state\",\"invoiced\")"
+        },
+        "B4": {
+          "content": "=B2+B3"
+        },
+        "B5": {
+          "content": "=PIVOT.VALUE(11,\"order_reference\",\"state\",\"paid\")"
+        },
+        "B6": {
+          "content": "=PIVOT.VALUE(11,\"order_reference\",\"state\",\"paid\")"
+        },
+        "B7": {
+          "content": "=PIVOT.VALUE(11,\"price_subtotal\",\"state\",\"paid\")"
+        },
+        "B8": {
+          "content": "=IFERROR(B7/B6)"
+        },
+        "C1": {
+          "content": "=_t(\"Previous\")"
+        },
+        "C2": {
+          "content": "=PIVOT.VALUE(12,\"order_reference\",\"state\",\"waiting\")"
+        },
+        "C3": {
+          "content": "=PIVOT.VALUE(12,\"order_reference\",\"state\",\"invoiced\")"
+        },
+        "C4": {
+          "content": "=C2+C3"
+        },
+        "C5": {
+          "content": "=PIVOT.VALUE(12,\"order_reference\",\"state\",\"paid\")"
+        },
+        "C6": {
+          "content": "=PIVOT.VALUE(12,\"order_reference\",\"state\",\"paid\")"
+        },
+        "C7": {
+          "content": "=PIVOT.VALUE(12,\"price_subtotal\",\"state\",\"paid\")"
+        },
+        "C8": {
+          "content": "=IFERROR(C7/C6)"
+        },
+        "D1": {
+          "content": "=_t(\"Current\")"
+        },
+        "D2": {
+          "content": "=FORMAT.LARGE.NUMBER(B2)"
+        },
+        "D3": {
+          "content": "=FORMAT.LARGE.NUMBER(B3)"
+        },
+        "D4": {
+          "content": "=FORMAT.LARGE.NUMBER(B4)"
+        },
+        "D5": {
+          "content": "=FORMAT.LARGE.NUMBER(B5)"
+        },
+        "D6": {
+          "content": "=FORMAT.LARGE.NUMBER(B6)"
+        },
+        "D7": {
+          "content": "=FORMAT.LARGE.NUMBER(B7)"
+        },
+        "D8": {
+          "content": "=FORMAT.LARGE.NUMBER(B8)"
+        },
+        "E1": {
+          "content": "=_t(\"Previous\")"
+        },
+        "E2": {
+          "content": "=FORMAT.LARGE.NUMBER(C2)"
+        },
+        "E3": {
+          "content": "=FORMAT.LARGE.NUMBER(C3)"
+        },
+        "E4": {
+          "content": "=FORMAT.LARGE.NUMBER(C4)"
+        },
+        "E5": {
+          "content": "=FORMAT.LARGE.NUMBER(C5)"
+        },
+        "E6": {
+          "content": "=FORMAT.LARGE.NUMBER(C6)"
+        },
+        "E7": {
+          "content": "=FORMAT.LARGE.NUMBER(C7)"
+        },
+        "E8": {
+          "content": "=FORMAT.LARGE.NUMBER(C8)"
+        }
+      },
+      "styles": {
+        "A1:E1": 8,
+        "D2:E8": 9
+      },
+      "formats": {},
+      "borders": {
+        "A6:G8": 1
+      },
+      "conditionalFormats": [],
+      "figures": [],
+      "tables": [],
+      "areGridLinesVisible": true,
+      "isVisible": true,
+      "headerGroups": {
+        "ROW": [],
+        "COL": []
+      },
+      "dataValidationRules": [],
+      "comments": {}
+    }
+  ],
+  "styles": {
+    "1": {
+      "textColor": "#01666b",
+      "bold": true,
+      "fontSize": 16
+    },
+    "2": {
+      "fontSize": 11,
+      "textColor": "#434343",
+      "verticalAlign": "middle",
+      "bold": true
+    },
+    "3": {
+      "textColor": "#01666B",
+      "verticalAlign": "middle"
+    },
+    "4": {
+      "bold": true,
+      "fontSize": 11,
+      "textColor": "#434343"
+    },
+    "5": {
+      "textColor": "#434343",
+      "verticalAlign": "middle"
+    },
+    "6": {
+      "bold": true,
+      "fontSize": 11,
+      "textColor": "#434343",
+      "align": "center"
+    },
+    "7": {
+      "align": "center",
+      "fontSize": 11,
+      "textColor": "#434343",
+      "verticalAlign": "middle",
+      "bold": true
+    },
+    "8": {
+      "bold": true
+    },
+    "9": {
+      "fillColor": "#f2f2f2"
+    }
+  },
+  "formats": {},
+  "borders": {
+    "1": {
+      "bottom": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      }
+    },
+    "2": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      }
+    },
+    "3": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "4": {
+      "top": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "5": {
+      "top": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "6": {
+      "top": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "7": {
+      "top": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "8": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "9": {
+      "top": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "10": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "11": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "12": {
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "13": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "14": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "15": {
+      "top": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "16": {
+      "top": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "17": {
+      "top": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "18": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "19": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "20": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "21": {
+      "left": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "22": {
+      "left": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "23": {
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    }
+  },
+  "revisionId": "START_REVISION",
+  "uniqueFigureIds": true,
+  "settings": {
+    "locale": {
+      "name": "English (US)",
+      "code": "en_US",
+      "thousandsSeparator": ",",
+      "decimalSeparator": ".",
+      "dateFormat": "mm/dd/yyyy",
+      "timeFormat": "hh:mm:ss",
+      "formulaArgSeparator": ",",
+      "weekStart": 7
+    }
+  },
+  "pivots": {
+    "11": {
+      "type": "ODOO",
+      "fieldMatching": {
+        "13d30fda-b14d-4a56-b186-25468af3b1e9": {
+          "chain": "date",
+          "type": "date",
+          "offset": 0
+        },
+        "e6db018b-19ec-42c3-b29e-11b1e3910916": {
+          "chain": "partner.country_id",
+          "type": "many2one"
+        },
+        "dbb716a1-5977-47ee-a53e-ca5716303433": {
+          "chain": "membership_id",
+          "type": "many2one"
+        },
+        "7d95fe28-fd13-4805-948c-95742e7d6733": {
+          "chain": "partner",
+          "type": "many2one"
+        },
+        "27e323f4-cd70-4345-82fa-dfc855707bc1": {
+          "chain": "membership_id.categ_id",
+          "type": "many2one"
+        },
+        "4181e8e3-2e7e-42be-a88b-f24acb7d03e7": {
+          "chain": "account_invoice_id.user_id",
+          "type": "many2one"
+        }
+      },
+      "context": {},
+      "domain": [["state", "in", ["paid", "invoiced", "waiting", "free"]]],
+      "id": "11",
+      "measures": [
+        {
+          "id": "order_reference",
+          "fieldName": "__count"
+        },
+        {
+          "id": "price_subtotal",
+          "fieldName": "member_price"
+        }
+      ],
+      "model": "membership.membership_line",
+      "name": "membership stats - current",
+      "sortedColumn": null,
+      "formulaId": "11",
+      "columns": [],
+      "rows": [
+        {
+          "fieldName": "state"
+        }
+      ]
+    },
+    "12": {
+      "type": "ODOO",
+      "fieldMatching": {
+        "13d30fda-b14d-4a56-b186-25468af3b1e9": {
+          "chain": "date",
+          "type": "date",
+          "offset": -1
+        },
+        "e6db018b-19ec-42c3-b29e-11b1e3910916": {
+          "chain": "partner.country_id",
+          "type": "many2one"
+        },
+        "dbb716a1-5977-47ee-a53e-ca5716303433": {
+          "chain": "membership_id",
+          "type": "many2one"
+        },
+        "7d95fe28-fd13-4805-948c-95742e7d6733": {
+          "chain": "partner",
+          "type": "many2one"
+        },
+        "27e323f4-cd70-4345-82fa-dfc855707bc1": {
+          "chain": "membership_id.categ_id",
+          "type": "many2one"
+        },
+        "4181e8e3-2e7e-42be-a88b-f24acb7d03e7": {
+          "chain": "account_invoice_id.user_id",
+          "type": "many2one"
+        }
+      },
+      "context": {},
+      "domain": [["state", "in", ["paid", "invoiced", "waiting", "free"]]],
+      "id": "12",
+      "measures": [
+        {
+          "id": "order_reference",
+          "fieldName": "__count"
+        },
+        {
+          "id": "price_subtotal",
+          "fieldName": "member_price"
+        }
+      ],
+      "model": "membership.membership_line",
+      "name": "membership stats - previous",
+      "sortedColumn": null,
+      "formulaId": "12",
+      "columns": [],
+      "rows": [
+        {
+          "fieldName": "state"
+        }
+      ]
+    }
+  },
+  "pivotNextId": 13,
+  "customTableStyles": {},
+  "odooVersion": 12,
+  "globalFilters": [
+    {
+      "id": "13d30fda-b14d-4a56-b186-25468af3b1e9",
+      "type": "date",
+      "label": "Period",
+      "defaultValue": "last_three_months",
+      "rangeType": "relative"
+    },
+    {
+      "id": "e6db018b-19ec-42c3-b29e-11b1e3910916",
+      "type": "relation",
+      "label": "Country",
+      "modelName": "res.country",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "dbb716a1-5977-47ee-a53e-ca5716303433",
+      "type": "relation",
+      "label": "Membership Product",
+      "modelName": "product.product",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "7d95fe28-fd13-4805-948c-95742e7d6733",
+      "type": "relation",
+      "label": "Member",
+      "modelName": "res.partner",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "27e323f4-cd70-4345-82fa-dfc855707bc1",
+      "type": "relation",
+      "label": "Category",
+      "modelName": "product.category",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "4181e8e3-2e7e-42be-a88b-f24acb7d03e7",
+      "type": "relation",
+      "label": "Salesperson",
+      "modelName": "res.users",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    }
+  ],
+  "lists": {},
+  "listNextId": 1,
+  "chartOdooMenusReferences": {
+    "a527960b-0812-4291-baba-f6b4b5280a0d": "membership.menu_membership",
+    "51823220-f22b-4359-8711-579a249c91bb": "membership.menu_membership",
+    "9a38934c-b454-4a4b-88aa-17d1b80dbf5f": "membership.menu_membership",
+    "67858d0e-b5ba-4a3c-bf9e-c0fceaeedf65": "membership.menu_membership",
+    "d43375c1-73a6-42a2-8dbd-0f13c285824f": "membership.menu_membership"
+  }
+}
