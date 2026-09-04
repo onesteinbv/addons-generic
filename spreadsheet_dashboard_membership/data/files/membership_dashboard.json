@@ -182,7 +182,6 @@
                 "type": "date",
                 "offset": 0
               },
-
               "e6db018b-19ec-42c3-b29e-11b1e3910916": {
                 "chain": "partner.country_id",
                 "type": "many2one"
@@ -367,7 +366,10 @@
         "A1:E1": 8,
         "D2:E8": 9
       },
-      "formats": {},
+      "formats": {
+        "B7:C8": 1,
+        "D7:E8": 1
+      },
       "borders": {
         "A6:G8": 1
       },
@@ -429,7 +431,9 @@
       "fillColor": "#f2f2f2"
     }
   },
-  "formats": {},
+  "formats": {
+    "1": "[$$]#,##0"
+  },
   "borders": {
     "1": {
       "bottom": {
