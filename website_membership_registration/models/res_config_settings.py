@@ -36,3 +36,34 @@ class ResConfigSetting(models.TransientModel):
         related="website_id.membership_registration_cv_file_formats_supported",
         readonly=False,
     )
+
+    def set_values(self):
+        res = super().set_values()
+
+        menu_model = self.env["website.menu"]
+
+        for config in self:
+            menu = menu_model.search(
+                [
+                    ("url", "=", "/membership-registration"),
+                    ("website_id", "=", config.website_id.id),
+                ],
+                limit=1,
+            )
+
+            if not config.allow_membership_registration:
+                menu.unlink()
+                continue
+
+            if not menu:
+                menu_model.create(
+                    {
+                        "name": "Membership Registration",
+                        "url": "/membership-registration",
+                        "parent_id": config.website_id.menu_id.id,
+                        "sequence": 200,
+                        "website_id": config.website_id.id,
+                    }
+                )
+
+        return res

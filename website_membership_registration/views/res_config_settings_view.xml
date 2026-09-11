@@ -55,6 +55,22 @@
                                         />
                                     </div>
                                 </div>
+
+                                <div
+                                    class="content-group"
+                                    invisible="not allow_membership_registration"
+                                >
+                                    <div class="mt16">
+                                        <a
+                                            href="/membership-registration"
+                                            target="_blank"
+                                            class="oe_link"
+                                        >
+                                            <i class="fa fa-arrow-right me-1" />
+                                            Membership Registration Form
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
