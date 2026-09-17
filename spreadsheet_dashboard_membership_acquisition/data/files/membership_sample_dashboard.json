@@ -1,0 +1,357 @@
+{
+  "version": 21,
+  "sheets": [
+    {
+      "id": "sheet1",
+      "name": "Dashboard",
+      "colNumber": 7,
+      "rowNumber": 22,
+      "rows": {
+        "5": {
+          "size": 40
+        }
+      },
+      "cols": {
+        "0": {
+          "size": 349
+        },
+        "1": {
+          "size": 95
+        },
+        "2": {
+          "size": 80
+        },
+        "3": {
+          "size": 50
+        },
+        "4": {
+          "size": 323
+        },
+        "5": {
+          "size": 100
+        },
+        "6": {
+          "size": 100
+        }
+      },
+      "merges": [],
+      "cells": {
+        "A6": {
+          "content": "=IF(ODOO.FILTER.VALUE(\"Period\")=\"\", _t(\"Weekly Memberships\"), ODOO.FILTER.VALUE(\"Period\") & \" \" & _t(\"Memberships\"))"
+        }
+      },
+      "styles": {
+        "A6": 1
+      },
+      "formats": {},
+      "borders": {
+        "A6:G6": 1
+      },
+      "conditionalFormats": [],
+      "figures": [
+        {
+          "id": "51823220-f22b-4359-8711-579a249c91bb",
+          "x": 0,
+          "y": 11,
+          "width": 213,
+          "height": 101,
+          "tag": "chart",
+          "data": {
+            "baselineColorDown": "#DC6965",
+            "baselineColorUp": "#00A04A",
+            "baselineMode": "percentage",
+            "title": {
+              "text": "New Members",
+              "bold": true,
+              "color": "#434343"
+            },
+            "type": "scorecard",
+            "background": "#EFF6FF",
+            "baseline": "Data!E4",
+            "baselineDescr": "since last period",
+            "keyValue": "Data!D4",
+            "humanize": false
+          }
+        },
+        {
+          "id": "a527960b-0812-4291-baba-f6b4b5280a0d",
+          "x": 0,
+          "y": 165,
+          "width": 1095,
+          "height": 344,
+          "tag": "chart",
+          "data": {
+            "title": {
+              "text": ""
+            },
+            "background": "#FFFFFF",
+            "legendPosition": "none",
+            "type": "line",
+            "dataSetsHaveTitle": false,
+            "dataSets": [
+              {
+                "dataRange": "Data!C11:C16",
+                "yAxisId": "y"
+              }
+            ],
+            "labelRange": "Data!A11:A16",
+            "labelsAsText": true,
+            "stacked": false,
+            "aggregated": false,
+            "cumulative": false,
+            "fillArea": true,
+            "fieldMatching": {
+              "13d30fda-b14d-4a56-b186-25468af3b1e9": {
+                "chain": "membership_start",
+                "type": "date",
+                "offset": 0
+              },
+              "e6db018b-19ec-42c3-b29e-11b1e3910916": {
+                "chain": "country_id",
+                "type": "many2one"
+              },
+              "dbb716a1-5977-47ee-a53e-ca5716303433": {
+                "chain": "member_lines.membership_id",
+                "type": "many2one"
+              },
+              "7d95fe28-fd13-4805-948c-95742e7d6733": {
+                "chain": "id",
+                "type": "many2one"
+              }
+            }
+          }
+        }
+      ],
+      "tables": [],
+      "areGridLinesVisible": true,
+      "isVisible": true,
+      "headerGroups": {
+        "ROW": [],
+        "COL": []
+      },
+      "dataValidationRules": [],
+      "comments": {}
+    },
+    {
+      "id": "eae01f9c-c461-4489-ade4-957ef2459d40",
+      "name": "Data",
+      "colNumber": 26,
+      "rowNumber": 103,
+      "rows": {},
+      "cols": {
+        "0": {
+          "size": 160
+        },
+        "1": {
+          "size": 89
+        },
+        "2": {
+          "size": 89
+        },
+        "3": {
+          "size": 89
+        },
+        "4": {
+          "size": 89
+        }
+      },
+      "merges": [],
+      "cells": {
+        "A1": {
+          "content": "=_t(\"KPI\")"
+        },
+        "A4": {
+          "content": "=_t(\"Total new members\")"
+        },
+        "B1": {
+          "content": "=_t(\"Current\")"
+        },
+        "B4": {
+          "content": "198"
+        },
+        "C1": {
+          "content": "=_t(\"Previous\")"
+        },
+        "C4": {
+          "content": "162"
+        },
+        "D1": {
+          "content": "=_t(\"Current\")"
+        },
+        "D4": {
+          "content": "=FORMAT.LARGE.NUMBER(B4)"
+        },
+        "E1": {
+          "content": "=_t(\"Previous\")"
+        },
+        "E4": {
+          "content": "=FORMAT.LARGE.NUMBER(C4)"
+        },
+        "A10": {
+          "content": "=_t(\"Weekly Memberships\")"
+        },
+        "A11": {
+          "content": "=TODAY()-B11*7"
+        },
+        "B11": {
+          "content": "5"
+        },
+        "C11": {
+          "content": "110"
+        },
+        "A12": {
+          "content": "=TODAY()-B12*7"
+        },
+        "B12": {
+          "content": "4"
+        },
+        "C12": {
+          "content": "125"
+        },
+        "A13": {
+          "content": "=TODAY()-B13*7"
+        },
+        "B13": {
+          "content": "3"
+        },
+        "C13": {
+          "content": "138"
+        },
+        "A14": {
+          "content": "=TODAY()-B14*7"
+        },
+        "B14": {
+          "content": "2"
+        },
+        "C14": {
+          "content": "145"
+        },
+        "A15": {
+          "content": "=TODAY()-B15*7"
+        },
+        "B15": {
+          "content": "1"
+        },
+        "C15": {
+          "content": "162"
+        },
+        "A16": {
+          "content": "=TODAY()-B16*7"
+        },
+        "B16": {
+          "content": "0"
+        },
+        "C16": {
+          "content": "198"
+        }
+      },
+      "styles": {
+        "A1:E1": 8,
+        "D4:E4": 9
+      },
+      "formats": {
+        "A11:A16": 1,
+        "B7:C7": 2,
+        "B8:C8": 2,
+        "D7:E7": 2,
+        "D8:E8": 2
+      },
+      "borders": {
+        "A4:G4": 1
+      },
+      "conditionalFormats": [],
+      "figures": [],
+      "tables": [],
+      "areGridLinesVisible": true,
+      "isVisible": true,
+      "headerGroups": {
+        "ROW": [],
+        "COL": []
+      },
+      "dataValidationRules": [],
+      "comments": {}
+    }
+  ],
+  "styles": {
+    "1": {
+      "textColor": "#01666b",
+      "bold": true,
+      "fontSize": 16
+    },
+    "8": {
+      "bold": true
+    },
+    "9": {
+      "fillColor": "#f2f2f2"
+    }
+  },
+  "formats": {},
+  "borders": {
+    "1": {
+      "bottom": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      }
+    }
+  },
+  "revisionId": "START_REVISION",
+  "uniqueFigureIds": true,
+  "settings": {
+    "locale": {
+      "name": "English (US)",
+      "code": "en_US",
+      "thousandsSeparator": ",",
+      "decimalSeparator": ".",
+      "dateFormat": "mm/dd/yyyy",
+      "timeFormat": "hh:mm:ss",
+      "formulaArgSeparator": ",",
+      "weekStart": 7
+    }
+  },
+  "pivots": {},
+  "pivotNextId": 13,
+  "customTableStyles": {},
+  "odooVersion": 12,
+  "globalFilters": [
+    {
+      "id": "13d30fda-b14d-4a56-b186-25468af3b1e9",
+      "type": "date",
+      "label": "Period",
+      "defaultValue": "last_three_months",
+      "rangeType": "relative"
+    },
+    {
+      "id": "e6db018b-19ec-42c3-b29e-11b1e3910916",
+      "type": "relation",
+      "label": "Country",
+      "modelName": "res.country",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "dbb716a1-5977-47ee-a53e-ca5716303433",
+      "type": "relation",
+      "label": "Membership Product",
+      "modelName": "product.product",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "7d95fe28-fd13-4805-948c-95742e7d6733",
+      "type": "relation",
+      "label": "Member",
+      "modelName": "res.partner",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    }
+  ],
+  "lists": {},
+  "listNextId": 1,
+  "chartOdooMenusReferences": {
+    "a527960b-0812-4291-baba-f6b4b5280a0d": "membership.menu_membership",
+    "51823220-f22b-4359-8711-579a249c91bb": "membership.menu_membership"
+  }
+}
