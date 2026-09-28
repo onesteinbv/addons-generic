@@ -113,37 +113,19 @@ class PaymentTransaction(models.Model):
                 start_date = date.today() + relativedelta(months=1)
         return start_date.strftime("%Y-%m-%d")
 
-    def _create_mollie_order_or_payment(self):
-        """
-        Overriden this method for handing the donation transactions
-        """
-        self.ensure_one()
-        if self.is_donation and self.donation_frequency != "onetime":
-            result = self.with_context(
-                first_mollie_donation_payment=True
-            )._mollie_create_payment_record("payment")
-            if result:
-                return result
-        return super()._create_mollie_order_or_payment()
-
-    def _mollie_prepare_payment_payload(self, api_type):
-        payment_data, params = super()._mollie_prepare_payment_payload(api_type)
-
-        if self._context.get("first_mollie_donation_payment"):
-            payment_data.update(
-                {
-                    "description": "First Payment for {} - {}".format(
-                        self.partner_id.name + "Donation", self.reference
-                    ),
-                    "sequenceType": "first",
-                }
-            )
+    def _mollie_prepare_payment_payload(self):
+        payment_data, params = super()._mollie_prepare_payment_payload()
         if self.is_donation and self.partner_id:
-            mollie_customer_id = self._get_donation_transaction_customer_id()
-            if api_type == "order":
-                payment_data["payment"]["customerId"] = mollie_customer_id
-            else:
-                payment_data["customerId"] = mollie_customer_id
+            payment_data["customerId"] = self._get_donation_transaction_customer_id()
+            if self.donation_frequency != "onetime":
+                payment_data.update(
+                    {
+                        "description": "First Payment for {} - {}".format(
+                            self.partner_id.name + "Donation", self.reference
+                        ),
+                        "sequenceType": "first",
+                    }
+                )
         return payment_data, params
 
     def action_terminate_recurring_donation(self):
