@@ -43,54 +43,39 @@ class PaymentTransaction(models.Model):
         if not self.state == "done":
             return super()._process_notification_data(data)
 
-    def _create_mollie_order_or_payment(self):
-        self.ensure_one()
-        if (self.sale_order_ids and self.sale_order_ids.group_subscription_lines()) or (
-            self.invoice_ids and self.invoice_ids.subscription_id
-        ):
-            result = self.with_context(
-                first_mollie_payment=True
-            )._mollie_create_payment_record("payment")
-            return result
-        else:
-            return super()._create_mollie_order_or_payment()
-
-    def _mollie_prepare_payment_payload(self, api_type):
-        payment_data, params = super()._mollie_prepare_payment_payload(api_type)
-
-        if self._context.get("first_mollie_payment"):
-            name = (
-                self.sale_order_ids
-                and self.sale_order_ids.name
-                or self.invoice_ids
-                and self.invoice_ids.name
-            )
-            payment_data.update(
-                {
-                    "description": f"First payment for {name}",
-                    "sequenceType": "first",
-                }
-            )
-        if self._context.get("recurring_mollie_payment"):
-            name = (
-                self.sale_order_ids
-                and self.sale_order_ids.name
-                or self.invoice_ids
-                and self.invoice_ids.name
-            )
-            payment_data.update(
-                {
-                    "description": f"Payment for {name}",
-                    "sequenceType": "recurring",
-                    "mandateId": self._context.get("mandate_id"),
-                }
-            )
+    def _mollie_prepare_payment_payload(self):
+        payment_data, params = super()._mollie_prepare_payment_payload()
         if self.sale_order_ids or self.invoice_ids:
-            mollie_customer_id = self._get_transaction_customer_id()
-            if api_type == "order":
-                payment_data["payment"]["customerId"] = mollie_customer_id
-            else:
-                payment_data["customerId"] = mollie_customer_id
+            payment_data["customerId"] = self._get_transaction_customer_id()
+            if self._context.get("recurring_mollie_payment"):
+                name = (
+                    self.sale_order_ids
+                    and self.sale_order_ids.name
+                    or self.invoice_ids
+                    and self.invoice_ids.name
+                )
+                payment_data.update(
+                    {
+                        "description": f"Payment for {name}",
+                        "sequenceType": "recurring",
+                        "mandateId": self._context.get("mandate_id"),
+                    }
+                )
+            elif (
+                self.sale_order_ids and self.sale_order_ids.group_subscription_lines()
+            ) or (self.invoice_ids and self.invoice_ids.subscription_id):
+                name = (
+                    self.sale_order_ids
+                    and self.sale_order_ids.name
+                    or self.invoice_ids
+                    and self.invoice_ids.name
+                )
+                payment_data.update(
+                    {
+                        "description": f"First payment for {name}",
+                        "sequenceType": "first",
+                    }
+                )
         return payment_data, params
 
     def _get_mandate_reference_for_payment_provider(self, payment):

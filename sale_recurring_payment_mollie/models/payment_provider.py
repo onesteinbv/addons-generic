@@ -20,23 +20,6 @@ class PaymentAcquirerMollie(models.Model):
             )
         return super()._api_mollie_create_customer_id()
 
-    def _mollie_get_supported_methods(
-        self, order, invoice, amount, currency, partner_id
-    ):
-        """
-        Show only credit card payment method when checkout subscriptions type products
-        """
-        methods = super()._mollie_get_supported_methods(
-            order, invoice, amount, currency, partner_id
-        )
-        if (order and order.group_subscription_lines()) or (
-            invoice and invoice.subscription_id
-        ):
-            methods = methods.filtered(
-                lambda m: m.method_code in ["creditcard", "ideal"]
-            )
-        return methods
-
     def _api_mollie_get_client(self):
         mollie_client = MollieClient(timeout=10)
         if self.state == "enabled":
