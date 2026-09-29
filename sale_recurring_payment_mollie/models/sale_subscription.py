@@ -26,7 +26,7 @@ class SaleSubscription(models.Model):
         if not invoices and date_ref >= self.recurring_next_date:
             self.generate_invoice()
         unpaid_invoice = self.invoice_ids.filtered(
-            lambda i: i.invoice_date <= date_ref
+            lambda i: (i.invoice_date and i.invoice_date <= date_ref)
             and i.payment_state == "not_paid"  # TODO: Do we need to check here on date?
         )
         if not unpaid_invoice:
