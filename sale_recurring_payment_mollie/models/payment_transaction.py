@@ -101,7 +101,7 @@ class PaymentTransaction(models.Model):
         mollie_payment_vals, params = self.with_context(
             recurring_mollie_payment=True,
             mandate_id=subscription.payment_provider_mandate_id.reference,
-        )._mollie_prepare_payment_payload("payment")
+        )._mollie_prepare_payment_payload()
         mollie_payment_vals.pop("redirectUrl")
         mollie_payment_vals.pop("method")
         mollie_payment_vals.pop("customerId")
