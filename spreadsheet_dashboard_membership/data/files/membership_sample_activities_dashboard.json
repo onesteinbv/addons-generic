@@ -1,0 +1,987 @@
+{
+  "version": 21,
+  "sheets": [
+    {
+      "id": "sheet1",
+      "name": "Dashboard",
+      "colNumber": 7,
+      "rowNumber": 35,
+      "rows": {
+        "5": {
+          "size": 40
+        },
+        "22": {
+          "size": 40
+        },
+        "23": {
+          "size": 30
+        },
+        "24": {
+          "size": 30
+        },
+        "25": {
+          "size": 30
+        },
+        "26": {
+          "size": 30
+        },
+        "27": {
+          "size": 30
+        },
+        "28": {
+          "size": 30
+        },
+        "29": {
+          "size": 30
+        },
+        "30": {
+          "size": 30
+        },
+        "31": {
+          "size": 30
+        },
+        "32": {
+          "size": 30
+        },
+        "33": {
+          "size": 30
+        },
+        "34": {
+          "size": 30
+        }
+      },
+      "cols": {
+        "0": {
+          "size": 349
+        },
+        "1": {
+          "size": 95
+        },
+        "2": {
+          "size": 80
+        },
+        "3": {
+          "size": 50
+        },
+        "4": {
+          "size": 323
+        },
+        "5": {
+          "size": 100
+        },
+        "6": {
+          "size": 100
+        }
+      },
+      "merges": [],
+      "cells": {
+        "A6": {
+          "content": "[Monthly Activities](odoo://view/{\"viewType\":\"graph\",\"action\":{\"domain\":[],\"context\":{\"group_by\":[\"date:month\"],\"graph_measure\":\"__count\",\"graph_mode\":\"line\",\"graph_groupbys\":[\"date:month\"]},\"modelName\":\"membership.activity\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Activities\"})"
+        },
+        "A23": {
+          "content": "[Most Active Members](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[],\"context\":{\"group_by\":[\"partner_id\"],\"pivot_measures\":[\"__count\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"partner_id\"]},\"modelName\":\"membership.activity\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"list\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Member Activities\"})"
+        },
+        "A24": {
+          "content": "=_t(\"Member\")"
+        },
+        "A25": {
+          "content": "=Data!A25"
+        },
+        "A26": {
+          "content": "=Data!A26"
+        },
+        "A27": {
+          "content": "=Data!A27"
+        },
+        "A28": {
+          "content": "=Data!A28"
+        },
+        "A29": {
+          "content": "=Data!A29"
+        },
+        "A30": {
+          "content": "=Data!A30"
+        },
+        "A31": {
+          "content": "=Data!A31"
+        },
+        "A32": {
+          "content": "=Data!A32"
+        },
+        "A33": {
+          "content": "=Data!A33"
+        },
+        "A34": {
+          "content": "=Data!A34"
+        },
+        "B24": {
+          "content": "=_t(\"Activities\")"
+        },
+        "B25": {
+          "content": "=Data!B25"
+        },
+        "B26": {
+          "content": "=Data!B26"
+        },
+        "B27": {
+          "content": "=Data!B27"
+        },
+        "B28": {
+          "content": "=Data!B28"
+        },
+        "B29": {
+          "content": "=Data!B29"
+        },
+        "B30": {
+          "content": "=Data!B30"
+        },
+        "B31": {
+          "content": "=Data!B31"
+        },
+        "B32": {
+          "content": "=Data!B32"
+        },
+        "B33": {
+          "content": "=Data!B33"
+        },
+        "B34": {
+          "content": "=Data!B34"
+        },
+        "E23": {
+          "content": "[Most Active Projects](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[],\"context\":{\"group_by\":[\"project_id\"],\"pivot_measures\":[\"__count\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"project_id\"]},\"modelName\":\"membership.activity\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"list\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Member Activities\"})"
+        },
+        "E24": {
+          "content": "=_t(\"Project\")"
+        },
+        "E25": {
+          "content": "=Data!E25"
+        },
+        "E26": {
+          "content": "=Data!E26"
+        },
+        "E27": {
+          "content": "=Data!E27"
+        },
+        "E28": {
+          "content": "=Data!E28"
+        },
+        "E29": {
+          "content": "=Data!E29"
+        },
+        "E30": {
+          "content": "=Data!E30"
+        },
+        "E31": {
+          "content": "=Data!E31"
+        },
+        "E32": {
+          "content": "=Data!E32"
+        },
+        "E33": {
+          "content": "=Data!E33"
+        },
+        "E34": {
+          "content": "=Data!E34"
+        },
+        "F24": {
+          "content": "=_t(\"Activities\")"
+        },
+        "F25": {
+          "content": "=Data!F25"
+        },
+        "F26": {
+          "content": "=Data!F26"
+        },
+        "F27": {
+          "content": "=Data!F27"
+        },
+        "F28": {
+          "content": "=Data!F28"
+        },
+        "F29": {
+          "content": "=Data!F29"
+        },
+        "F30": {
+          "content": "=Data!F30"
+        },
+        "F31": {
+          "content": "=Data!F31"
+        },
+        "F32": {
+          "content": "=Data!F32"
+        },
+        "F33": {
+          "content": "=Data!F33"
+        },
+        "F34": {
+          "content": "=Data!F34"
+        }
+      },
+      "styles": {
+        "A6": 1,
+        "A23": 1,
+        "E23": 1,
+        "A24:C24": 2,
+        "E24:G24": 2,
+        "A25:C34": 5,
+        "E25:G34": 5
+      },
+      "formats": {},
+      "borders": {
+        "A23:C23": 1,
+        "E23:G23": 1,
+        "A24:C24": 2,
+        "E24:G24": 2
+      },
+      "conditionalFormats": [],
+      "figures": [
+        {
+          "id": "51823220-f22b-4359-8711-579a249c91bc",
+          "x": 0,
+          "y": 11,
+          "width": 535,
+          "height": 101,
+          "tag": "chart",
+          "data": {
+            "baselineColorDown": "#DC6965",
+            "baselineColorUp": "#00A04A",
+            "baselineMode": "text",
+            "title": {
+              "text": "Top Member",
+              "bold": true,
+              "color": "#434343"
+            },
+            "type": "scorecard",
+            "background": "#EFF6FF",
+            "baseline": "Dashboard!B25",
+            "baselineDescr": "activities",
+            "keyValue": "Dashboard!A25",
+            "humanize": false
+          }
+        },
+        {
+          "id": "9a38934c-b454-4a4b-88aa-17d1b80dbf5f",
+          "x": 555,
+          "y": 11,
+          "width": 535,
+          "height": 101,
+          "tag": "chart",
+          "data": {
+            "baselineColorDown": "#DC6965",
+            "baselineColorUp": "#00A04A",
+            "baselineMode": "text",
+            "title": {
+              "text": "Top Project",
+              "color": "#434343",
+              "bold": true
+            },
+            "type": "scorecard",
+            "background": "#EFF6FF",
+            "baseline": "Dashboard!F25",
+            "baselineDescr": "activities",
+            "keyValue": "Dashboard!E25",
+            "humanize": false
+          }
+        },
+        {
+          "id": "a527960b-0812-4291-baba-f6b4b5280a0d",
+          "x": 0,
+          "y": 165,
+          "width": 1095,
+          "height": 350,
+          "tag": "chart",
+          "data": {
+            "title": {
+              "text": ""
+            },
+            "background": "#FFFFFF",
+            "legendPosition": "none",
+            "type": "line",
+            "dataSetsHaveTitle": false,
+            "dataSets": [
+              {
+                "dataRange": "Data!C11:C16",
+                "yAxisId": "y"
+              }
+            ],
+            "labelRange": "Data!A11:A16",
+            "labelsAsText": true,
+            "stacked": false,
+            "aggregated": false,
+            "cumulative": false,
+            "fillArea": true
+          }
+        }
+      ],
+      "tables": [],
+      "areGridLinesVisible": true,
+      "isVisible": true,
+      "headerGroups": {
+        "ROW": [],
+        "COL": []
+      },
+      "dataValidationRules": [],
+      "comments": {}
+    },
+    {
+      "id": "eae01f9c-c461-4489-ade4-957ef2459d40",
+      "name": "Data",
+      "colNumber": 26,
+      "rowNumber": 103,
+      "rows": {},
+      "cols": {
+        "0": {
+          "size": 160
+        },
+        "1": {
+          "size": 89
+        },
+        "2": {
+          "size": 89
+        },
+        "3": {
+          "size": 89
+        },
+        "4": {
+          "size": 89
+        }
+      },
+      "merges": [],
+      "cells": {
+        "A10": {
+          "content": "=_t(\"Monthly Activities\")"
+        },
+        "A11": {
+          "content": "=EDATE(TODAY(), -B11)"
+        },
+        "B11": {
+          "content": "5"
+        },
+        "C11": {
+          "content": "34"
+        },
+        "A12": {
+          "content": "=EDATE(TODAY(), -B12)"
+        },
+        "B12": {
+          "content": "4"
+        },
+        "C12": {
+          "content": "52"
+        },
+        "A13": {
+          "content": "=EDATE(TODAY(), -B13)"
+        },
+        "B13": {
+          "content": "3"
+        },
+        "C13": {
+          "content": "78"
+        },
+        "A14": {
+          "content": "=EDATE(TODAY(), -B14)"
+        },
+        "B14": {
+          "content": "2"
+        },
+        "C14": {
+          "content": "115"
+        },
+        "A15": {
+          "content": "=EDATE(TODAY(), -B15)"
+        },
+        "B15": {
+          "content": "1"
+        },
+        "C15": {
+          "content": "142"
+        },
+        "A16": {
+          "content": "=EDATE(TODAY(), -B16)"
+        },
+        "B16": {
+          "content": "0"
+        },
+        "C16": {
+          "content": "180"
+        },
+        "A24": {
+          "content": "=_t(\"Member\")"
+        },
+        "B24": {
+          "content": "=_t(\"Activities\")"
+        },
+        "A25": {
+          "content": "=_t(\"Marc Demo\")"
+        },
+        "B25": {
+          "content": "45"
+        },
+        "A26": {
+          "content": "=_t(\"Joel Willis\")"
+        },
+        "B26": {
+          "content": "38"
+        },
+        "A27": {
+          "content": "=_t(\"Colleen Diaz\")"
+        },
+        "B27": {
+          "content": "31"
+        },
+        "A28": {
+          "content": "=_t(\"Mitchell Admin\")"
+        },
+        "B28": {
+          "content": "27"
+        },
+        "A29": {
+          "content": "=_t(\"Anita Oliver\")"
+        },
+        "B29": {
+          "content": "22"
+        },
+        "A30": {
+          "content": "=_t(\"Nicole Ford\")"
+        },
+        "B30": {
+          "content": "18"
+        },
+        "A31": {
+          "content": "=_t(\"Brandon Freeman\")"
+        },
+        "B31": {
+          "content": "15"
+        },
+        "A32": {
+          "content": "=_t(\"Beth Evans\")"
+        },
+        "B32": {
+          "content": "12"
+        },
+        "A33": {
+          "content": "=_t(\"Jeffrey Kelly\")"
+        },
+        "B33": {
+          "content": "9"
+        },
+        "A34": {
+          "content": "=_t(\"Billy Fox\")"
+        },
+        "B34": {
+          "content": "6"
+        },
+        "E24": {
+          "content": "=_t(\"Project\")"
+        },
+        "F24": {
+          "content": "=_t(\"Activities\")"
+        },
+        "E25": {
+          "content": "=_t(\"Internal\")"
+        },
+        "F25": {
+          "content": "64"
+        },
+        "E26": {
+          "content": "=_t(\"Community Outreach\")"
+        },
+        "F26": {
+          "content": "52"
+        },
+        "E27": {
+          "content": "=_t(\"Website Redesign\")"
+        },
+        "F27": {
+          "content": "41"
+        },
+        "E28": {
+          "content": "=_t(\"Event Management\")"
+        },
+        "F28": {
+          "content": "35"
+        },
+        "E29": {
+          "content": "=_t(\"Fundraising\")"
+        },
+        "F29": {
+          "content": "28"
+        },
+        "E30": {
+          "content": "=_t(\"Member Support\")"
+        },
+        "F30": {
+          "content": "22"
+        },
+        "E31": {
+          "content": "=_t(\"Newsletter\")"
+        },
+        "F31": {
+          "content": "17"
+        },
+        "E32": {
+          "content": "=_t(\"Workshops\")"
+        },
+        "F32": {
+          "content": "13"
+        },
+        "E33": {
+          "content": "=_t(\"Volunteer Training\")"
+        },
+        "F33": {
+          "content": "10"
+        },
+        "E34": {
+          "content": "=_t(\"Annual Conference\")"
+        },
+        "F34": {
+          "content": "7"
+        }
+      },
+      "styles": {},
+      "formats": {
+        "A11:A16": 1
+      },
+      "borders": {},
+      "conditionalFormats": [],
+      "figures": [],
+      "tables": [],
+      "areGridLinesVisible": true,
+      "isVisible": true,
+      "headerGroups": {
+        "ROW": [],
+        "COL": []
+      },
+      "dataValidationRules": [],
+      "comments": {}
+    }
+  ],
+  "styles": {
+    "1": {
+      "textColor": "#01666b",
+      "bold": true,
+      "fontSize": 16
+    },
+    "2": {
+      "fontSize": 11,
+      "textColor": "#434343",
+      "verticalAlign": "middle",
+      "bold": true
+    },
+    "3": {
+      "textColor": "#01666B",
+      "verticalAlign": "middle"
+    },
+    "4": {
+      "bold": true,
+      "fontSize": 11,
+      "textColor": "#434343"
+    },
+    "5": {
+      "textColor": "#434343",
+      "verticalAlign": "middle"
+    },
+    "6": {
+      "bold": true,
+      "fontSize": 11,
+      "textColor": "#434343",
+      "align": "center"
+    },
+    "7": {
+      "align": "center",
+      "fontSize": 11,
+      "textColor": "#434343",
+      "verticalAlign": "middle",
+      "bold": true
+    },
+    "8": {
+      "bold": true
+    },
+    "9": {
+      "fillColor": "#f2f2f2"
+    }
+  },
+  "formats": {
+    "1": "mmmm yyyy"
+  },
+  "borders": {
+    "1": {
+      "bottom": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      }
+    },
+    "2": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      }
+    },
+    "3": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "4": {
+      "top": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "5": {
+      "top": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "6": {
+      "top": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "7": {
+      "top": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "8": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "9": {
+      "top": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "10": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "11": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "12": {
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "13": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "14": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "15": {
+      "top": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "16": {
+      "top": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "17": {
+      "top": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "bottom": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "18": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "19": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "bottom": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "20": {
+      "top": {
+        "style": "thin",
+        "color": "#CCCCCC"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "21": {
+      "left": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      }
+    },
+    "22": {
+      "left": {
+        "style": "thin",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    },
+    "23": {
+      "left": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      },
+      "right": {
+        "style": "thick",
+        "color": "#FFFFFF"
+      }
+    }
+  },
+  "revisionId": "START_REVISION",
+  "uniqueFigureIds": true,
+  "settings": {
+    "locale": {
+      "name": "English (US)",
+      "code": "en_US",
+      "thousandsSeparator": ",",
+      "decimalSeparator": ".",
+      "dateFormat": "mm/dd/yyyy",
+      "timeFormat": "hh:mm:ss",
+      "formulaArgSeparator": ",",
+      "weekStart": 7
+    }
+  },
+  "pivots": {},
+  "pivotNextId": 13,
+  "customTableStyles": {},
+  "odooVersion": 12,
+  "globalFilters": [
+    {
+      "id": "13d30fda-b14d-4a56-b186-25468af3b1e9",
+      "type": "date",
+      "label": "Period",
+      "defaultValue": "last_three_months",
+      "rangeType": "relative"
+    },
+    {
+      "id": "e6db018b-19ec-42c3-b29e-11b1e3910916",
+      "type": "relation",
+      "label": "Country",
+      "modelName": "res.country",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "dbb716a1-5977-47ee-a53e-ca5716303433",
+      "type": "relation",
+      "label": "Membership Product",
+      "modelName": "product.product",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "7d95fe28-fd13-4805-948c-95742e7d6733",
+      "type": "relation",
+      "label": "Member",
+      "modelName": "res.partner",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "27e323f4-cd70-4345-82fa-dfc855707bc1",
+      "type": "relation",
+      "label": "Category",
+      "modelName": "product.category",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "4181e8e3-2e7e-42be-a88b-f24acb7d03e7",
+      "type": "relation",
+      "label": "Salesperson",
+      "modelName": "res.users",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "77e2858c-2615-4e38-9f6a-c4b7d6345873",
+      "type": "relation",
+      "label": "Activity Type",
+      "modelName": "membership.activity.type",
+      "defaultValue": [],
+      "defaultValueDisplayNames": [],
+      "rangeType": "year"
+    },
+    {
+      "id": "d0709831-1587-4a9e-8add-39c6b16c7088",
+      "type": "relation",
+      "label": "Project",
+      "modelName": "project.project",
+      "defaultValue": [],
+      "defaultValueDisplayNames": []
+    }
+  ],
+  "lists": {},
+  "listNextId": 1,
+  "chartOdooMenusReferences": {
+    "a527960b-0812-4291-baba-f6b4b5280a0d": "membership_activity.membership_activities_menu",
+    "51823220-f22b-4359-8711-579a249c91bc": "membership_activity.membership_activities_menu",
+    "9a38934c-b454-4a4b-88aa-17d1b80dbf5f": "membership_activity.membership_activities_menu"
+  }
+}
