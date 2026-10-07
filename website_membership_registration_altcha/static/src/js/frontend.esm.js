@@ -1,26 +1,16 @@
+import {AltchaLegacyClassFunctionality} from "@website_altcha/altcha.esm";
 import publicWidget from "@web/legacy/js/public/public_widget";
-import {Altcha} from "@website_altcha/altcha/altcha.esm";
-import {renderToString} from "@web/core/utils/render";
 
 publicWidget.registry.WebsiteMembershipRegistration.include({
-    init: function () {
-        this._super(...arguments);
-        this._altcha = new Altcha();
-    },
+    ...AltchaLegacyClassFunctionality,
+    altcha_before: "button.btn-primary",
+});
 
-    willStart: async function () {
-        this._altcha.loadLibs();
-        return this._super(...arguments);
-    },
-
-    start: function () {
-        const $form = this.$el.find("form");
-        if (this._altcha._publicKey && !$form.find(".o_altcha_widget").length) {
-            $form
-                .find("button")
-                .last() // For a lack of a better selector
-                .before(renderToString("website_altcha.AltchaWidget", {}));
+publicWidget.registry.WebsiteMembershipRegistration.include({
+    // Skip edit mode where the widget would end up being saved
+    altcha_insert_widget() {
+        if (!this.editableMode) {
+            this._super(...arguments);
         }
-        return this._super(...arguments);
     },
 });
