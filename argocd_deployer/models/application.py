@@ -1,6 +1,7 @@
 import difflib
 import os
 import re
+import uuid
 from pathlib import Path
 
 import jinja2
@@ -226,6 +227,7 @@ class Application(models.Model):
             "get_value": self.get_value,
             "create_domain": self.create_domain,
             "domains": self.get_domains_by_scope,
+            "uuid": lambda: str(uuid.uuid4()),
         }
 
     def render_config(self, context=None):
