@@ -38,7 +38,7 @@ msgstr ""
 #. module: website_membership_registration
 #: model_terms:ir.ui.view,arch_db:website_membership_registration.membership_registration_form
 msgid "<option value=\"\">State / Province...</option>"
-msgstr "<option value=\"\">Land...</option>"
+msgstr "<option value=\"\">State / Provincie...</option>"
 
 #. module: website_membership_registration
 #: model:mail.template,body_html:website_membership_registration.verification_email
@@ -113,7 +113,7 @@ msgid ""
 "<span>Membership Level</span>\n"
 "                                                        <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
-"<span>Lidmaatschapsnivea</span>\n"
+"<span>Lidmaatschapsniveau</span>\n"
 "                                                        <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_membership_registration
