@@ -198,7 +198,7 @@
                                                                     t-attf-title="#{membership_group.name}"
                                                                 >
                                                                     <img
-                                                                        t-attf-src="/web/image/membership.group/#{membership_group.id}/icon"
+                                                                        t-attf-src="/web/image/membership.group/#{membership_group.id}/image"
                                                                         style="object-fit: cover; height: 25px; width: 25px;"
                                                                     />
                                                                 </a>
@@ -281,7 +281,7 @@
                                                                             class="col-6"
                                                                         >
                                                                             <img
-                                                                                t-attf-src="/web/image/membership.group/#{membership_group.id}/icon"
+                                                                                t-attf-src="/web/image/membership.group/#{membership_group.id}/image"
                                                                                 style="width: 160px;height:160px"
                                                                             />
                                                                         </a>
