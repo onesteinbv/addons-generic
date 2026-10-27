@@ -54,6 +54,7 @@ class Subscription(models.Model):
         )
 
     def _invoice_paid_hook(self):
+        # Triggered when an invoice related to the subscription is marked as paid
         for subscription in self:
             # Start the subscription, which is not done by subscription_oca, so we do it here for our purposes
             # this probably should be moved to subscription_oca.
