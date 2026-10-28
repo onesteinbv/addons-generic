@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="digest_digest_view_form_membership_activity" model="ir.ui.view">
+        <field name="name">digest.digest.view.form.inherit.membership.activity</field>
+        <field name="model">digest.digest</field>
+        <field
+            name="inherit_id"
+            ref="digest_membership.digest_digest_view_form_membership"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='kpis_membership']" position="inside">
+                <field name="kpi_membership_activity" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
