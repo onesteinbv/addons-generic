@@ -9,7 +9,6 @@ class MembershipGroupController(http.Controller):
         return {
             "main_object": membership_group,
             "membership_group": membership_group,
-            "title": membership_group.name,
         }
 
     @http.route(
