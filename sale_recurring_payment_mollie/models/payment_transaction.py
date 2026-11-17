@@ -10,11 +10,14 @@ class PaymentTransaction(models.Model):
 
     def _get_transaction_customer_id(self):
         mollie_customer_id = False
+        subscription = self.subscription_id
         partner_obj = (
             self.invoice_ids
             and self.invoice_ids[0].partner_id
             or self.sale_order_ids
             and self.sale_order_ids[0].partner_id
+            or subscription
+            and subscription.partner_id
         )
         if partner_obj.mollie_customer_id:
             mollie_customer_id = partner_obj.mollie_customer_id
@@ -45,7 +48,8 @@ class PaymentTransaction(models.Model):
 
     def _mollie_prepare_payment_payload(self):
         payment_data, params = super()._mollie_prepare_payment_payload()
-        if self.sale_order_ids or self.invoice_ids:
+        subscription = self.subscription_id
+        if self.sale_order_ids or self.invoice_ids or subscription:
             payment_data["customerId"] = self._get_transaction_customer_id()
             if self._context.get("recurring_mollie_payment"):
                 name = (
@@ -59,6 +63,14 @@ class PaymentTransaction(models.Model):
                         "description": f"Payment for {name}",
                         "sequenceType": "recurring",
                         "mandateId": self._context.get("mandate_id"),
+                    }
+                )
+            elif subscription:
+                # The first charge creates the customer's Mollie mandate.
+                payment_data.update(
+                    {
+                        "description": f"First payment for {subscription.name}",
+                        "sequenceType": "first",
                     }
                 )
             elif (

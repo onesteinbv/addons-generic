@@ -8,6 +8,10 @@ class Website(models.Model):
 
     def reset_subscription(self):
         subscription = self.ensure_subscription()
+        if self._subscription_payment_in_progress(subscription):
+            # Keep the pending cart intact and detach this browser session.
+            request.session.pop("subscription_id", None)
+            subscription = self.ensure_subscription()
         subscription.sale_subscription_line_ids = [Command.clear()]
 
     def update_subscription_product(self, product_template_id, combination):
@@ -23,6 +27,7 @@ class Website(models.Model):
         product = product_template._get_variant_for_combination(combination)
 
         subscription = self.ensure_subscription()
+        self._check_subscription_payment_in_progress(subscription)
         existing_line = subscription.sale_subscription_line_ids.filtered(
             lambda l: l.product_id.product_tmpl_id == product_template
         )
@@ -38,6 +43,7 @@ class Website(models.Model):
 
     def remove_subscription_product(self, product_template_id):
         subscription = self.ensure_subscription()
+        self._check_subscription_payment_in_progress(subscription)
         to_remove = subscription.sale_subscription_line_ids.filtered(
             lambda l: l.product_id.product_tmpl_id.id == product_template_id
         )
@@ -45,6 +51,23 @@ class Website(models.Model):
             Command.unlink(t.id) for t in to_remove
         ]
         subscription.invoice_ids.unlink()
+
+    def _subscription_payment_in_progress(self, subscription):
+        # Portal users cannot read payment transactions; only inspect the states needed to
+        # protect the subscription cart while a provider payment is pending.
+        return self.env["payment.transaction"].sudo().search_count(
+            [
+                ("subscription_id", "=", subscription.id),
+                ("state", "in", ("pending", "authorized", "done")),
+            ],
+            limit=1,
+        )
+
+    def _check_subscription_payment_in_progress(self, subscription):
+        if self._subscription_payment_in_progress(subscription):
+            raise UserError(
+                _("The subscription cannot be changed while a payment is in progress.")
+            )
 
     @api.returns("sale.subscription")
     def ensure_subscription(self):
@@ -68,6 +91,9 @@ class Website(models.Model):
 
         user = request.env.user or self.user_id
         partner = user.partner_id.commercial_partner_id
+        payment_in_progress = bool(
+            subscription and self._subscription_payment_in_progress(subscription)
+        )
 
         if not subscription:
             draft_stage = self.env["sale.subscription.stage"].search(
@@ -83,10 +109,11 @@ class Website(models.Model):
                 }
             )
             request.session["subscription_id"] = subscription.id
-        else:
+        elif not payment_in_progress:
             subscription.partner_id = partner
             subscription.user_id = user
-        subscription.onchange_partner_id()
-        subscription.onchange_partner_id_fpos()
+        if not payment_in_progress:
+            subscription.onchange_partner_id()
+            subscription.onchange_partner_id_fpos()
 
         return subscription

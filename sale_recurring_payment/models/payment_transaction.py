@@ -5,6 +5,12 @@ from odoo.fields import Command
 class PaymentTransaction(models.Model):
     _inherit = "payment.transaction"
 
+    subscription_id = fields.Many2one(
+        "sale.subscription",
+        readonly=True,
+        copy=False,
+        index="btree_not_null",
+    )
     payment_provider_mandate_id = fields.Many2one(
         "payment.provider.mandate",
         string="Payment Provider Mandate",
@@ -27,7 +33,15 @@ class PaymentTransaction(models.Model):
             and self.invoice_ids[0].subscription_id
             and not self.invoice_ids[0].subscription_id.payment_provider_mandate_id
         )
-        if not create_sub_for_sale_order and not create_sub_for_invoice:
+        subscription = self.subscription_id
+        create_sub_for_subscription = bool(
+            subscription and not subscription.payment_provider_mandate_id
+        )
+        if (
+            not create_sub_for_sale_order
+            and not create_sub_for_invoice
+            and not create_sub_for_subscription
+        ):
             return res
 
         payment_data = self._provider_get_payment_data()
@@ -41,18 +55,53 @@ class PaymentTransaction(models.Model):
             invoice = sale_order._create_invoices()
             subscription.invoice_ids = [(4, invoice.id)]
             self.invoice_ids = [(6, 0, invoice.ids)]
-        else:  # We are already sure create_sub_for_invoice is truthy because of earlier statements
+        elif create_sub_for_invoice:
             invoice = self.invoice_ids[0]
             subscription = invoice.subscription_id
-        # pylint: disable=assignment-from-none
-        mandate_for_payment_provider = self._get_mandate_reference_for_payment_provider(
+        self._create_payment_provider_mandate_for_subscription(
+            subscription, payment_data
+        )
+
+    def _create_payment_provider_mandate_for_subscription(
+        self, subscription, payment_data=None
+    ):
+        self.ensure_one()
+        if (
+            not subscription
+            or subscription.payment_provider_mandate_id
+            or self.payment_provider_mandate_id
+        ):
+            return
+        if payment_data is None:
+            payment_data = self._provider_get_payment_data()
+        if not self._must_create_mandate(payment_data):
+            return
+        mandate_reference = self._get_mandate_reference_for_payment_provider(
             payment_data
         )
-        payment_provider_mandate = self._create_payment_provider_mandate(
-            mandate_for_payment_provider
+        mandate = self._create_payment_provider_mandate(mandate_reference)
+        subscription.payment_provider_mandate_id = mandate.id
+        self.payment_provider_mandate_id = mandate.id
+
+    def _post_process(self):
+        # Generate the invoice after payment succeeds, before accounting links it.
+        transactions = self.filtered(
+            lambda tx: tx.subscription_id
+            and tx.state == "done"
+            and tx.operation not in ("refund", "validation")
         )
-        subscription.payment_provider_mandate_id = payment_provider_mandate.id
-        self.payment_provider_mandate_id = payment_provider_mandate.id
+        for transaction in transactions:
+            subscription = transaction.subscription_id
+            invoices = subscription.invoice_ids
+            if not invoices:
+                subscription.generate_invoice()
+                invoices = subscription.invoice_ids
+            invoices.ensure_one()
+            transaction.invoice_ids = invoices
+            transaction._create_payment_provider_mandate_for_subscription(
+                subscription
+            )
+        return super()._post_process()
 
     def _provider_get_payment_data(self):
         self.ensure_one()

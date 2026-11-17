@@ -17,4 +17,6 @@ class PaymentProvider(models.Model):
             invoice = self.env["account.move"].sudo().browse(kwargs["invoice_id"])
             if invoice.subscription_id:
                 providers = providers.filtered(lambda p: p.allows_recurring_payment)
+        elif kwargs.get("subscription_id"):
+            providers = providers.filtered(lambda p: p.allows_recurring_payment)
         return providers

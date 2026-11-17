@@ -572,6 +572,13 @@
             <div id="wrap">
                 <t t-set="current_step" t-value="'signup'" />
                 <t t-call="argocd_website.order_progress_bar" />
+                <div
+                    t-if="error and error['subject'] == 'payment'"
+                    class="container alert alert-warning"
+                    role="alert"
+                >
+                    <t t-out="error['message']" />
+                </div>
                 <div class="oe_structure" id="oe_structure_argocd_website_signup_top" />
                 <form t-attf-action="/application/signup" method="post">
                     <section class="container mt32 mb32">

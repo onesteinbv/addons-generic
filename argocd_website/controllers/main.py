@@ -255,6 +255,17 @@ class MainController(Controller):
         }
 
         if request.httprequest.method == "POST":
+            if website._subscription_payment_in_progress(subscription):
+                render_values.update(
+                    error={
+                        "subject": "payment",
+                        "message": _(
+                            "A payment for this subscription is already in progress."
+                        ),
+                    }
+                )
+                return request.render("argocd_website.signup", render_values)
+
             if error := self._validate(
                 post,
                 captcha_enabled,
@@ -318,24 +329,18 @@ class MainController(Controller):
                 subscription.partner_id = user.partner_id
                 subscription.user_id = user
 
-            if not subscription.invoice_ids:
-                subscription.recurring_next_date = fields.Date.today()
-                subscription.generate_invoice()
-            subscription.invoice_ids.ensure_one()
-            invoice_id = subscription.invoice_ids.id
+            subscription.recurring_next_date = fields.Date.today()
             ctx = request.env.context.copy()
             ctx.update(
                 {
-                    "active_id": invoice_id,
-                    "active_model": "account.move",
+                    "active_id": subscription.id,
+                    "active_model": "sale.subscription",
                 }
             )
             link_wizard = (
                 request.env["payment.link.wizard"].sudo().with_context(ctx).create({})
             )
             link_wizard._compute_link()
-            return request.redirect(
-                link_wizard.link
-            )  # This will redirect to /payment/confirmation if the invoice has been paid
+            return request.redirect(link_wizard.link)
 
         return request.render("argocd_website.signup", render_values)
