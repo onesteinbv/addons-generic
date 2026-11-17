@@ -57,15 +57,7 @@ class ArgoCDPaymentPortal(PaymentPortal):
 
     def _get_extra_payment_form_values(self, subscription_id=None, **kwargs):
         res = super()._get_extra_payment_form_values(**kwargs)
-        is_paying_for_app_subscription = bool(subscription_id)
-        if "invoice_id" in kwargs:
-            invoice = request.env["account.move"].sudo().browse(kwargs["invoice_id"])
-            is_paying_for_app_subscription |= bool(
-                invoice.line_ids.filtered(
-                    lambda l: l.product_id.application_template_id
-                )
-            )
-        res.update(is_paying_for_app_subscription=is_paying_for_app_subscription)
+        res["subscription_id"] = False
         if subscription_id:
             subscription = self._get_subscription_for_payment(
                 subscription_id,
@@ -74,6 +66,7 @@ class ArgoCDPaymentPortal(PaymentPortal):
                 kwargs.get("currency_id"),
                 kwargs.get("access_token"),
             )
+            res["subscription_id"] = subscription.id
             res["transaction_route"] = (
                 "/application/transaction/"
                 f"{subscription.id}"
