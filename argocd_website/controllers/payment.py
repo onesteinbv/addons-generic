@@ -53,6 +53,7 @@ class ArgoCDPaymentPortal(PaymentPortal):
         tx_sudo = self._create_transaction(
             custom_create_values={"subscription_id": subscription.id}, **kwargs
         )
+        self._update_landing_route(tx_sudo, access_token)
         return tx_sudo._get_processing_values()
 
     def _get_extra_payment_form_values(self, subscription_id=None, **kwargs):
