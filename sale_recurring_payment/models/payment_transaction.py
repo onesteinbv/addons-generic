@@ -98,9 +98,7 @@ class PaymentTransaction(models.Model):
                 invoices = subscription.invoice_ids
             invoices.ensure_one()
             transaction.invoice_ids = invoices
-            transaction._create_payment_provider_mandate_for_subscription(
-                subscription
-            )
+            transaction._create_payment_provider_mandate_for_subscription(subscription)
         return super()._post_process()
 
     def _provider_get_payment_data(self):

@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 from odoo import Command, fields
+
 from odoo.addons.account_payment.tests.common import AccountPaymentCommon
 
 
@@ -53,9 +54,11 @@ class TestSubscriptionPayment(AccountPaymentCommon):
 
     def test_payment_link_uses_subscription_id_and_standard_access_token(self):
         subscription = self._create_subscription()
-        wizard = self.env["payment.link.wizard"].with_context(
-            active_id=subscription.id, active_model=subscription._name
-        ).create({})
+        wizard = (
+            self.env["payment.link.wizard"]
+            .with_context(active_id=subscription.id, active_model=subscription._name)
+            .create({})
+        )
 
         with patch(
             "odoo.addons.payment.utils.generate_access_token",

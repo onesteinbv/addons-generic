@@ -55,12 +55,16 @@ class Website(models.Model):
     def _subscription_payment_in_progress(self, subscription):
         # Portal users cannot read payment transactions; only inspect the states needed to
         # protect the subscription cart while a provider payment is pending.
-        return self.env["payment.transaction"].sudo().search_count(
-            [
-                ("subscription_id", "=", subscription.id),
-                ("state", "in", ("pending", "authorized", "done")),
-            ],
-            limit=1,
+        return (
+            self.env["payment.transaction"]
+            .sudo()
+            .search_count(
+                [
+                    ("subscription_id", "=", subscription.id),
+                    ("state", "in", ("pending", "authorized", "done")),
+                ],
+                limit=1,
+            )
         )
 
     def _check_subscription_payment_in_progress(self, subscription):

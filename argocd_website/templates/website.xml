@@ -626,10 +626,7 @@
         <xpath expr="//div[hasclass('row')]" position="after">
             <div class="pb32">
                 <t t-set="current_step" t-value="'payment'" />
-                <t
-                    t-call="argocd_website.order_progress_bar"
-                    t-if="subscription_id"
-                />
+                <t t-call="argocd_website.order_progress_bar" t-if="subscription_id" />
             </div>
         </xpath>
     </template>

@@ -27,9 +27,7 @@ class ArgoCDPaymentPortal(PaymentPortal):
             raise ValidationError(_("The subscription payment link is invalid."))
 
         partner = (
-            False
-            if request.env.user._is_public()
-            else request.env.user.partner_id
+            False if request.env.user._is_public() else request.env.user.partner_id
         )
         subscription = self._get_subscription_for_payment(
             subscription_id,
@@ -68,10 +66,7 @@ class ArgoCDPaymentPortal(PaymentPortal):
                 kwargs.get("access_token"),
             )
             res["subscription_id"] = subscription.id
-            res["transaction_route"] = (
-                "/application/transaction/"
-                f"{subscription.id}"
-            )
+            res["transaction_route"] = "/application/transaction/" f"{subscription.id}"
         return res
 
     def _get_subscription_for_payment(
@@ -84,8 +79,10 @@ class ArgoCDPaymentPortal(PaymentPortal):
     ):
         try:
             subscription_id = int(subscription_id)
-        except (TypeError, ValueError):
-            raise ValidationError(_("The subscription payment link is invalid."))
+        except (TypeError, ValueError) as err:
+            raise ValidationError(
+                _("The subscription payment link is invalid.")
+            ) from err
 
         # Sudo is needed to validate a public payment link against its subscription.
         subscription = (
@@ -121,12 +118,16 @@ class ArgoCDPaymentPortal(PaymentPortal):
             )
 
         # Public users cannot inspect transactions; only check for prior attempts.
-        active_transaction = request.env["payment.transaction"].sudo().search(
-            [
-                ("subscription_id", "=", subscription.id),
-                ("state", "in", ("pending", "authorized", "done")),
-            ],
-            limit=1,
+        active_transaction = (
+            request.env["payment.transaction"]
+            .sudo()
+            .search(
+                [
+                    ("subscription_id", "=", subscription.id),
+                    ("state", "in", ("pending", "authorized", "done")),
+                ],
+                limit=1,
+            )
         )
         if active_transaction:
             raise ValidationError(
