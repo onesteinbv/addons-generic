@@ -19,7 +19,6 @@ class ArgoCDPaymentPortal(PaymentPortal):
         subscription_id,
         amount=None,
         access_token=None,
-        subscription_access_token=None,
         **kwargs,
     ):
         self._validate_transaction_kwargs(kwargs)
@@ -32,13 +31,8 @@ class ArgoCDPaymentPortal(PaymentPortal):
             if request.env.user._is_public()
             else request.env.user.partner_id
         )
-        if not subscription_access_token:
-            subscription_access_token = request.httprequest.args.get(
-                "subscription_access_token"
-            )
         subscription = self._get_subscription_for_payment(
             subscription_id,
-            subscription_access_token,
             amount,
             partner.id if partner else False,
             access_token=access_token,
@@ -61,9 +55,7 @@ class ArgoCDPaymentPortal(PaymentPortal):
         )
         return tx_sudo._get_processing_values()
 
-    def _get_extra_payment_form_values(
-        self, subscription_id=None, subscription_access_token=None, **kwargs
-    ):
+    def _get_extra_payment_form_values(self, subscription_id=None, **kwargs):
         res = super()._get_extra_payment_form_values(**kwargs)
         is_paying_for_app_subscription = bool(subscription_id)
         if "invoice_id" in kwargs:
@@ -77,7 +69,6 @@ class ArgoCDPaymentPortal(PaymentPortal):
         if subscription_id:
             subscription = self._get_subscription_for_payment(
                 subscription_id,
-                subscription_access_token,
                 kwargs.get("amount"),
                 kwargs.get("partner_id"),
                 kwargs.get("currency_id"),
@@ -85,15 +76,13 @@ class ArgoCDPaymentPortal(PaymentPortal):
             )
             res["transaction_route"] = (
                 "/application/transaction/"
-                f"{subscription.id}?subscription_access_token="
-                f"{subscription_access_token}"
+                f"{subscription.id}"
             )
         return res
 
     def _get_subscription_for_payment(
         self,
         subscription_id,
-        subscription_access_token,
         amount,
         partner_id,
         currency_id=None,
@@ -104,7 +93,7 @@ class ArgoCDPaymentPortal(PaymentPortal):
         except (TypeError, ValueError):
             raise ValidationError(_("The subscription payment link is invalid."))
 
-        # The scoped token authorizes public users to read the subscription.
+        # Sudo is needed to validate a public payment link against its subscription.
         subscription = (
             request.env["sale.subscription"].sudo().browse(subscription_id).exists()
         )
@@ -125,15 +114,6 @@ class ArgoCDPaymentPortal(PaymentPortal):
             or currency_id != subscription.currency_id.id
             or subscription.currency_id.compare_amounts(
                 amount, subscription.amount_total
-            )
-            or not payment_utils.check_access_token(
-                subscription_access_token,
-                "argocd_subscription",
-                subscription.id,
-                subscription.partner_id.id,
-                amount,
-                subscription.currency_id.id,
-                subscription._get_payment_checkout_signature(),
             )
             or not payment_utils.check_access_token(
                 access_token,

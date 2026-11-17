@@ -1,5 +1,3 @@
-import hashlib
-import json
 from datetime import timedelta
 
 from odoo import fields, models
@@ -21,35 +19,6 @@ class Subscription(models.Model):
             "currency_id": self.currency_id.id,
             "partner_id": self.partner_id.id,
         }
-
-    def _get_payment_checkout_signature(self):
-        # Bind the link to the bill-to details and exact line data in this cart.
-        self.ensure_one()
-        line_values = [
-            {
-                "id": line.id,
-                "product_id": line.product_id.id,
-                "name": line.name or "",
-                "quantity": line.product_uom_qty,
-                "price_unit": line.price_unit,
-                "discount": line.discount,
-                "tax_ids": sorted(line.tax_ids.ids),
-            }
-            for line in self.sale_subscription_line_ids.sorted("id")
-        ]
-        values = {
-            "partner_id": self.partner_id.id,
-            "end_partner_id": self.end_partner_id.id,
-            "company_id": self.company_id.id,
-            "currency_id": self.currency_id.id,
-            "pricelist_id": self.pricelist_id.id,
-            "fiscal_position_id": self.fiscal_position_id.id,
-            "amount_total": self.amount_total,
-            "recurring_next_date": str(self.recurring_next_date or ""),
-            "lines": line_values,
-        }
-        payload = json.dumps(values, sort_keys=True, separators=(",", ":"))
-        return hashlib.sha256(payload.encode()).hexdigest()
 
     def _default_subscription_template_id(self):
         website = self.env["website"].get_current_website()

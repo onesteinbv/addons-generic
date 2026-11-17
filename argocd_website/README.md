@@ -47,3 +47,5 @@ configured via the `argocd_website.subscription_abandoned_period` system paramet
   customer and allow resellers.
 - Allow resellers to view and edit their existing customers in the website portal.
 - Move reseller logic to a separate module to decouple it from argocd
+- Bind payment links to exact cart contents so stale links cannot apply to changed carts
+  with the same total.

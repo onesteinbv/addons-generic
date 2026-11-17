@@ -51,30 +51,21 @@ class TestSubscriptionPayment(AccountPaymentCommon):
         self.assertEqual(values["partner_id"], subscription.partner_id.id)
         self.assertFalse(subscription.invoice_ids)
 
-    def test_payment_link_uses_subscription_parameters_not_reference(self):
+    def test_payment_link_uses_subscription_id_and_standard_access_token(self):
         subscription = self._create_subscription()
         wizard = self.env["payment.link.wizard"].with_context(
             active_id=subscription.id, active_model=subscription._name
         ).create({})
 
-        def fake_access_token(*values):
-            return (
-                "payment-token"
-                if values[0] == "argocd_subscription"
-                else "access-token"
-            )
-
         with patch(
             "odoo.addons.payment.utils.generate_access_token",
-            side_effect=fake_access_token,
+            return_value="access-token",
         ):
             params = wizard._prepare_query_params(subscription)
 
         self.assertEqual(params["subscription_id"], subscription.id)
         self.assertEqual(params["access_token"], "access-token")
-        self.assertEqual(
-            params["subscription_access_token"], "payment-token"
-        )
+        self.assertNotIn("subscription_access_token", params)
         self.assertNotIn("reference", params)
 
     def test_pending_payment_does_not_create_invoice(self):
