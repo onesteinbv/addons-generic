@@ -67,9 +67,10 @@ class PaymentTransaction(models.Model):
                 )
             elif subscription:
                 # The first charge creates the customer's Mollie mandate.
+                name = subscription.name or subscription.partner_id.name
                 payment_data.update(
                     {
-                        "description": f"First payment for {subscription.name}",
+                        "description": f"First payment for {name}",
                         "sequenceType": "first",
                     }
                 )
