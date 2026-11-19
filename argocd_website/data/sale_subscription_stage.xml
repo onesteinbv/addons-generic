@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="subscription_stage_initial_payment" model="sale.subscription.stage">
+        <field name="name">Initial Payment</field>
+        <field name="sequence">1</field>
+        <field name="type">initial_payment</field>
+        <field name="fold">False</field>
+        <field name="description">
+            The initial payment is being processed.
+        </field>
+    </record>
+</odoo>

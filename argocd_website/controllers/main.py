@@ -4,8 +4,31 @@ from odoo import _, api, fields
 from odoo.exceptions import ValidationError
 from odoo.http import Controller, request, route
 
+from odoo.addons.payment.controllers.post_processing import PaymentPostProcessing
+
 
 class MainController(Controller):
+    def _get_pending_application_transaction(self):
+        user = request.env.user
+        transaction_id = request.session.get(PaymentPostProcessing.MONITORED_TX_ID_KEY)
+        transaction = (
+            request.env["payment.transaction"].sudo().browse(transaction_id).exists()
+        )
+        if (
+            not transaction
+            or transaction.state not in ("draft", "pending", "authorized")
+            or not transaction.application_subscription_id
+            or (
+                not user._is_public()
+                and transaction.application_subscription_id.user_id != user
+            )
+            or transaction.application_subscription_id.website_id != request.website
+            or transaction.application_subscription_id.stage_id.type
+            != "initial_payment"
+        ):
+            return request.env["payment.transaction"]
+        return transaction
+
     def _validate(self, post, captcha_enabled, is_public, reselling_partner):
         if captcha_enabled:
             try:
@@ -208,6 +231,9 @@ class MainController(Controller):
                 "subscription": subscription,
                 "current_step": "configure",
                 "customer_id": customer_id,
+                "pending_application_transaction": (
+                    self._get_pending_application_transaction()
+                ),
             },
         )
 
@@ -252,6 +278,9 @@ class MainController(Controller):
             "existing_customers": existing_customers,
             "customer_id": customer_id,
             "target": post.get("target", "end_customer" if customer_id else "self"),
+            "pending_application_transaction": (
+                self._get_pending_application_transaction()
+            ),
         }
 
         if request.httprequest.method == "POST":
@@ -318,24 +347,20 @@ class MainController(Controller):
                 subscription.partner_id = user.partner_id
                 subscription.user_id = user
 
-            if not subscription.invoice_ids:
-                subscription.recurring_next_date = fields.Date.today()
-                subscription.generate_invoice()
-            subscription.invoice_ids.ensure_one()
-            invoice_id = subscription.invoice_ids.id
-            ctx = request.env.context.copy()
-            ctx.update(
-                {
-                    "active_id": invoice_id,
-                    "active_model": "account.move",
-                }
-            )
+            subscription.recurring_next_date = fields.Date.today()
+            subscription.stage_id = request.env.ref(
+                "argocd_website.subscription_stage_initial_payment"
+            ).sudo()
             link_wizard = (
-                request.env["payment.link.wizard"].sudo().with_context(ctx).create({})
+                request.env["payment.link.wizard"]
+                .sudo()
+                .with_context(
+                    active_id=subscription.id,
+                    active_model="sale.subscription",
+                )
+                .create({})
             )
             link_wizard._compute_link()
-            return request.redirect(
-                link_wizard.link
-            )  # This will redirect to /payment/confirmation if the invoice has been paid
+            return request.redirect(link_wizard.link)
 
         return request.render("argocd_website.signup", render_values)

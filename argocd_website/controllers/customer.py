@@ -141,7 +141,7 @@ class CustomerPortalController(CustomerPortal):
         subscriptions = request.env["sale.subscription"].search(
             [
                 ("end_partner_id", "=", customer_id),
-                ("stage_id.type", "!=", "draft"),
+                ("stage_id.type", "not in", ["draft", "initial_payment"]),
                 ("stage_id", "!=", False),
             ]
         )

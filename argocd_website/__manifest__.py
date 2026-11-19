@@ -18,6 +18,7 @@
     ],
     "data": [
         "data/ir_config_parameter_data.xml",
+        "data/sale_subscription_stage.xml",
         "data/ir_cron.xml",
         "security/ir_model_access.xml",
         "security/ir_rule.xml",

@@ -13,7 +13,11 @@ class ArgoCDPortalSubscription(PortalSubscription):
                     "|",
                     ("website_id", "=", False),
                     "&",
-                    ("stage_id.type", "!=", "draft"),
+                    (
+                        "stage_id.type",
+                        "not in",
+                        ["draft", "initial_payment"],
+                    ),
                     ("stage_id", "!=", False),
                 ],
             ]
