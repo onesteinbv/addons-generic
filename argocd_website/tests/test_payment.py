@@ -83,6 +83,14 @@ class TestSubscriptionPayment(AccountPaymentCommon):
         self.assertFalse(subscription.invoice_ids)
         self.assertFalse(transaction.payment_id)
 
+    def test_unlinked_payment_does_not_create_subscription_invoice(self):
+        subscription = self._create_subscription()
+        transaction = self._create_transaction("redirect", state="done")
+
+        transaction._post_process()
+
+        self.assertFalse(subscription.invoice_ids)
+
     def test_failed_or_canceled_payment_does_not_create_invoice(self):
         for state in ("error", "cancel"):
             subscription = self._create_subscription()
@@ -101,13 +109,24 @@ class TestSubscriptionPayment(AccountPaymentCommon):
             self.assertFalse(subscription.invoice_ids)
             self.assertFalse(transaction.payment_id)
 
-    def test_confirmed_payment_creates_and_reconciles_invoice(self):
+    def test_confirmed_payment_only_invoices_linked_subscription(self):
         subscription = self._create_subscription()
+        other_subscription = self._create_subscription()
+        self.assertEqual(subscription.amount_total, other_subscription.amount_total)
         transaction = self._create_subscription_transaction(subscription, "done")
 
-        transaction._post_process()
+        with patch.object(
+            self.env.registry["sale.subscription"],
+            "_invoice_paid_hook",
+            autospec=True,
+        ) as paid_hook:
+            transaction._post_process()
 
         invoice = subscription.invoice_ids.ensure_one()
+        self.assertEqual(invoice.subscription_id, subscription)
+        self.assertFalse(other_subscription.invoice_ids)
+        self.assertEqual(paid_hook.call_count, 1)
+        self.assertEqual(paid_hook.call_args.args[0], subscription)
         self.assertEqual(transaction.invoice_ids, invoice)
         self.assertEqual(invoice.state, "posted")
         self.assertEqual(transaction.payment_id.invoice_ids, invoice)
