@@ -4,7 +4,7 @@
         <field name="name">Initial Payment</field>
         <field name="sequence">1</field>
         <field name="type">initial_payment</field>
-        <field name="fold">True</field>
+        <field name="fold">False</field>
         <field name="description">
             The initial payment is being processed.
         </field>
