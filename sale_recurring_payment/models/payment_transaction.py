@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 from odoo.fields import Command
 
 
@@ -122,7 +123,14 @@ class PaymentTransaction(models.Model):
 
         # TODO: payment_method_id should not be ideal but sepa (if paid by ideal) for a mandate, can we fetch this from the provider (e.g. mollie) itself?
         #       I've added this because payment_method_id is required in 18.0 payment.transaction and I planned to refactor this module anyways later
-
+        domain = [("reference", "=", mandate_reference)]
+        mandate = self.env["payment.provider.mandate"].search(domain, limit=1)
+        if mandate:
+            if mandate.provider_id != self.provider_id:
+                raise ValidationError(
+                    self.env._("This mandate reference belongs to another provider.")
+                )
+            return mandate
         return self.env["payment.provider.mandate"].create(
             {
                 "reference": mandate_reference,
