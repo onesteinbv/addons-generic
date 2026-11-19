@@ -125,8 +125,12 @@ class TestSubscriptionPayment(AccountPaymentCommon):
         invoice = subscription.invoice_ids.ensure_one()
         self.assertEqual(invoice.subscription_id, subscription)
         self.assertFalse(other_subscription.invoice_ids)
-        self.assertEqual(paid_hook.call_count, 1)
-        self.assertEqual(paid_hook.call_args.args[0], subscription)
+        paid_subscription_ids = {
+            subscription_id
+            for call in paid_hook.call_args_list
+            for subscription_id in call.args[0].ids
+        }
+        self.assertEqual(paid_subscription_ids, set(subscription.ids))
         self.assertEqual(transaction.invoice_ids, invoice)
         self.assertEqual(invoice.state, "posted")
         self.assertEqual(transaction.payment_id.invoice_ids, invoice)
