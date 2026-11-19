@@ -51,16 +51,7 @@ class Subscription(models.Model):
             ]
         )
 
-        transactions = self.env["payment.transaction"]
-        completed_subscriptions = transactions.search(
-            [
-                ("application_subscription_id", "in", abandoned_subscriptions.ids),
-                ("state", "=", "done"),
-            ]
-        ).mapped("application_subscription_id")
-        abandoned_subscriptions -= completed_subscriptions
-
-        transactions.search(
+        self.env["payment.transaction"].search(
             [("application_subscription_id", "in", abandoned_subscriptions.ids)]
         ).unlink()
         abandoned_subscriptions.unlink()
