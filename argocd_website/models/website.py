@@ -53,11 +53,11 @@ class Website(models.Model):
         """
         self.ensure_one()
         subscription = self.env["sale.subscription"]
-        subscription_id = request.session.get(
-            "subscription_id"
+        application_subscription_id = request.session.get(
+            "application_subscription_id"
         )  # Session is retrieved by cookie, so we don't need to filter on website
-        if subscription_id:
-            subscription = subscription.browse(subscription_id)
+        if application_subscription_id:
+            subscription = subscription.browse(application_subscription_id)
             if (
                 not subscription.exists()
                 or (subscription.stage_id and subscription.stage_id.type != "draft")
@@ -82,7 +82,7 @@ class Website(models.Model):
                     "user_id": user.id,
                 }
             )
-            request.session["subscription_id"] = subscription.id
+            request.session["application_subscription_id"] = subscription.id
         else:
             subscription.partner_id = partner
             subscription.user_id = user

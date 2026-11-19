@@ -19,24 +19,26 @@ will show the configured optional products as well to allow customers to easily 
 to their order. If no product is preselected, the customer can select any product that
 is configured for the website and has an application template assigned.
 
-The customers / visitor order on the website is a draft subscription (similar to the
+The customer or visitor order on the website is a draft subscription (similar to the
 eCommerce flow) that allows them to select products and configure their order before
 confirming it. If the customer is not logged in, they will be prompted to log in or
-create an account before confirming their order (subscription). Once the customer is
-logged in the subscription is linked to their account. Or if the customer is a reseller
-it will create a subscription on behalf of the end customer.
+create an account before confirming their order. Once the customer is logged in, the
+subscription is linked to their account. A reseller can also create a subscription on
+behalf of an end customer.
 
-When the customer confirms their order, the subscription is created and the application
-is automatically deployed based on the selected products and their configuration. The
-customer can then manage their subscription and applications from their account portal.
+When the customer confirms their order, they are sent to the payment form. The
+subscription is locked while the initial payment is in progress. The first invoice is
+created only after the payment transaction succeeds, at which point the subscription
+starts and the application is deployed. The customer can then manage their subscription
+and application from their account portal.
 
 ## Remove abandoned orders (subscription)
 
-To prevent abandoned orders from being left in a draft state indefinitely, a scheduled
-action runs daily to check for draft subscriptions that were created more than 14 days
-ago. These old draft subscriptions are automatically cancelled and deleted to keep the
-system clean and prevent clutter from abandoned orders. The amount of days can be
-configured via the `argocd_website.subscription_abandoned_period` system parameter.
+To prevent abandoned orders from being left indefinitely, a scheduled action runs daily
+to check for draft subscriptions and subscriptions with an unpaid initial payment that
+are older than the configured period (14 days by default). These subscriptions and their
+associated payment transactions are deleted. The period can be configured via the
+`argocd_website.subscription_abandoned_period` system parameter.
 
 # Roadmap
 

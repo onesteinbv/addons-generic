@@ -32,12 +32,26 @@ class Subscription(models.Model):
         if not period:
             return
         abandoned_date = fields.Datetime.now() - timedelta(days=period)
-        self.search(
+        abandoned_subscriptions = self.search(
             [
                 ("website_id", "!=", False),
                 ("create_date", "<=", fields.Datetime.to_string(abandoned_date)),
                 "|",
-                ("stage_id.type", "=", "draft"),
+                ("stage_id.type", "in", ["draft", "initial_payment"]),
                 ("stage_id", "=", False),
             ]
+        )
+
+        transactions = self.env["payment.transaction"]
+        completed_subscriptions = transactions.search(
+            [
+                ("application_subscription_id", "in", abandoned_subscriptions.ids),
+                ("state", "=", "done"),
+            ]
+        ).mapped("application_subscription_id")
+        abandoned_subscriptions -= completed_subscriptions
+
+        transactions.search(
+            [("application_subscription_id", "in", abandoned_subscriptions.ids)]
         ).unlink()
+        abandoned_subscriptions.unlink()
