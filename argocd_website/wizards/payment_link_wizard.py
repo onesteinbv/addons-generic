@@ -8,4 +8,5 @@ class PaymentLinkWizard(models.TransientModel):
         res = super()._prepare_query_params(related_document)
         if self.res_model == "sale.subscription":
             res["application_subscription_id"] = related_document.id
+            res["reference"] = related_document.name
         return res

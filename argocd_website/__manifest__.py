@@ -22,6 +22,7 @@
         "data/ir_cron.xml",
         "security/ir_model_access.xml",
         "security/ir_rule.xml",
+        "views/sale_subscription_view.xml",
         "templates/website.xml",
         "templates/portal.xml",
         "templates/customer_portal.xml",

@@ -50,7 +50,7 @@ class ArgocdPaymentPortal(PaymentPortal):
             or not subscription
             or subscription.website_id != request.website
             or subscription.user_id != user
-            or subscription.stage_id.type != "initial_payment"
+            or subscription.stage_id.type != "draft"
             or subscription.partner_id.commercial_partner_id
             != partner.commercial_partner_id
             or subscription.currency_id.compare_amounts(
@@ -76,6 +76,9 @@ class ArgocdPaymentPortal(PaymentPortal):
             raise ValidationError(_("An initial payment was already attempted."))
 
         self._validate_transaction_kwargs(kwargs)
+        subscription.stage_id = request.env.ref(
+            "argocd_website.subscription_stage_initial_payment"
+        ).sudo()
         transaction = self._create_transaction(
             amount=amount,
             currency_id=currency.id,

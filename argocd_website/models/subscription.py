@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class Subscription(models.Model):
@@ -10,6 +10,36 @@ class Subscription(models.Model):
         default=lambda self: self._default_subscription_template_id()
     )
     website_id = fields.Many2one(comodel_name="website")
+    application_transaction_ids = fields.One2many(
+        comodel_name="payment.transaction",
+        inverse_name="application_subscription_id",
+    )
+    has_confirmed_payment_not_in_progress = fields.Boolean(
+        compute="_compute_has_confirmed_payment_not_in_progress",
+        compute_sudo=True,
+    )
+
+    @api.depends("application_transaction_ids.state", "in_progress", "stage_id.type")
+    def _compute_has_confirmed_payment_not_in_progress(self):
+        for subscription in self:
+            subscription.has_confirmed_payment_not_in_progress = (
+                subscription.stage_id.type == "initial_payment"
+                and not subscription.in_progress
+                and any(
+                    transaction.state == "done"
+                    for transaction in subscription.application_transaction_ids
+                )
+            )
+
+    def action_view_application_transactions(self):
+        self.ensure_one()
+        return {
+            "name": self.env._("Payment Transactions"),
+            "type": "ir.actions.act_window",
+            "res_model": "payment.transaction",
+            "view_mode": "list,form",
+            "domain": [("application_subscription_id", "=", self.id)],
+        }
 
     def _get_default_payment_link_values(self):
         self.ensure_one()
