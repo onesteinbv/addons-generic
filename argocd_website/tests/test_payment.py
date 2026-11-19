@@ -159,6 +159,10 @@ class TestApplicationPayment(PaymentCommon):
                 "odoo.addons.argocd_website.controllers.payment.request",
                 new=request_mock,
             ),
+            patch(
+                "odoo.addons.argocd_website.controllers.payment._",
+                new=lambda message: message,
+            ),
             patch("odoo.addons.payment.utils.check_access_token", return_value=True),
             patch.object(controller, "_create_transaction") as create_transaction,
             patch.object(controller, "_update_landing_route"),
@@ -233,6 +237,10 @@ class TestApplicationPayment(PaymentCommon):
             patch(
                 "odoo.addons.argocd_website.controllers.payment.request",
                 new=request_mock,
+            ),
+            patch(
+                "odoo.addons.argocd_website.controllers.payment._",
+                new=lambda message: message,
             ),
             patch.object(controller, "_create_transaction") as create_transaction,
         ):
