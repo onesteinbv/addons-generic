@@ -114,6 +114,19 @@ class TestApplicationPayment(PaymentCommon):
         subscription.action_start_subscription()
         self.assertFalse(subscription.has_confirmed_payment_not_in_progress)
 
+    def test_view_application_transactions_action_is_subscription_scoped(self):
+        subscription = self._create_subscription()
+        self._create_application_transaction(subscription)
+
+        action = subscription.action_view_application_transactions()
+
+        self.assertEqual(action["res_model"], "payment.transaction")
+        self.assertEqual(action["view_mode"], "list,form")
+        self.assertEqual(
+            action["domain"],
+            [("application_subscription_id", "=", subscription.id)],
+        )
+
     def test_abandoned_initial_payment_deletes_its_transaction(self):
         self.env["ir.config_parameter"].sudo().set_param(
             "argocd_website.subscription_abandoned_period", "7"

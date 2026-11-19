@@ -30,6 +30,18 @@ class Subscription(models.Model):
                 )
             )
 
+    def action_view_application_transactions(self):
+        self.ensure_one()
+        self.check_access("read")
+        self.env["payment.transaction"].check_access_rights("read")
+        return {
+            "name": self.env._("Payment Transactions"),
+            "type": "ir.actions.act_window",
+            "res_model": "payment.transaction",
+            "view_mode": "list,form",
+            "domain": [("application_subscription_id", "=", self.id)],
+        }
+
     def _get_default_payment_link_values(self):
         self.ensure_one()
         return {

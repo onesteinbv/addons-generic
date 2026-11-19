@@ -14,6 +14,13 @@
                 >
                     A payment for this subscription is confirmed, but the subscription
                     has not started. Check the payment transaction and post-processing.
+                    <button
+                    name="action_view_application_transactions"
+                    type="object"
+                    string="View"
+                    class="btn btn-link"
+                    groups="account.group_account_invoice,base.group_system"
+                />
                 </div>
             </xpath>
         </field>
