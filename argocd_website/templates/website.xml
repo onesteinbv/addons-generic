@@ -574,7 +574,7 @@
                 <t t-call="argocd_website.order_progress_bar" />
                 <div
                     t-if="error and error['subject'] == 'payment'"
-                    class="container alert alert-warning"
+                    class="container alert alert-warning mt-3"
                     role="alert"
                 >
                     <t t-out="error['message']" />

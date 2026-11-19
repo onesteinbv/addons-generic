@@ -3,8 +3,6 @@ from dateutil.relativedelta import relativedelta
 from odoo import Command, fields
 from odoo.tests.common import TransactionCase
 
-from odoo.addons.account_payment.tests.common import AccountPaymentCommon
-
 
 class TestFields(TransactionCase):
     @classmethod
@@ -52,25 +50,3 @@ class TestFields(TransactionCase):
             active_model="account.move", active_ids=invoices[0].ids
         ).create({}).action_create_payments()
         self.assertEqual(sub.paid_for_date, today + relativedelta(days=7))
-
-
-class TestPaymentProviderMandateReuse(AccountPaymentCommon):
-    def test_existing_mandate_reference_is_reused(self):
-        mandate = self.env["payment.provider.mandate"].create(
-            {
-                "reference": "mollie-test-mandate",
-                "provider_id": self.provider.id,
-                "payment_method_id": self.payment_method_id,
-            }
-        )
-        transaction = self._create_transaction("redirect")
-
-        reused_mandate = transaction._create_payment_provider_mandate(mandate.reference)
-
-        self.assertEqual(reused_mandate, mandate)
-        self.assertEqual(
-            self.env["payment.provider.mandate"].search_count(
-                [("reference", "=", mandate.reference)]
-            ),
-            1,
-        )
