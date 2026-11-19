@@ -1,10 +1,13 @@
 from unittest.mock import patch
 
 from odoo import Command, fields
+from odoo.tests import tagged
 
 from odoo.addons.account_payment.tests.common import AccountPaymentCommon
 
 
+# AccountPaymentCommon loads a chart template; defer that until the registry is ready.
+@tagged("post_install", "-at_install")
 class TestSubscriptionPayment(AccountPaymentCommon):
     @classmethod
     def setUpClass(cls):
