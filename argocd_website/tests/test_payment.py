@@ -1,5 +1,6 @@
 from contextlib import contextmanager
 from datetime import datetime
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from freezegun import freeze_time
@@ -151,11 +152,13 @@ class TestApplicationPayment(PaymentCommon):
         )
         controller = ArgocdPaymentPortal()
         transactions = []
+        request_mock = SimpleNamespace(env=self.env, website=self.website)
 
         with (
             patch(
-                "odoo.addons.argocd_website.controllers.payment.request"
-            ) as request_mock,
+                "odoo.addons.argocd_website.controllers.payment.request",
+                new=request_mock,
+            ),
             patch("odoo.addons.payment.utils.check_access_token", return_value=True),
             patch.object(controller, "_create_transaction") as create_transaction,
             patch.object(controller, "_update_landing_route"),
@@ -165,8 +168,6 @@ class TestApplicationPayment(PaymentCommon):
                 return_value={},
             ),
         ):
-            request_mock.env = self.env
-            request_mock.website = self.website
 
             def create_transaction_after_lock(**kwargs):
                 self.assertEqual(subscription.stage_id.type, "initial_payment")
@@ -226,15 +227,15 @@ class TestApplicationPayment(PaymentCommon):
             }
         )
         controller = ArgocdPaymentPortal()
+        request_mock = SimpleNamespace(env=self.env, website=self.website)
 
         with (
             patch(
-                "odoo.addons.argocd_website.controllers.payment.request"
-            ) as request_mock,
+                "odoo.addons.argocd_website.controllers.payment.request",
+                new=request_mock,
+            ),
             patch.object(controller, "_create_transaction") as create_transaction,
         ):
-            request_mock.env = self.env
-            request_mock.website = self.website
             with self.assertRaises(ValidationError):
                 controller.application_transaction(
                     subscription.id,
