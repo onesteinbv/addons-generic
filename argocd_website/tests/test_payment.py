@@ -112,6 +112,17 @@ class TestApplicationPayment(PaymentCommon):
         transaction.state = "done"
         self.assertTrue(subscription.has_confirmed_payment_not_in_progress)
 
+        prepayment_stage = self.env["sale.subscription.stage"].search(
+            [("type", "=", "pre")], limit=1
+        )
+        subscription.stage_id = prepayment_stage
+        self.assertFalse(subscription.has_confirmed_payment_not_in_progress)
+
+        subscription.stage_id = self.env.ref(
+            "argocd_website.subscription_stage_initial_payment"
+        )
+        self.assertTrue(subscription.has_confirmed_payment_not_in_progress)
+
         subscription.action_start_subscription()
         self.assertFalse(subscription.has_confirmed_payment_not_in_progress)
 

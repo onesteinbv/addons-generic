@@ -19,11 +19,12 @@ class Subscription(models.Model):
         compute_sudo=True,
     )
 
-    @api.depends("application_transaction_ids.state", "in_progress")
+    @api.depends("application_transaction_ids.state", "in_progress", "stage_id.type")
     def _compute_has_confirmed_payment_not_in_progress(self):
         for subscription in self:
             subscription.has_confirmed_payment_not_in_progress = (
-                not subscription.in_progress
+                subscription.stage_id.type == "initial_payment"
+                and not subscription.in_progress
                 and any(
                     transaction.state == "done"
                     for transaction in subscription.application_transaction_ids

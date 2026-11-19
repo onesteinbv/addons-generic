@@ -13,7 +13,8 @@
                     invisible="not has_confirmed_payment_not_in_progress"
                 >
                     A payment for this subscription is confirmed, but the subscription
-                    has not started. Check the payment transaction and post-processing.
+                    has not started. It can take up to a few minutes for the transaction to be processed.
+
                     <button
                     name="action_view_application_transactions"
                     type="object"
