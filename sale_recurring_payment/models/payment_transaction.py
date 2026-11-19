@@ -85,6 +85,7 @@ class PaymentTransaction(models.Model):
 
     def _post_process(self):
         # Generate the invoice after payment succeeds, before accounting links it.
+        # These exclude recurring payments because they don't set subscription_id (they use invoice_ids instead)
         transactions = self.filtered(
             lambda tx: tx.subscription_id
             and tx.state == "done"
