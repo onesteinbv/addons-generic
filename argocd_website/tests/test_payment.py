@@ -102,6 +102,18 @@ class TestApplicationPayment(PaymentCommon):
         self.assertEqual(subscription.stage_id.type, "initial_payment")
         self.assertFalse(subscription.invoice_ids)
 
+    def test_confirmed_payment_warning_clears_when_subscription_starts(self):
+        subscription = self._create_subscription()
+        transaction = self._create_application_transaction(subscription)
+        transaction.state = "pending"
+        self.assertFalse(subscription.has_confirmed_payment_not_in_progress)
+
+        transaction.state = "done"
+        self.assertTrue(subscription.has_confirmed_payment_not_in_progress)
+
+        subscription.action_start_subscription()
+        self.assertFalse(subscription.has_confirmed_payment_not_in_progress)
+
     def test_abandoned_initial_payment_deletes_its_transaction(self):
         self.env["ir.config_parameter"].sudo().set_param(
             "argocd_website.subscription_abandoned_period", "7"

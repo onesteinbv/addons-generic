@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sale_subscription_view_form_payment_warning" model="ir.ui.view">
+        <field name="name">sale.subscription.form.payment.warning</field>
+        <field name="model">sale.subscription</field>
+        <field name="inherit_id" ref="argocd_sale.sale_subscription_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <field name="has_confirmed_payment_not_in_progress" invisible="True" />
+                <div
+                    class="alert alert-warning o_argocd_website_payment_warning"
+                    role="alert"
+                    invisible="not has_confirmed_payment_not_in_progress"
+                >
+                    A payment for this subscription is confirmed, but the subscription
+                    has not started. Check the payment transaction and post-processing.
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
