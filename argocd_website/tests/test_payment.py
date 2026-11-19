@@ -4,6 +4,9 @@ from unittest.mock import patch
 
 from freezegun import freeze_time
 
+from odoo.exceptions import ValidationError
+
+from odoo.addons.argocd_website.controllers.payment import ArgocdPaymentPortal
 from odoo.addons.payment.tests.common import PaymentCommon
 
 
@@ -21,16 +24,17 @@ class TestApplicationPayment(PaymentCommon):
             "argocd_sale.demo_subscription_template"
         )
 
-    def _create_subscription(self):
+    def _create_subscription(self, stage_type="initial_payment"):
+        stage = self.env["sale.subscription.stage"].search(
+            [("type", "=", stage_type)], limit=1
+        )
         return self.env["sale.subscription"].create(
             {
                 "partner_id": self.partner.id,
                 "template_id": self.subscription_template.id,
                 "pricelist_id": self.partner.property_product_pricelist.id,
                 "website_id": self.website.id,
-                "stage_id": self.env.ref(
-                    "argocd_website.subscription_stage_initial_payment"
-                ).id,
+                "stage_id": stage.id,
             }
         )
 
@@ -111,3 +115,107 @@ class TestApplicationPayment(PaymentCommon):
 
         self.assertFalse(subscription.exists())
         self.assertFalse(transaction.exists())
+
+    def test_application_transaction_locks_subscription_before_creation(self):
+        subscription = self._create_subscription(stage_type="draft")
+        subscription.write(
+            {
+                "partner_id": self.env.user.partner_id.id,
+                "user_id": self.env.user.id,
+            }
+        )
+        controller = ArgocdPaymentPortal()
+        transactions = []
+
+        with (
+            patch(
+                "odoo.addons.argocd_website.controllers.payment.request"
+            ) as request_mock,
+            patch("odoo.addons.payment.utils.check_access_token", return_value=True),
+            patch.object(controller, "_create_transaction") as create_transaction,
+            patch.object(controller, "_update_landing_route"),
+            patch.object(
+                self.env.registry["payment.transaction"],
+                "_get_processing_values",
+                return_value={},
+            ),
+        ):
+            request_mock.env = self.env
+            request_mock.website = self.website
+
+            def create_transaction_after_lock(**kwargs):
+                self.assertEqual(subscription.stage_id.type, "initial_payment")
+                transaction = self._create_transaction(
+                    flow=kwargs["flow"],
+                    provider_id=kwargs["provider_id"],
+                    payment_method_id=kwargs["payment_method_id"],
+                    amount=kwargs["amount"],
+                    currency_id=kwargs["currency_id"],
+                    partner_id=kwargs["partner_id"],
+                    application_subscription_id=kwargs["custom_create_values"][
+                        "application_subscription_id"
+                    ],
+                    reference=f"Application {subscription.id}",
+                )
+                transactions.append(transaction)
+                return transaction
+
+            create_transaction.side_effect = create_transaction_after_lock
+            controller.application_transaction(
+                subscription.id,
+                amount=subscription.amount_total,
+                access_token="valid-token",
+                provider_id=self.provider.id,
+                payment_method_id=self.payment_method_id,
+                token_id=None,
+                flow="direct",
+                tokenization_requested=False,
+                landing_route="/payment/confirmation",
+                is_validation=False,
+                csrf_token="test-token",
+            )
+            with self.assertRaises(ValidationError):
+                controller.application_transaction(
+                    subscription.id,
+                    amount=subscription.amount_total,
+                    access_token="valid-token",
+                    provider_id=self.provider.id,
+                    payment_method_id=self.payment_method_id,
+                    token_id=None,
+                    flow="direct",
+                    tokenization_requested=False,
+                    landing_route="/payment/confirmation",
+                    is_validation=False,
+                    csrf_token="test-token",
+                )
+
+        create_transaction.assert_called_once()
+        self.assertEqual(transactions[0].application_subscription_id, subscription)
+
+    def test_application_transaction_rejects_stale_amount_before_locking(self):
+        subscription = self._create_subscription(stage_type="draft")
+        subscription.write(
+            {
+                "partner_id": self.env.user.partner_id.id,
+                "user_id": self.env.user.id,
+            }
+        )
+        controller = ArgocdPaymentPortal()
+
+        with (
+            patch(
+                "odoo.addons.argocd_website.controllers.payment.request"
+            ) as request_mock,
+            patch.object(controller, "_create_transaction") as create_transaction,
+        ):
+            request_mock.env = self.env
+            request_mock.website = self.website
+            with self.assertRaises(ValidationError):
+                controller.application_transaction(
+                    subscription.id,
+                    amount=subscription.amount_total + 1,
+                    access_token="invalid-token",
+                )
+
+        create_transaction.assert_not_called()
+        self.assertEqual(subscription.stage_id.type, "draft")

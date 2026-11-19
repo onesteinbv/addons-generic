@@ -1,6 +1,6 @@
 import re
 
-from odoo import _, api, fields
+from odoo import _, api
 from odoo.exceptions import ValidationError
 from odoo.http import Controller, request, route
 
@@ -347,10 +347,6 @@ class MainController(Controller):
                 subscription.partner_id = user.partner_id
                 subscription.user_id = user
 
-            subscription.recurring_next_date = fields.Date.today()
-            subscription.stage_id = request.env.ref(
-                "argocd_website.subscription_stage_initial_payment"
-            ).sudo()
             link_wizard = (
                 request.env["payment.link.wizard"]
                 .sudo()
