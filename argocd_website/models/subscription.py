@@ -11,6 +11,15 @@ class Subscription(models.Model):
     )
     website_id = fields.Many2one(comodel_name="website")
 
+    def _get_default_payment_link_values(self):
+        self.ensure_one()
+        return {
+            "amount": self.amount_total,
+            "amount_max": self.amount_total,
+            "currency_id": self.currency_id.id,
+            "partner_id": self.partner_id.id,
+        }
+
     def _default_subscription_template_id(self):
         website = self.env["website"].get_current_website()
         if not website:

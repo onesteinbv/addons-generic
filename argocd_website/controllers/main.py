@@ -1,11 +1,9 @@
 import re
-from urllib.parse import urlencode
 
 from odoo import _, api, fields
 from odoo.exceptions import ValidationError
 from odoo.http import Controller, request, route
 
-from odoo.addons.payment import utils as payment_utils
 from odoo.addons.payment.controllers.post_processing import PaymentPostProcessing
 
 
@@ -353,21 +351,16 @@ class MainController(Controller):
             subscription.stage_id = request.env.ref(
                 "argocd_website.subscription_stage_initial_payment"
             ).sudo()
-            partner = request.env.user.partner_id
-            currency = subscription.currency_id
-            payment_url = "/payment/pay?" + urlencode(
-                {
-                    "amount": subscription.amount_total,
-                    "currency_id": currency.id,
-                    "partner_id": partner.id,
-                    "company_id": subscription.company_id.id,
-                    "reference": subscription.name,
-                    "access_token": payment_utils.generate_access_token(
-                        partner.id, subscription.amount_total, currency.id
-                    ),
-                    "application_subscription_id": subscription.id,
-                }
+            link_wizard = (
+                request.env["payment.link.wizard"]
+                .sudo()
+                .with_context(
+                    active_id=subscription.id,
+                    active_model="sale.subscription",
+                )
+                .create({})
             )
-            return request.redirect(payment_url)
+            link_wizard._compute_link()
+            return request.redirect(link_wizard.link)
 
         return request.render("argocd_website.signup", render_values)
