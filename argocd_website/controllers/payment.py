@@ -39,6 +39,8 @@ class ArgocdPaymentPortal(PaymentPortal):
             .browse(application_subscription_id)
             .exists()
         )
+
+        # Check if the subscription matches the expected parameters for this payment
         partner = user.partner_id
         if (
             user._is_public()
@@ -53,7 +55,7 @@ class ArgocdPaymentPortal(PaymentPortal):
             )
             != 0
         ):
-            raise ValidationError(_("The application payment parameters are invalid."))
+            raise ValidationError(_("The payment parameters are invalid."))
 
         # Check that the payment token is valid for this partner, amount, and currency
         currency = subscription.currency_id
