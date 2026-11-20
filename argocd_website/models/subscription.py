@@ -80,8 +80,4 @@ class Subscription(models.Model):
                 ("stage_id", "=", False),
             ]
         )
-
-        self.env["payment.transaction"].search(
-            [("application_subscription_id", "in", abandoned_subscriptions.ids)]
-        ).unlink()
         abandoned_subscriptions.unlink()
