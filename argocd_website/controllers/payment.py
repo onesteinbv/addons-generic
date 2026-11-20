@@ -75,6 +75,8 @@ class ArgocdPaymentPortal(PaymentPortal):
             raise ValidationError(_("An initial payment was already attempted."))
 
         self._validate_transaction_kwargs(kwargs)
+
+        # Update stage to initial payment to indicate that the initial payment process has started
         subscription.stage_id = request.env.ref(
             "argocd_website.subscription_stage_initial_payment"
         ).sudo()
