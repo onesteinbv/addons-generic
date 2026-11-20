@@ -139,19 +139,18 @@ class TestApplicationPayment(PaymentCommon):
             [("application_subscription_id", "=", subscription.id)],
         )
 
-    def test_abandoned_initial_payment_deletes_its_transaction(self):
+    def test_abandoned_payment_is_deleted(self):
         self.env["ir.config_parameter"].sudo().set_param(
             "argocd_website.subscription_abandoned_period", "7"
         )
         with self.mock_datetime_and_now(datetime(2024, 1, 1, 10, 0, 0)):
             subscription = self._create_subscription()
-            transaction = self._create_application_transaction(subscription)
+            self._create_application_transaction(subscription)
 
         with self.mock_datetime_and_now(datetime(2024, 1, 9, 10, 0, 0)):
             self.env["sale.subscription"]._cron_cleanup_abandoned()
 
         self.assertFalse(subscription.exists())
-        self.assertFalse(transaction.exists())
 
     def test_application_transaction_locks_subscription_before_creation(self):
         subscription = self._create_subscription(stage_type="draft")

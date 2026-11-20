@@ -1,5 +1,3 @@
-import math
-
 from odoo import _, http
 from odoo.exceptions import ValidationError
 from odoo.http import request
@@ -41,12 +39,11 @@ class ArgocdPaymentPortal(PaymentPortal):
             .browse(application_subscription_id)
             .exists()
         )
+
+        # Check if the subscription matches the expected parameters for this payment
         partner = user.partner_id
         if (
-            amount is None
-            or not math.isfinite(amount)
-            or amount < 0
-            or user._is_public()
+            user._is_public()
             or not subscription
             or subscription.website_id != request.website
             or subscription.user_id != user
@@ -58,14 +55,16 @@ class ArgocdPaymentPortal(PaymentPortal):
             )
             != 0
         ):
-            raise ValidationError(_("The application payment parameters are invalid."))
+            raise ValidationError(_("The payment parameters are invalid."))
 
+        # Check that the payment token is valid for this partner, amount, and currency
         currency = subscription.currency_id
         if not payment_utils.check_access_token(
             access_token, partner.id, amount, currency.id
         ):
             raise ValidationError(_("The access token is invalid."))
 
+        # Assert that no payment already exists
         if (
             request.env["payment.transaction"]
             .sudo()
@@ -76,6 +75,8 @@ class ArgocdPaymentPortal(PaymentPortal):
             raise ValidationError(_("An initial payment was already attempted."))
 
         self._validate_transaction_kwargs(kwargs)
+
+        # Update stage to initial payment to indicate that the initial payment process has started
         subscription.stage_id = request.env.ref(
             "argocd_website.subscription_stage_initial_payment"
         ).sudo()
